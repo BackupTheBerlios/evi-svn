@@ -1,0 +1,25 @@
+Shutdownhook
+	|
+	+-- ModuleFactory.disposeInstance()
+		|
+		+-- TabBar.disposed()
+			|
+			+-- TabBar.removeTabAt()
+				|
+				+-- ModuleFactory.disposeInstance()
+					|
+					+-- TabBar.disposed()
+						|
+						+-- TabBar.removeTabAt
+							|
+							+-- JTabbedPane.removeTabATabBar.disposed()
+								|
+								+-- TabBar.removeTabAt()
+									|
+									+-- ModuleFactory.disposeInstance()
+										|
+										+-- TabBar.disposed()
+											|
+											+-- TabBar.removeTabAt
+												|
+												+-- JTabbedPane.removeTabAt

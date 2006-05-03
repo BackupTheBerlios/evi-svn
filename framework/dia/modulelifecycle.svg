@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="48.760cm" height="29.390cm" viewBox="-3.150 0.345 45.610 29.735"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<ellipse cx="15.525" cy="17.125" rx="18.625" ry="11.825" fill="#FFFFFF" stroke="none"  /><ellipse cx="15.525" cy="17.125" rx="18.625" ry="11.825" fill="none" stroke="#000000"  stroke-width="0.100" /><rect x="1.450" y="0.400" width="6.350" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.450" y="0.400" width="6.350" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.625" y="1.400"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ModuleLoader</text>
+<rect x="1.450" y="1.800" width="6.350" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.450" y="1.800" width="6.350" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="1.600" y="2.450"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++load()</text>
+<rect x="15.610" y="0.395" width="8.250" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="15.610" y="0.395" width="8.250" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="19.735" y="1.395"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ModuleLoader</text>
+<rect x="15.610" y="1.795" width="8.250" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="15.610" y="1.795" width="8.250" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="15.760" y="2.445"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getModule(id): modcon</text>
+<rect x="29.660" y="1.145" width="7.450" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.660" y="1.145" width="7.450" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="33.385" y="2.145"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ModuleContainer</text>
+<rect x="29.660" y="2.545" width="7.450" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.660" y="2.545" width="7.450" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="35.210" y="11.445" width="10.350" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="35.210" y="11.445" width="10.350" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="40.385" y="12.445"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ModuleFactory</text>
+<rect x="35.210" y="12.845" width="10.350" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="35.210" y="12.845" width="10.350" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="35.360" y="13.495"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++newInstance(modcon): object</text>
+<rect x="35.510" y="18.945" width="9.000" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="35.510" y="18.945" width="9.000" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="40.010" y="19.945"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ModuleFactory</text>
+<rect x="35.510" y="20.345" width="9.000" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="35.510" y="20.345" width="9.000" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="35.660" y="20.995"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++disposeInstance(object)</text>
+<ellipse cx="4.600" cy="10.150" rx="2.600" ry="1.600" fill="#FFFFFF" stroke="none"  /><ellipse cx="4.600" cy="10.150" rx="2.600" ry="1.600" fill="none" stroke="#000000"  stroke-width="0.100" /><text x="4.600" y="9.900"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Load</text>
+<text x="4.600" y="10.700"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Modules</text>
+<ellipse cx="10.950" cy="23.400" rx="0.300" ry="0.300" fill="#FFFFFF" stroke="none"  /><ellipse cx="10.950" cy="23.400" rx="0.300" ry="0.300" fill="none" stroke="#000000"  stroke-width="0.100" /><line x1="9.750" y1="24.000" x2="12.150" y2="24.000" stroke="#000000" stroke-width="0.100" />
+<line x1="10.950" y1="23.700" x2="10.950" y2="25.200" stroke="#000000" stroke-width="0.100" />
+<line x1="10.950" y1="25.200" x2="9.750" y2="26.500" stroke="#000000" stroke-width="0.100" />
+<line x1="10.950" y1="25.200" x2="12.150" y2="26.500" stroke="#000000" stroke-width="0.100" />
+<text x="10.950" y="27.650"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+User</text>
+<ellipse cx="14.950" cy="11.167" rx="2.950" ry="1.967" fill="#FFFFFF" stroke="none"  /><ellipse cx="14.950" cy="11.167" rx="2.950" ry="1.967" fill="none" stroke="#000000"  stroke-width="0.100" /><text x="14.950" y="10.517"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Find </text>
+<text x="14.950" y="11.317"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+module</text>
+<text x="14.950" y="12.117"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+by ID</text>
+<rect x="23.650" y="11.150" width="7.000" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.650" y="11.150" width="7.000" height="2.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="27.150" y="12.200"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+modcon</text>
+<text x="27.150" y="13.250"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+(module container)</text>
+<line x1="25.900" y1="12.350" x2="28.400" y2="12.350" stroke="#000000" stroke-width="0.050" />
+<rect x="25.300" y="17.050" width="7.500" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="25.300" y="17.050" width="7.500" height="2.600" fill="none" stroke="#000000" stroke-width="0.200" />
+<text x="29.050" y="18.100"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+object</text>
+<text x="29.050" y="19.150"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+(instance of module)</text>
+<line x1="28.075" y1="18.250" x2="30.025" y2="18.250" stroke="#000000" stroke-width="0.050" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="28.748,1.845 26.805,1.845 26.805,1.800 23.950,1.800 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="28.748,2.245 29.548,1.845 28.748,1.445 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.748,2.245 29.548,1.845 28.748,1.445 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="19.700,3.912 19.700,6.100 14.950,6.100 14.950,9.200 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="20.100,3.912 19.700,3.112 19.300,3.912 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="20.100,3.912 19.700,3.112 19.300,3.912 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="18.812,11.167 20.775,11.167 20.775,11.150 23.650,11.150 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="18.812,10.767 18.012,11.167 18.812,11.567 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="18.812,10.767 18.012,11.167 18.812,11.567 "/>
+<ellipse cx="18.900" cy="17.050" rx="3.100" ry="1.600" fill="#FFFFFF" stroke="none"  /><ellipse cx="18.900" cy="17.050" rx="3.100" ry="1.600" fill="none" stroke="#000000"  stroke-width="0.100" /><text x="18.900" y="16.800"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Create an</text>
+<text x="18.900" y="17.600"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+instance</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="32.800,16.138 32.800,15.000 40.385,15.000 40.385,13.845 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="32.400,16.138 32.800,16.938 33.200,16.138 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="32.400,16.138 32.800,16.938 33.200,16.138 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="22.912,17.050 25.300,17.050 25.300,17.050 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="22.912,16.650 22.112,17.050 22.912,17.450 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="22.912,16.650 22.112,17.050 22.912,17.450 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="31.562,11.150 33.350,11.150 33.350,2.945 33.385,2.945 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="31.562,10.750 30.762,11.150 31.562,11.550 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="31.562,10.750 30.762,11.150 31.562,11.550 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="34.298,13.745 20.950,13.745 20.950,15.919 21.092,15.919 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="34.298,14.145 35.098,13.745 34.298,13.345 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="34.298,14.145 35.098,13.745 34.298,13.345 "/>
+<line x1="15.332" y1="17.759" x2="12.200" y2="22.500" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="15.540,17.897 15.772,17.092 15.123,17.621 "/>
+<ellipse cx="20.900" cy="21.800" rx="3.500" ry="1.600" fill="#FFFFFF" stroke="none"  /><ellipse cx="20.900" cy="21.800" rx="3.500" ry="1.600" fill="none" stroke="#000000"  stroke-width="0.100" /><text x="20.900" y="21.550"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Dispose an</text>
+<text x="20.900" y="22.350"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+instance</text>
+<line x1="17.627" y1="23.222" x2="12.200" y2="25.200" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="17.712,23.457 18.378,22.948 17.541,22.988 "/>
+<text x="-1.050" y="12.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+EVI starts...</text>
+<text x="9.450" y="20.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+Starts an</text>
+<text x="9.450" y="21.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+extension/</text>
+<text x="9.450" y="21.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+module</text>
+<text x="13.650" y="25.250"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+Closes the</text>
+<text x="13.650" y="26.050"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+extension/</text>
+<text x="13.650" y="26.850"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+module</text>
+<text x="7.650" y="12.400"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+EVI registers</text>
+<text x="7.650" y="13.200"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+all modules...</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="34.598,19.645 23.350,19.645 23.350,20.669 23.375,20.669 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="34.598,20.045 35.398,19.645 34.598,19.245 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="34.598,20.045 35.398,19.645 34.598,19.245 "/>
+<text x="30.600" y="28.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="700">
+Overview over the EVI module concept</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="4.625,3.712 4.625,5.675 4.600,5.675 4.600,8.550 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="5.025,3.712 4.625,2.912 4.225,3.712 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="5.025,3.712 4.625,2.912 4.225,3.712 "/>
+</svg>
