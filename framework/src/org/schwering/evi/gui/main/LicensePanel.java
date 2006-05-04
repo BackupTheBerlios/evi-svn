@@ -20,6 +20,8 @@ import org.schwering.evi.util.RightClickMenu;
  * @author Christoph Schwering (schwering@gmail.com)
  */
 public class LicensePanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = -261152592794287431L;
+
 	/**
 	 * Default title of the panel.
 	 */

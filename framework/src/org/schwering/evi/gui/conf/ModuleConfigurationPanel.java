@@ -42,6 +42,8 @@ import org.schwering.evi.util.RightClickMenu;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ModuleConfigurationPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = 7345516016302120010L;
+
 	/**
 	 * The panel's title.
 	 */
@@ -101,6 +103,7 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 	 * (down)loaded.
 	 */
 	class InputPanel extends JPanel {
+		private static final long serialVersionUID = -3316773806722992040L;
 		private JComboBox urlComboBox;
 		private ModuleConfigurationPanel owner;
 		
@@ -309,6 +312,7 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 	 * Draws a table with all modules, their version and their requirements.
 	 */
 	class TablePanel extends JPanel {
+		private static final long serialVersionUID = 6389410631669650830L;
 		private ModuleConfigurationPanel owner;
 
 		/**
@@ -335,6 +339,7 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 					"Version", "Requirements"}; 
 						
 			final JTable table = new JTable(data, header) {
+				private static final long serialVersionUID = -4479060561124641756L;
 				public boolean isCellEditable(int x, int y) {
 					return false;
 				}

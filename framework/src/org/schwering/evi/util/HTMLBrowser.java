@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
  * @author Christoph Schwering (schwering@gmail.com)
  */
 public class HTMLBrowser extends JPanel {
+	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
 	private HTMLPane htmlPane;
 	

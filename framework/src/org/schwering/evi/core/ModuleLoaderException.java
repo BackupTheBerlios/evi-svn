@@ -5,6 +5,8 @@ package org.schwering.evi.core;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ModuleLoaderException extends ModuleException {
+	private static final long serialVersionUID = -455343856994123351L;
+
 	/**
 	 * A plain module loader exception.
 	 */

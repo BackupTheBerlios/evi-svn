@@ -16,6 +16,7 @@ import org.schwering.evi.util.Util;
  * @author Christoph Schwering &lt;ch@schwering.org&gt;
  */
 public class ProgressFrame extends JFrame {
+	private static final long serialVersionUID = -8694844069528547935L;
 	
 	/**
 	 * The progressbar.

@@ -27,6 +27,8 @@ import org.schwering.evi.core.ModuleLoader;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ExceptionDialog extends JFrame {
+	private static final long serialVersionUID = -5456180238115727093L;
+
 	/**
 	 * Default width of the frame  (550px).
 	 */
@@ -167,6 +169,8 @@ public class ExceptionDialog extends JFrame {
 		}
 		
 		JTable table = new JTable(vars, new String[] { "Variable", "Value" }) {
+			private static final long serialVersionUID = -2586950109604656442L;
+
 			public boolean isCellEditable(int x, int y) {
 				return false;
 			}

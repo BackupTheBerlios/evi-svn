@@ -37,9 +37,16 @@ import org.schwering.evi.util.ExceptionDialog;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class TabBar extends JTabbedPane implements IModuleListener {
+	private static final long serialVersionUID = 2781164155079468404L;
+	
 	private RightClickMenu menu = new RightClickMenu();
 	private MainFrame owner;
 	private TabBar pointerToThisForListeners = this;
+	
+	/**
+	 * The keys are java.awt.Components (returned by IPanel.getPanelInstance())
+	 * and the values are the owning IModule objects.
+	 */
 	private Hashtable table = new Hashtable();
 	
 	/**
@@ -103,7 +110,18 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 	 */
 	public void disposed(IModule disposedInstance) {
 		try {
-			remove((IPanel)disposedInstance);
+			/*
+			 * The following line tries to remove the module from the internal 
+			 * table. Otherwise, the subsequent remove() call would resultin a 
+			 * later removeTabAt() call where the module, which notice that the
+			 * module is still registered and then invoke 
+			 * ModuleLoader.disposeInstance() which would fire this disposed()
+			 * event once again. This would result in a double invokation of 
+			 * the disposed() event of all ModuleListeners.
+			 */
+			IPanel panel = (IPanel)disposedInstance;
+			table.remove(panel.getPanelInstance());
+			remove(panel);
 		} catch (Exception exc) {
 			ExceptionDialog.show("Unexpected error occured", exc);
 		}
@@ -172,7 +190,6 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 	 * @param index The index of the panel on the tabbar.
 	 */
 	public void removeTabAt(int index) {
-		System.out.println("removeTabAt()");
 		if (index < 0 || index >= getTabCount()) {
 			return;
 		}
@@ -180,15 +197,12 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 		Component c = getComponentAt(index);
 		Object owner = table.remove(c);
 		if (owner != null && owner instanceof IModule) {
- 			System.out.println("ModuleFactory.disposeInstance(IModule)");
-			ModuleFactory.disposeInstance((IModule)owner);
+ 			ModuleFactory.disposeInstance((IModule)owner);
 			// real removing done by listener (disposed())
 		} else if (owner != null && owner instanceof IPanel) {
-			System.out.println("IPanel.dispose()");
 			((IPanel)owner).dispose();
 			super.removeTabAt(index);
 		} else {
-			System.out.println("normal window");
 			super.removeTabAt(index);
 		}
 	}
@@ -226,6 +240,8 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 	 * A simply menu with just a "close" option.
 	 */
 	class RightClickMenu extends JPopupMenu {
+		private static final long serialVersionUID = -7757128381876335202L;
+
 		/**
 		 * Creates a new menu with "close".
 		 */

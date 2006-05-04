@@ -14,6 +14,8 @@ import org.schwering.evi.util.HTMLBrowser;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class HelloWorldPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = -1869059776657313783L;
+
 	/**
 	 * Default title of the panel.
 	 */

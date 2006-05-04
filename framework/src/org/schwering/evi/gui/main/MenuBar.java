@@ -20,6 +20,8 @@ import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
 public class MenuBar extends JMenuBar {
+	private static final long serialVersionUID = -992480608627651585L;
+	
 	private MainFrame owner;
 	
 	public MenuBar(MainFrame owner) {

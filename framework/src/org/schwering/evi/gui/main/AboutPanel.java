@@ -14,6 +14,8 @@ import org.schwering.evi.util.HTMLBrowser;
  * @author Christoph Schwering (schwering@gmail.com)
  */
 public class AboutPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = -5630341486998996478L;
+
 	/**
 	 * Default title of the panel.
 	 */

@@ -5,6 +5,8 @@ package org.schwering.evi.core;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ModuleInstantiationException extends ModuleException {
+	private static final long serialVersionUID = 6591925348130173100L;
+
 	/**
 	 * A plain module instantiation exception.
 	 */

@@ -17,6 +17,7 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  * @author Christoph Schwering (schwering@gmail.com)
  */
 public class HTMLPane extends JEditorPane implements HyperlinkListener, KeyListener {
+	private static final long serialVersionUID = 7455924935046624890L;
 	private Vector history = new Vector();
 	
 	/**

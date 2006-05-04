@@ -24,6 +24,8 @@ import org.schwering.evi.util.Util;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class MainConfigurationPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = 3298287361548588732L;
+
 	/**
 	 * The panel's title.
 	 */

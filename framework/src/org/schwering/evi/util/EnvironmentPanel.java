@@ -24,6 +24,8 @@ import org.schwering.evi.core.IPanel;
  * @author Christoph Schwering (schwering@gmail.com)
  */
 public class EnvironmentPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = -4204646793461931426L;
+
 	/**
 	 * Default title of the panel.
 	 */
@@ -59,6 +61,8 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 		}
 		
 		JTable table = new JTable(vars, new String[] { "Variable", "Value" }) {
+			private static final long serialVersionUID = 2298937007677219773L;
+
 			public boolean isCellEditable(int x, int y) {
 				return false;
 			}
@@ -106,6 +110,7 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 	 * A JPanel that shows frequently updated memory information.
 	 */
 	class MemoryPanel extends JPanel {
+		private static final long serialVersionUID = -3385670873454994811L;
 		private JLabel memory = new JLabel();
 		private JProgressBar bar = new JProgressBar();
 		private Thread updateThread;

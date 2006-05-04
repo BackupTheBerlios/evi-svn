@@ -24,6 +24,8 @@ import org.schwering.evi.util.Util;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class MainFrame extends JFrame {
+	private static final long serialVersionUID = 7791599223725729008L;
+
 	/**
 	 * Gives access to the one and only instance of the mainframe.
 	 * With {@link #getInstance()} this provides simple access to the owning 

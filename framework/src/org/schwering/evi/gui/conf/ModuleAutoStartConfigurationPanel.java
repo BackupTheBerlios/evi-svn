@@ -28,6 +28,9 @@ import org.schwering.evi.core.ModuleLoader;
  */
 public class ModuleAutoStartConfigurationPanel extends JPanel 
 implements IPanel {
+	private static final long serialVersionUID = 420606842791596917L;
+
+
 	/**
 	 * The panel's title.
 	 */
@@ -83,6 +86,7 @@ implements IPanel {
 	 * Draws a table with all modules that are automatically loaded.
 	 */
 	class LoadPanel extends JPanel {
+		private static final long serialVersionUID = 7788432414929181492L;
 		private ModuleAutoStartConfigurationPanel owner;
 		
 		/**
@@ -179,6 +183,7 @@ implements IPanel {
 	 * Draws a table with all available module ids.
 	 */
 	class ModulePanel extends JPanel {
+		private static final long serialVersionUID = 1991518906418792176L;
 		private ModuleAutoStartConfigurationPanel owner;
 		
 		/**
@@ -198,6 +203,7 @@ implements IPanel {
 			String[] header = new String[] { "Module" }; 
 			
 			final JTable table = new JTable(data, header) {
+				private static final long serialVersionUID = 370084356696900374L;
 				public boolean isCellEditable(int x, int y) {
 					return false;
 				}

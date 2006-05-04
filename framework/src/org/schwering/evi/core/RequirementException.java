@@ -5,6 +5,8 @@ package org.schwering.evi.core;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class RequirementException extends Exception {
+	private static final long serialVersionUID = -6750744176042364517L;
+
 	/**
 	 * A plain module requirement exception.
 	 */
