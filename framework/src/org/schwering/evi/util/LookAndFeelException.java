@@ -5,6 +5,8 @@ package org.schwering.evi.util;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class LookAndFeelException extends Exception {
+	private static final long serialVersionUID = -7608473499647586648L;
+
 	/**
 	 * A plain module exception.
 	 */

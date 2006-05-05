@@ -16,6 +16,8 @@ import javax.swing.JPopupMenu;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class RightClickMenu extends JPopupMenu {
+	private static final long serialVersionUID = 6669520773465427749L;
+	
 	private JTextComponent text;
 	private JMenuItem menuItemCopy = new JMenuItem("Copy");
 	private JMenuItem menuItemCut = new JMenuItem("Cut");
