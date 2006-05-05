@@ -1,0 +1,47 @@
+<html>
+<body>
+<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></h1>
+
+<p><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is an attempt to write a Java framework for modules. We plan to write the following modules:</p>
+<ul>
+<li> <b>Communication</b>
+	<ul>
+	<li> IRC communication support </li>
+	<li> DCC support for IRC </li>
+	<li> ICQ communication support (I hope) </li>
+	</ul>
+<li> <b>Entertainment</b>
+	<ul>
+	<li> Pong single/multiplayer </li>
+	<li> TicTacToe single/multiplayer </li>
+	<li> possibly Skat multiplayer </li>
+	</ul>
+</li>
+<li> <b>Tools</b>
+	<ul>
+	<li> IRC just in time log streamer to someone else </li>
+	<li> Timetable </li>
+	<li> Calendar </li>
+	<li> SMTP mailbox checker </li>
+	<li> File manager </li>
+	<li> Image viewer </li>
+	<li> Simple webbrowser </li>
+	<li> Audio player would be great </li>
+	<li> IDv3 Tag administrator </li>
+	</ul>
+</li>
+</ul>
+
+<p><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is free software (GNU GPL).</p>
+<p>The project is still pre-beta. We are currently finishing the framework. The latest source code is available from our <a href="http://svn.berlios.de/viewcvs/evi/">SVN repository</a>.</p>
+
+<p><a href="name.html">About the name <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></a></p>
+
+<p><b>Contact:</b> Christoph Schwering (schwering@gmail.com)</p>
+
+<center>
+<a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
+</center>
+
+</body>
+</html>
