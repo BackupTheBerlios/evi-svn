@@ -1,0 +1,49 @@
+TITLE=EVI Extensible Verena Interface
+MACROS=macros.copl
+
+=evi()=
+
+[ <!url index.html.en English> | <!url index.html.de Deutsch> ]
+
+==Was ist das?==
+evi() ist ein Versuch, ein Java Framework zu entwickeln. Ziel sind Module für Internet Kommunikation und ein bißchen drumherum. Mehr unter <!url #Module Module>. evi() ist natürlich freie Software (unter der GNU GPL).
+
+==Wie weit ist das Projekt?==
+Noch nicht allzu weit. Derzeit sind wir (eher ich) mit dem Framework beschäftigt, bisher existiert kein einziges Modul. Zu benutzen gibt es also noch nichts.
+Aber die Module sind nicht besonders unrealistisch, weil wir Teile davon schon geschrieben haben.
+Alles, was bisher fertig ist, gibt es im **<!url http://svn.berlios.de/viewcvs/evi SVN Respository>**!
+
+==Module==
+	- Kommunikation
+		* IRC (Internet Relay Chat)
+		* ICQ (Instant Messenging) (hoffentlich)
+		* vielleicht noch weitere IM-Protokolle?
+	- Spiele
+		* Pong single/multiplayer
+		* TicTacToe single/multiplayer
+		* Skat multiplayer (vielleicht)
+	- Tools
+		* DCC für IRC
+		* IRC log streamer
+		* Kalender
+		* Stundenplan
+		* SMTP Mailbox Überprüfer
+		* Dateimanager
+		* Bildbetrachter
+		* winzigkleiner Webbrowser :-)
+		* Audio-Player wäre super
+		* IDv3-Tag Verwalter
+
+==Personen & Namen==
+**Wer macht evi()?**
+Derzeit bin ich mehr oder weniger allein. Wenn das Framework fertig ist, hoff ich doch, dass ein paar Leute Module dafür schreiben (Herr Kremer, Herr Kurth?).
+
+**Wofür steht evi()?**
+evi() ist ein Akronym und steht für **E**xtensible **V**erena **I**nterface. Verena steht für Verena Baumeister aus Euskirchen und Evi für Eva Valder aus Palmersheim.
+
+==Kontakt==
+Christoph Schwering <schwering@gmail.com>
+
+<!HTML>
+<table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
+<!/HTML>
