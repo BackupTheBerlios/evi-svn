@@ -1,3 +1,0 @@
-wc -lcL src/org/schwering/evi/core/*.java
-
-echo `ls -l src/org/schwering/evi/core/*.java | wc -l`  classes

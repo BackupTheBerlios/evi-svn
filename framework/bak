@@ -1,3 +1,0 @@
-bakfile=bak_evi_`date +%y-%m-%d`.tar.bz2
-tar jcvf $bakfile --exclude=bak*tar.bz2 .
-cp $bakfile /bonny/smb/pub
