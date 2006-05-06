@@ -12,7 +12,7 @@ import java.util.Vector;
  * The most interesting methods for module developers are the following:
  * <ul>
  * <li> {@link ModuleLoader#getLoadedModule(String)}
- * <li> {@link ModuleFactory#newInstance(ModuleContainer, IParent)}
+ * <li> {@link ModuleFactory#newInstance(ModuleContainer)}
  * <li> {@link ModuleFactory#disposeInstance(IModule)}
  * <li> {@link #getInstances()}
  * <li> {@link #addListener(IModuleListener)}
@@ -20,6 +20,7 @@ import java.util.Vector;
  * @see ModuleFactory
  * @see IModuleListener
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public final class ModuleContainer {
 	private Class cls;
@@ -48,9 +49,9 @@ public final class ModuleContainer {
 	
 	/**
 	 * Registers a new instance of a module. <br />
-	 * Invoked by {@link ModuleFactory#newInstance(ModuleContainer, IParent)} 
+	 * Invoked by {@link ModuleFactory#newInstance(ModuleContainer)} 
 	 * and 
-	 * {@link ModuleFactory#newInstance(ModuleContainer, IParent, Object[])}.
+	 * {@link ModuleFactory#newInstance(ModuleContainer, Object[])}.
 	 * @param o The new module.
 	 * @see #unregisterInstance(IModule)
 	 */

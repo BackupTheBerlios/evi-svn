@@ -34,8 +34,9 @@ import org.schwering.evi.util.ExceptionDialog;
  * <code>IModule</code>s and those that are not. <b>Module instances are added 
  * and removed automaticall</b> by a <code>IModuleListener</code>. All other 
  * kind <code>IPanel</code>s should be added and removed via the methods 
- * {@link #addTab(IPanel)} and {@link #removeTab(IPanel)}.
+ * {@link #addTab(IPanel)} and {@link #remove(IPanel)}.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class TabBar extends JTabbedPane 
 implements IModuleListener, IModuleLoaderListener {

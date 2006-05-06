@@ -3,6 +3,7 @@ package org.schwering.evi.util;
 /**
  * Base module exception.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class LookAndFeelException extends Exception {
 	private static final long serialVersionUID = -7608473499647586648L;

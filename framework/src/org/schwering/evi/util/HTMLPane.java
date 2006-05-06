@@ -15,6 +15,7 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  * A simple HTML frame with hyperlinks and simple history.
  * The previous website can be obtained by pressing 'b'.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class HTMLPane extends JEditorPane implements HyperlinkListener, KeyListener {
 	private static final long serialVersionUID = 7455924935046624890L;

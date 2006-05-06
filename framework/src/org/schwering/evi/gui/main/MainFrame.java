@@ -21,6 +21,7 @@ import org.schwering.evi.util.Util;
 /**
  * The main frame of the GUI.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 7791599223725729008L;

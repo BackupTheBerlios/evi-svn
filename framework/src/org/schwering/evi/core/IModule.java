@@ -8,30 +8,23 @@ package org.schwering.evi.core;
  * <br />
  * <br />
  * <b>Note #1:</b> Modules need to define a constructor for being instantiated.
- * This constructor must take one argument whose type is <code>IParent</code>.
+ * This constructor must take no arguments.
+ * An example constructor would be (for a class named <code>Constructor</code>:
+ * <br />
+ * <pre>	public Constructor() { ... }</pre>
+ * <br />
+ * <br />
+ * <b>Note #2:</b> Modules might want to be parameterizable to be 
+ * interactive with other modules. To achieve this, the constructor simply must
+ * To achieve this, you need to define a second constructor that requires the 
+ * respective arguments.<br />
+ * To create an instance of a parameterizable module you need the 
+ * {@link ModuleFactory#newInstance(ModuleContainer, Object[])} method.
  * An example constructor would be:<br />
- * <pre>	public Constructor(IParent owner) { ... }</pre>
+ * <pre>	public Constructor(URL addr, Object[] blabla) { ... }</pre>
  * <br />
  * <br />
- * <b>Note #2:</b> Modules might want to be parameterizable for being 
- * interactive with other modules. To achieve this, you need to define a 
- * second constructor which takes two arguments: first the <code>IParent</code>
- * and second a <code>Object[]</code>. This array is intended to store the 
- * arguments. To create a parameterized module you should take a look at 
- * {@link org.schwering.evi.core.ModuleFactory#newInstance(ModuleContainer, IParent, Object[])}.
- * An example constructor would be:<br />
- * <pre>	public Constructor(IParent owner, Object[] arguments) { ... }</pre>
- * <br />
- * <br />
- * <b>Note #3:</b> Unfortunately, at the moment the type of the first argument 
- * of the constructor(s) must really be <code>IParent</code>. It must <b>not</b>
- * be a class implementing <code>IParent</code>. It must explicitely be 
- * <code>IParent</code>. However, you might cast it to the type of your 
- * choice later in the constructor, of course.
- * <br />
- * <br />
- * <br />
- * <b>Note #4:</b> This interface requires all implementing classes to define 
+ * <b>Note #3:</b> This interface requires all implementing classes to define 
  * a method <code>dispose</code>. This method should never be invoked directly!
  * Instead, there is {@link ModuleFactory#disposeInstance(IModule)} which 
  * not only invokes this <code>dispose</code> method but also cares about some 
@@ -40,6 +33,7 @@ package org.schwering.evi.core;
  * @see org.schwering.evi.core.ModuleContainer
  * @see org.schwering.evi.core.ModuleFactory
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public interface IModule {
 	/**

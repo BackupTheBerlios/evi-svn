@@ -26,6 +26,7 @@ import org.schwering.evi.core.ModuleLoader;
 /**
  * A GUI to configure the module auto start list.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class ModuleAutoStartConfigurationPanel extends JPanel 
 implements IPanel, IModuleLoaderListener {

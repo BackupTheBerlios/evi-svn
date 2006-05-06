@@ -6,15 +6,16 @@ package org.schwering.evi.core;
  * <code>instantiated</code> and <code>disposed</code> are fired when the 
  * respective methods in <code>ModuleFactory</code> are invoked. 
  * @see ModuleContainer#addListener(IModuleListener)
- * @see ModuleFactory#newInstance(ModuleContainer, IParent)
- * @see ModuleFactory#newInstance(ModuleContainer, IParent, Object[])
+ * @see ModuleFactory#newInstance(ModuleContainer)
+ * @see ModuleFactory#newInstance(ModuleContainer, Object[])
  * @see ModuleFactory#disposeInstance(IModule)
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public interface IModuleListener {
 	/**
 	 * Fired when a module is instantiated via 
-	 * {@link ModuleFactory#newInstance(ModuleContainer, IParent)}.
+	 * {@link ModuleFactory#newInstance(ModuleContainer)}.
 	 * <br />
 	 * When a module is instantiated, the following things happen in this 
 	 * order:
@@ -26,8 +27,8 @@ public interface IModuleListener {
 	 * </ol>
 	 * @param newInstance The newly created instance of the 
 	 * module.
-	 * @see ModuleFactory#newInstance(ModuleContainer, IParent)
-	 * @see ModuleFactory#newInstance(ModuleContainer, IParent, Object[])
+	 * @see ModuleFactory#newInstance(ModuleContainer)
+	 * @see ModuleFactory#newInstance(ModuleContainer, Object[])
 	 */
 	public void instantiated(IModule newInstance);
 	

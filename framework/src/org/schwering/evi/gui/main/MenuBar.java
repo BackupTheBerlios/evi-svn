@@ -21,6 +21,11 @@ import org.schwering.evi.util.EnvironmentPanel;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
+/**
+ * The menu bar allows to open configuration dialogs and instantiate modules.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
+ */
 public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	private static final long serialVersionUID = -992480608627651585L;
 	

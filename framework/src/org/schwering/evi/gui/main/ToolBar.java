@@ -13,6 +13,11 @@ import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
 
+/**
+ * The toolbar contains one large button per module.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
+ */
 public class ToolBar extends JToolBar implements IModuleLoaderListener {
 	private static final long serialVersionUID = 6169662234007355911L;
 	

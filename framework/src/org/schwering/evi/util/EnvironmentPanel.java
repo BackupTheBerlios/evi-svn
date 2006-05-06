@@ -22,6 +22,7 @@ import org.schwering.evi.core.IPanel;
 /**
  * A panel which contains a scrollable table with the environment information.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class EnvironmentPanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = -4204646793461931426L;

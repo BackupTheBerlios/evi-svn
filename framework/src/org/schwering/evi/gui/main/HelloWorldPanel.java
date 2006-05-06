@@ -12,6 +12,7 @@ import org.schwering.evi.util.HTMLBrowser;
 /**
  * A GUI to setup the main application.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class HelloWorldPanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = -1869059776657313783L;

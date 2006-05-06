@@ -41,6 +41,7 @@ import org.schwering.evi.util.RightClickMenu;
 /**
  * A GUI to setup the module list.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class ModuleConfigurationPanel extends JPanel 
 implements IPanel, IModuleLoaderListener {

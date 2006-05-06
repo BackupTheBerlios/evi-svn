@@ -22,6 +22,7 @@ import org.schwering.evi.util.Util;
 /**
  * A GUI to setup the main application.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class MainConfigurationPanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = 3298287361548588732L;

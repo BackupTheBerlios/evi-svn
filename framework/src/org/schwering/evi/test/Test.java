@@ -8,16 +8,21 @@ import org.schwering.evi.core.*;
 import org.schwering.evi.gui.main.HelloWorldPanel;
 import org.schwering.evi.util.HTMLBrowser;
 
+/**
+ * Test module.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
+ */
 public class Test implements IModule, IPanel {
 	
 	private Component instance;
 	
-	public Test(IParent parent, String url) {
+	public Test(String url) {
 		System.out.println("module would start with args: '"+ url +"'");
 		instance = new HTMLBrowser(url);
 	}
 	
-	public Test(IParent parent) {
+	public Test() {
 		System.out.println("module would start without args!");
 		instance = HelloWorldPanel.getInstance();
 	}

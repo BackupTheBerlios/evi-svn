@@ -12,6 +12,7 @@ import org.schwering.evi.util.HTMLBrowser;
 /**
  * A panel with a textfield containing the license.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class AboutPanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = -5630341486998996478L;

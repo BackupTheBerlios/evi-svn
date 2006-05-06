@@ -19,6 +19,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * </pre>
  * You just have to know the keys :-).
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public abstract class MainConfiguration {
 	/**

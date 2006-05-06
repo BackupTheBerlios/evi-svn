@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 /**
  * A <code>HTMLPane</code> with a 'Home' and 'Back' button.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class HTMLBrowser extends JPanel {
 	private static final long serialVersionUID = 4347796608541318947L;

@@ -11,6 +11,7 @@ package org.schwering.evi.core;
  * JAR's manifest file. Use the {@link ModuleLoader#ATTR_MODULE_REQUIREMENTS}
  * attribute. Probably, this class is not interesting for module developers!
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class Requirement {
 	private String moduleId;

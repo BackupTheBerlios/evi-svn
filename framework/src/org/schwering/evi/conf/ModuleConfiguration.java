@@ -25,6 +25,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * </pre><br />
  * Because internally a <code>HashSet</code> is used, no URL is stored twice.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public abstract class ModuleConfiguration {
 	/**

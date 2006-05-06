@@ -14,6 +14,7 @@ import org.schwering.evi.util.Util;
  * Shows a small frame with a progressbar. The progressbar can be manipulated by
  * the methods <code>update</code> which set a string or the percent.
  * @author Christoph Schwering &lt;ch@schwering.org&gt;
+ * @version $Id$
  */
 public class ProgressFrame extends JFrame {
 	private static final long serialVersionUID = -8694844069528547935L;

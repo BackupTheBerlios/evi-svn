@@ -15,6 +15,7 @@ import org.schwering.evi.gui.main.MainFrame;
 /**
  * Provides some GUI utilities.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class Util {
 	/**

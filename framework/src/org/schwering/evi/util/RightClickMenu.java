@@ -14,6 +14,7 @@ import javax.swing.JPopupMenu;
  * Represents a standard right click menu for textcomponents. It provides the 
  * common options for copying, pasting, cutting and selecting text.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class RightClickMenu extends JPopupMenu {
 	private static final long serialVersionUID = 6669520773465427749L;

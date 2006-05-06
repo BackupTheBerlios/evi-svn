@@ -16,10 +16,11 @@ import java.lang.reflect.Constructor;
  * <code>disposeInstance</code> for each module instance when the client is 
  * shut down. (This shutdownhook is added in a <code>static</code> block; 
  * this means it is added automatically when this class is loaded.)
- * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @see ModuleLoader
  * @see ModuleContainer
  * @see IModuleListener
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public final class ModuleFactory {
 	/*
@@ -53,7 +54,7 @@ public final class ModuleFactory {
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
 	 * constructor).
-	 * @see #newInstance(ModuleContainer, IParent, Object[])
+	 * @see #newInstance(ModuleContainer, Object[])
 	 * @see #disposeInstance(IModule)
 	 */
 	public static synchronized IModule newInstance(ModuleContainer module) 
@@ -66,11 +67,11 @@ public final class ModuleFactory {
 	 * internally and fires the {@link IModuleListener#instantiated(IModule)}
 	 * event. 
 	 * @param module The module.
-	 * @param args The constructors arguments (additionally to owner).
+	 * @param args The constructors arguments.
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
 	 * constructor).
-	 * @see #newInstance(ModuleContainer, IParent)
+	 * @see #newInstance(ModuleContainer)
 	 * @see #disposeInstance(IModule)
 	 */
 	public static synchronized IModule newInstance(ModuleContainer module, 

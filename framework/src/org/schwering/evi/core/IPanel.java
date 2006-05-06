@@ -24,6 +24,7 @@ import javax.swing.Icon;
  * are no modules (more precisely: that are not a module's main-class). An 
  * example for this case are module-configuratoin-dialogs.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public interface IPanel {
 	/**

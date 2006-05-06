@@ -18,6 +18,7 @@ import org.schwering.evi.util.RightClickMenu;
 /**
  * A panel with a textfield containing the license.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class LicensePanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = -261152592794287431L;

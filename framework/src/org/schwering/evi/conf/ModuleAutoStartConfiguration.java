@@ -22,6 +22,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * this.module.will.be.Started with this string as argument
  * </pre>
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public abstract class ModuleAutoStartConfiguration {
 	/**

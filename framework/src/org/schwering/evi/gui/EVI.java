@@ -25,6 +25,7 @@ import org.schwering.evi.util.Util;
 /**
  * Starts the GUI.
  * @author Christoph Schwering (schwering@gmail.com)
+ * @version $Id$
  */
 public class EVI {
 	/**

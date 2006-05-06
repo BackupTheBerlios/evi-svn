@@ -25,6 +25,7 @@ import org.schwering.evi.core.ModuleLoader;
 /**
  * Displays a frame with information about a thrown exception.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class ExceptionDialog extends JFrame {
 	private static final long serialVersionUID = -5456180238115727093L;

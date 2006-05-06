@@ -29,6 +29,7 @@ import java.util.jar.Attributes;
  * </ul>
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @see ModuleContainer
+ * @version $Id$
  */
 public final class ModuleLoader extends URLClassLoader {
 	/**
@@ -278,7 +279,7 @@ public final class ModuleLoader extends URLClassLoader {
 	/**
 	 * Loads a one-class-module. The version is simply 0.0 and there are no 
 	 * requirements. The method also fires the 	 
-	 * {@link IModuleLoaderListener#loaded(ModuleContainer) event.
+	 * {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param className The classname: <code>my.package.Class</code>
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
@@ -311,7 +312,7 @@ public final class ModuleLoader extends URLClassLoader {
 	/**
 	 * Unloads a module. Each instance of module is shut down softly 
 	 * via <code>ModuleFactory.disposeInstance()</code>. After that, the 
-	 * {@link IModuleLoaderListener#unloaded(ModuleContainer) event is fired.
+	 * {@link IModuleLoaderListener#unloaded(ModuleContainer)} event is fired.
 	 * @param id The id of the module that is intended to be unloaded.
 	 */
 	public static void unload(String id) {
