@@ -14,10 +14,7 @@ import org.schwering.evi.util.ExceptionDialog;
 public class ToolBar extends JToolBar {
 	private static final long serialVersionUID = 6169662234007355911L;
 	
-	private MainFrame owner;
-	
-	public ToolBar(MainFrame owningFrame) {
-		this.owner = owningFrame;
+	public ToolBar() {
 		setFloatable(false);
 	}
 	

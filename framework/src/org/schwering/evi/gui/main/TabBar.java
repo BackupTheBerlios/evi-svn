@@ -40,7 +40,6 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 	private static final long serialVersionUID = 2781164155079468404L;
 	
 	private RightClickMenu menu = new RightClickMenu();
-	private MainFrame owner;
 	private TabBar pointerToThisForListeners = this;
 	
 	/**
@@ -51,10 +50,8 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 	
 	/**
 	 * Creates a new tabbar.
-	 * @param owner The owning main-frame.
 	 */
-	public TabBar(MainFrame owner) {
-		this.owner = owner;
+	public TabBar() {
 		setTabPlacement(MainConfiguration.getInt("gui.tabs.placement", TOP));
 		
 		addMouseListener(new MouseListener() {

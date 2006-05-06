@@ -80,6 +80,11 @@ public final class ModuleLoader extends URLClassLoader {
 	private static Hashtable table = new Hashtable();
 	
 	/**
+	 * Contains all <code>IModuleLoaderListener</code>s.
+	 */
+	private static Vector listeners = new Vector(2);
+	
+	/**
 	 * The URL of the JAR file.
 	 */
 	private URL url;
@@ -177,7 +182,50 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
+	 * Adds a new listener.
+	 * @param listener The <code>IModuleLoaderListener</code>.
+	 */
+	public static void addListener(IModuleLoaderListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes a listener.
+	 * @param listener The <code>IModuleLoaderListener</code>.
+	 */
+	public static void removeListener(IModuleLoaderListener listener) {
+		listeners.remove(listener);
+	}
+	
+	/**
+	 * Fires the {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
+	 * @param module The new module.
+	 */
+	private static void fireLoaded(ModuleContainer module) {
+		if (listeners == null) {
+			return;
+		}
+		for (int i = 0; i < listeners.size(); i++) {
+			((IModuleLoaderListener)listeners.get(i)).loaded(module);
+		}
+	}
+	
+	/**
+	 * Fires the {@link IModuleLoaderListener#unloaded(ModuleContainer)} event.
+	 * @param module The removed module.
+	 */
+	private static void fireUnloaded(ModuleContainer module) {
+		if (listeners == null) {
+			return;
+		}
+		for (int i = 0; i < listeners.size(); i++) {
+			((IModuleLoaderListener)listeners.get(i)).unloaded(module);
+		}
+	}
+	
+	/**
 	 * Loads a new module.
+	 * Fires the {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param f The destination of the JAR.
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
@@ -191,7 +239,8 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 
 	/**
-	 * Loads a new module.
+	 * Loads a new module. 
+	 * Fires the {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param url The destination of the JAR.
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
@@ -214,6 +263,7 @@ public final class ModuleLoader extends URLClassLoader {
 			String id = module.getId();
 			if (!isLoaded(id)) {
 				table.put(id, module);
+				fireLoaded(module);
 				return module;
 			} else {
 				return getLoadedModule(id);
@@ -227,7 +277,8 @@ public final class ModuleLoader extends URLClassLoader {
 	
 	/**
 	 * Loads a one-class-module. The version is simply 0.0 and there are no 
-	 * requirements.
+	 * requirements. The method also fires the 	 
+	 * {@link IModuleLoaderListener#loaded(ModuleContainer) event.
 	 * @param className The classname: <code>my.package.Class</code>
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
@@ -245,6 +296,7 @@ public final class ModuleLoader extends URLClassLoader {
 			String id = module.getId();
 			if (!isLoaded(id)) {
 				table.put(id, module);
+				fireLoaded(module);
 				return module;
 			} else {
 				return getLoadedModule(id);
@@ -258,7 +310,8 @@ public final class ModuleLoader extends URLClassLoader {
 	
 	/**
 	 * Unloads a module. Each instance of module is shut down softly 
-	 * via <code>ModuleFactory.disposeInstance()</code>.
+	 * via <code>ModuleFactory.disposeInstance()</code>. After that, the 
+	 * {@link IModuleLoaderListener#unloaded(ModuleContainer) event is fired.
 	 * @param id The id of the module that is intended to be unloaded.
 	 */
 	public static void unload(String id) {
@@ -271,6 +324,7 @@ public final class ModuleLoader extends URLClassLoader {
 			ModuleFactory.disposeInstance(instances[i]);
 		}
 		table.remove(id);
+		fireUnloaded(container);
 	}
 	
 	/**

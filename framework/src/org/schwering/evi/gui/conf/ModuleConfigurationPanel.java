@@ -30,6 +30,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.conf.ModuleConfiguration;
+import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleLoader;
@@ -41,7 +42,8 @@ import org.schwering.evi.util.RightClickMenu;
  * A GUI to setup the module list.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
-public class ModuleConfigurationPanel extends JPanel implements IPanel {
+public class ModuleConfigurationPanel extends JPanel 
+implements IPanel, IModuleLoaderListener {
 	private static final long serialVersionUID = 7345516016302120010L;
 
 	/**
@@ -74,7 +76,7 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 	}
 	
 	private InputPanel inputPanel = new InputPanel(this);
-	private TablePanel tablePanel = new TablePanel(this);
+	private TablePanel tablePanel = new TablePanel();
 	
 	/**
 	 * Creates a new instance of the configuration GUI.
@@ -84,15 +86,30 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 		super(new BorderLayout());
 		add(inputPanel, BorderLayout.NORTH);
 		add(tablePanel, BorderLayout.CENTER);
+		ModuleLoader.addListener(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void loaded(ModuleContainer loadedModule) {
+		reloadTablePanel();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void unloaded(ModuleContainer unloadedModule) {
+		reloadTablePanel();
+	}
+
 	/**
 	 * Removes the tablepanel, creates a new one and adds it again. 
 	 * This method is a quite brutal way to reload the table :-).
 	 */
 	private void reloadTablePanel() {
 		remove(tablePanel);
-		tablePanel = new TablePanel(this);
+		tablePanel = new TablePanel();
 		add(tablePanel, BorderLayout.CENTER);
 		revalidate();
 		repaint();
@@ -176,7 +193,6 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 								URL url = getURLText();
 								ModuleLoader.load(url);
 								ModuleConfiguration.addURL(url);
-								owner.reloadTablePanel();
 							} catch (Exception exc) {
 								ExceptionDialog.show("Could not load module", 
 										exc);
@@ -222,7 +238,6 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 								String className = classNameTextField.getText();
 								ModuleLoader.load(className);
 								ModuleConfiguration.addClassName(className);
-								owner.reloadTablePanel();
 							} catch (Exception exc) {
 								ExceptionDialog.show("Could not load module", 
 										exc);
@@ -313,15 +328,13 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 	 */
 	class TablePanel extends JPanel {
 		private static final long serialVersionUID = 6389410631669650830L;
-		private ModuleConfigurationPanel owner;
 
 		/**
 		 * Draws a table with all modules, their version and their requirements.
 		 * @param o The owning moduleconfigurationpanel.
 		 */
-		public TablePanel(ModuleConfigurationPanel o) {
+		public TablePanel() {
 			super(new GridLayout(1, 0));
-			this.owner = o;
 			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
 			Object[][] data = new Object[containers.length][4];
 			for (int i = 0; i < data.length; i++) {
@@ -361,7 +374,6 @@ public class ModuleConfigurationPanel extends JPanel implements IPanel {
 						ModuleConfiguration.remove(source);
 						ModuleLoader.unload(id);
 					}
-					owner.reloadTablePanel();
 				}
 			});
 			rightClickMenu.add(removeItem);

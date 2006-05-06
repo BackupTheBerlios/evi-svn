@@ -18,6 +18,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
 import org.schwering.evi.conf.ModuleAutoStartConfiguration;
+import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleLoader;
@@ -27,9 +28,8 @@ import org.schwering.evi.core.ModuleLoader;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ModuleAutoStartConfigurationPanel extends JPanel 
-implements IPanel {
+implements IPanel, IModuleLoaderListener {
 	private static final long serialVersionUID = 420606842791596917L;
-
 
 	/**
 	 * The panel's title.
@@ -58,6 +58,8 @@ implements IPanel {
 	
 	private LoadPanel loadPanel = new LoadPanel(this);
 	private ModulePanel modulePanel = new ModulePanel(this);
+	private JPanel loadWrapper = new JPanel(new GridLayout(1, 0));
+	private JPanel moduleWrapper = new JPanel(new GridLayout(1, 0));
 	
 	/**
 	 * Creates a new instance of the configuration GUI.
@@ -65,22 +67,50 @@ implements IPanel {
 	 */
 	private ModuleAutoStartConfigurationPanel() {
 		super(new GridLayout(2, 0));
-		add(modulePanel);
-		add(loadPanel);
+		moduleWrapper.add(modulePanel);
+		loadWrapper.add(loadPanel);
+		add(moduleWrapper);
+		add(loadWrapper);
+		ModuleLoader.addListener(this);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void loaded(ModuleContainer loadedModule) {
+		reloadModulePanel();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void unloaded(ModuleContainer unloadedModule) {
+		reloadModulePanel();
+	}
+
+	/**
+	 * Removes the loadpanel, creates a new one and adds it again. 
+	 * This method is a quite brutal way to reload the table :-).
+	 */
+	private void reloadLoadPanel() {
+		loadWrapper.remove(loadPanel);
+		loadPanel = new LoadPanel(this);
+		loadWrapper.add(loadPanel);
+		loadWrapper.revalidate();
+		loadWrapper.repaint();
 	}
 	
 	/**
 	 * Removes the loadpanel, creates a new one and adds it again. 
 	 * This method is a quite brutal way to reload the table :-).
 	 */
-	private void reloadLoadPanel() {
-		remove(loadPanel);
-		loadPanel = new LoadPanel(this);
-		add(loadPanel);
-		revalidate();
-		repaint();
+	private void reloadModulePanel() {
+		moduleWrapper.remove(modulePanel);
+		modulePanel = new ModulePanel(this);
+		moduleWrapper.add(modulePanel);
+		moduleWrapper.revalidate();
+		moduleWrapper.repaint();
 	}
-	
 	
 	/**
 	 * Draws a table with all modules that are automatically loaded.

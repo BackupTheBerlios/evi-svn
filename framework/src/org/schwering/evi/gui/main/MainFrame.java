@@ -25,6 +25,11 @@ import org.schwering.evi.util.Util;
  */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 7791599223725729008L;
+	
+	/**
+	 * Frame icon's resource name/path.
+	 */
+	public static final String ICON_ATTRIBUTE = "evi.ico";
 
 	/**
 	 * Gives access to the one and only instance of the mainframe.
@@ -91,8 +96,8 @@ public class MainFrame extends JFrame {
 			}
 		});
 		setMainMenuBar(new MenuBar(this));
-		setMainToolBar(new ToolBar(this));
-		setMainTabBar(new TabBar(this));
+		setMainToolBar(new ToolBar());
+		setMainTabBar(new TabBar());
 		loadIcon();
 	}
 	
@@ -160,7 +165,7 @@ public class MainFrame extends JFrame {
 	private void loadIcon() {
 		try {
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream is = cl.getResourceAsStream("ros.ico");
+			InputStream is = cl.getResourceAsStream(ICON_ATTRIBUTE);
 			byte[] iconBytes = new byte[is.available()];
 			is.read(iconBytes);
 			is.close();
