@@ -1,0 +1,4 @@
+Main-Class: Pong
+Module-Class: Pong
+Module-Version: 1.0
+Module-Name: Pong
