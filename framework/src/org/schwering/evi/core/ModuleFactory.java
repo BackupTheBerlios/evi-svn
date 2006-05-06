@@ -50,16 +50,15 @@ public final class ModuleFactory {
 	 * Creates a new instance of the given module, registers it internally and
 	 * fires the {@link IModuleListener#instantiated(IModule)} event. 
 	 * @param module The module.
-	 * @param owner The owning module or application.
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
 	 * constructor).
 	 * @see #newInstance(ModuleContainer, IParent, Object[])
 	 * @see #disposeInstance(IModule)
 	 */
-	public static synchronized IModule newInstance(ModuleContainer module, 
-			IParent owner) throws ModuleInstantiationException {
-		return newInstance(module, owner, null);
+	public static synchronized IModule newInstance(ModuleContainer module) 
+	throws ModuleInstantiationException {
+		return newInstance(module, null);
 	}
 	
 	/**
@@ -67,7 +66,6 @@ public final class ModuleFactory {
 	 * internally and fires the {@link IModuleListener#instantiated(IModule)}
 	 * event. 
 	 * @param module The module.
-	 * @param owner The owning module or application.
 	 * @param args The constructors arguments (additionally to owner).
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
@@ -76,19 +74,12 @@ public final class ModuleFactory {
 	 * @see #disposeInstance(IModule)
 	 */
 	public static synchronized IModule newInstance(ModuleContainer module, 
-			IParent owner, Object[] args) throws ModuleInstantiationException {
+			Object[] args) throws ModuleInstantiationException {
 		try {
 			int len = (args != null) ? args.length : 0;
-			Object[] wantedObjects = new Object[len + 1];
-			wantedObjects[0] = owner;
+			Class[] wantedTypes = new Class[len];
 			for (int i = 0; i < len; i++) {
-				wantedObjects[i+1] = args[i];
-			}
-			
-			Class[] wantedTypes = new Class[wantedObjects.length];
-			wantedTypes[0] = IParent.class;
-			for (int i = 1; i < wantedTypes.length; i++) {
-				wantedTypes[i] = wantedObjects[i].getClass();
+				wantedTypes[i] = args[i].getClass();
 			}
 			
 			Class moduleClass = module.getModuleClass();
@@ -97,7 +88,7 @@ public final class ModuleFactory {
 				Class[] argList = cons[i].getParameterTypes();
 				if (argListMatches(argList, wantedTypes)) {
 					Constructor c = cons[i];
-					IModule o = (IModule)c.newInstance(wantedObjects);
+					IModule o = (IModule)c.newInstance(args);
 					module.registerInstance(o);
 					module.fireInstantiated(o);
 					return o;

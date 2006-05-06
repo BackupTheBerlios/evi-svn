@@ -247,16 +247,6 @@ public final class ModuleContainer {
 	
 	/**
 	 * Returns <code>true</code> if the given class implements 
-	 * <code>IParent</code>.
-	 * @return <code>true</code> if the given class implements 
-	 * <code>IParent</code>.
-	 */
-	public boolean isParent() {
-		return classImplements(cls, IParent.class);
-	}
-	
-	/**
-	 * Returns <code>true</code> if the given class implements 
 	 * <code>IModule</code>.
 	 * @param c The class which is to be checked.
 	 * @return <code>true</code> if the given class implements 
