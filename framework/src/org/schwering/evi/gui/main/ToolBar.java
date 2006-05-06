@@ -11,7 +11,6 @@ import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
-import org.schwering.evi.gui.EVI;
 import org.schwering.evi.util.ExceptionDialog;
 
 public class ToolBar extends JToolBar implements IModuleLoaderListener {
@@ -61,7 +60,7 @@ public class ToolBar extends JToolBar implements IModuleLoaderListener {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ModuleFactory.newInstance(module, EVI.getInstance());
+					ModuleFactory.newInstance(module);
 				} catch (Exception exc) {
 					ExceptionDialog.show("Module could not be instantiated", exc);
 				}

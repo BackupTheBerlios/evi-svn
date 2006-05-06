@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
-import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -15,7 +14,6 @@ import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
-import org.schwering.evi.gui.EVI;
 import org.schwering.evi.gui.conf.MainConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleConfigurationPanel;
@@ -100,7 +98,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						ModuleFactory.newInstance(module, EVI.getInstance());
+						ModuleFactory.newInstance(module);
 					} catch (Exception exc) {
 						ExceptionDialog.show("Module could not be instantiated", 
 								exc);
@@ -130,6 +128,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			m.add(i);
 		}
 		add(m, getMenuCount() - 1);
+		table.put(module, m);
 	}
 	
 	private void addMainConfigurationMenu(JMenu m) {

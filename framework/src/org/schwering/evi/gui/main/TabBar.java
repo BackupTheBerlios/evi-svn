@@ -18,6 +18,7 @@ import javax.swing.event.ChangeListener;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleListener;
+import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
@@ -36,7 +37,8 @@ import org.schwering.evi.util.ExceptionDialog;
  * {@link #addTab(IPanel)} and {@link #removeTab(IPanel)}.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
-public class TabBar extends JTabbedPane implements IModuleListener {
+public class TabBar extends JTabbedPane 
+implements IModuleListener, IModuleLoaderListener {
 	private static final long serialVersionUID = 2781164155079468404L;
 	
 	private RightClickMenu menu = new RightClickMenu();
@@ -77,6 +79,8 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 			}
 		});
 		
+		ModuleLoader.addListener(this);
+		
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
 		for (int i = 0; i < modules.length; i++) {
 			if (modules[i].isPanel()) {
@@ -85,6 +89,21 @@ public class TabBar extends JTabbedPane implements IModuleListener {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void loaded(ModuleContainer loadedModule) {
+		if (loadedModule.isPanel()) {
+			loadedModule.addListener(this);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void unloaded(ModuleContainer unloadedModule) {
+	}
+
 	/**
 	 * The event method fired when a module is instantiated. 
 	 * If the module which is instantiated is an an instance of 
