@@ -9,7 +9,6 @@ import org.schwering.evi.conf.ModuleAutoStartConfiguration;
 import org.schwering.evi.conf.ModuleConfiguration;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.core.IParent;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleInstantiationException;
@@ -102,7 +101,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(32, "Modules: Loading JARs...");
+		progress.update(35, "Modules: Loading JARs...");
 		try {
 			loadModules();
 		} catch (Exception exc) {
@@ -110,7 +109,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(75, "Modules: Checking dependencies...");
+		progress.update(55, "Modules: Checking dependencies...");
 		try {
 			checkModuleDependencies();
 		} catch (Exception exc) {
@@ -118,7 +117,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(66, "Modules: Loading auto-start list...");
+		progress.update(65, "Modules: Loading auto-start list...");
 		try {
 			ModuleAutoStartConfiguration.load();
 		} catch (Exception exc) {
@@ -134,7 +133,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(92, "Modules: Auto-starting...");
+		progress.update(90, "Modules: Auto-starting...");
 		try {
 			autoStartModules();
 		} catch (Throwable exc) {
@@ -212,7 +211,7 @@ public class EVI {
 					} else {
 						argarr = new String[] { args[i] };
 					}
-					ModuleFactory.newInstance(container, this, argarr);
+					ModuleFactory.newInstance(container, argarr);
 				} catch (ModuleInstantiationException exc) {
 					ExceptionDialog.show("Could not autostart module", exc);
 				}
@@ -227,7 +226,7 @@ public class EVI {
 	 */
 	public void instantiateModule(ModuleContainer module) 
 	throws ModuleInstantiationException {
-		IModule o = ModuleFactory.newInstance(module, this);
+		IModule o = ModuleFactory.newInstance(module);
 		if (module.isPanel()) {
 			TabBar tabBar = frame.getMainTabBar();
 			if (tabBar != null) {
