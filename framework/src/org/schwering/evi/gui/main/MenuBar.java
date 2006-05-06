@@ -3,14 +3,18 @@ package org.schwering.evi.gui.main;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
+import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.gui.EVI;
 import org.schwering.evi.gui.conf.MainConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
@@ -19,10 +23,11 @@ import org.schwering.evi.util.EnvironmentPanel;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	private static final long serialVersionUID = -992480608627651585L;
 	
 	private MainFrame owner;
+	private Hashtable table = new Hashtable();
 	
 	public MenuBar(MainFrame owner) {
 		this.owner = owner;
@@ -44,13 +49,41 @@ public class MenuBar extends JMenuBar {
 		addEnvironmentMenu(aboutMenu);
 		addInformationMenu(aboutMenu);
 		add(aboutMenu);
+		
+		
+		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
+		for (int i = 0; i < modules.length; i++) {
+			addModule(modules[i]);
+		}
+		ModuleLoader.addListener(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void loaded(ModuleContainer loadedModule) {
+		addModule(loadedModule);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+	 */
+	public void unloaded(ModuleContainer unloadedModule) {
+		if (!unloadedModule.isPanel()) {
+			return;
+		}
+		Object o = table.remove(unloadedModule);
+		if (o != null && o instanceof JMenu) {
+			JMenu menu = (JMenu)o;
+			remove(menu);
+		}
+	}
+
 	/**
 	 * Adds menu entries to initialize and/or configure the module.
 	 * @param module The module for which menu entries are to be added.
 	 */
-	public void addModule(final ModuleContainer module) {
+	private void addModule(final ModuleContainer module) {
 		if (!module.isPanel() && !module.isConfigurable()) {
 			return;
 		}

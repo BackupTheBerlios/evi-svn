@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import org.schwering.evi.conf.MainConfiguration;
-import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.gui.EVI;
 import org.schwering.evi.util.Util;
 
@@ -173,14 +172,5 @@ public class MainFrame extends JFrame {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Adds all components which allow a user to start a module.
-	 * @param module The module which implements <code>IPanel</code>.
-	 */
-	public void addModule(ModuleContainer module) {
-		toolBar.addModule(module);
-		menuBar.addModule(module);
 	}
 }

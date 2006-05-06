@@ -27,7 +27,7 @@ import org.schwering.evi.util.Util;
  * Starts the GUI.
  * @author Christoph Schwering (schwering@gmail.com)
  */
-public class EVI implements IParent {
+public class EVI {
 	/**
 	 * The program's name/title.
 	 */
@@ -78,7 +78,7 @@ public class EVI implements IParent {
 	private EVI() {
 		progress = new ProgressFrame();
 		
-		progress.update(5, "Loading configuration");
+		progress.update(5, "Configuration: Loading...");
 		try {
 			MainConfiguration.load();
 		} catch (Exception exc) {
@@ -86,7 +86,7 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(15, "Setting Lood and Feel");
+		progress.update(15, "GUI: Setting Look and Feel...");
 		try {
 			setLookAndFeel();
 		} catch (Exception exc) {
@@ -94,7 +94,7 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(25, "Loading module list");
+		progress.update(25, "Modules: Loading list...");
 		try {
 			ModuleConfiguration.load();
 		} catch (Exception exc) {
@@ -102,7 +102,7 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(32, "Loading modules");
+		progress.update(32, "Modules: Loading JARs...");
 		try {
 			loadModules();
 		} catch (Exception exc) {
@@ -110,7 +110,15 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(66, "Loading module autostart list");
+		progress.update(75, "Modules: Checking dependencies...");
+		try {
+			checkModuleDependencies();
+		} catch (Exception exc) {
+			ExceptionDialog.show("Unexcepted exception caught while loading", 
+					exc);
+		}
+		
+		progress.update(66, "Modules: Loading auto-start list...");
 		try {
 			ModuleAutoStartConfiguration.load();
 		} catch (Exception exc) {
@@ -118,7 +126,7 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(70, "Initializing main frame");
+		progress.update(70, "GUI: Creating main frame...");
 		try {
 			initMainFrame();
 		} catch (Throwable exc) {
@@ -126,15 +134,7 @@ public class EVI implements IParent {
 					exc);
 		}
 		
-		progress.update(75, "Registrating modules");
-		try {
-			registerModules();
-		} catch (Exception exc) {
-			ExceptionDialog.show("Unexcepted exception caught while loading", 
-					exc);
-		}
-		
-		progress.update(92, "Autostarting modules");
+		progress.update(92, "Modules: Auto-starting...");
 		try {
 			autoStartModules();
 		} catch (Throwable exc) {
@@ -174,9 +174,9 @@ public class EVI implements IParent {
 	}
 	
 	/**
-	 * Registers all loaded modules. Also does the auto-start.
+	 * Checks dependencies and automatically starts respective modules.
 	 */
-	private void registerModules() {
+	private void checkModuleDependencies() {
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
 		if (modules == null) {
 			return;
@@ -188,19 +188,6 @@ public class EVI implements IParent {
 				ExceptionDialog.show("Module "+ modules[i].getId() +" requires"+
 						" other modules:", exc);
 			}
-			registerModule(modules[i]);
-		}
-	}
-	
-	/** 
-	 * Registers a new module. Possibly the module is registered in the 
-	 * menu, possibly also with a configuration-link. Possibly it is added to 
-	 * the toolbar.
-	 * @param module The module.
-	 */
-	public void registerModule(ModuleContainer module) {
-		if (module.isPanel() || module.isConfigurable()) {
-			frame.addModule(module);
 		}
 	}
 	

@@ -58,15 +58,12 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 * @see #getInstance()
 	 */
 	private MainConfigurationPanel() {
-		super(new BorderLayout());
+		super(new GridLayout(1, 0));
 		JPanel p = new JPanel(new GridLayout(3, 2));
 		addTabBarPositionChooser(p);
 		addLookAndFeelChooser(p);
 		JScrollPane scrollPane = new JScrollPane(p);
 
-		JPanel lu = new JPanel();
-		lu.add(scrollPane);
-		add(lu, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
@@ -75,7 +72,11 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 			}
 		});
 		buttons.add(saveButton);
-		add(buttons, BorderLayout.SOUTH);
+		
+		JPanel main = new JPanel(new BorderLayout());
+		main.add(scrollPane, BorderLayout.CENTER);
+		main.add(buttons, BorderLayout.SOUTH);
+		add(main);
 	}
 	
 	/**
