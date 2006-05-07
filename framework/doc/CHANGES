@@ -1,3 +1,10 @@
+schwering@gmail.com 2006-05-07
+	Mike's Pong just ran for the first time. It's the first real running 
+	module -- without any problems!
+	The framework is almost complete. There's still the issue with
+	configurable modules to solve. And the configuration-gui is still 
+	missing, too.
+	
 schwering@gmail.com 2006-04-20
 	Now 4800 lines are written. Most of the basic GUI is complete. The 
 	core should almost be finished, there's just one problem with 
