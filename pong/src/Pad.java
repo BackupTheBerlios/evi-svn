@@ -58,8 +58,10 @@ public class Pad implements Renderable {
 				&& (b.getY() + b.getHeight()/2 <= this.y + this.height/2)){
 			setDrift(b, renderContext);
 			
-			if(player)SoundManager.playSound(SoundManager.SND_PLAYER_PAD);
-			else SoundManager.playSound(SoundManager.SND_ENEMY_PAD);
+			if(player)
+				SoundManager.playSound(SoundManager.SND_PLAYER_PAD);
+			else 
+				SoundManager.playSound(SoundManager.SND_ENEMY_PAD);
 			
 			return true;
 		}
@@ -70,7 +72,7 @@ public class Pad implements Renderable {
 	
 	/*
 	 * Verleiht dem Ball 'Drift',
-	 * d.h. der Austrittswinkel ver�ndert sich mit
+	 * d.h. der Austrittswinkel veraendert sich mit
 	 * der Position, an der der Ball auf das Pad trifft.
 	 */
 	public void setDrift(Renderable b, Renderer renderContext){
