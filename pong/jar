@@ -1,0 +1,1 @@
+jar mcvf0 src/META-INF/MANIFEST.MF pong.jar -C bin . && java -jar pong.jar
