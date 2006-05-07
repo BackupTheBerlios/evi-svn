@@ -126,6 +126,7 @@ public class ExceptionDialog extends JFrame {
 		textArea.setText(Util.exceptionToString(exc));
 		textArea.setAutoscrolls(true);
 		textArea.setEditable(false);
+		textArea.setCaretPosition(0);
 		RightClickMenu.addRightClickMenu(textArea);
 		JScrollPane scrollPane = new JScrollPane(textArea, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
