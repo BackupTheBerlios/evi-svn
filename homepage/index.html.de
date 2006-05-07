@@ -8,15 +8,20 @@
 <a name="Was_ist_das?"></a>
 <h2>Was ist das?</h2>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Versuch, ein Java Framework zu entwickeln. Ziel sind Module f&uuml;r Internet Kommunikation und ein bi&szlig;chen drumherum. Mehr unter <a href="#Module">Module</a>. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist nat&uuml;rlich freie Software (unter der GNU GPL).
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>s Ziel ist es, ein Framework zu entwickeln, das Module laden kann. Die Module drehen sich dann wiederum um Internet-Kommunikation, Spielchen und kleine Werkzeuge. Genaueres unter <a href="#Module">Module</a>. <br />
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und freie Software (unter der <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>).
 </p>
 <a name="Wie_weit_ist_das_Projekt?"></a>
 <h2>Wie weit ist das Projekt?</h2>
 <p>
 Noch nicht allzu weit. Derzeit sind wir (eher ich) mit dem Framework besch&auml;ftigt, bisher existiert kein einziges Modul. Zu benutzen gibt es also noch nichts.<br />
-Aber die Module sind nicht besonders unrealistisch, weil wir Teile davon schon geschrieben haben.<br />
-Alles, was bisher fertig ist, gibt es im <b><a href="http://svn.berlios.de/viewcvs/evi">SVN Respository</a></b>!
+Alles, was bisher fertig ist, gibt es im <b>SVN Repository</b>:
 </p>
+<ul style="list-style-type: circle;">
+<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
+<li>Anonymer Zugang: svn checkout svn://svn.berlios.de/evi/framework</li>
+<li>Entwickler-Zugang: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi/framework</li>
+</ul>
 <a name="Module"></a>
 <h2>Module</h2>
 <ul style="list-style-type: square;">
@@ -46,20 +51,16 @@ Alles, was bisher fertig ist, gibt es im <b><a href="http://svn.berlios.de/viewc
 </ul>
 </li>
 </ul>
-<a name="Personen_&amp;_Namen"></a>
-<h2>Personen &amp; Namen</h2>
+<a name="Der_Name"></a>
+<h2>Der Name</h2>
 <p>
-<b>Wer macht <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</b><br />
-Derzeit bin ich mehr oder weniger allein. Aber wenn das Framework fertig ist wird <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> unaufhaltsam Frieden und ewige Gl&uuml;ckseligkeit in die Welt tragen und dann werden die J&uuml;nger in Scharen mitmachen.
-</p>
-<p>
-<b>Wof&uuml;r steht <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</b><br />
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Akronym und steht f&uuml;r <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Verena steht f&uuml;r Verena Baumeister aus Euskirchen und Evi f&uuml;r Eva Valder aus Palmersheim. Hammer wa?
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> steht f&uuml;r <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Verena steht f&uuml;r Verena Baumeister aus Euskirchen und Evi f&uuml;r Eva Valder aus Palmersheim. Und die Idee ist dann, eine Schnittstelle zwischen der Rosstr. 38-40 in Aachen und der Pappelallee in Euskirchen zu schaffen (vielleicht kann <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ja auch irgendwann Voice-over-IP :-)). Hammer wa?
 </p>
 <a name="Kontakt"></a>
 <h2>Kontakt</h2>
 <p>
-Christoph Schwering &lt;schwering@gmail.com&gt;
+Christoph Schwering &lt;schwering@gmail.com&gt;<br />
+Und Mike und Niklas? Keine Ahnung. Mikes Pong l&auml;uft jedenfalls seit gerade als erstes Modul :-) (Code ist im SVN).
 </p>
 
 <table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
