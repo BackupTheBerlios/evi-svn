@@ -1,1 +1,1 @@
-jar mcvf0 src/META-INF/MANIFEST.MF test.jar -C bin . && java -jar test.jar
+jar mcvf0 src/META-INF/MANIFEST.MF evi.jar -C bin . && java -jar evi.jar
