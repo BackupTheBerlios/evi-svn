@@ -2,7 +2,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 /**
- * Der Spielball, eine 4x4 Pixel grosse Kugel.
+ * @author Mike Kremer
  */
 public class MyMouseMotionListener implements MouseMotionListener {
 
@@ -26,14 +26,14 @@ public class MyMouseMotionListener implements MouseMotionListener {
 		x_coord = arg0.getX();
 		y_coord = arg0.getY();
 		
-		this.renderContext.setPlayer1Y((float)(-(y_coord - 226))/50);
+		renderContext.setPlayer1Y((float)(-(y_coord - 226))/50);
 		
 		delta_x = old_x - x_coord;
 		renderContext.setDeltaX(delta_x);
 		old_x = x_coord;
 		
 		if(x_coord >= 240 && x_coord <= 560)
-			this.renderContext.setPlayer1X((float)((x_coord - 226))/50);
+			renderContext.setPlayer1X((float)((x_coord - 226))/50);
 	}
 
 }

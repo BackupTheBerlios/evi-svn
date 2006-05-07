@@ -5,12 +5,13 @@ import javax.media.opengl.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-//import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;
 
 /**
  * @author Pepijn Van Eeckhoudt
  */
 public class GLDisplay extends JPanel {
+	private static final long serialVersionUID = 1355664716068674634L;
 	private GLCanvas glCanvas;
 	private FPSAnimator animator;
 	private int width;
@@ -43,14 +44,17 @@ public class GLDisplay extends JPanel {
 		setLayout(new BorderLayout());
 		add(glCanvas, BorderLayout.CENTER);
 		
-		/* FUEHRT UNTER LINUX / X11 / FLUXBOX ZU EXCEPTION:
-		 Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
-		 new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
-		 new Point(1, 1), "Custom Cursor"
-		 );
-		 
-		 frame.setCursor(c);
-		 */
+		try {
+			// TODO exception under linux / x11 / fluxbox -- why?
+			Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
+					new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+					new Point(0, 0), "Custom Cursor"
+			);
+			setCursor(c);
+		} catch (Exception exc) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		}
+		
 		addKeyListener(new MyKeyAdapter());
 		
 		animator = new FPSAnimator( glCanvas, 60 );
