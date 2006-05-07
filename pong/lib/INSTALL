@@ -1,4 +1,4 @@
 Linux:
 	cp *.so* /opt/java-1.4.2.10/jre/lib/i386
-	cp *.jar /opt/java-1.4.2.10/jre/lib/
+	cp *.jar /opt/java-1.4.2.10/jre/lib/ext
 

@@ -1,6 +1,5 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.math.*;
 
 /**
  * Der Spielball, eine 4x4 Pixel grosse Kugel.
