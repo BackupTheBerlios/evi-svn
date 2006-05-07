@@ -46,5 +46,6 @@ public class Pong implements IModule, IPanel {
 	public void dispose() {
 		instance = null;
 		display.stop();
+		SoundManager.killAllData();
 	}
 }
