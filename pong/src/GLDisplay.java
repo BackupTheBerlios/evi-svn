@@ -1,4 +1,4 @@
-überimport com.sun.opengl.util.FPSAnimator;
+import com.sun.opengl.util.FPSAnimator;
 
 import javax.swing.*;
 import javax.media.opengl.*;

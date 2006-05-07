@@ -51,9 +51,14 @@ public class SoundManager {
 		if(al.alGetError() != AL.AL_NO_ERROR)
 			return AL.AL_FALSE;
 		
-		for(int c = 0; c < NUM_SOUNDS; c++){
-			ALut.alutLoadWAVFile(files[c], format, data, size, freq, loop);
-			al.alBufferData(buffer[c], format[0], data[0], size[0], freq[0]);
+		for(int c = 0; c < NUM_SOUNDS; c++) {
+			try {
+				ALut.alutLoadWAVFile(ResourceRetriever.getResourceAsStream(files[c]), 
+						format, data, size, freq, loop);
+				al.alBufferData(buffer[c], format[0], data[0], size[0], freq[0]);
+			} catch (Exception exc) {
+				exc.printStackTrace();
+			}
 		}
 		
 		// Sourcen binden:
