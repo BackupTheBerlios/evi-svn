@@ -29,7 +29,7 @@ public class ProgressFrame extends JFrame {
 	 * <code>0 %</code>.
 	 */
 	public ProgressFrame() {
-		setTitle("Loading "+ EVI.TITLE);
+		setTitle(EVI.TITLE);
 		setSize(250, 50);
 		Util.centerComponent(this);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
