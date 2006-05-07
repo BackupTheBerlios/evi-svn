@@ -55,7 +55,7 @@ implements IPanel, IModuleLoaderListener {
 	/**
 	 * The default module list URL.
 	 */
-	private static final String MODULE_LIST_URL = "http://evi.berlios.de/modulelist"
+	private static final String MODULE_LIST_URL = "http://evi.berlios.de/modulelist";
 	
 	/**
 	 * Gives access to the one and only instance of the configuration panel.
