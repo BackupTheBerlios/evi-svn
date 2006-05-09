@@ -10,7 +10,8 @@ import java.net.URL;
 public interface IHTMLListener {
 	/**
 	 * Fired when a new website is loaded. Currently, this event is fired 
-	 * when either a frame's or the whole window's content changes. 
+	 * when either a frame's or the whole window's content changes. This
+	 * event is not fired when the initial page is loaded!
 	 * @param newSite The new site.
 	 */
 	public void siteChanged(URL newSite);
