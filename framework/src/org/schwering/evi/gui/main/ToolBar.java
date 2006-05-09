@@ -72,7 +72,6 @@ public class ToolBar extends JToolBar implements IModuleLoaderListener {
 			}
 		});
 		add(button);
-		addSeparator();
 		table.put(module, button);
 	}
 }

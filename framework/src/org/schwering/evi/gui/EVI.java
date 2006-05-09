@@ -7,8 +7,6 @@ import java.net.URL;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.conf.ModuleAutoStartConfiguration;
 import org.schwering.evi.conf.ModuleConfiguration;
-import org.schwering.evi.core.IModule;
-import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleInstantiationException;
@@ -18,7 +16,6 @@ import org.schwering.evi.core.RequirementException;
 import org.schwering.evi.gui.main.HelloWorldPanel;
 import org.schwering.evi.gui.main.MainFrame;
 import org.schwering.evi.gui.main.ProgressFrame;
-import org.schwering.evi.gui.main.TabBar;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
@@ -45,7 +42,6 @@ public class EVI {
 	 */
 	private static EVI instance = null;
 	
-	private ProgressFrame progress;
 	private MainFrame frame;
 	
 	/**
@@ -54,7 +50,19 @@ public class EVI {
 	 */
 	public static EVI getInstance() {
 		if (instance == null) {
-			instance = new EVI();
+			instance = new EVI(null);
+		}
+		return instance;
+	}
+	
+	/**
+	 * Creates one initial instance and returns it in future.
+	 * Only used by <code>main</code> method.
+	 * @return The current instance.
+	 */
+	private static EVI getInstance(String[] args) {
+		if (instance == null) {
+			instance = new EVI(args);
 		}
 		return instance;
 	}
@@ -65,7 +73,7 @@ public class EVI {
 	 */
 	public static void main(String[] args) {
 		try {
-			EVI.getInstance();
+			EVI.getInstance(args);
 		} catch (Exception exc) {
 			ExceptionDialog.show(exc);
 		}
@@ -75,8 +83,8 @@ public class EVI {
 	 * Creates a new instance of the configuration GUI.
 	 * @see #getInstance()
 	 */
-	private EVI() {
-		progress = new ProgressFrame();
+	private EVI(String[] args) {
+		ProgressFrame progress = new ProgressFrame();
 		
 		progress.update(5, "Configuration: Loading...");
 		try {
@@ -126,7 +134,15 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(70, "GUI: Creating main frame...");
+		progress.update(70, "Modules: Analyzing commandline arguments...");
+		try {
+			startArgRelatedModules(args);
+		} catch (Exception exc) {
+			ExceptionDialog.show("Unexcepted exception caught while loading", 
+					exc);
+		}
+		
+		progress.update(75, "GUI: Creating main frame...");
 		try {
 			initMainFrame();
 		} catch (Throwable exc) {
@@ -221,17 +237,24 @@ public class EVI {
 	}
 	
 	/**
-	 * Creates a new instance of a module and possibly adds it to the tabbar.
-	 * @param module 
-	 * @throws ModuleInstantiationException If creating the instance fails.
+	 * Checks all command line arguments for URLs and starts the modules that  
+	 * can handle the respective protocol.
+	 * @param args The command line arguments from <code>main</code> method.
 	 */
-	public void instantiateModule(ModuleContainer module) 
-	throws ModuleInstantiationException {
-		IModule o = ModuleFactory.newInstance(module);
-		if (module.isPanel()) {
-			TabBar tabBar = frame.getMainTabBar();
-			if (tabBar != null) {
-				tabBar.addTab((IPanel)o);
+	private void startArgRelatedModules(String[] args) {
+		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			try {
+				URL url = new URL(arg);
+				String protocol = url.getProtocol();
+				for (int j = 0; j < modules.length; j++) {
+					if (modules[i].handlesProtocol(protocol)) {
+						ModuleFactory.newInstance(modules[i], 
+								new Object[] { url });
+					}
+				}
+			} catch (Exception exc) {
 			}
 		}
 	}

@@ -26,6 +26,8 @@ public final class ModuleContainer {
 	private Class cls;
 	private float version;
 	private String name;
+	private Class configCls;
+	private String[] protocols;
 	private Requirement[] reqs = new Requirement[0];
 	private Object source;
 	
@@ -139,15 +141,6 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns the version.
-	 * @return The version.
-	 * @see ModuleLoader#ATTR_MODULE_VERSION
-	 */
-	public float getVersion() {
-		return version;
-	}
-	
-	/**
 	 * Returns the <code>Class</code> of the module. 
 	 * Do not mix up with <code>getClass</code> which is inherited from 
 	 * <code>Object</code>.
@@ -156,6 +149,15 @@ public final class ModuleContainer {
 	 */
 	Class getModuleClass() {
 		return cls;
+	}
+	
+	/**
+	 * Returns the version.
+	 * @return The version.
+	 * @see ModuleLoader#ATTR_MODULE_VERSION
+	 */
+	public float getVersion() {
+		return version;
 	}
 	
 	/**
@@ -176,6 +178,50 @@ public final class ModuleContainer {
 	 */
 	public String getName() {
 		return (name != null) ? name : getId();
+	}
+	
+	/**
+	 * Sets the configuration panel class. <code>null</code> means the module
+	 * is not configurable.
+	 * @param configCls The new configuration panel class.
+	 */
+	void setConfigClass(Class configCls) {
+		this.configCls = configCls;
+	}
+	
+	/**
+	 * Returns the module configuratoin panel class. <code>null</code> means 
+	 * the module is not configurable.
+	 * @return The module configuration panel class or <code>null</code>.
+	 */
+	Class getConfigClass() {
+		return configCls;
+	}
+	
+	/**
+	 * Sets the protocols handled by this module.
+	 */
+	void setProtocols(String[] protocols) {
+		this.protocols = protocols;
+	}
+	
+	/**
+	 * Checks whether the module is able to handle the protocol. 
+	 * @param protocol The protocol which is to check.
+	 * @return <code>true</code> if <code>protocol</code> is a registered 
+	 * protocol for this module.
+	 * @see ModuleLoader#ATTR_MODULE_PROTOCOLS
+	 */
+	public boolean handlesProtocol(String protocol) {
+		if (protocol == null) {
+			return false;
+		}
+		for (int i = 0; i < protocols.length; i++) {
+			if (protocol.equalsIgnoreCase(protocols[i])) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -233,7 +279,8 @@ public final class ModuleContainer {
 	 * <code>IConfigurable</code>.
 	 */
 	public boolean isConfigurable() {
-		return classImplements(cls, IConfigurable.class);
+		return classImplements(cls, IConfigurable.class) 
+			&& configCls != null;
 	}
 	
 	/**
