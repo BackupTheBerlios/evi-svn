@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.text.Document;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
@@ -62,7 +63,7 @@ implements HyperlinkListener, KeyListener {
 	 */
 	public void hyperlinkUpdate(HyperlinkEvent e) {
 		if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-			JEditorPane pane = (JEditorPane) e.getSource();
+			JEditorPane pane = (JEditorPane)e.getSource();
 			if (e instanceof HTMLFrameHyperlinkEvent) {
 				HTMLFrameHyperlinkEvent  evt = (HTMLFrameHyperlinkEvent)e;
 				HTMLDocument doc = (HTMLDocument)pane.getDocument();
@@ -136,6 +137,21 @@ implements HyperlinkListener, KeyListener {
 			setCaretPosition(0);
 		} catch (Throwable t) {
 			showError(t);
+		}
+	}
+	
+	/**
+	 * Returns the title of the document if there is one.
+	 * @return The title if there is one, otherwise <code>null</code>.
+	 */
+	public String getTitle() {
+		Document doc = getDocument();
+		try {
+			HTMLDocument htmldoc = (HTMLDocument)doc;
+			Object title = htmldoc.getProperty(HTMLDocument.TitleProperty);
+			return (String)title;
+		} catch (Exception exc) {
+			return null;
 		}
 	}
 

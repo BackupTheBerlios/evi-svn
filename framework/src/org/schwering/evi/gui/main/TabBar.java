@@ -180,6 +180,20 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	/**
+	 * Updates the title of the module instance or any other 
+	 * <code>IPanel</code>.
+	 * @param panel The module instance or any other <code>IPanel</code>
+	 * in the tabbar.
+	 * @param title The new title.
+	 */
+	public void setTitle(IPanel panel, String title) {
+		int index = indexOfComponent(panel.getPanelInstance());
+		if (index != -1) {
+			setTitleAt(index, title);
+		}
+	}
+	
+	/**
 	 * Removes the selected panel from the tabbar.
 	 * @see #removeTabAt(int)
 	 */

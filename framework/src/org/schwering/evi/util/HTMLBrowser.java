@@ -1,20 +1,24 @@
 package org.schwering.evi.util;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import org.schwering.evi.core.IPanel;
 
 /**
  * A <code>HTMLPane</code> with a 'Home' and 'Back' button.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class HTMLBrowser extends JPanel {
+public class HTMLBrowser extends JPanel implements IPanel {
 	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
 	private HTMLPane htmlPane;
@@ -67,5 +71,34 @@ public class HTMLBrowser extends JPanel {
 		top.add(back, BorderLayout.WEST);
 		add(top, BorderLayout.NORTH);
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#dispose()
+	 */
+	public void dispose() {
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getIcon()
+	 */
+	public Icon getIcon() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
+	 */
+	public Component getPanelInstance() {
+		return this;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		String doctitle = htmlPane.getTitle();
+		return (doctitle != null) ? doctitle : "";
 	}
 }
