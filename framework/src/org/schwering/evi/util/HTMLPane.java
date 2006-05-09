@@ -22,6 +22,7 @@ public class HTMLPane extends JEditorPane
 implements HyperlinkListener, KeyListener {
 	private static final long serialVersionUID = 7455924935046624890L;
 	private Vector history = new Vector();
+	private Vector listeners = new Vector(2);
 	
 	/**
 	 * Creates a new HTML frame with the content of a resource.
@@ -57,7 +58,6 @@ implements HyperlinkListener, KeyListener {
 		setPage(url);
 	}
 	
-	
 	/**
 	 * Follows links when clicked.
 	 */
@@ -65,12 +65,40 @@ implements HyperlinkListener, KeyListener {
 		if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 			JEditorPane pane = (JEditorPane)e.getSource();
 			if (e instanceof HTMLFrameHyperlinkEvent) {
-				HTMLFrameHyperlinkEvent  evt = (HTMLFrameHyperlinkEvent)e;
+				HTMLFrameHyperlinkEvent evt = (HTMLFrameHyperlinkEvent)e;
 				HTMLDocument doc = (HTMLDocument)pane.getDocument();
 				doc.processHTMLFrameHyperlinkEvent(evt);
 			} else {
 				goTo(e.getURL());
 			}
+			fireSiteChanged(e.getURL());
+		}
+	}
+	
+	/**
+	 * Adds a new listener.
+	 * @param listener The listener.
+	 */
+	public void addListener(IHTMLListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes a listener.
+	 * @param listener The listener.
+	 */
+	public void removeListener(IHTMLListener listener) {
+		listeners.remove(listener);
+	}
+	
+	/**
+	 * Fires the <code>siteChanged</code> event for all listeners.
+	 * @param url The newly loaded site.
+	 */
+	void fireSiteChanged(URL url) {
+		int len = listeners.size();
+		for (int i = 0; i < len; i++) {
+			((IHTMLListener)listeners.get(i)).siteChanged(url);
 		}
 	}
 	
@@ -131,7 +159,20 @@ implements HyperlinkListener, KeyListener {
 	 * @param url The new page's URL.
 	 * @see #goTo(URL)
 	 */
-	public void setPage(URL url) {
+	public synchronized void setPage(final URL url) {
+		new Thread() {
+			public void run() {
+				setPageHelper(url);
+			}
+		}.start();
+	}
+	
+	/**
+	 * Helper method for setPage. Needed because of <code>super</code>.
+	 * @param url The new page's URL.
+	 * @see #setPageHelper(URL)
+	 */
+	private void setPageHelper(URL url) {
 		try {
 			super.setPage(url);
 			setCaretPosition(0);
@@ -149,8 +190,11 @@ implements HyperlinkListener, KeyListener {
 		try {
 			HTMLDocument htmldoc = (HTMLDocument)doc;
 			Object title = htmldoc.getProperty(HTMLDocument.TitleProperty);
+// TODO title cannot be obtained yet!!!!!!!!!!!!!!!!!!!
+title = "Lululu";
 			return (String)title;
 		} catch (Exception exc) {
+			exc.printStackTrace();
 			return null;
 		}
 	}

@@ -1,12 +1,5 @@
 package org.schwering.evi.gui.main;
 
-import java.awt.Component;
-import java.awt.GridLayout;
-
-import javax.swing.Icon;
-import javax.swing.JPanel;
-
-import org.schwering.evi.core.IPanel;
 import org.schwering.evi.util.HTMLBrowser;
 
 /**
@@ -14,7 +7,7 @@ import org.schwering.evi.util.HTMLBrowser;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class HelloWorldPanel extends JPanel implements IPanel {
+public class HelloWorldPanel extends HTMLBrowser {
 	private static final long serialVersionUID = -1869059776657313783L;
 
 	/**
@@ -48,40 +41,6 @@ public class HelloWorldPanel extends JPanel implements IPanel {
 	 * @see #instance
 	 */
 	private HelloWorldPanel() {
-		super(new GridLayout(1, 1));
-		add(new HTMLBrowser(HELLO_HTML));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
-	 */
-	public Component getPanelInstance() {
-		return this;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getTitle()
-	 */
-	public String getTitle() {
-		return DEFAULT_TITLE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getIcon()
-	 */
-	public Icon getIcon() {
-		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#dispose()
-	 */
-	public void dispose() {
-	}
-	
-	public boolean requestFocusInWindow() {
-		boolean b1 = super.requestFocusInWindow();
-		boolean b2 = true;
-		return b1 && b2;
+		super(HELLO_HTML);
 	}
 }

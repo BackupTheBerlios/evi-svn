@@ -1,12 +1,5 @@
 package org.schwering.evi.gui.main;
 
-import java.awt.Component;
-import java.awt.GridLayout;
-
-import javax.swing.Icon;
-import javax.swing.JPanel;
-
-import org.schwering.evi.core.IPanel;
 import org.schwering.evi.util.HTMLBrowser;
 
 /**
@@ -14,7 +7,7 @@ import org.schwering.evi.util.HTMLBrowser;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class AboutPanel extends JPanel implements IPanel {
+public class AboutPanel extends HTMLBrowser {
 	private static final long serialVersionUID = -5630341486998996478L;
 
 	/**
@@ -28,34 +21,6 @@ public class AboutPanel extends JPanel implements IPanel {
 	 * Displays a panel with a short description.
 	 */
 	public AboutPanel() {
-		super(new GridLayout(1, 1));
-		add(new HTMLBrowser(ABOUT_HTML));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#dispose()
-	 */
-	public void dispose() {
-	}
-
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getIcon()
-	 */
-	public Icon getIcon() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
-	 */
-	public Component getPanelInstance() {
-		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getTitle()
-	 */
-	public String getTitle() {
-		return DEFAULT_TITLE;
+		super(ABOUT_HTML);
 	}
 }

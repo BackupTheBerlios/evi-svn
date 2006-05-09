@@ -187,6 +187,9 @@ implements IModuleListener, IModuleLoaderListener {
 	 * @param title The new title.
 	 */
 	public void setTitle(IPanel panel, String title) {
+		if (panel == null) {
+			return;
+		}
 		int index = indexOfComponent(panel.getPanelInstance());
 		if (index != -1) {
 			setTitleAt(index, title);
