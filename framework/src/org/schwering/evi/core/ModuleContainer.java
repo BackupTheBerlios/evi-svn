@@ -279,8 +279,7 @@ public final class ModuleContainer {
 	 * <code>IConfigurable</code>.
 	 */
 	public boolean isConfigurable() {
-		return classImplements(cls, IConfigurable.class) 
-			&& configCls != null;
+		return configCls != null;
 	}
 	
 	/**
