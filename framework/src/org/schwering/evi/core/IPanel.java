@@ -12,11 +12,10 @@ import javax.swing.Icon;
  * <br />
  * This interface does not extend {@link IModule}. The reason is that 
  * <code>IPanel</code>s might (and also must) also be used for configuration 
- * dialogs (see {@link IConfigurable#getConfigPanel()}) and so on. Nevertheless, 
- * the <code>IPanel</code> interface defines a <code>dispose()</code> method
- * same like the <code>IModule</code> interface. Hence, each class that 
- * implements <code>IPanel</code> can also implement <code>IModule</code> and
- * vice versa.<br />
+ * dialogs and so on. Nevertheless, the <code>IPanel</code> interface defines 
+ * a <code>dispose()</code> method same like the <code>IModule</code> 
+ * interface. Hence, each class that implements <code>IPanel</code> can also 
+ * implement <code>IModule</code> and vice versa.<br />
  * <br />
  * <u>To put it in a nutshell:</u> Modules that are inteded to have a GUI 
  * should implement both, <code>IModule</code> and <code>IPanel</code>. 
