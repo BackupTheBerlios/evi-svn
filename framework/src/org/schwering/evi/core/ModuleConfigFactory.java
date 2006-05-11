@@ -1,10 +1,5 @@
 package org.schwering.evi.core;
 
-import java.awt.Component;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-
 /**
  * Allows to instantiate the configuration panel of a configurable module.
  * <br />
