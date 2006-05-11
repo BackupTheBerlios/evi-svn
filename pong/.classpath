@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/joal.jar"/>
 	<classpathentry kind="lib" path="lib/jogl.jar"/>
-	<classpathentry kind="lib" path="/framework/bin"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/framework"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

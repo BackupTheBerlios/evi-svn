@@ -9,7 +9,6 @@ import org.schwering.evi.core.IPanel;
  * @author Mike Kremer
  */
 public class Pong implements IModule, IPanel {
-	
 	private static Pong instance = null;
 	private GLDisplay display;
 	
@@ -47,5 +46,6 @@ public class Pong implements IModule, IPanel {
 		instance = null;
 		display.stop();
 		SoundManager.killAllData();
+		System.out.println("Pong.dispose()");
 	}
 }
