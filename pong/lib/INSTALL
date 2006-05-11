@@ -1,4 +1,9 @@
-Linux:
-	cp *.so* /opt/java-1.4.2.10/jre/lib/i386
-	cp *.jar /opt/java-1.4.2.10/jre/lib/ext
+Copy the files as follows to install JOGL and JOAL on your system:
 
+Linux:
+	cp linux-i386/*.so* /opt/java-1.4.2.10/jre/lib/i386
+	cp *.jar /opt/sunjdk-1.4.2.10/jre/lib/ext
+
+Windows (not sure):
+	cp *.jar "C:\Program Files\Java 1.4\jre\lib\ext
+	cp win32/*.dll "C:\Program Files\Java 1.4\jre\bin
