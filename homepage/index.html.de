@@ -14,7 +14,8 @@
 <a name="Wie_weit_ist_das_Projekt?"></a>
 <h2>Wie weit ist das Projekt?</h2>
 <p>
-Noch nicht allzu weit. Derzeit sind wir (eher ich) mit dem Framework besch&auml;ftigt, bisher existiert kein einziges Modul. Zu benutzen gibt es also noch nichts.<br />
+Derzeit befindet sich noch das Framework in der Entwicklung. Der Kern (die Modulengine) ist jetzt fertig. Das GUI ist fast fertig.<br />
+Die Module k&ouml;nnen wir erst machen, wenn das Framework so weit komplett ist. Ein Modul ist aber schon benutzbar: Pong vom Mike. <br />
 Alles, was bisher fertig ist, gibt es im <b>SVN Repository</b>:
 </p>
 <ul style="list-style-type: circle;">
@@ -24,30 +25,33 @@ Alles, was bisher fertig ist, gibt es im <b>SVN Repository</b>:
 </ul>
 <a name="Module"></a>
 <h2>Module</h2>
+<p>
+Da hinter in eckigen Klammern die Priorit&auml;t (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorit&auml;t werden wir die Module auch schreiben (also dringende Module zu erst...)
+</p>
 <ul style="list-style-type: square;">
 <li>Kommunikation<ul style="list-style-type: disc;">
-<li>IRC (Internet Relay Chat)</li>
-<li>ICQ (Instant Messenging) (hoffentlich)</li>
-<li>vielleicht noch weitere IM-Protokolle?</li>
+<li>IRC (Internet Relay Chat) [10]</li>
+<li>ICQ (Instant Messenging) (hoffentlich) [5]</li>
+<li>vielleicht noch weitere IM-Protokolle? [3]</li>
 </ul>
 </li>
 <li>Spiele<ul style="list-style-type: disc;">
-<li>Pong single/multiplayer</li>
-<li>TicTacToe single/multiplayer</li>
-<li>Skat multiplayer (vielleicht)</li>
+<li>Pong single/multiplayer [10]</li>
+<li>TicTacToe single/multiplayer [7]</li>
+<li>Skat multiplayer (vielleicht) [4]</li>
 </ul>
 </li>
 <li>Tools<ul style="list-style-type: disc;">
-<li>DCC f&uuml;r IRC</li>
-<li>IRC log streamer</li>
-<li>Kalender</li>
-<li>Stundenplan</li>
-<li>SMTP Mailbox &Uuml;berpr&uuml;fer</li>
-<li>Dateimanager</li>
-<li>Bildbetrachter</li>
-<li>winzigkleiner Webbrowser :-)</li>
-<li>Audio-Player w&auml;re super</li>
-<li>IDv3-Tag Verwalter</li>
+<li>DCC f&uuml;r IRC [9]</li>
+<li>IRC log streamer [8]</li>
+<li>Kalender [5]</li>
+<li>Stundenplan [5]</li>
+<li>SMTP Mailbox &Uuml;berpr&uuml;fer [7]</li>
+<li>Dateimanager [7]</li>
+<li>Bildbetrachter [4]</li>
+<li>winzigkleiner Webbrowser :-) [5]</li>
+<li>Audio-Player w&auml;re super [6]</li>
+<li>IDv3-Tag Verwalter [2]</li>
 </ul>
 </li>
 </ul>

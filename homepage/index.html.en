@@ -14,35 +14,39 @@
 <a name="Development_status"></a>
 <h2>Development status</h2>
 <p>
-The project is at its beginning; there's nothing usable yet. We currently develop the framework. After that's finished we'll start writing modules and thus bring functionality to <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>.<br />
+At the moment, the framework is early at its development. We're currently finishing the first version. The core is ready to use while to GUI is almost complete.<br />
+When that's finished we'll start writing modules and thus bring functionality to <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>.<br />
 You can obtain the latest source code from our <b><a href="http://svn.berlios.de/viewcvs/evi">SVN Respository</a></b>!
 </p>
 <a name="Modules"></a>
 <h2>Modules</h2>
+<p>
+After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
+</p>
 <ul style="list-style-type: square;">
 <li>Communication<ul style="list-style-type: disc;">
-<li>IRC (Internet Relay Chat)</li>
-<li>ICQ (Instant Messenging) (I hope)</li>
-<li>possibly also some other IM protocols?</li>
+<li>IRC (Internet Relay Chat) [10]</li>
+<li>ICQ (Instant Messenging) (I hope) [5]</li>
+<li>possibly also some other IM protocols? [3]</li>
 </ul>
 </li>
 <li>Entertainment<ul style="list-style-type: disc;">
-<li>Pong single/multiplayer</li>
-<li>TicTacToe single/multiplayer</li>
-<li>possibly Skat  multiplayer (cardgame)</li>
+<li>Pong single/multiplayer [10]</li>
+<li>TicTacToe single/multiplayer [7]</li>
+<li>possibly Skat  multiplayer (cardgame) [4]</li>
 </ul>
 </li>
 <li>Tools<ul style="list-style-type: disc;">
-<li>DCC for IRC</li>
-<li>IRC log streamer</li>
-<li>calendar</li>
-<li>timetable</li>
-<li>SMTP mailbox checker</li>
-<li>file manager</li>
-<li>image viewer</li>
-<li>very simple webbrowser</li>
-<li>audio-player would be great</li>
-<li>IDv3-Tag administrator</li>
+<li>DCC for IRC [9]</li>
+<li>IRC log streamer [8]</li>
+<li>calendar [5]</li>
+<li>timetable [5]</li>
+<li>SMTP mailbox checker [7]</li>
+<li>file manager [7]</li>
+<li>image viewer [4]</li>
+<li>very simple webbrowser [5]</li>
+<li>audio-player would be great [6]</li>
+<li>IDv3-Tag administrator [2]</li>
 </ul>
 </li>
 </ul>

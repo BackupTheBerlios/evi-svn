@@ -10,32 +10,34 @@ evi()s Ziel ist es, ein Framework zu entwickeln, das Module laden kann. Die Modu
 evi() ist in Java geschrieben und freie Software (unter der <!url http://www.gnu.org/licenses/gpl.html GNU GPL>).
 
 ==Wie weit ist das Projekt?==
-Noch nicht allzu weit. Derzeit sind wir (eher ich) mit dem Framework beschäftigt, bisher existiert kein einziges Modul. Zu benutzen gibt es also noch nichts.
+Derzeit befindet sich noch das Framework in der Entwicklung. Der Kern (die Modulengine) ist jetzt fertig. Das GUI ist fast fertig.
+Die Module können wir erst machen, wenn das Framework so weit komplett ist. Ein Modul ist aber schon benutzbar: Pong vom Mike. 
 Alles, was bisher fertig ist, gibt es im **SVN Repository**:
 	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
 	o Anonymer Zugang: svn checkout svn:\//svn.berlios.de/evi/framework
 	o Entwickler-Zugang: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi/framework
 
 ==Module==
+Da hinter in eckigen Klammern die Priorität (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorität werden wir die Module auch schreiben (also dringende Module zu erst...)
 	- Kommunikation
-		* IRC (Internet Relay Chat)
-		* ICQ (Instant Messenging) (hoffentlich)
-		* vielleicht noch weitere IM-Protokolle?
+		* IRC (Internet Relay Chat) [10]
+		* ICQ (Instant Messenging) (hoffentlich) [5]
+		* vielleicht noch weitere IM-Protokolle? [3]
 	- Spiele
-		* Pong single/multiplayer
-		* TicTacToe single/multiplayer
-		* Skat multiplayer (vielleicht)
+		* Pong single/multiplayer [10]
+		* TicTacToe single/multiplayer [7]
+		* Skat multiplayer (vielleicht) [4]
 	- Tools
-		* DCC für IRC
-		* IRC log streamer
-		* Kalender
-		* Stundenplan
-		* SMTP Mailbox Überprüfer
-		* Dateimanager
-		* Bildbetrachter
-		* winzigkleiner Webbrowser :-)
-		* Audio-Player wäre super
-		* IDv3-Tag Verwalter
+		* DCC für IRC [9]
+		* IRC log streamer [8]
+		* Kalender [5]
+		* Stundenplan [5]
+		* SMTP Mailbox Überprüfer [7]
+		* Dateimanager [7]
+		* Bildbetrachter [4]
+		* winzigkleiner Webbrowser :-) [5]
+		* Audio-Player wäre super [6]
+		* IDv3-Tag Verwalter [2]
 
 ==Der Name==
 evi() steht für **E**xtensible **V**erena **I**nterface. Verena steht für Verena Baumeister aus Euskirchen und Evi für Eva Valder aus Palmersheim. Und die Idee ist dann, eine Schnittstelle zwischen der Rosstr. 38-40 in Aachen und der Pappelallee in Euskirchen zu schaffen (vielleicht kann evi() ja auch irgendwann Voice-over-IP :-)). Hammer wa?

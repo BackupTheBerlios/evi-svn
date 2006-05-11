@@ -10,29 +10,31 @@ evi() is an attempt to write a Java framework. The goal is to develop a bunch of
 evi() is free software and licensed under the GNU GPL.
 
 ==Development status==
-The project is at its beginning; there's nothing usable yet. We currently develop the framework. After that's finished we'll start writing modules and thus bring functionality to evi().
+At the moment, the framework is early at its development. We're currently finishing the first version. The core is ready to use while to GUI is almost complete.
+When that's finished we'll start writing modules and thus bring functionality to evi().
 You can obtain the latest source code from our **<!url http://svn.berlios.de/viewcvs/evi SVN Respository>**!
 
 ==Modules==
+After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
 	- Communication
-		* IRC (Internet Relay Chat)
-		* ICQ (Instant Messenging) (I hope)
-		* possibly also some other IM protocols?
+		* IRC (Internet Relay Chat) [10]
+		* ICQ (Instant Messenging) (I hope) [5]
+		* possibly also some other IM protocols? [3]
 	- Entertainment
-		* Pong single/multiplayer
-		* TicTacToe single/multiplayer
-		* possibly Skat  multiplayer (cardgame)
+		* Pong single/multiplayer [10]
+		* TicTacToe single/multiplayer [7]
+		* possibly Skat  multiplayer (cardgame) [4]
 	- Tools
-		* DCC for IRC
-		* IRC log streamer
-		* calendar
-		* timetable
-		* SMTP mailbox checker
-		* file manager
-		* image viewer
-		* very simple webbrowser
-		* audio-player would be great
-		* IDv3-Tag administrator
+		* DCC for IRC [9]
+		* IRC log streamer [8]
+		* calendar [5]
+		* timetable [5]
+		* SMTP mailbox checker [7]
+		* file manager [7]
+		* image viewer [4]
+		* very simple webbrowser [5]
+		* audio-player would be great [6]
+		* IDv3-Tag administrator [2]
 
 ==Team & About==
 **Who develops evi()?**
