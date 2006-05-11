@@ -118,7 +118,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(55, "Modules: Checking dependencies...");
+		progress.update(50, "Modules: Checking dependencies...");
 		try {
 			checkModuleDependencies();
 		} catch (Exception exc) {
@@ -126,7 +126,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(65, "Modules: Loading auto-start list...");
+		progress.update(55, "Modules: Loading auto-start list...");
 		try {
 			ModuleAutoStartConfiguration.load();
 		} catch (Exception exc) {
@@ -134,7 +134,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(70, "Modules: Analyzing commandline arguments...");
+		progress.update(60, "Modules: Analyzing commandline arguments...");
 		try {
 			startArgRelatedModules(args);
 		} catch (Exception exc) {
@@ -142,7 +142,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(75, "GUI: Creating main frame...");
+		progress.update(65, "GUI: Creating main frame...");
 		try {
 			initMainFrame();
 		} catch (Throwable exc) {
@@ -150,9 +150,17 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(90, "Modules: Auto-starting...");
+		progress.update(76, "Modules: Auto-starting...");
 		try {
 			autoStartModules();
+		} catch (Throwable exc) {
+			ExceptionDialog.show("Unexcepted exception caught while loading", 
+					exc);
+		}
+		
+		progress.update(88, "GUI: making visible...");
+		try {
+			makeVisible();
 		} catch (Throwable exc) {
 			ExceptionDialog.show("Unexcepted exception caught while loading", 
 					exc);
@@ -272,6 +280,12 @@ public class EVI {
 			frame.getMainTabBar().addTab(HelloWorldPanel.getInstance());
 		}
 		setSize();
+	}
+	
+	/**
+	 * Sets the mainframe to visible.
+	 */
+	private void makeVisible() {
 		frame.setVisible(true);
 	}
 	
