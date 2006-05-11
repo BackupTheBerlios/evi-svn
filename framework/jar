@@ -1,2 +1,2 @@
 rm -Rf bin/.svn bin/*/.svn bin/*/*/.svn bin/*/*/*/.svn bin/*/*/*/*/.svn bin/*/*/*/*/*/.svn
-jar mcvf0 src/META-INF/MANIFEST.MF evi.jar -C bin . && java -jar evi.jar
+jar mcvf0 src/META-INF/MANIFEST.MF evi.jar -C bin . && java -classpath lib/systray4j.jar -jar evi.jar

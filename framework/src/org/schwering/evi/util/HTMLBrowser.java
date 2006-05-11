@@ -10,6 +10,8 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLDocument;
 
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.EVI;
@@ -25,7 +27,11 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
 	private HTMLPane htmlPane;
-	protected String default_html_title = "HTML-Browser";
+	
+	/**
+	 * Can be overridden to set a title in the tabbar.
+	 */
+	protected String default_html_title = null;
 	
 	/**
 	 * Creates a new HTMLBrowser.
@@ -121,13 +127,24 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 	 * @see org.schwering.evi.core.IPanel#getTitle()
 	 */
 	public String getTitle() {
-		String doctitle = htmlPane.getTitle();
-		if (doctitle != null) {
-			return doctitle;
-		} else if (default_html_title != null) {
+		if (default_html_title != null) {
 			return default_html_title;
 		} else {
-			return "HTML-Browser";
+			try {
+				Document doc = htmlPane.getDocument();
+				HTMLDocument htmldoc = (HTMLDocument)doc;
+				URL url = htmldoc.getBase();
+				String file = url.getFile();
+				int delim = file.lastIndexOf('/');
+				if (delim != -1 && delim != file.length() -1 ) {
+					return file.substring(delim + 1, file.length());
+				} else {
+					return file;
+				}
+			} catch (Exception exc) {
+				exc.printStackTrace();
+				return "Untitled";
+			}
 		}
 	}
 }

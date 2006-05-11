@@ -8,7 +8,6 @@ import java.util.Vector;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.text.Document;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
@@ -71,7 +70,6 @@ implements HyperlinkListener, KeyListener {
 			} else {
 				goTo(e.getURL());
 			}
-			fireSiteChanged(e.getURL());
 		}
 	}
 	
@@ -159,46 +157,16 @@ implements HyperlinkListener, KeyListener {
 	 * @param url The new page's URL.
 	 * @see #goTo(URL)
 	 */
-	public synchronized void setPage(final URL url) {
-		new Thread() {
-			public void run() {
-				setPageHelper(url);
-			}
-		}.start();
-	}
-	
-	/**
-	 * Helper method for setPage. Needed because of <code>super</code>.
-	 * @param url The new page's URL.
-	 * @see #setPageHelper(URL)
-	 */
-	private void setPageHelper(URL url) {
+	public void setPage(URL url) {
 		try {
 			super.setPage(url);
 			setCaretPosition(0);
+			fireSiteChanged(url);
 		} catch (Throwable t) {
 			showError(t);
 		}
 	}
 	
-	/**
-	 * Returns the title of the document if there is one.
-	 * @return The title if there is one, otherwise <code>null</code>.
-	 */
-	public String getTitle() {
-		Document doc = getDocument();
-		try {
-			HTMLDocument htmldoc = (HTMLDocument)doc;
-			Object title = htmldoc.getProperty(HTMLDocument.TitleProperty);
-// TODO title cannot be obtained yet!!!!!!!!!!!!!!!!!!!
-title = "Lululu";
-			return (String)title;
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			return null;
-		}
-	}
-
 	/**
 	 * Displays some HTML code with the error message.
 	 * @param t The <code>Throwable</code> which was thrown.
@@ -207,9 +175,9 @@ title = "Lululu";
 		setText("<html>"+ 
 				"<body>"+
 				"<h1>An error occured while loading the page</h1>"+
-				"<code>"+
+				"<pre>"+
 				Util.exceptionToString(t)+
-				"</code>"+
+				"</pre>"+
 				"</body>"+
 				"</html>");
 		setCaretPosition(0);

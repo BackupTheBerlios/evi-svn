@@ -85,6 +85,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * An example for a module-protocol-attribute in a manifest-file is:
 	 * <br />
 	 * "<code>Module-Protocols: http https irc</code>".
+	 * @see org.schwering.evi.gui.EVI#startArgRelatedModules(String[])
 	 */
 	public static final String ATTR_MODULE_PROTOCOLS = "Module-Protocols";
 	

@@ -242,6 +242,9 @@ public class EVI {
 	 * @param args The command line arguments from <code>main</code> method.
 	 */
 	private void startArgRelatedModules(String[] args) {
+		if (args == null) {
+			return;
+		}
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
