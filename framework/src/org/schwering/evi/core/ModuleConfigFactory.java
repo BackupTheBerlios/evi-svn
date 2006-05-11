@@ -4,7 +4,7 @@ package org.schwering.evi.core;
  * Allows to instantiate the configuration panel of a configurable module.
  * <br />
  * <br />
- * <h3>How to make a module configuration class</h3>
+ * <b>How to make a module configuration class</b><br />
  * A module configuration class must implement {@link IPanel}. The method
  * {@link IPanel#getPanelInstance()} must return the panel instance. Typically
  * a module configuration class looks like this:<pre>
@@ -44,7 +44,10 @@ package org.schwering.evi.core;
  *	}
  * }
  * </pre>
- * Note that the constructor must not take any arguments!
+ * Note that the constructor must not take any arguments!<br />
+ * <br />
+ * Do not forget to add the respective <b>entry in the manifest</b>! See
+ * {@link ModuleLoader#ATTR_MODULE_CONFIG_CLASS}.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */

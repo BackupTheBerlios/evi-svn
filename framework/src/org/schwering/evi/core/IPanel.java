@@ -17,6 +17,7 @@ import javax.swing.Icon;
  * interface. Hence, each class that implements <code>IPanel</code> can also 
  * implement <code>IModule</code> and vice versa.<br />
  * <br />
+ * <a name="modules_imodule_ipanel"></a>
  * <u>To put it in a nutshell:</u> Modules that are inteded to have a GUI 
  * should implement both, <code>IModule</code> and <code>IPanel</code>. 
  * <code>IPanel</code> is seperate, because it is important for classes that
@@ -57,9 +58,12 @@ public interface IPanel {
 	
 	/**
 	 * Should clean up used resources when the panel is shut down.<br />
+	 * <br />
 	 * This method is also declared in <code>IModule</code> 
 	 * ({@link IModule#dispose()}). This makes it easy to write a graphical 
-	 * module that implements both. See the weird explanations at the top.
+	 * module that implements both, <code>IModule</code> and 
+	 * <code>IPanel</code>. See <a href="#modules_imodule_ipanel">these weird
+	 * explanations</a>.
 	 * @see IModule#dispose()
 	 */
 	public void dispose();

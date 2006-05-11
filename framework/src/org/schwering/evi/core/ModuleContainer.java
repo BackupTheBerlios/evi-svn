@@ -277,6 +277,7 @@ public final class ModuleContainer {
 	 * <code>IConfigurable</code>.
 	 * @return <code>true</code> if the given class implements 
 	 * <code>IConfigurable</code>.
+	 * @see ModuleConfigFactory
 	 */
 	public boolean isConfigurable() {
 		return configCls != null && classImplements(configCls, IPanel.class);
