@@ -95,7 +95,7 @@ public final class ModuleFactory {
 					return o;
 				}
 			}
-			throw new ModuleInstantiationException("No matching construcotr.");
+			throw new ModuleInstantiationException("No matching constructor.");
 		} catch (Exception exc) {
 			throw new ModuleInstantiationException("Creating instance failed.",
 					exc);
