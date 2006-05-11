@@ -29,11 +29,6 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 	private HTMLPane htmlPane;
 	
 	/**
-	 * Can be overridden to set a title in the tabbar.
-	 */
-	protected String default_html_title = null;
-	
-	/**
 	 * Creates a new HTMLBrowser.
 	 * @param resource The resource which should be displayed. This means it must be 
 	 * contained in the JAR which also contains the <code>HTMLPane</code> (i.e. not in 
@@ -127,24 +122,19 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 	 * @see org.schwering.evi.core.IPanel#getTitle()
 	 */
 	public String getTitle() {
-		if (default_html_title != null) {
-			return default_html_title;
-		} else {
-			try {
-				Document doc = htmlPane.getDocument();
-				HTMLDocument htmldoc = (HTMLDocument)doc;
-				URL url = htmldoc.getBase();
-				String file = url.getFile();
-				int delim = file.lastIndexOf('/');
-				if (delim != -1 && delim != file.length() -1 ) {
-					return file.substring(delim + 1, file.length());
-				} else {
-					return file;
-				}
-			} catch (Exception exc) {
-				exc.printStackTrace();
-				return "Untitled";
+		try {
+			Document doc = htmlPane.getDocument();
+			HTMLDocument htmldoc = (HTMLDocument)doc;
+			URL url = htmldoc.getBase();
+			String file = url.getFile();
+			int delim = file.lastIndexOf('/');
+			if (delim != -1 && delim != file.length() -1 ) {
+				return file.substring(delim + 1, file.length());
+			} else {
+				return file;
 			}
+		} catch (Exception exc) {
+			return "Untitled";
 		}
 	}
 }

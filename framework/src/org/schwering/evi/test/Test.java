@@ -26,4 +26,10 @@ public class Test extends HTMLBrowser implements IModule, IPanel {
 		super.dispose();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		return "Testmodule";
+	}
 }

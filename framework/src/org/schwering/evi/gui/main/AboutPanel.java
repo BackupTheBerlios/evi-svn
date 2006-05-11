@@ -17,10 +17,19 @@ public class AboutPanel extends HTMLBrowser {
 	
 	private static final String ABOUT_HTML = "about.html";
 	
+	protected String default_html_title = DEFAULT_TITLE;
+	
 	/**
 	 * Displays a panel with a short description.
 	 */
 	public AboutPanel() {
 		super(ABOUT_HTML);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		return DEFAULT_TITLE;
 	}
 }

@@ -43,4 +43,11 @@ public class HelloWorldPanel extends HTMLBrowser {
 	private HelloWorldPanel() {
 		super(HELLO_HTML);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		return DEFAULT_TITLE;
+	}
 }
