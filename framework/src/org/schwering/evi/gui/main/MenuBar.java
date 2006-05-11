@@ -11,6 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import org.schwering.evi.core.IModuleLoaderListener;
+import org.schwering.evi.core.IPanel;
+import org.schwering.evi.core.ModuleConfigFactory;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
@@ -118,6 +120,8 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
+						IPanel config = ModuleConfigFactory.newInstance(module);
+						MainFrame.getInstance().getMainTabBar().addTab(config);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // TODO
 // Start module configuration panel

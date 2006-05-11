@@ -73,6 +73,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * An example for a module-protocol-attribute in a manifest-file is:
 	 * <br />
 	 * "<code>Module-Config-Class: my.package.module.ConfigPanel</code>".
+	 * @see ModuleConfigFactory
 	 */
 	public static final String ATTR_MODULE_CONFIG_CLASS = "Module-Config-Class";
 	
