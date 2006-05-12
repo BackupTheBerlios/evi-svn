@@ -134,15 +134,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(60, "Modules: Analyzing commandline arguments...");
-		try {
-			startArgRelatedModules(args);
-		} catch (Exception exc) {
-			ExceptionDialog.show("Unexcepted exception caught while loading", 
-					exc);
-		}
-		
-		progress.update(65, "GUI: Creating main frame...");
+		progress.update(60, "GUI: Creating main frame...");
 		try {
 			initMainFrame();
 		} catch (Throwable exc) {
@@ -150,7 +142,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(76, "Modules: Auto-starting...");
+		progress.update(65, "Modules: Auto-starting...");
 		try {
 			autoStartModules();
 		} catch (Throwable exc) {
@@ -158,7 +150,29 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(88, "GUI: making visible...");
+		progress.update(75, "Modules: Analyzing commandline arguments...");
+		try {
+			startArgRelatedModules(args);
+		} catch (Exception exc) {
+			ExceptionDialog.show("Unexcepted exception caught while loading", 
+					exc);
+		}
+		
+		/* just for fun: (from incl. 85% to incl. 88%) */
+		try {
+			String[] murks = new String[] {
+				"Eva Valder",
+				"Naja",
+				"egal",
+			};
+			for (int i = 0; i <= murks.length; i++) {
+				progress.update(85 + i, murks[i]);
+				Thread.sleep(100);
+			}
+		} catch (Exception exc) {
+		}
+		
+		progress.update(91, "GUI: making visible...");
 		try {
 			makeVisible();
 		} catch (Throwable exc) {
@@ -166,7 +180,7 @@ public class EVI {
 					exc);
 		}
 		
-		progress.update(100, "Dickerchen");
+		progress.update(100, "Have fun!");
 	}
 	
 	/**
@@ -260,12 +274,13 @@ public class EVI {
 				URL url = new URL(arg);
 				String protocol = url.getProtocol();
 				for (int j = 0; j < modules.length; j++) {
-					if (modules[i].handlesProtocol(protocol)) {
-						ModuleFactory.newInstance(modules[i], 
+					if (modules[j].handlesProtocol(protocol)) {
+						ModuleFactory.newInstance(modules[j], 
 								new Object[] { url });
 					}
 				}
 			} catch (Exception exc) {
+				exc.printStackTrace();
 			}
 		}
 	}
