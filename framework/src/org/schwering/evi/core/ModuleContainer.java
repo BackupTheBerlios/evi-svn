@@ -213,7 +213,7 @@ public final class ModuleContainer {
 	 * @see ModuleLoader#ATTR_MODULE_PROTOCOLS
 	 */
 	public boolean handlesProtocol(String protocol) {
-		if (protocol == null) {
+		if (protocol == null || protocols == null) {
 			return false;
 		}
 		for (int i = 0; i < protocols.length; i++) {
