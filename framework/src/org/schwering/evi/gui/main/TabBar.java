@@ -247,6 +247,9 @@ implements IModuleListener, IModuleLoaderListener {
 	 * @param color The new color.
 	 */
 	public void hightlightTab(Component tab, Color color) {
+		if (tab == null) {
+			return;
+		}
 		int index = indexOfComponent(tab);
 		if (index < 0 || index >= getTabCount()) {
 			return;
@@ -263,11 +266,7 @@ implements IModuleListener, IModuleLoaderListener {
 	private boolean forwardFocusInWindow() {
 		requestFocusInWindow();
 		Component c = getSelectedComponent();
-		if (c != null) {
-			return c.requestFocusInWindow();
-		} else {
-			return false;
-		}
+		return c != null && c.requestFocusInWindow();
 	}
 	
 	/**
