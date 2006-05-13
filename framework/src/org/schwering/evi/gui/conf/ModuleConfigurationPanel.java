@@ -132,7 +132,7 @@ implements IPanel, IModuleLoaderListener {
 		public InputPanel(ModuleConfigurationPanel o) {
 			super(new GridLayout(3, 1));
 			this.owner = o;
-			setBorder(new TitledBorder("Load new module"));
+			setBorder(new TitledBorder("Load new module:"));
 			add(createLoadByJARPanel());
 			add(new JLabel("or"));
 			add(createLoadByClassNamePanel());

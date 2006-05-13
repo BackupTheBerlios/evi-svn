@@ -1,6 +1,7 @@
 package org.schwering.evi.conf;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +10,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.Util;
 
 /**
  * Administers the main configuration file.<br />
@@ -363,5 +365,27 @@ public abstract class MainConfiguration {
 		int width = (int)value.getWidth();
 		int height = (int)value.getHeight();
 		props.setProperty(key, width +"x"+ height);
+	}
+	/**
+	 * Grabs a font.
+	 * @param key The key.
+	 * @return A new font.
+	 */
+	public static Font getFont(String key) {
+		String s = getString(key);
+		if (s != null && s.length() > 0) {
+			return Font.decode(s);
+		} else {
+			return Font.decode(null);
+		}
+	}
+	
+	/**
+	 * Sets a new font value.
+	 * @param key The key.
+	 * @param value The value.
+	 */
+	public static void setFont(String key, Font value) {
+		props.setProperty(key, Util.encodeFont(value));
 	}
 }

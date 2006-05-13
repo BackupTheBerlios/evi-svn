@@ -2,17 +2,23 @@ package org.schwering.evi.gui.conf;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IPanel;
@@ -20,7 +26,11 @@ import org.schwering.evi.gui.EVI;
 import org.schwering.evi.util.Util;
 
 /**
- * A GUI to setup the main application.
+ * A GUI to setup the main application.<br />
+ * <br />
+ * <b>Note:</b> This class contains code that is... <i>very</i> ugly.
+ * Before someone tries to repair anything, I'd encourage him to rewrite the 
+ * whole class.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
@@ -39,8 +49,13 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 */
 	private static MainConfigurationPanel instance = null;
 	
+	private JButton saveButton;
 	private JComboBox tabBarPosition;
 	private JComboBox lookAndFeels;
+	private JRadioButton askToExit;
+	private JComboBox primaryFontName;
+	private JTextField primaryFontSize;
+	private JComboBox primaryFontStyle;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -59,14 +74,17 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 * @see #getInstance()
 	 */
 	private MainConfigurationPanel() {
-		super(new GridLayout(1, 0));
-		JPanel p = new JPanel(new GridLayout(3, 2));
+		super(new BorderLayout());
+		setBorder(new TitledBorder("EVI configuration:"));
+		
+		JPanel p = new JPanel(new GridLayout(4, 0));
 		addTabBarPositionChooser(p);
 		addLookAndFeelChooser(p);
-		JScrollPane scrollPane = new JScrollPane(p);
+		addAskToExitCheckBox(p);
+		addFontSelector(p);
 
 		JPanel buttons = new JPanel();
-		JButton saveButton = new JButton("Save");
+		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				save();
@@ -75,9 +93,11 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		buttons.add(saveButton);
 		
 		JPanel main = new JPanel(new BorderLayout());
-		main.add(scrollPane, BorderLayout.CENTER);
-		main.add(buttons, BorderLayout.SOUTH);
-		add(main);
+		main.add(p, BorderLayout.NORTH);
+		main.add(buttons, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(main);
+		scrollPane.setBorder(null);
+		add(scrollPane, BorderLayout.WEST);
 	}
 	
 	/**
@@ -98,8 +118,17 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 			tabBarPosition.setSelectedIndex(find(new Integer(current), objs));
 		} catch (Exception exc) {
 		}
-		p.add(new JLabel("Tabbar position:"));
-		p.add(new JScrollPane(tabBarPosition));
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(tabBarPosition, BorderLayout.WEST);		
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Tabbar position:"));
+		row.add(sub);
+		p.add(row);
 	}
 	
 	private void addLookAndFeelChooser(JPanel p) {
@@ -119,8 +148,79 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 			lookAndFeels.setSelectedIndex(find(current, objs));
 		} catch (Exception exc) {
 		}
-		p.add(new JLabel("Look and Feel:"));
-		p.add(lookAndFeels);
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(lookAndFeels, BorderLayout.WEST);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Look and Feel:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private void addAskToExitCheckBox(JPanel p) {
+		boolean current = MainConfiguration.getBoolean("gui.asktoexit", true);
+		JRadioButton yes = new JRadioButton("Yes", current);
+		JRadioButton no = new JRadioButton("No", !current);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+
+		askToExit = yes;
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Ask to exit when closing:"));
+		row.add(sub);
+		p.add(row);
+	}
+
+	private void addFontSelector(JPanel p) {
+		Font current = MainConfiguration.getFont("font.primary");
+		String currentFontName = current.getFamily();
+		int currentFontSize = current.getSize();
+		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
+		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		String[] fonts = ge.getAvailableFontFamilyNames();
+		primaryFontName = new JComboBox(fonts);
+		primaryFontName.setSelectedItem(currentFontName);
+		
+		primaryFontSize = new JTextField(2);
+		primaryFontSize.setText(String.valueOf(currentFontSize));
+		
+		Wrapper[] objs = new Wrapper[4];
+		objs[0] = new Wrapper("Plain", "PLAIN");
+		objs[1] = new Wrapper("Bold", "BOLD");
+		objs[2] = new Wrapper("Italic", "Italic");
+		objs[3] = new Wrapper("Bold & Italic", "BOLDITALIC");
+		primaryFontStyle = new JComboBox(objs);
+		primaryFontStyle.setSelectedIndex(find(currentFontStyle, objs));
+		
+		JPanel sub1 = new JPanel(new BorderLayout());
+		sub1.add(primaryFontName);
+		JPanel sub2 = new JPanel(new BorderLayout());
+		sub2.add(primaryFontSize, BorderLayout.WEST);
+		sub2.add(new JLabel("pt  "), BorderLayout.CENTER);
+		sub2.add(primaryFontStyle, BorderLayout.EAST);
+		
+		JPanel sub = new JPanel(new GridLayout(2, 0));
+		sub.add(sub1);
+		sub.add(sub2);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Primary font:"));
+		row.add(sub);
+		p.add(row);
 	}
 	
 	/**
@@ -163,7 +263,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 			return string;
 		}
 	}
-	
+
 	private void save() {
 		Wrapper w;
 		
@@ -175,6 +275,16 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		w = (Wrapper)lookAndFeels.getSelectedItem();
 		String lookAndFeel = (String)w.getObject();
 		MainConfiguration.setString("gui.lookandfeel", lookAndFeel);
+		
+		MainConfiguration.setBoolean("gui.asktoexit", askToExit.isSelected());
+		
+		String primaryFontName = (String)this.primaryFontName.getSelectedItem();
+		String primaryFontSize = this.primaryFontSize.getText().trim();
+		w = (Wrapper)this.primaryFontStyle.getSelectedItem();
+		String primaryFontStyle = (String)w.getObject();
+		Font primaryFont = Util.decodeFont(primaryFontName, primaryFontSize, 
+				primaryFontStyle);
+		MainConfiguration.setFont("font.primary", primaryFont);
 	}
 	
 	/* (non-Javadoc)
@@ -205,13 +315,12 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		save();
 	}
 	
-	
 	/* (non-Javadoc)
 	 * @see java.awt.Component#requestFocusInWindow()
 	 */
 	public boolean requestFocusInWindow() {
 		boolean b1 = super.requestFocusInWindow();
-		boolean b2 = true;
+		boolean b2 = saveButton.requestFocusInWindow();
 		return b1 && b2;
 	}
 }

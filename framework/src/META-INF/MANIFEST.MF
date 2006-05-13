@@ -2,4 +2,5 @@ Main-Class: org.schwering.evi.gui.EVI
 Module-Class: org.schwering.evi.test.Test
 Module-Version: 1.0
 Module-Name: Test
+Module-Protocols: http https
 Requirement: org.schwering.irc.lib.IRCConnection org.schwering.irc.lib.IRCParser

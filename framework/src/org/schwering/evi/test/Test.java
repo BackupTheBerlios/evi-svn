@@ -1,5 +1,7 @@
 package org.schwering.evi.test;
 
+import java.net.URL;
+
 import org.schwering.evi.core.*;
 import org.schwering.evi.util.HTMLBrowser;
 
@@ -10,15 +12,20 @@ import org.schwering.evi.util.HTMLBrowser;
  */
 public class Test extends HTMLBrowser implements IModule, IPanel {
 	private static final long serialVersionUID = 6675184535258501432L;
+	
+	public Test(URL url) {
+		super(url.toString());
+		System.out.println("module starts by command line argument: '"+ url +"'");
+	}
 
 	public Test(String url) {
 		super(url);
-		System.out.println("module would start with args: '"+ url +"'");
+		System.out.println("module starts with args: '"+ url +"'");
 	}
 	
 	public Test() {
 		super("hello.html");
-		System.out.println("module would start without args");
+		System.out.println("module starts without args");
 	}
 	
 	public void dispose() {
