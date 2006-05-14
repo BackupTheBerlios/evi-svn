@@ -93,13 +93,13 @@ public final class ModuleLoader extends URLClassLoader {
 	 * The module's requirements attribute in the manifest. It is optional to
 	 * define requirements.<br />
 	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Requirements</code>".<br />
+	 * This field's value is: "<code>Module-Requirements</code>".<br />
 	 * An example for a module-requirement-attribute in a manifest-file is:
 	 * <br />
-	 * "<code>Requires: foo.bar.BlaModule foo.bar.BlupModule:1.0 
+	 * "<code>Module-Requirements: foo.bar.BlaModule foo.bar.BlupModule:1.0 
 	 * foo.bar.BumModule foo.bar.PiffModule foo.bar.PaffModule:2.1</code>".
 	 */
-	public static final String ATTR_MODULE_REQUIREMENTS = "Requires";
+	public static final String ATTR_MODULE_REQUIREMENTS = "Module-Requirements";
 	
 	/**
 	 * Contains the <code>ModuleContainer</code> objects. Each value's key 
