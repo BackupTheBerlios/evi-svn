@@ -18,7 +18,7 @@ public class ModuleInstantiationException extends ModuleException {
 	 * A plain module instantiation exception.
 	 * @param exc The caught exception.
 	 */
-	public ModuleInstantiationException(Exception exc) {
+	public ModuleInstantiationException(Throwable exc) {
 		super(exc);
 	}
 	
@@ -35,7 +35,7 @@ public class ModuleInstantiationException extends ModuleException {
 	 * @param msg The error message.
 	 * @param exc The caught exception.
 	 */
-	public ModuleInstantiationException(String msg, Exception exc) {
+	public ModuleInstantiationException(String msg, Throwable exc) {
 		super(msg, exc);
 	}
 }

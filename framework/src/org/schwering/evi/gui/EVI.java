@@ -162,8 +162,8 @@ public class EVI {
 		try {
 			String[] murks = new String[] {
 				"Eva Valder",
-				"Naja",
-				"egal",
+				"Ohne dich...",
+				"...geht es nicht",
 			};
 			for (int i = 0; i <= murks.length; i++) {
 				progress.update(85 + i, murks[i]);

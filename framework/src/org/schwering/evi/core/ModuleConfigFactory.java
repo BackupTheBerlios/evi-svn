@@ -79,7 +79,7 @@ public final class ModuleConfigFactory {
 			Class configClass = module.getConfigClass();
 			Object o = configClass.newInstance();
 			return (IPanel)o;
-		} catch (Exception exc) {
+		} catch (Throwable exc) {
 			throw new ModuleConfigInstantiationException("Creating " +
 					"configuration panel instance failed.", exc);
 		}

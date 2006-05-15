@@ -330,7 +330,7 @@ public final class ModuleLoader extends URLClassLoader {
 			}
 		} catch (ModuleLoaderException exc) {
 			throw exc;
-		} catch (Exception exc) {
+		} catch (Throwable exc) {
 			throw new ModuleLoaderException(exc);
 		}
 	}

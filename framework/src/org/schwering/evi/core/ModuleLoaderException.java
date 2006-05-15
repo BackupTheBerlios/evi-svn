@@ -18,7 +18,7 @@ public class ModuleLoaderException extends ModuleException {
 	 * A plain module loader exception.
 	 * @param exc The caught exception.
 	 */
-	public ModuleLoaderException(Exception exc) {
+	public ModuleLoaderException(Throwable exc) {
 		super(exc);
 	}
 	
@@ -35,7 +35,7 @@ public class ModuleLoaderException extends ModuleException {
 	 * @param msg The error message.
 	 * @param exc The caught exception.
 	 */
-	public ModuleLoaderException(String msg, Exception exc) {
+	public ModuleLoaderException(String msg, Throwable exc) {
 		super(msg, exc);
 	}
 }

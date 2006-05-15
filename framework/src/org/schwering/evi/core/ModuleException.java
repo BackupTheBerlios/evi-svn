@@ -18,7 +18,7 @@ public class ModuleException extends Exception {
 	 * A plain module exception.
 	 * @param exc The caught exception.
 	 */
-	public ModuleException(Exception exc) {
+	public ModuleException(Throwable exc) {
 		initCause(exc);
 	}
 	
@@ -35,7 +35,7 @@ public class ModuleException extends Exception {
 	 * @param msg The error message.
 	 * @param exc The caught exception.
 	 */
-	public ModuleException(String msg, Exception exc) {
+	public ModuleException(String msg, Throwable exc) {
 		super(msg);
 		initCause(exc);
 	}
