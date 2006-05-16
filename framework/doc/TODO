@@ -1,0 +1,9 @@
+2006-05-16
+	Complete configuration panel with:
+		* font.secondary
+		* color.primary
+		* color.secondary
+
+2006-05-16
+	Think about multilanguage support.
+	Realize it.
