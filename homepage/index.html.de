@@ -16,20 +16,23 @@
 <a name="Entwickler-Informationen"></a>
 <h2>Entwickler-Informationen</h2>
 <p>
-Erstmal muss das Framework an sich fertig werden. Das ist es auch mittlerweile fast, noch ein paar Feinheiten vom GUI fehlen.<br />
-Danach gehts an die Module. Ein Modul ist jetzt schon benutzbar: Pong vom Mike. 
+Bis jetzt gibt es noch nicht viel! Bisher ist noch kein Modul wirklich fertig, auch das Framework ist noch nicht ganz fertig.
 </p>
-<p>
-Allen aktuellen Code gibts im <b>SVN Repository</b>:
-</p>
+<a name="SVN_Repository"></a>
+<h3>SVN Repository</h3>
 <ul style="list-style-type: circle;">
 <li><a href="http://svn.berlios.de/viewcvs/evi">SVN mit Webbrowser angucken</a></li>
 <li>Anonymer Zugang: svn checkout svn://svn.berlios.de/evi/framework</li>
+<li>Anonymer Zugang (HTTP): svn checkout http://svn.berlios.de/evi/framework</li>
 <li>Entwickler-Zugang: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi/framework</li>
+<li>Entwickler-Zugang (HTTPS): svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi/framework</li>
 </ul>
-<p>
-Ich schreibe derzeit an einem <a href="tutorial/">Tutorial</a> f&uuml;r um Module zu schreiben.
-</p>
+<a name="Tutorials"></a>
+<h3>Tutorials</h3>
+<ul style="list-style-type: circle;">
+<li><a href="module_tutorial/">Modul-Entwicklungs-Tutorial</a></li>
+<li><a href="svn_tutorial/">Eclipse+SVN-Tutorial</a> </li>
+</ul>
 <a name="Geplante_Module"></a>
 <h2>Geplante Module</h2>
 <p>
