@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>EVI Module Development Tutorial</title><link rel="stylesheet" type="text/css" href="style.css"></head><body>
+<a name="EVI_Module_Development_Tutorial"></a>
+<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Module Development Tutorial</h1>
+<p>
+[ <a href="tutorial.html.en">English</a> | <a href="index.html.de">Deutsch</a> ]
+</p>
+<a name="What_Is_EVI?"></a>
+<h2>What Is <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</h2>
+<p>
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is a Framework. This means it can load modules. It does nothing more and nothing less.<br />
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is written in Java using the Swing Toolkit. This means it is platform-independent.<br />
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>'s focus is internet communication. However, the focus totally depends on the modules.
+</p>
+<a name="What_Can_A_Module_Do?"></a>
+<h2>What Can A Module Do?</h2>
+<p>
+Generally speaking, there are probably two kinds of modules:
+</p>
+<ul style="list-style-type: square;">
+<li>those with graphical user interfaces (GUI)</li>
+<li>those that run in the backround</li>
+</ul>
+<p>
+In this tutorial, I will refer to the first type of modules with &quot;graphical modules&quot; and to the second category with &quot;daemon modules&quot;.
+</p>
+<p>
+Graphical modules typically offer windows, textfields and buttons. An example for a graphical module would be a chat-module or a game.
+</p>
+<p>
+Daemon modules typically run in the backround and wait for certain events. For example, a module named DCCGet might be listening all the time for incoming file transfers on any IRC connection. If such a file transfer comes in, the DCCGet module will step forward and tell the user that somebody wants to send him a file. If the user agrees, the DCCGet module will receive the file. Then, it will go back in its daemon state and listen for further incoming file transfers.
+</p>
+<p>
+Writing a graphical module is probably easier. Daemon modules are mainly usable to extend existing modules and hence are also based on this module's API.
+</p>
+<a name="How_Is_A_Module_Distributed?"></a>
+<h2>How Is A Module Distributed?</h2>
+<p>
+Each module should be packed into one *.JAR file (Java Archive). This JAR must contain the binary classes, optionally some resources like images and sounds and a manifest. <br />
+The manifest is of great importance for <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> modules. See the next chapter.
+</p>
+<a name="A_Module's_Manifest"></a>
+<h2>A Module's Manifest</h2>
+<p>
+A JAR's manifest is located at META-INF/MANIFEST.MF. A well-known manifest-entry is &quot;Main-Class&quot; which specifies which class's <code>main</code> method should be invoked when the JAR is double-clicked.
+</p>
+<p>
+There's a number of manifest-entries for <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> modules:
+</p>
+<ul style="list-style-type: square;">
+<li>Module-Class</li>
+<li>Module-Version</li>
+<li>Module-Name</li>
+<li>Module-Config-Class</li>
+<li>Module-Protocols</li>
+<li>Module-Requirements</li>
+</ul>
+<p>
+<u>Module-Class</u><br />
+The most important manifest-entry is the &quot;Module-Class&quot;. It specifies the name of the main module class. With &quot;name&quot; I mean the package including the class name, for example org.schwering.evi.modules.MyModule where &quot;org.schwering.evi.modules&quot; is the package and &quot;MyModule&quot; the concrete class name.<br />
+Because this combination of package and class name is unique, it is also the identification (id) of each module. More about this later.
+</p>
+<p>
+<u>Module-Version</u><br />
+Optionally, one can define a module version. If none is specified, it is &quot;0.0&quot;. A version might be necessary in connection with &quot;Module-Requirements&quot;.
+</p>
+<p>
+<u>Module-Config-Class</u><br />
+Many modules should be configurable by the user. For example an IRC client module, and almost all other modules, too.<br />
+Adding a manifest-entry &quot;Module-Config-Class&quot; whose value is the package plus class name of the configuration class, e.g. org.schwering.evi.modules.MyModuleConfiguration. 
+</p>
+<p>
+<u>Module-Name</u><br />
+The &quot;Module-Name&quot; manifest-entry specifies under which (short) name the module occures in the program. This name does not need to be unique. This name is <i>not</i> the id of the module! It is just its name in the menu and so on. If no name is specified in the manifest, the module id will also be used as module name.
+</p>
+<p>
+<u>Module-Protocols</u><br />
+The &quot;Module-Protocols&quot; entry is optional. <br />
+Let's think about the following scenario: You've written a small webbrowser module. Now you want <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> to automatically start your webbrowser module if the user transmits a WWW-URL as command line argument.<br />
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> will do so if you enter &quot;http&quot; and &quot;https&quot; as &quot;Module-Protocols&quot;. If a command line argument like &quot;http://www.test.com&quot; is given, <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> will check it and see that is a URL, <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> will see that the URL's protocol is &quot;http&quot; and <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> will see that your webbrowser module wants to handle all &quot;http&quot;-URLs and therefore <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> will start the webbrowser module.
+</p>
+<p>
+<u>Module-Requirements</u><br />
+&quot;Module-Requirements&quot; can be defined if your module depends on other modules. Probably you won't need it. If you think you need it, check the javadocs (class ModuleLoader, field ATTR_MODULE_REQUIREMENTS).
+</p>
+<a name="&quot;Hello_World&quot;_Module"></a>
+<h2>&quot;Hello World&quot; Module</h2>
+<p>
+The first example is the typical &quot;Hello World&quot; program. In this case it's a module that displays the string &quot;Hello World!&quot;.
+</p>
+<p>
+This is the code of the HelloWorld.java:
+</p>
+
+<pre class="code">import java.awt.Component;
+
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.schwering.evi.core.IModule;
+import org.schwering.evi.core.IPanel;
+
+/**
+ * A module that shows a label with "Hello World".
+ * 
+ * It extends JPanel.. well because JPanel is a graphical component.
+ * It implements IModule because it is a module.
+ * It implements IPanel because it is a graphical module.
+ */
+public class HelloWorld extends JPanel implements IModule, IPanel {
+	public HelloWorld() {
+		add(new JLabel("Hello World!"));
+	}
+
+	/**
+	 * This module doesn't have any icon.
+	 */
+	public Icon getIcon() {
+		return null;
+	}
+
+	/**
+	 * Since this class is also the module's graphical part 
+	 * (it extends JPanel).
+	 */
+	public Component getPanelInstance() {
+		return this;
+	}
+
+	/**
+	 * The title of this module in the tabbar should be 
+	 * "Hello!".
+	 */
+	public String getTitle() {
+		return "Hello!";
+	}
+
+	/**
+	 * Normally, this method should close open files or 
+	 * close connections. In this method, there's nothing to do.
+	 * It will just print "Bye!" into the console so that you 
+	 * notice when dispose() is invoked.
+	 */
+	public void dispose() {
+		System.out.println("Bye!");
+	}
+}</pre>
+
+<p>
+The code is explained in the code commentaries at each method.
+</p>
+<p>
+And this is the manifest:
+</p>
+
+<pre class="code">Module-Class: HelloWorld
+Module-Name: Hello</pre>
+
+<p>
+The value of &quot;Module-Class&quot; is HelloWorld, of course. As said above, the &quot;Module-Class&quot; must be the package plus class name of the module's core class. (The core class implements org.schwering.evi.core.IModule and, if it's a graphical module, also org.schwering.evi.core.IPanel.) This value is also the module's id because it is guaranteed to be unique in the running Java Virtual Machine.<br />
+The value of the &quot;Module-Name&quot; is simply the name under which the module appears to the end-user.
+</p>
+<p>
+Now copy &amp; paste the Java code into a file named HelloWorld.java and the manifest (which is just one line) into a file named MANIFEST.MF.
+</p>
+<p>
+Compile the HelloWorld.java. Remember that the EVI classes must be in the classpath; otherwise the compiler wouldn't know where to find the interfaces org.schwering.evi.core.IModule and org.schwering.evi.core.IPanel. If you compile directly via command line, the command looks like <code>javac -classpath &quot;path/to/evi.jar&quot; HelloWorld.java</code>.
+</p>
+<p>
+Now create a JAR from the generated HelloWorld.class with the manifest: <code>jar cvfm helloworld.jar MANIFEST.MF HelloWorld.class</code>.
+</p>
+<p>
+Now fire up <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>, click File -&gt; Modules, choose the helloworld.jar and add it. You should see that a new item &quot;Hello&quot; in the menubar and a new button &quot;Hello&quot; should appear.<br />
+When you click the button or when you click Hello -&gt; New instance a new tab should open and show the string &quot;Hello World!&quot;.<br />
+When you close the application, press Ctrl+W or rightclick -&gt; close on the tab, the tab will be closed and &quot;Bye!&quot; is printed to the console, because <code>HelloWorld.dispose</code> is invoked.
+</p>
+<p>
+You can also download the HelloWorld.java, the manifest, the compiled HelloWorld.class and the generated JAR from <a href="helloworld/">helloworld/</a>.
+</p>
+<a name="The_API:_IModule_And_IPanel"></a>
+<h2>The API: IModule And IPanel</h2>
+<p>
+The module engine is contained in the package <a href="../javadoc_core">org.schwering.evi.core</a>. For developers, the interfaces <a href="../javadoc_core/org/schwering/evi/core/IModule.html"><code>IModule</code></a> and <a href="../javadoc_core/org/schwering/evi/core/IPanel.html"><code>IPanel</code></a> are very important.
+</p>
+<a name="IModule"></a>
+<h3>IModule</h3>
+<p>
+Every module <i>must</i> implement <code>IModule</code>. <br />
+<code>IModule</code> requires the class to implement a <code>dispose</code> method, which is invoked when the module instance is terminated.<br />
+The module has to define a constructor that takes no arguments. This constructor is used by default to create a new module instance. (To learn more about parameterizable module constructors, check <code>IModule</code>'s javadoc.
+</p>
+<a name="IPanel"></a>
+<h3>IPanel</h3>
+<p>
+Graphical modules <i>must</i> implement <code>IPanel</code> additionally. <br />
+Same like  <code>IModule</code>, <code>IPanel</code> requires the implementing class to define a <code>dispose</code> method. This is quite the same like in <code>IModule</code>.
+</p>
+<p>
+Another key method of <code>IPanel</code> is <code>getPanelInstance</code> which must return a <code>java.awt.Component</code>. The returned <code>java.awt.Component</code> is added to the tabbar. The only important thing is that this method should not return a newly created object each time it is invoked, but always the same the same reference. For example, if the class that implements <code>IPanel</code> is also the <code>java.awt.Component</code> that should be displayed (i.e. if the class that implements <code>IPanel</code> also extends <code>java.awt.Component</code> or one of its subclasses), then the <code>getPanelInstance</code> method should simply return <code>this</code>.
+</p>
+<p>
+Furthermore, <code>IPanel</code> requires implementing classes to define a <code>getIcon</code> method which should return a <code>javax.swing.Icon</code> or simply <code>null</code>, and it requires a <code>getTitle</code> method which should return the title of the module instance in the tabbar. 
+</p>
+<a name="Have_A_Break_:-)"></a>
+<h2>Have A Break :-)</h2>
+<p>
+So far so good. This should give you a quite solid base to write an <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> module.<br />
+There are just two essential things missing:
+</p>
+<ul style="list-style-type: disc;">
+<li>How to make a configurable module</li>
+<li>How to find and communicate with other modules and module instances</li>
+</ul>
+<p>
+After a break, we're going to deal with the first point:
+</p>
+<a name="A_Simple_Configurable_Graphical_Module"></a>
+<h2>A Simple Configurable Graphical Module</h2>
+<p>
+(Write a simple image viewer or so.)
+</p>
+</body></html>
