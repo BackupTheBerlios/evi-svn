@@ -11,13 +11,29 @@
 <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is an attempt to write a Java framework. The goal is to develop a bunch of modules for internet communication and some other stuff. More information under <a href="#Modules">modules</a>. <br />
 <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is free software and licensed under the GNU GPL.
 </p>
-<a name="Development_status"></a>
-<h2>Development status</h2>
+<a name="Developer_Information"></a>
+<h3>Developer Information</h3>
 <p>
-At the moment, the framework is early at its development. We're currently finishing the first version. The core is ready to use while to GUI is almost complete.<br />
-When that's finished we'll start writing modules and thus bring functionality to <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>.<br />
-You can obtain the latest source code from our <b><a href="http://svn.berlios.de/viewcvs/evi">SVN Respository</a></b>!
+The framework is almost finished. No module is finished yet. However, the module Pong is already usable.
 </p>
+<a name="SVN_Repository"></a>
+<h3>SVN Repository</h3>
+<p>
+The main module is named &quot;framework&quot;.
+</p>
+<ul style="list-style-type: circle;">
+<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
+<li>Anonymous: svn checkout svn://svn.berlios.de/evi</li>
+<li>Anonymous (HTTP): svn checkout http://svn.berlios.de/evi</li>
+<li>Developer: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
+<li>Developer (HTTPS): svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
+</ul>
+<a name="Tutorials"></a>
+<h3>Tutorials</h3>
+<ul style="list-style-type: circle;">
+<li><a href="module_tutorial/">Module Development Tutorial</a></li>
+<li><a href="svn_tutorial/">Eclipse + SVN Tutorial</a> </li>
+</ul>
 <a name="Modules"></a>
 <h2>Modules</h2>
 <p>
@@ -50,21 +66,17 @@ After each point in brackets its priority (1 = low, 10 = high). We'll develop th
 </ul>
 </li>
 </ul>
-<a name="Team_&amp;_About"></a>
-<h2>Team &amp; About</h2>
+<a name="The_Name_EVI"></a>
+<h2>The Name <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></h2>
 <p>
-<b>Who develops <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</b><br />
-Currently I'm more or less alone. However, I hope to get assistance when I've finished the framework.
-</p>
-<p>
-<b>What does <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> stand for?</b><br />
 <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> is an acronym and means <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface.<br />
 The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 </p>
 <a name="Contact"></a>
 <h2>Contact</h2>
 <p>
-Christoph Schwering &lt;schwering@gmail.com&gt;
+Christoph Schwering &lt;schwering@gmail.com&gt;<br />
+Niklas Kurth &lt;niklas@4kurths.com&gt;
 </p>
 
 <table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
