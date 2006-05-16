@@ -55,5 +55,9 @@ Your <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color=
 <li>I recommend that you checked out the framework via SVN before. Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Projects -&gt; Add... -&gt; select &quot;framework&quot;.</li>
 <li>If you don't have a working copy of the <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> framework, you need the <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> JAR. Then create your module project in Eclipse. Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Libraries -&gt; Add External JARs... -&gt; select your copy of the &quot;evi.jar&quot;.</li>
 </ul>
-<br />
+<a name="Where_Are_Update_And_Commit?"></a>
+<h2>Where Are Update And Commit?</h2>
+<p>
+You can find the SVN options under right click on the project -&gt; Team.
+</p>
 </body></html>

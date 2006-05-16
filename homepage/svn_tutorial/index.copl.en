@@ -36,4 +36,5 @@ Your evi() module will require the evi() framework anywhere.
 	o I recommend that you checked out the framework via SVN before. Then right click on the newly created project -> Properties -> Java Build Path -> Projects -> Add... -> select "framework".
 	o If you don't have a working copy of the evi() framework, you need the evi() JAR. Then create your module project in Eclipse. Then right click on the newly created project -> Properties -> Java Build Path -> Libraries -> Add External JARs... -> select your copy of the "evi.jar".
 
-
+==Where Are Update And Commit?==
+You can find the SVN options under right click on the project -> Team.
