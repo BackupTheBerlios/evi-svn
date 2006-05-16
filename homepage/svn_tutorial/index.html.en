@@ -5,14 +5,14 @@
 <p>
 [ <a href="index.html.en">English</a> | <a href="index.html.de">Deutsch</a> ]
 </p>
-<a name="What_is_Eclipse?"></a>
-<h2>What is Eclipse?</h2>
+<a name="What_Is_Eclipse?"></a>
+<h2>What Is Eclipse?</h2>
 <p>
 Eclipse is a great integrated development environment (IDE), especially for Java.<br />
 You can download it from <a href="http://www.eclipse.org">http://www.eclipse.org</a>.
 </p>
-<a name="What_is_SVN?"></a>
-<h2>What is SVN?</h2>
+<a name="What_Is_SVN?"></a>
+<h2>What Is SVN?</h2>
 <p>
 SVN is a version control system. Its homepage is located at <a href="http://subversion.tigris.org">http://subversion.tigris.org</a>.<br />
 There's a great SVN plugin for Eclipse, Subclipse. You visit Subclipse at <a href="http://subclipse.tigris.org">http://subclipse.tigris.org</a>.

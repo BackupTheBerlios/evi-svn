@@ -5,11 +5,11 @@ STYLE=style.css
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> ]
 
-==What is Eclipse?==
+==What Is Eclipse?==
 Eclipse is a great integrated development environment (IDE), especially for Java.
 You can download it from <!url http://www.eclipse.org>.
 
-==What is SVN?==
+==What Is SVN?==
 SVN is a version control system. Its homepage is located at <!url http://subversion.tigris.org>.
 There's a great SVN plugin for Eclipse, Subclipse. You visit Subclipse at <!url http://subclipse.tigris.org>.
 
