@@ -50,6 +50,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private static MainConfigurationPanel instance = null;
 	
 	private JButton saveButton;
+	private JComboBox language;
 	private JComboBox tabBarPosition;
 	private JComboBox lookAndFeels;
 	private JRadioButton askToExit;
@@ -77,7 +78,8 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		super(new BorderLayout());
 		setBorder(new TitledBorder("EVI configuration:"));
 		
-		JPanel p = new JPanel(new GridLayout(4, 0));
+		JPanel p = new JPanel(new GridLayout(5, 0));
+		addLanguageChooser(p);
 		addTabBarPositionChooser(p);
 		addLookAndFeelChooser(p);
 		addAskToExitCheckBox(p);
@@ -98,6 +100,32 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		JScrollPane scrollPane = new JScrollPane(main);
 		scrollPane.setBorder(null);
 		add(scrollPane, BorderLayout.WEST);
+	}
+	
+	/**
+	 * Adds a combobox with the available language files.
+	 * @param p The owning panel.
+	 */
+	private void addLanguageChooser(JPanel p) {
+		String[] langs = Util.getInstalledLanguages();
+		language = new JComboBox(langs);
+		language.setToolTipText("The application language");
+		try {
+			int current = MainConfiguration.getInt("app.lang");
+			//language.setSelectedIndex();
+		} catch (Exception exc) {
+		}
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(language, BorderLayout.WEST);		
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Language:"));
+		row.add(sub);
+		p.add(row);
 	}
 	
 	/**
@@ -266,6 +294,9 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 
 	private void save() {
 		Wrapper w;
+		
+		String lang = (String)language.getSelectedItem();
+		MainConfiguration.setString("app.lang", lang);
 		
 		w = (Wrapper)tabBarPosition.getSelectedItem();
 		int tabPos = ((Integer)w.getObject()).intValue();

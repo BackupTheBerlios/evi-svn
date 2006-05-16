@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -19,6 +21,34 @@ import org.schwering.evi.gui.main.MainFrame;
  * @version $Id$
  */
 public class Util {
+	/**
+	 * Returns the installed EVI languages. 
+	 * They language files are found in the JAR's lang/ directory.
+	 */
+	public static String[] getInstalledLanguages() {
+		FilenameFilter filter = new FilenameFilter() {
+			public boolean accept(File dir, String file) {
+				try {
+					return file.toLowerCase().endsWith(".lang")
+						&& new File(dir, file).isFile();
+				} catch (Exception exc) {
+					return false;
+				}
+			}
+		};
+		String[] files = MainConfiguration.CONFIG_DIR.list(filter);
+		if (files == null) {
+			return new String[0];
+		}
+		String[] langs = new String[files.length+1];
+		langs[0] = "English";
+		for (int i = 1; i < langs.length; i++) {
+			int endIndex = files[i-1].length() - ".lang".length();
+			langs[i] = files[i-1].substring(0, endIndex);
+		}
+		return langs;
+	}
+	
 	/**
 	 * Returns the installed look and feels.
 	 * @return The installed look and feels.
