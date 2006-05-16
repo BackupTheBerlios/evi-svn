@@ -111,8 +111,8 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		language = new JComboBox(langs);
 		language.setToolTipText("The application language");
 		try {
-			int current = MainConfiguration.getInt("app.lang");
-			//language.setSelectedIndex();
+			String current = MainConfiguration.getString("app.lang");
+			language.setSelectedItem(current);
 		} catch (Exception exc) {
 		}
 		
