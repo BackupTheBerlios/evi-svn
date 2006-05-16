@@ -8,23 +8,30 @@
 <a name="Was_ist_das?"></a>
 <h2>Was ist das?</h2>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>s Ziel ist es, ein Framework zu entwickeln, das Module laden kann. Die Module drehen sich dann wiederum um Internet-Kommunikation, Spielchen und kleine Werkzeuge. Genaueres unter <a href="#Module">Module</a>. <br />
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und freie Software (unter der <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>).
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Framework, das Module laden kann. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>s Module sollen Internetkommunikation (IRC, ICQ) beherrschen, ein paar mehr oder weniger sinnvolle Tools (Kalender, Stundenplan, Filemanager...) und ein paar Spiele (Pong...) bereitstellen.
 </p>
-<a name="Wie_weit_ist_das_Projekt?"></a>
-<h2>Wie weit ist das Projekt?</h2>
 <p>
-Derzeit befindet sich noch das Framework in der Entwicklung. Der Kern (die Modulengine) ist jetzt fertig. Das GUI ist fast fertig.<br />
-Die Module k&ouml;nnen wir erst machen, wenn das Framework so weit komplett ist. Ein Modul ist aber schon benutzbar: Pong vom Mike. <br />
-Alles, was bisher fertig ist, gibt es im <b>SVN Repository</b>:
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und benutzt das Swing Toolkit. Es ist plattformunabh&auml;ngig. Und <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist Freie Software unter der GNU GPL.
+</p>
+<a name="Entwickler-Informationen"></a>
+<h2>Entwickler-Informationen</h2>
+<p>
+Erstmal muss das Framework an sich fertig werden. Das ist es auch mittlerweile fast, noch ein paar Feinheiten vom GUI fehlen.<br />
+Danach gehts an die Module. Ein Modul ist jetzt schon benutzbar: Pong vom Mike. 
+</p>
+<p>
+Allen aktuellen Code gibts im <b>SVN Repository</b>:
 </p>
 <ul style="list-style-type: circle;">
-<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
+<li><a href="http://svn.berlios.de/viewcvs/evi">SVN mit Webbrowser angucken</a></li>
 <li>Anonymer Zugang: svn checkout svn://svn.berlios.de/evi/framework</li>
 <li>Entwickler-Zugang: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi/framework</li>
 </ul>
-<a name="Module"></a>
-<h2>Module</h2>
+<p>
+Ich schreibe derzeit an einem <a href="tutorial/">Tutorial</a> f&uuml;r um Module zu schreiben.
+</p>
+<a name="Geplante_Module"></a>
+<h2>Geplante Module</h2>
 <p>
 Da hinter in eckigen Klammern die Priorit&auml;t (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorit&auml;t werden wir die Module auch schreiben (also dringende Module zu erst...)
 </p>
@@ -58,7 +65,7 @@ Da hinter in eckigen Klammern die Priorit&auml;t (1 = gering, 10 = dringend). In
 <a name="Der_Name"></a>
 <h2>Der Name</h2>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> steht f&uuml;r <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Verena steht f&uuml;r Verena Baumeister aus Euskirchen und Evi f&uuml;r Eva Valder aus Palmersheim. Und die Idee ist dann, eine Schnittstelle zwischen der Rosstr. 38-40 in Aachen und der Pappelallee in Euskirchen zu schaffen (vielleicht kann <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ja auch irgendwann Voice-over-IP :-)). Hammer wa?
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> steht f&uuml;r <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Dieser wahnsinnig sinnvolle Name erh&auml;lt seinen Sinn nur dadurch, dass Evi bzw. Verena f&uuml;r Eva Valder aus Palmersheim bzw. Verena aus Euskirchen stehen.
 </p>
 <a name="Kontakt"></a>
 <h2>Kontakt</h2>

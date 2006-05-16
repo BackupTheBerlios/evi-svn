@@ -1,1 +1,1 @@
-scp * schwering@shell.berlios.de:/home/groups/evi/htdocs
+scp -r * schwering@shell.berlios.de:/home/groups/evi/htdocs

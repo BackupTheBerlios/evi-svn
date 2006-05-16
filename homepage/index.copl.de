@@ -1,23 +1,29 @@
 TITLE=EVI Extensible Verena Interface
 MACROS=macros.copl
-
 =evi()=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> ]
 
 ==Was ist das?==
-evi()s Ziel ist es, ein Framework zu entwickeln, das Module laden kann. Die Module drehen sich dann wiederum um Internet-Kommunikation, Spielchen und kleine Werkzeuge. Genaueres unter <!url #Module Module>. 
-evi() ist in Java geschrieben und freie Software (unter der <!url http://www.gnu.org/licenses/gpl.html GNU GPL>).
+evi() ist ein Framework, das Module laden kann. evi()s Module sollen Internetkommunikation (IRC, ICQ) beherrschen, ein paar mehr oder weniger sinnvolle Tools (Kalender, Stundenplan, Filemanager...) und ein paar Spiele (Pong...) bereitstellen.
 
-==Wie weit ist das Projekt?==
-Derzeit befindet sich noch das Framework in der Entwicklung. Der Kern (die Modulengine) ist jetzt fertig. Das GUI ist fast fertig.
-Die Module können wir erst machen, wenn das Framework so weit komplett ist. Ein Modul ist aber schon benutzbar: Pong vom Mike. 
-Alles, was bisher fertig ist, gibt es im **SVN Repository**:
-	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
+evi() ist in Java geschrieben und benutzt das Swing Toolkit. Es ist plattformunabhängig. Und evi() ist Freie Software unter der GNU GPL.
+
+==Entwickler-Informationen==
+Bis jetzt gibt es noch nicht viel! Bisher ist noch kein Modul wirklich fertig, auch das Framework ist noch nicht ganz fertig.
+
+===SVN Repository===
+	o <!url http://svn.berlios.de/viewcvs/evi SVN mit Webbrowser angucken>
 	o Anonymer Zugang: svn checkout svn:\//svn.berlios.de/evi/framework
+	o Anonymer Zugang (HTTP): svn checkout http:\//svn.berlios.de/evi/framework
 	o Entwickler-Zugang: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi/framework
+	o Entwickler-Zugang (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi/framework
 
-==Module==
+===Tutorials===
+	o <!url module_tutorial/ Modul-Entwicklungs-Tutorial>
+	o <!url svn_tutorial/ Eclipse+SVN-Tutorial> 
+
+==Geplante Module==
 Da hinter in eckigen Klammern die Priorität (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorität werden wir die Module auch schreiben (also dringende Module zu erst...)
 	- Kommunikation
 		* IRC (Internet Relay Chat) [10]
@@ -40,7 +46,7 @@ Da hinter in eckigen Klammern die Priorität (1 = gering, 10 = dringend). In etwa
 		* IDv3-Tag Verwalter [2]
 
 ==Der Name==
-evi() steht für **E**xtensible **V**erena **I**nterface. Verena steht für Verena Baumeister aus Euskirchen und Evi für Eva Valder aus Palmersheim. Und die Idee ist dann, eine Schnittstelle zwischen der Rosstr. 38-40 in Aachen und der Pappelallee in Euskirchen zu schaffen (vielleicht kann evi() ja auch irgendwann Voice-over-IP :-)). Hammer wa?
+evi() steht für **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erhält seinen Sinn nur dadurch, dass Evi bzw. Verena für Eva Valder aus Palmersheim bzw. Verena aus Euskirchen stehen.
 
 ==Kontakt==
 Christoph Schwering <schwering@gmail.com>

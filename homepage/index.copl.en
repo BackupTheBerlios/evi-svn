@@ -1,6 +1,5 @@
 TITLE=EVI Extensible Verena Interface
 MACROS=macros.copl
-
 =evi()=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> ]
