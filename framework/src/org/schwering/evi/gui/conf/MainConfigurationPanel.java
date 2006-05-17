@@ -54,9 +54,12 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox tabBarPosition;
 	private JComboBox lookAndFeels;
 	private JRadioButton askToExit;
-	private JComboBox primaryFontName;
-	private JTextField primaryFontSize;
-	private JComboBox primaryFontStyle;
+	private JComboBox primFontName;
+	private JTextField primFontSize;
+	private JComboBox primFontStyle;
+	private JComboBox secFontName;
+	private JTextField secFontSize;
+	private JComboBox secFontStyle;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -78,12 +81,13 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		super(new BorderLayout());
 		setBorder(new TitledBorder("EVI configuration:"));
 		
-		JPanel p = new JPanel(new GridLayout(5, 0));
+		JPanel p = new JPanel(new GridLayout(6, 0));
 		addLanguageChooser(p);
 		addTabBarPositionChooser(p);
 		addLookAndFeelChooser(p);
 		addAskToExitCheckBox(p);
-		addFontSelector(p);
+		addPrimaryFontSelector(p);
+		addSecondaryFontSelector(p);
 
 		JPanel buttons = new JPanel();
 		saveButton = new JButton("Save");
@@ -212,7 +216,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		p.add(row);
 	}
 
-	private void addFontSelector(JPanel p) {
+	private void addPrimaryFontSelector(JPanel p) {
 		Font current = MainConfiguration.getFont("font.primary");
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
@@ -220,26 +224,26 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fonts = ge.getAvailableFontFamilyNames();
-		primaryFontName = new JComboBox(fonts);
-		primaryFontName.setSelectedItem(currentFontName);
+		primFontName = new JComboBox(fonts);
+		primFontName.setSelectedItem(currentFontName);
 		
-		primaryFontSize = new JTextField(2);
-		primaryFontSize.setText(String.valueOf(currentFontSize));
+		primFontSize = new JTextField(2);
+		primFontSize.setText(String.valueOf(currentFontSize));
 		
 		Wrapper[] objs = new Wrapper[4];
 		objs[0] = new Wrapper("Plain", "PLAIN");
 		objs[1] = new Wrapper("Bold", "BOLD");
 		objs[2] = new Wrapper("Italic", "Italic");
 		objs[3] = new Wrapper("Bold & Italic", "BOLDITALIC");
-		primaryFontStyle = new JComboBox(objs);
-		primaryFontStyle.setSelectedIndex(find(currentFontStyle, objs));
+		primFontStyle = new JComboBox(objs);
+		primFontStyle.setSelectedIndex(find(currentFontStyle, objs));
 		
 		JPanel sub1 = new JPanel(new BorderLayout());
-		sub1.add(primaryFontName);
+		sub1.add(primFontName);
 		JPanel sub2 = new JPanel(new BorderLayout());
-		sub2.add(primaryFontSize, BorderLayout.WEST);
+		sub2.add(primFontSize, BorderLayout.WEST);
 		sub2.add(new JLabel("pt  "), BorderLayout.CENTER);
-		sub2.add(primaryFontStyle, BorderLayout.EAST);
+		sub2.add(primFontStyle, BorderLayout.EAST);
 		
 		JPanel sub = new JPanel(new GridLayout(2, 0));
 		sub.add(sub1);
@@ -247,6 +251,45 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Primary font:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private void addSecondaryFontSelector(JPanel p) {
+		Font current = MainConfiguration.getFont("font.secondary");
+		String currentFontName = current.getFamily();
+		int currentFontSize = current.getSize();
+		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
+		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		String[] fonts = ge.getAvailableFontFamilyNames();
+		secFontName = new JComboBox(fonts);
+		secFontName.setSelectedItem(currentFontName);
+		
+		secFontSize = new JTextField(2);
+		secFontSize.setText(String.valueOf(currentFontSize));
+		
+		Wrapper[] objs = new Wrapper[4];
+		objs[0] = new Wrapper("Plain", "PLAIN");
+		objs[1] = new Wrapper("Bold", "BOLD");
+		objs[2] = new Wrapper("Italic", "Italic");
+		objs[3] = new Wrapper("Bold & Italic", "BOLDITALIC");
+		secFontStyle = new JComboBox(objs);
+		secFontStyle.setSelectedIndex(find(currentFontStyle, objs));
+		
+		JPanel sub1 = new JPanel(new BorderLayout());
+		sub1.add(secFontName);
+		JPanel sub2 = new JPanel(new BorderLayout());
+		sub2.add(secFontSize, BorderLayout.WEST);
+		sub2.add(new JLabel("pt  "), BorderLayout.CENTER);
+		sub2.add(secFontStyle, BorderLayout.EAST);
+		
+		JPanel sub = new JPanel(new GridLayout(2, 0));
+		sub.add(sub1);
+		sub.add(sub2);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Secondary font:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -309,13 +352,21 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		
 		MainConfiguration.setBoolean("gui.asktoexit", askToExit.isSelected());
 		
-		String primaryFontName = (String)this.primaryFontName.getSelectedItem();
-		String primaryFontSize = this.primaryFontSize.getText().trim();
-		w = (Wrapper)this.primaryFontStyle.getSelectedItem();
+		String primaryFontName = (String)primFontName.getSelectedItem();
+		String primaryFontSize = primFontSize.getText().trim();
+		w = (Wrapper)primFontStyle.getSelectedItem();
 		String primaryFontStyle = (String)w.getObject();
 		Font primaryFont = Util.decodeFont(primaryFontName, primaryFontSize, 
 				primaryFontStyle);
 		MainConfiguration.setFont("font.primary", primaryFont);
+		
+		String secondaryFontName = (String)secFontName.getSelectedItem();
+		String secondaryFontSize = secFontSize.getText().trim();
+		w = (Wrapper)secFontStyle.getSelectedItem();
+		String secondaryFontStyle = (String)w.getObject();
+		Font secondaryFont = Util.decodeFont(secondaryFontName, secondaryFontSize, 
+				secondaryFontStyle);
+		MainConfiguration.setFont("font.secondary", secondaryFont);
 	}
 	
 	/* (non-Javadoc)
