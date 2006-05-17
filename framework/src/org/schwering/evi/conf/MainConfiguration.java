@@ -19,7 +19,17 @@ import org.schwering.evi.util.Util;
  * key=value
  * # This is a comment
  * </pre>
- * You just have to know the keys :-).
+ * Here's a list of EVI configuration keys:
+ * <ul>
+ * <li> gui.asktoexit (boolean) </li>
+ * <li> gui.lookandfeel (String) </li>
+ * <li> gui.size (Dimension) </li>
+ * <li> gui.topleft (Point) </li>
+ * <li> gui.tabs.placement (int) </li>
+ * <li> app.sayhello (boolean) </li>
+ * <li> app.lang (String) </li>
+ * <li> font.primary (Font) </li>
+ * <li> font.secondary (Font) </li>
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
