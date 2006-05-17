@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
 			public void componentShown(ComponentEvent arg0) {
 			}
 		});
-		setMainMenuBar(new MenuBar(this));
+		setMainMenuBar(new MenuBar());
 		setMainToolBar(new ToolBar());
 		setMainTabBar(new TabBar());
 		loadIcon();

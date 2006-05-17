@@ -102,6 +102,18 @@ public final class ModuleLoader extends URLClassLoader {
 	public static final String ATTR_MODULE_REQUIREMENTS = "Module-Requirements";
 	
 	/**
+	 * The module's information attribute in the manifest. It is optional to
+	 * define an information attribute; its value should be the name of a 
+	 * HTML file resource in the JAR.<br />
+	 * This field is public because you should know about this attribute.<br />
+	 * This field's value is: "<code>Module-Information</code>".<br />
+	 * An example for a module-information-attribute in a manifest-file is:
+	 * <br />
+	 * "<code>Module-Information: about.html</code>".
+	 */
+	public static final String ATTR_MODULE_INFORMATION = "Module-Information";
+	
+	/**
 	 * Contains the <code>ModuleContainer</code> objects. Each value's key 
 	 * is the module's id.
 	 */
@@ -153,6 +165,7 @@ public final class ModuleLoader extends URLClassLoader {
 				info.configClassName = attr.getValue(ATTR_MODULE_CONFIG_CLASS);
 				info.protocols = getProtocols(attr);
 				info.requirements = getRequirements(attr);
+				info.informationResource = attr.getValue(ATTR_MODULE_INFORMATION);
 				return info;
 			}
 		} catch (Exception exc) {
@@ -211,6 +224,7 @@ public final class ModuleLoader extends URLClassLoader {
 		String configClassName;
 		String[] protocols;
 		Requirement[] requirements;
+		String informationResource;
 	}
 	
 	/**
@@ -317,6 +331,9 @@ public final class ModuleLoader extends URLClassLoader {
 			
 			Requirement[] requirements = info.requirements;
 			module.setRequirements(requirements);
+			
+			String informationResource = info.informationResource;
+			module.setInformationResource(informationResource);
 			
 			module.setSource(url);
 			

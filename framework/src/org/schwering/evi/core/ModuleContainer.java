@@ -1,5 +1,6 @@
 package org.schwering.evi.core;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -29,6 +30,7 @@ public final class ModuleContainer {
 	private Class configCls;
 	private String[] protocols;
 	private Requirement[] reqs = new Requirement[0];
+	private URL informationResource;
 	private Object source;
 	
 	private HashSet instances = new HashSet(5);
@@ -245,6 +247,30 @@ public final class ModuleContainer {
 	 */
 	public Requirement[] getRequirements() {
 		return reqs;
+	}
+	
+	/**
+	 * Sets the information file. This string should point to a resource 
+	 * that's a HTML file.
+	 * @param resourceName The HTML resource.
+	 */
+	void setInformationResource(String resourceName) {
+		if (resourceName != null) {
+			ClassLoader cl = cls.getClassLoader();
+			informationResource = cl.getResource(resourceName);
+		} else {
+			informationResource = null;
+		}
+	}
+	
+	/**
+	 * Returns the information resource or <code>null</code>. The information
+	 * resource should be a HTML file that contains some describing 
+	 * information.
+	 * @return A URL that points to the information resource HTML file. 
+	 */
+	public URL getInformationResource() {
+		return informationResource;
 	}
 	
 	/**

@@ -3,6 +3,7 @@ package org.schwering.evi.gui.main;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.Hashtable;
 
 import javax.swing.JMenu;
@@ -21,6 +22,7 @@ import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleConfigurationPanel;
 import org.schwering.evi.util.EnvironmentPanel;
 import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.HTMLBrowser;
 import org.schwering.evi.util.Util;
 
 /**
@@ -31,12 +33,9 @@ import org.schwering.evi.util.Util;
 public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	private static final long serialVersionUID = -992480608627651585L;
 	
-	private MainFrame owner;
 	private Hashtable table = new Hashtable();
 	
-	public MenuBar(MainFrame owner) {
-		this.owner = owner;
-		
+	public MenuBar() {
 		// File menu
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic('F');
@@ -121,13 +120,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						IPanel config = ModuleConfigFactory.newInstance(module);
-						MainFrame.getInstance().getMainTabBar().addTab(config);
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// TODO
-// Start module configuration panel
-// This requires solving the configurationpanel
-// issue!!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						addTab(config);
 					} catch (Exception exc) {
 						ExceptionDialog.show("Module configuration could not " +
 								"be started", exc);
@@ -136,18 +129,45 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			});
 			m.add(i);
 		}
+		
+		if (module.getInformationResource() != null) {
+			JMenuItem i = new JMenuItem("Info");
+			i.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						URL url = module.getInformationResource();
+						HTMLBrowser browser = new HTMLBrowser(url) {
+							public String getTitle() {
+								return module.getName() +" Info";
+							}
+						};
+						addTab(browser);
+					} catch (Exception exc) {
+						ExceptionDialog.show("Module information could not " +
+								"be started", exc);
+					}
+				}
+			});
+			m.add(i);
+		}
+		
 		add(m, getMenuCount() - 1);
 		table.put(module, m);
+	}
+	
+	/**
+	 * Just a shorthand for MainFrame.getInstance().getMainTabBar().addTab().
+	 * @param panel The panel which should be added.
+	 */
+	private void addTab(IPanel panel) {
+		MainFrame.getInstance().getMainTabBar().addTab(panel);
 	}
 	
 	private void addMainConfigurationMenu(JMenu m) {
 		JMenuItem i = new JMenuItem(MainConfigurationPanel.DEFAULT_TITLE);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(MainConfigurationPanel.getInstance());
-				}
+				addTab(MainConfigurationPanel.getInstance());
 			}
 		});
 		i.setMnemonic('o');
@@ -158,10 +178,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem(ModuleConfigurationPanel.DEFAULT_TITLE);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(ModuleConfigurationPanel.getInstance());
-				}
+				addTab(ModuleConfigurationPanel.getInstance());
 			}
 		});
 		i.setMnemonic('M');
@@ -173,11 +190,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 				ModuleAutoStartConfigurationPanel.DEFAULT_TITLE);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(
-							ModuleAutoStartConfigurationPanel.getInstance());
-				}
+				addTab(ModuleAutoStartConfigurationPanel.getInstance());
 			}
 		});
 		i.setMnemonic('A');
@@ -188,10 +201,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem("Close Tab");
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.removeSelectedTab();
-				}
+				MainFrame.getInstance().getMainTabBar().removeSelectedTab();
 			}
 		});
 		i.setMnemonic('C');
@@ -215,10 +225,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem("License");
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(new LicensePanel());
-				}
+				addTab(new LicensePanel());
 			}
 		});
 		i.setMnemonic('L');
@@ -229,10 +236,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem(EnvironmentPanel.DEFAULT_TITLE);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(new EnvironmentPanel());
-				}
+				addTab(new EnvironmentPanel());
 			}
 		});
 		i.setMnemonic('E');
@@ -243,10 +247,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem(AboutPanel.DEFAULT_TITLE);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TabBar tabBar = owner.getMainTabBar();
-				if (tabBar != null) {
-					tabBar.addTab(new AboutPanel());
-				}
+				addTab(new AboutPanel());
 			}
 		});
 		i.setMnemonic('A');

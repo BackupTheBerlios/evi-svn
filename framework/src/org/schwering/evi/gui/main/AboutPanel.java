@@ -17,8 +17,6 @@ public class AboutPanel extends HTMLBrowser {
 	
 	private static final String ABOUT_HTML = "about.html";
 	
-	protected String default_html_title = DEFAULT_TITLE;
-	
 	/**
 	 * Displays a panel with a short description.
 	 */
