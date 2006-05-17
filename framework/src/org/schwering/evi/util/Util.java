@@ -165,7 +165,7 @@ public class Util {
 	public static String encodeFontStyle(int style) {
 		if (style == Font.PLAIN) {
 			return "PLAIN";
-		} else if ((style & (Font.BOLD | Font.ITALIC)) != 0) {
+		} else if ((style & Font.BOLD) != 0 && (style & Font.ITALIC) != 0) {
 			return "BOLDITALIC";
 		} else if ((style & Font.BOLD) != 0) {
 			return "BOLD";
