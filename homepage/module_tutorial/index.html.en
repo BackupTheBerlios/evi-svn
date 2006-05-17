@@ -45,6 +45,9 @@ The manifest is of great importance for <b><font color="#ff0000">E</font><font c
 A JAR's manifest is located at META-INF/MANIFEST.MF. A well-known manifest-entry is &quot;Main-Class&quot; which specifies which class's <code>main</code> method should be invoked when the JAR is double-clicked.
 </p>
 <p>
+There's one important point: It seems that a manifest file must end with a new-line-character (i.e. '\n'). This means that the last entry in the manifest must be terminated with a '\n'. Don't know why.
+</p>
+<p>
 There's a number of manifest-entries for <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> modules:
 </p>
 <ul style="list-style-type: square;">
@@ -54,6 +57,7 @@ There's a number of manifest-entries for <b><font color="#ff0000">E</font><font 
 <li>Module-Config-Class</li>
 <li>Module-Protocols</li>
 <li>Module-Requirements</li>
+<li>Module-Information</li>
 </ul>
 <p>
 <u>Module-Class</u><br />
@@ -82,6 +86,10 @@ Let's think about the following scenario: You've written a small webbrowser modu
 <p>
 <u>Module-Requirements</u><br />
 &quot;Module-Requirements&quot; can be defined if your module depends on other modules. Probably you won't need it. If you think you need it, check the javadocs (class ModuleLoader, field ATTR_MODULE_REQUIREMENTS).
+</p>
+<p>
+<u>Module-Information</u><br />
+With &quot;Module-Information&quot;, you can make <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> add a menuitem &quot;Info&quot; to your module's menu in the menubar. Write a HTML file, let's name it &quot;about.html&quot;, put it into your module's JAR and add the a &quot;Module-Information: about.html&quot; entry to your manifest.
 </p>
 <a name="&quot;Hello_World&quot;_Module"></a>
 <h2>&quot;Hello World&quot; Module</h2>

@@ -29,6 +29,8 @@ The manifest is of great importance for evi() modules. See the next chapter.
 ==A Module's Manifest==
 A JAR's manifest is located at META-INF/MANIFEST.MF. A well-known manifest-entry is "Main-Class" which specifies which class's \<code\>main\</code\> method should be invoked when the JAR is double-clicked.
 
+There's one important point: It seems that a manifest file must end with a new-line-character (i.e. '\n'). This means that the last entry in the manifest must be terminated with a '\n'. Don't know why.
+
 There's a number of manifest-entries for evi() modules:
 	- Module-Class
 	- Module-Version
@@ -36,6 +38,7 @@ There's a number of manifest-entries for evi() modules:
 	- Module-Config-Class
 	- Module-Protocols
 	- Module-Requirements
+	- Module-Information
 
 __Module-Class__
 The most important manifest-entry is the "Module-Class". It specifies the name of the main module class. With "name" I mean the package including the class name, for example org.schwering.evi.modules.MyModule where "org.schwering.evi.modules" is the package and "MyModule" the concrete class name.
@@ -58,6 +61,9 @@ evi() will do so if you enter "http" and "https" as "Module-Protocols". If a com
 
 __Module-Requirements__
 "Module-Requirements" can be defined if your module depends on other modules. Probably you won't need it. If you think you need it, check the javadocs (class ModuleLoader, field ATTR_MODULE_REQUIREMENTS).
+
+__Module-Information__
+With "Module-Information", you can make evi() add a menuitem "Info" to your module's menu in the menubar. Write a HTML file, let's name it "about.html", put it into your module's JAR and add the a "Module-Information: about.html" entry to your manifest.
 
 =="Hello World" Module==
 The first example is the typical "Hello World" program. In this case it's a module that displays the string "Hello World!".
