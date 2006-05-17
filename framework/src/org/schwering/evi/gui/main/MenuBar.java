@@ -130,13 +130,14 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			m.add(i);
 		}
 		
-		if (module.getInformationResource() != null) {
+		if (module.getInfoURL() != null) {
 			JMenuItem i = new JMenuItem("Info");
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						URL url = module.getInformationResource();
+						URL url = module.getInfoURL();
 						HTMLBrowser browser = new HTMLBrowser(url) {
+							private static final long serialVersionUID = 2883659303596869565L;
 							public String getTitle() {
 								return module.getName() +" Info";
 							}

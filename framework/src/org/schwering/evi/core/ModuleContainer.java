@@ -30,7 +30,7 @@ public final class ModuleContainer {
 	private Class configCls;
 	private String[] protocols;
 	private Requirement[] reqs = new Requirement[0];
-	private URL informationResource;
+	private URL infoURL;
 	private Object source;
 	
 	private HashSet instances = new HashSet(5);
@@ -254,13 +254,8 @@ public final class ModuleContainer {
 	 * that's a HTML file.
 	 * @param resourceName The HTML resource.
 	 */
-	void setInformationResource(String resourceName) {
-		if (resourceName != null) {
-			ClassLoader cl = cls.getClassLoader();
-			informationResource = cl.getResource(resourceName);
-		} else {
-			informationResource = null;
-		}
+	void setInfoURL(URL infoURL) {
+		this.infoURL = infoURL;
 	}
 	
 	/**
@@ -269,8 +264,8 @@ public final class ModuleContainer {
 	 * information.
 	 * @return A URL that points to the information resource HTML file. 
 	 */
-	public URL getInformationResource() {
-		return informationResource;
+	public URL getInfoURL() {
+		return infoURL;
 	}
 	
 	/**

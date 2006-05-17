@@ -165,14 +165,14 @@ public final class ModuleLoader extends URLClassLoader {
 				info.configClassName = attr.getValue(ATTR_MODULE_CONFIG_CLASS);
 				info.protocols = getProtocols(attr);
 				info.requirements = getRequirements(attr);
-				info.informationResource = attr.getValue(ATTR_MODULE_INFORMATION);
+				info.infoURL = getInfoURL(jarURL, attr);
 				return info;
 			}
 		} catch (Exception exc) {
 			throw new ModuleLoaderException(exc);
 		}
 	}
-	
+
 	/**
 	 * Grabs the protocols the module can handle.
 	 * @param attr The manifest's attributes.
@@ -213,6 +213,26 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
+	 * Returns the information URL or <code>null</code>. The information URL 
+	 * is specified via {@link #ATTR_MODULE_INFORMATION} in the manifest.
+	 * @param context The URL context. Simply the URL of the JAR file.
+	 * @param attr The manifest's attributes.
+	 * @return
+	 */
+	private URL getInfoURL(URL context, Attributes attr) {
+		String value = attr.getValue(ATTR_MODULE_INFORMATION);
+		if (value != null) {
+			try {
+				return new URL(context, value);
+			} catch (Exception exc) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * A small helper class that just contains information grabbed out of a
 	 * JAR's manifest.
 	 * @author chs
@@ -224,7 +244,7 @@ public final class ModuleLoader extends URLClassLoader {
 		String configClassName;
 		String[] protocols;
 		Requirement[] requirements;
-		String informationResource;
+		URL infoURL;
 	}
 	
 	/**
@@ -332,8 +352,8 @@ public final class ModuleLoader extends URLClassLoader {
 			Requirement[] requirements = info.requirements;
 			module.setRequirements(requirements);
 			
-			String informationResource = info.informationResource;
-			module.setInformationResource(informationResource);
+			URL infoURL = info.infoURL;
+			module.setInfoURL(infoURL);
 			
 			module.setSource(url);
 			
