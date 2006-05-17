@@ -1,3 +1,8 @@
+2006-05-17
+	Scenario: Module could not be loaded.
+	Result: The module remains in the config file, but is not displayed under Modules.
+	Solution: Delete it automatically when it's not loaded?
+	
 2006-05-16
 	Complete configuration panel with:
 		* font.secondary
