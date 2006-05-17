@@ -9,7 +9,7 @@ public class MyMouseMotionListener implements MouseMotionListener {
 	private Renderer renderContext;
 	
 	private int old_x, delta_x;
-	private int old_y, delta_y;
+//	private int old_y, delta_y;
 	
 	private int x_coord, y_coord;
 	

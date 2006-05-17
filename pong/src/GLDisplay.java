@@ -16,7 +16,7 @@ public class GLDisplay extends JPanel {
 	private FPSAnimator animator;
 	private int width;
 	private int height;
-	private GraphicsDevice usedDevice;
+//	private GraphicsDevice usedDevice;
 	
 	private MyHelpOverlayGLEventListener helpOverlayGLEventListener = new MyHelpOverlayGLEventListener();
 	

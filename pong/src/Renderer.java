@@ -25,7 +25,7 @@ class Renderer implements GLEventListener {
     private float lPadSpeed = 0.1f;
     
     private boolean pause;
-    private boolean is_multiplayer = false;
+//    private boolean is_multiplayer = false;
     
     private int x_richtung = 1;
     private int y_richtung = 1;
