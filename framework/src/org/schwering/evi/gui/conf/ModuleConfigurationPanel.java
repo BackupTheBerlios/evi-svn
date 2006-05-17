@@ -55,7 +55,7 @@ implements IPanel, IModuleLoaderListener {
 	/**
 	 * The default module list URL.
 	 */
-	private static final String MODULE_LIST_URL = "http://evi.berlios.de/modulelist";
+	public static final String MODULE_LIST_URL = "http://evi.berlios.de/modulelist";
 	
 	/**
 	 * Gives access to the one and only instance of the configuration panel.
@@ -265,7 +265,9 @@ implements IPanel, IModuleLoaderListener {
 			new Thread() {
 				public void run() {
 					try {
-						URL url = new URL(MODULE_LIST_URL);
+						String strurl = MainConfiguration.getString("app.modulelist", 
+								MODULE_LIST_URL);
+						URL url = new URL(strurl);
 						InputStream is = url.openStream();
 						InputStreamReader isr = new InputStreamReader(is);
 						BufferedReader br = new BufferedReader(isr);

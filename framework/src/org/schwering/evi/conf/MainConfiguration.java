@@ -28,6 +28,9 @@ import org.schwering.evi.util.Util;
  * <li> gui.tabs.placement (int) </li>
  * <li> app.sayhello (boolean) </li>
  * <li> app.lang (String) </li>
+ * <li> app.modulelist (String [in URL format], default 
+ * {@link org.schwering.evi.gui.conf.ModuleConfigurationPanel#MODULE_LIST_URL})
+ * </li>
  * <li> font.primary (Font) </li>
  * <li> font.secondary (Font) </li>
  * @author Christoph Schwering (schwering@gmail.com)

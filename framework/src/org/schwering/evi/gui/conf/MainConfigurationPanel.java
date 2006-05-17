@@ -60,6 +60,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox secFontName;
 	private JTextField secFontSize;
 	private JComboBox secFontStyle;
+	private JTextField moduleList;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -81,13 +82,14 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		super(new BorderLayout());
 		setBorder(new TitledBorder("EVI configuration:"));
 		
-		JPanel p = new JPanel(new GridLayout(6, 0));
+		JPanel p = new JPanel(new GridLayout(7, 0));
 		addLanguageChooser(p);
 		addTabBarPositionChooser(p);
 		addLookAndFeelChooser(p);
 		addAskToExitCheckBox(p);
 		addPrimaryFontSelector(p);
 		addSecondaryFontSelector(p);
+		addModuleListField(p);
 
 		JPanel buttons = new JPanel();
 		saveButton = new JButton("Save");
@@ -294,6 +296,30 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		p.add(row);
 	}
 	
+	private void addModuleListField(JPanel p) {
+		String current = MainConfiguration.getString("app.modulelist", 
+				ModuleConfigurationPanel.MODULE_LIST_URL);
+		moduleList = new JTextField(current, 10);
+		
+		JButton reset = new JButton("Reset");
+		reset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moduleList.setText(ModuleConfigurationPanel.MODULE_LIST_URL);
+			}
+		});
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(reset, BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(moduleList, BorderLayout.WEST);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Module List URL:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
 	/**
 	 * Looks for a given object in an array of wrappers.
 	 * @param searched The object which is searched.
@@ -367,6 +393,9 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		Font secondaryFont = Util.decodeFont(secondaryFontName, secondaryFontSize, 
 				secondaryFontStyle);
 		MainConfiguration.setFont("font.secondary", secondaryFont);
+		
+		String moduleListURL = moduleList.getText();
+		MainConfiguration.setString("app.modulelist", moduleListURL);
 	}
 	
 	/* (non-Javadoc)
