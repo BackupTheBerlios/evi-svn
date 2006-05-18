@@ -2,7 +2,6 @@ package org.schwering.evi.test;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
