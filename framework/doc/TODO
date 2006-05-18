@@ -4,10 +4,5 @@
 	Solution: Delete it automatically when it's not loaded?
 	
 2006-05-16
-	Complete configuration panel with:
-		* color.primary
-		* color.secondary
-
-2006-05-16
 	Think about multilanguage support.
 	Realize it.
