@@ -20,9 +20,10 @@ Das Basismodul heiﬂt "framework".
 	o Entwickler-Zugang: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
 	o Entwickler-Zugang (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
-===Tutorials===
+===Documents===
 	o <!url module_tutorial/ Modul-Entwicklungs-Tutorial>
 	o <!url svn_tutorial/ Eclipse+SVN-Tutorial> 
+	o <!url javadoc/ Javadocs>
 
 ==Geplante Module==
 Da hinter in eckigen Klammern die Priorit‰t (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorit‰t werden wir die Module auch schreiben (also dringende Module zu erst...)

@@ -30,11 +30,12 @@ Das Basismodul hei&szlig;t &quot;framework&quot;.
 <li>Entwickler-Zugang: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
 <li>Entwickler-Zugang (HTTPS): svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
 </ul>
-<a name="Tutorials"></a>
-<h3>Tutorials</h3>
+<a name="Documents"></a>
+<h3>Documents</h3>
 <ul style="list-style-type: circle;">
 <li><a href="module_tutorial/">Modul-Entwicklungs-Tutorial</a></li>
 <li><a href="svn_tutorial/">Eclipse+SVN-Tutorial</a> </li>
+<li><a href="javadoc/">Javadocs</a></li>
 </ul>
 <a name="Geplante_Module"></a>
 <h2>Geplante Module</h2>

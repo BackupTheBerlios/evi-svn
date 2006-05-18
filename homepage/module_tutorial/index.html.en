@@ -54,7 +54,6 @@ There's a number of manifest-entries for <b><font color="#ff0000">E</font><font 
 <li>Module-Class</li>
 <li>Module-Version</li>
 <li>Module-Name</li>
-<li>Module-Config-Class</li>
 <li>Module-Protocols</li>
 <li>Module-Requirements</li>
 <li>Module-Information</li>
@@ -67,11 +66,6 @@ Because this combination of package and class name is unique, it is also the ide
 <p>
 <u>Module-Version</u><br />
 Optionally, one can define a module version. If none is specified, it is &quot;0.0&quot;. A version might be necessary in connection with &quot;Module-Requirements&quot;.
-</p>
-<p>
-<u>Module-Config-Class</u><br />
-Many modules should be configurable by the user. For example an IRC client module, and almost all other modules, too.<br />
-Adding a manifest-entry &quot;Module-Config-Class&quot; whose value is the package plus class name of the configuration class, e.g. org.schwering.evi.modules.MyModuleConfiguration. 
 </p>
 <p>
 <u>Module-Name</u><br />
@@ -189,7 +183,7 @@ You can also download the HelloWorld.java, the manifest, the compiled HelloWorld
 <a name="The_API:_IModule_And_IPanel"></a>
 <h2>The API: IModule And IPanel</h2>
 <p>
-The module engine is contained in the package <a href="../javadoc_core">org.schwering.evi.core</a>. For developers, the interfaces <a href="../javadoc_core/org/schwering/evi/core/IModule.html"><code>IModule</code></a> and <a href="../javadoc_core/org/schwering/evi/core/IPanel.html"><code>IPanel</code></a> are very important.
+The module engine is contained in the package <a href="../javadoc/org/schwering/evi/core/package-summary.html">org.schwering.evi.core</a>. For developers, the interfaces <a href="../javadoc/org/schwering/evi/core/IModule.html"><code>IModule</code></a> and <a href="../javadoc/org/schwering/evi/core/IPanel.html"><code>IPanel</code></a> are very important.
 </p>
 <a name="IModule"></a>
 <h3>IModule</h3>
@@ -226,6 +220,23 @@ After a break, we're going to deal with the first point:
 <a name="A_Simple_Configurable_Graphical_Module"></a>
 <h2>A Simple Configurable Graphical Module</h2>
 <p>
-(Write a simple image viewer or so.)
+<i>(Write a simple image viewer or so.)</i>
+</p>
+<a name="The_API:_IConfigurable_And_IMenuable"></a>
+<h2>The API: IConfigurable And IMenuable</h2>
+<p>
+Above, you learned about the interfaces IModule and IPanel. IModule is the very basic core interface which every interface implements. IPanel is not <i>that</i> essential, but very important too, because every graphical module implements it.<br />
+However, you might want more. You might want <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> display a &quot;Config&quot; menu entry in the module's menu in the menubar. Have a look at the <code>IConfigurable</code> interface. <br />
+You even might hate the menu <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> generates for you. If you want to replace it completely, check out the <code>IMenuable</code>.
+</p>
+<a name="IConfigurable"></a>
+<h3>IConfigurable</h3>
+<p>
+<i>(Describe IConfigurable.)</i>
+</p>
+<a name="IMenuable"></a>
+<h3>IMenuable</h3>
+<p>
+<i>(Describe IMenuable.)</i>
 </p>
 </body></html>

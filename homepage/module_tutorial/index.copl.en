@@ -35,7 +35,6 @@ There's a number of manifest-entries for evi() modules:
 	- Module-Class
 	- Module-Version
 	- Module-Name
-	- Module-Config-Class
 	- Module-Protocols
 	- Module-Requirements
 	- Module-Information
@@ -46,10 +45,6 @@ Because this combination of package and class name is unique, it is also the ide
 
 __Module-Version__
 Optionally, one can define a module version. If none is specified, it is "0.0". A version might be necessary in connection with "Module-Requirements".
-
-__Module-Config-Class__
-Many modules should be configurable by the user. For example an IRC client module, and almost all other modules, too.
-Adding a manifest-entry "Module-Config-Class" whose value is the package plus class name of the configuration class, e.g. org.schwering.evi.modules.MyModuleConfiguration. 
 
 __Module-Name__
 The "Module-Name" manifest-entry specifies under which (short) name the module occures in the program. This name does not need to be unique. This name is //not// the id of the module! It is just its name in the menu and so on. If no name is specified in the manifest, the module id will also be used as module name.
@@ -148,7 +143,7 @@ When you close the application, press Ctrl+W or rightclick -> close on the tab, 
 You can also download the HelloWorld.java, the manifest, the compiled HelloWorld.class and the generated JAR from <!url helloworld/>.
 
 ==The API: IModule And IPanel==
-The module engine is contained in the package <!url ../javadoc_core org.schwering.evi.core>. For developers, the interfaces <!url ../javadoc_core/org/schwering/evi/core/IModule.html \<code\>IModule\</code\>> and <!url ../javadoc_core/org/schwering/evi/core/IPanel.html \<code\>IPanel\</code\>> are very important.
+The module engine is contained in the package <!url ../javadoc/org/schwering/evi/core/package-summary.html org.schwering.evi.core>. For developers, the interfaces <!url ../javadoc/org/schwering/evi/core/IModule.html \<code\>IModule\</code\>> and <!url ../javadoc/org/schwering/evi/core/IPanel.html \<code\>IPanel\</code\>> are very important.
 
 ===IModule===
 Every module //must// implement \<code\>IModule\</code\>. 
@@ -171,4 +166,15 @@ There are just two essential things missing:
 After a break, we're going to deal with the first point:
 
 ==A Simple Configurable Graphical Module==
-(Write a simple image viewer or so.)
+//(Write a simple image viewer or so.)//
+
+==The API: IConfigurable And IMenuable==
+Above, you learned about the interfaces IModule and IPanel. IModule is the very basic core interface which every interface implements. IPanel is not //that// essential, but very important too, because every graphical module implements it.
+However, you might want more. You might want evi() display a "Config" menu entry in the module's menu in the menubar. Have a look at the \<code\>IConfigurable\</code\> interface. 
+You even might hate the menu evi() generates for you. If you want to replace it completely, check out the \<code\>IMenuable\</code\>.
+
+===IConfigurable===
+//(Describe IConfigurable.)//
+
+===IMenuable===
+//(Describe IMenuable.)//
