@@ -13,10 +13,11 @@ import javax.swing.KeyStroke;
 
 import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.core.ModuleConfigFactory;
+import org.schwering.evi.core.ModuleConfigurationInvoker;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
+import org.schwering.evi.core.ModuleMenuInvoker;
 import org.schwering.evi.gui.conf.MainConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleConfigurationPanel;
@@ -87,15 +88,41 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	 * Adds menu entries to initialize and/or configure the module.
 	 * @param module The module for which menu entries are to be added.
 	 */
-	private void addModule(final ModuleContainer module) {
-		if (!module.isPanel() && !module.isConfigurable()) {
-			return;
+	private void addModule(ModuleContainer module) {
+		JMenu menu;
+		if (module.isMenuable()) {
+			try {
+				menu = ModuleMenuInvoker.invoke(module);
+			} catch (Exception exc) {
+				menu = getDefaultModuleMenu(module);
+				ExceptionDialog.show("Custom menu failed; using default.", 
+						exc);
+			}
+		} else {
+			menu = getDefaultModuleMenu(module);
+		}
+		if (menu != null) {
+			add(menu, getMenuCount() - 1);
+			table.put(module, menu);
+		}
+	}
+	
+	/**
+	 * Returns the default module menu.
+	 * @param module The module for which the module should be generated.
+	 * @return The default module menu.
+	 */
+	private JMenu getDefaultModuleMenu(final ModuleContainer module) {
+		if (!module.isPanel() && !module.isConfigurable()
+				&& module.getId() == null) {
+			return null;
 		}
 		
 		String name = module.getName();
 		if (name == null || name.length() == 0) {
 			name = "Untitled";
 		}
+		
 		JMenu m = new JMenu(name);
 		m.setMnemonic(name.charAt(0));
 		
@@ -119,7 +146,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						IPanel config = ModuleConfigFactory.newInstance(module);
+						IPanel config = ModuleConfigurationInvoker.invoke(module);
 						addTab(config);
 					} catch (Exception exc) {
 						ExceptionDialog.show("Module configuration could not " +
@@ -152,8 +179,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			m.add(i);
 		}
 		
-		add(m, getMenuCount() - 1);
-		table.put(module, m);
+		return m;
 	}
 	
 	/**
