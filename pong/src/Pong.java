@@ -2,13 +2,14 @@ import java.awt.Component;
 
 import javax.swing.Icon;
 
+import org.schwering.evi.core.IConfigurable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
 
 /**
  * @author Mike Kremer
  */
-public class Pong implements IModule, IPanel {
+public class Pong implements IModule, IPanel, IConfigurable {
 	private static Pong instance = null;
 	private GLDisplay display;
 	
@@ -47,5 +48,9 @@ public class Pong implements IModule, IPanel {
 		display.stop();
 		SoundManager.killAllData();
 		System.out.println("Pong.dispose()");
+	}
+	
+	public static IPanel getConfigPanel() {
+		return new PongConfig();
 	}
 }

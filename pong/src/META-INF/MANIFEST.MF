@@ -1,5 +1,4 @@
 Module-Class: Pong
 Module-Version: 1.0
 Module-Name: Pong
-Module-Config-Class: PongConfig
 Module-Information: about.html
