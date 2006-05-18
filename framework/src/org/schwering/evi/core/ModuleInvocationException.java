@@ -1,24 +1,26 @@
 package org.schwering.evi.core;
 
 /**
- * Module config panel instantiation exception.
+ * Module invocation exception indicates that invoking a static method failed.
+ * @see ModuleConfigurationInvoker
+ * @see ModuleMenuInvoker
  * @author Christoph Schwering (mailto:schwering@gmail.com)
- * @version $Id$
+ * @version $Id: ModuleInvocationException.java 77 2006-05-15 14:17:40Z schwering $
  */
-public class ModuleConfigInstantiationException extends ModuleException {
-	private static final long serialVersionUID = 6591925348130173100L;
+public class ModuleInvocationException extends ModuleException {
+	private static final long serialVersionUID = 2430360888617215944L;
 
 	/**
 	 * A plain module config panel instantiation exception.
 	 */
-	public ModuleConfigInstantiationException() {
+	public ModuleInvocationException() {
 	}
 	
 	/**
 	 * A plain module instantiation exception.
 	 * @param exc The caught exception.
 	 */
-	public ModuleConfigInstantiationException(Throwable exc) {
+	public ModuleInvocationException(Throwable exc) {
 		super(exc);
 	}
 	
@@ -26,7 +28,7 @@ public class ModuleConfigInstantiationException extends ModuleException {
 	 * A module config panel instantiation exception with message.
 	 * @param msg The error message.
 	 */
-	public ModuleConfigInstantiationException(String msg) {
+	public ModuleInvocationException(String msg) {
 		super(msg);
 	}
 	
@@ -35,7 +37,7 @@ public class ModuleConfigInstantiationException extends ModuleException {
 	 * @param msg The error message.
 	 * @param exc The caught exception.
 	 */
-	public ModuleConfigInstantiationException(String msg, Throwable exc) {
+	public ModuleInvocationException(String msg, Throwable exc) {
 		super(msg, exc);
 	}
 }

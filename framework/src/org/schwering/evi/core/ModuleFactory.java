@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
  * <code>disposeInstance</code> methods cause <code>IModuleListener</code> 
  * events to be fired. Hence, it is necessary to <b>use this class's methods 
  * to instantiate and dispose a module</b> to keep the internal mechanisms 
- * faultless!! 
+ * faultless!
  * <br />
  * <br />
  * By the way, this class adds a shutdownhook that invokes 
@@ -54,6 +54,8 @@ public final class ModuleFactory {
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
 	 * constructor).
+	 * @throws NullPointerException If <code>module</code> is 
+	 * <code>null</code>.
 	 * @see #newInstance(ModuleContainer, Object[])
 	 * @see #disposeInstance(IModule)
 	 */
@@ -71,6 +73,8 @@ public final class ModuleFactory {
 	 * @return The module's instance.
 	 * @throws ModuleInstantiationException If something fails (e.g. no 
 	 * constructor).
+	 * @throws NullPointerException If <code>module</code> is 
+	 * <code>null</code>.
 	 * @see #newInstance(ModuleContainer)
 	 * @see #disposeInstance(IModule)
 	 */

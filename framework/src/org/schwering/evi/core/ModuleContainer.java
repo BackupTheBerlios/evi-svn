@@ -27,7 +27,6 @@ public final class ModuleContainer {
 	private Class cls;
 	private float version;
 	private String name;
-	private Class configCls;
 	private String[] protocols;
 	private Requirement[] reqs = new Requirement[0];
 	private URL infoURL;
@@ -183,24 +182,6 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Sets the configuration panel class. <code>null</code> means the module
-	 * is not configurable.
-	 * @param configCls The new configuration panel class.
-	 */
-	void setConfigClass(Class configCls) {
-		this.configCls = configCls;
-	}
-	
-	/**
-	 * Returns the module configuratoin panel class. <code>null</code> means 
-	 * the module is not configurable.
-	 * @return The module configuration panel class or <code>null</code>.
-	 */
-	Class getConfigClass() {
-		return configCls;
-	}
-	
-	/**
 	 * Sets the protocols handled by this module.
 	 */
 	void setProtocols(String[] protocols) {
@@ -294,35 +275,41 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the given class implements 
-	 * <code>IConfigurable</code>.
-	 * @return <code>true</code> if the given class implements 
-	 * <code>IConfigurable</code>.
-	 * @see ModuleConfigFactory
+	 * Returns <code>true</code> if the module implements <code>IModule</code>.
+	 * @return <code>true</code> if the module implements <code>IModule</code>.
 	 */
-	public boolean isConfigurable() {
-		return configCls != null && classImplements(configCls, IPanel.class);
+	private static boolean isModule(Class c) {
+		return classImplements(c, IModule.class);
 	}
 	
 	/**
-	 * Returns <code>true</code> if the given class implements 
-	 * <code>IPanel</code>.
-	 * @return <code>true</code> if the given class implements 
-	 * <code>IPanel</code>.
+	 * Returns <code>true</code> if the module implements <code>IPanel</code>.
+	 * @return <code>true</code> if the module implements <code>IPanel</code>.
 	 */
 	public boolean isPanel() {
 		return classImplements(cls, IPanel.class);
 	}
 	
 	/**
-	 * Returns <code>true</code> if the given class implements 
-	 * <code>IModule</code>.
-	 * @param c The class which is to be checked.
-	 * @return <code>true</code> if the given class implements 
-	 * <code>IModule</code>.
+	 * Returns <code>true</code> if the module implements 
+	 * <code>IMenuable</code>.
+	 * @return <code>true</code> if the module implements 
+	 * <code>IMenuable</code>.
+	 * @see ModuleConfigurationInvoker
 	 */
-	private static boolean isModule(Class c) {
-		return classImplements(c, IModule.class);
+	public boolean isConfigurable() {
+		return classImplements(cls, IConfigurable.class);
+	}
+	
+	/**
+	 * Returns <code>true</code> if the module implements 
+	 * <code>IMenuable</code>.
+	 * @return <code>true</code> if the module implements 
+	 * <code>IMenuable</code>.
+	 * @see ModuleMenuInvoker
+	 */
+	public boolean isMenuable() {
+		return classImplements(cls, IMenuable.class);
 	}
 	
 	/**
@@ -333,11 +320,7 @@ public final class ModuleContainer {
 	 * <code>false</code>.
 	 */
 	private static boolean classImplements(Class c, Class i) {
-		if (c == null) {
-			return false;
-		}
-		Class[] is = c.getInterfaces();
-		if (is == null) {
+		if (c == null || i == null) {
 			return false;
 		}
 		return i.isAssignableFrom(c);

@@ -62,21 +62,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * <code>Module-Version: 1.0</code>
 	 */
 	public static final String ATTR_MODULE_NAME = "Module-Name";
-	
-	/**
-	 * The module's config classname if the module is configurable with a GUI.
-	 * Providing a configuration GUI for a module is optionally; just leave 
-	 * this attribute out if your module doesn't have a configuration panel.
-	 * <br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Config-Class</code>".<br />
-	 * An example for a module-protocol-attribute in a manifest-file is:
-	 * <br />
-	 * "<code>Module-Config-Class: my.package.module.ConfigPanel</code>".
-	 * @see ModuleConfigFactory
-	 */
-	public static final String ATTR_MODULE_CONFIG_CLASS = "Module-Config-Class";
-	
+		
 	/**
 	 * The module's protocols attribute in the manifest. It is optional to
 	 * define protocols. For example, a browser module should register "http".
@@ -160,9 +146,8 @@ public final class ModuleLoader extends URLClassLoader {
 			} else {
 				ModuleInfoContainer info = new ModuleInfoContainer();
 				info.moduleClassName = moduleClassName;
-				info.version = parseFloat(attr.getValue(ATTR_MODULE_VERSION));
-				info.name = attr.getValue(ATTR_MODULE_NAME);
-				info.configClassName = attr.getValue(ATTR_MODULE_CONFIG_CLASS);
+				info.version = getModuleVersion(attr);
+				info.name = getModuleName(attr);
 				info.protocols = getProtocols(attr);
 				info.requirements = getRequirements(attr);
 				info.infoURL = getInfoURL(jarURL, attr);
@@ -171,6 +156,26 @@ public final class ModuleLoader extends URLClassLoader {
 		} catch (Exception exc) {
 			throw new ModuleLoaderException(exc);
 		}
+	}
+	
+	/**
+	 * Grabs the module version, <code>0.0</code> by default.
+	 * @param attr The manifest's attributes.
+	 * @return The module version or <code>0.0</code>.
+	 */
+	private float getModuleVersion(Attributes attr) {
+		String s = attr.getValue(ATTR_MODULE_VERSION);
+		return parseFloat(s);
+	}
+	
+	/**
+	 * Grabs the module name or <code>null</code>.
+	 * @param attr The manifest's attributes.
+	 * @return The module name or <code>null</code>.
+	 */
+	private String getModuleName(Attributes attr) {
+		String s = attr.getValue(ATTR_MODULE_NAME);
+		return (s != null) ? s.trim() : null;
 	}
 
 	/**
@@ -233,21 +238,6 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * A small helper class that just contains information grabbed out of a
-	 * JAR's manifest.
-	 * @author chs
-	 */
-	class ModuleInfoContainer {
-		String moduleClassName;
-		float version;
-		String name;
-		String configClassName;
-		String[] protocols;
-		Requirement[] requirements;
-		URL infoURL;
-	}
-	
-	/**
 	 * Parses a float or returns 0.
 	 * @param s The string which represents a float.
 	 * @return The the float or 0.0 if parsing fails.
@@ -258,6 +248,20 @@ public final class ModuleLoader extends URLClassLoader {
 		} catch (Exception exc) {
 			return 0.0f;
 		}
+	}
+	
+	/**
+	 * A small helper class that just contains information grabbed out of a
+	 * JAR's manifest.
+	 * @author chs
+	 */
+	class ModuleInfoContainer {
+		String moduleClassName;
+		float version;
+		String name;
+		String[] protocols;
+		Requirement[] requirements;
+		URL infoURL;
 	}
 	
 	/**
@@ -336,15 +340,6 @@ public final class ModuleLoader extends URLClassLoader {
 			
 			String name = info.name;
 			module.setName(name);
-			
-			String configClassName = info.configClassName;
-			Class configCls;
-			try {
-				configCls = loader.findClass(configClassName);
-			} catch (Exception exc) {
-				configCls = null;
-			}
-			module.setConfigClass(configCls);
 			
 			String[] protocols = info.protocols;
 			module.setProtocols(protocols);

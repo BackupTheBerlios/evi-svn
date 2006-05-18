@@ -1,7 +1,7 @@
 package org.schwering.evi.core;
 
 /**
- * Basis interface for modules. <br />
+ * Basis interface for modules.<br />
  * This interface must be implemented by all modules. It forces them 
  * to provide the core functionalities: creating and destroying module
  * instances.
@@ -29,9 +29,9 @@ package org.schwering.evi.core;
  * Instead, there is {@link ModuleFactory#disposeInstance(IModule)} which 
  * not only invokes this <code>dispose</code> method but also cares about some 
  * internal things.
- * @see org.schwering.evi.core.ModuleLoader
- * @see org.schwering.evi.core.ModuleContainer
- * @see org.schwering.evi.core.ModuleFactory
+ * @see ModuleLoader
+ * @see ModuleContainer
+ * @see ModuleFactory
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
