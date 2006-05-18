@@ -1,5 +1,6 @@
 package org.schwering.evi.conf;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
@@ -379,17 +380,28 @@ public abstract class MainConfiguration {
 		int height = (int)value.getHeight();
 		props.setProperty(key, width +"x"+ height);
 	}
+	
 	/**
 	 * Grabs a font.
 	 * @param key The key.
 	 * @return A new font.
 	 */
 	public static Font getFont(String key) {
+		return getFont(key, Font.decode(null));
+	}
+	
+	/**
+	 * Grabs a font.
+	 * @param key The key.
+	 * @param def The default font.
+	 * @return A new font.
+	 */
+	public static Font getFont(String key, Font def) {
 		String s = getString(key);
 		if (s != null && s.length() > 0) {
 			return Font.decode(s);
 		} else {
-			return Font.decode(null);
+			return def;
 		}
 	}
 	
@@ -400,5 +412,52 @@ public abstract class MainConfiguration {
 	 */
 	public static void setFont(String key, Font value) {
 		props.setProperty(key, Util.encodeFont(value));
+	}
+	
+	/**
+	 * Grabs a color.
+	 * @param key The key.
+	 * @return A new color.
+	 */
+	public static Color getColor(String key) {
+		return getColor(key, Color.BLACK);
+	}
+	
+	/**
+	 * Grabs a color.
+	 * @param key The key.
+	 * @param def The default color.
+	 * @return A new color.
+	 */
+	public static Color getColor(String key, Color def) {
+		String s = getString(key);
+		if (s != null && s.length() > 0) {
+			try {
+				String[] arr = s.split(" ");
+				int r = Integer.parseInt(arr[0]);
+				int g = Integer.parseInt(arr[1]);
+				int b = Integer.parseInt(arr[2]);
+				int a = Integer.parseInt(arr[3]);
+				return new Color(r, g, b, a);
+			} catch (Exception exc) {
+				return def;
+			}
+		} else {
+			return def;
+		}
+	}
+	
+	/**
+	 * Sets a new color value.
+	 * @param key The key.
+	 * @param value The value.
+	 */
+	public static void setColor(String key, Color value) {
+		int r = value.getRed();
+		int g = value.getGreen();
+		int b = value.getBlue();
+		int a = value.getAlpha();
+		String s = r +" "+ g +" "+ b +" "+ a;
+		props.setProperty(key, s);
 	}
 }
