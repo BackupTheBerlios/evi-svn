@@ -158,15 +158,13 @@ public class EVI {
 					exc);
 		}
 		
-		/* just for fun: (from incl. 85% to incl. 88%) */
+		/* just for fun: (from incl. 85% to incl. 90%) */
 		try {
 			String[] murks = new String[] {
 				"Eva Valder",
-				"Ohne dich...",
-				"...geht es nicht",
 			};
 			for (int i = 0; i <= murks.length; i++) {
-				progress.update(85 + i, murks[i]);
+				progress.update(85 + 5*i, murks[i]);
 				Thread.sleep(100);
 			}
 		} catch (Exception exc) {
