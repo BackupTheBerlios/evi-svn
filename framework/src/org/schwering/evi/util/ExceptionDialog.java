@@ -1,6 +1,7 @@
 package org.schwering.evi.util;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,7 +121,17 @@ public class ExceptionDialog extends JFrame {
 	 * @return A panel with information about the exception.
 	 */
 	private JPanel getExceptionPanel(String msg, Throwable exc) {
-		JLabel label = new JLabel(msg);
+		JTextArea label = new JTextArea(msg);
+		label.setEditable(false);
+		label.setBackground(getBackground());
+		label.setCaretPosition(0);
+		Font defaultFont = new JLabel().getFont();
+		Font f = new Font(defaultFont.getName(), Font.BOLD, 
+				defaultFont.getSize());
+		label.setFont(f);
+		label.setBorder(null);
+		JScrollPane scrollPaneLabel = new JScrollPane(label);
+		scrollPaneLabel.setBorder(null);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setText(Util.exceptionToString(exc));
@@ -128,14 +139,14 @@ public class ExceptionDialog extends JFrame {
 		textArea.setEditable(false);
 		textArea.setCaretPosition(0);
 		RightClickMenu.addRightClickMenu(textArea);
-		JScrollPane scrollPane = new JScrollPane(textArea, 
+		JScrollPane scrollPaneException = new JScrollPane(textArea, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		JPanel p = new JPanel(new GridLayout(1, 0));
 		p.setLayout(new BorderLayout());
-		p.add(label, BorderLayout.NORTH);
-		p.add(scrollPane, BorderLayout.CENTER);
+		p.add(scrollPaneLabel, BorderLayout.NORTH);
+		p.add(scrollPaneException, BorderLayout.CENTER);
 		return p;
 	}
 	
