@@ -191,8 +191,10 @@ public class EVI {
 				try {
 					ModuleLoader.load(urls[i]);
 				} catch (Exception exc) {
-					ExceptionDialog.show("Module could not be loaded:\n"+
-							urls[i], exc);
+					ExceptionDialog.show("Module could not be loaded:\n"+ 
+							urls[i] +"\n"+
+							"I removed it from the module list!", exc);
+					ModuleConfiguration.remove(urls[i]);
 				}
 			}
 		}
@@ -203,7 +205,9 @@ public class EVI {
 					ModuleLoader.load(classNames[i]);
 				} catch (Exception exc) {
 					ExceptionDialog.show("Module could not be loaded:\n"+ 
-							classNames[i], exc);
+							classNames[i] +"\n"+
+							"I removed it from the module list!", exc);
+					ModuleConfiguration.remove(classNames[i]);
 				}
 			}
 		}
