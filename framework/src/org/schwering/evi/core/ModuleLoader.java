@@ -140,7 +140,7 @@ public final class ModuleLoader extends URLClassLoader {
 				throw new ModuleLoaderException("No Module-Class defined");
 			}
 			
-			String moduleClassName = attr.getValue(ATTR_MODULE_CLASS);
+			String moduleClassName = getModuleClassName(attr);
 			if (moduleClassName == null) {
 				throw new ModuleLoaderException("No Module-Class defined");
 			} else {
@@ -156,6 +156,16 @@ public final class ModuleLoader extends URLClassLoader {
 		} catch (Exception exc) {
 			throw new ModuleLoaderException(exc);
 		}
+	}
+	
+	/**
+	 * Grabs the module's main class or <code>null</code>.
+	 * @param attr The manifest's attributes.
+	 * @return The module's main class or <code>null</code>.
+	 */
+	private String getModuleClassName(Attributes attr) {
+		String s = attr.getValue(ATTR_MODULE_CLASS);
+		return (s != null) ? s.trim() : null;
 	}
 	
 	/**
