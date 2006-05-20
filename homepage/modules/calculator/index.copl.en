@@ -1,5 +1,5 @@
 TITLE=EVI Module Dummy Site
-MACROS=macros.conf
+MACROS=macros.copl
 =evi() Module Dummy Site=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
