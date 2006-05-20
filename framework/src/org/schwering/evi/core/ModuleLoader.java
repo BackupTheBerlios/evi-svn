@@ -265,7 +265,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * JAR's manifest.
 	 * @author chs
 	 */
-	class ModuleInfoContainer {
+	private class ModuleInfoContainer {
 		String moduleClassName;
 		float version;
 		String name;
