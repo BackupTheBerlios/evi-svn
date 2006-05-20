@@ -20,8 +20,8 @@ The main module is named "framework".
 	o Developer (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
 ===Documents===
-	o <!url module_tutorial/ Module Development Tutorial>
-	o <!url svn_tutorial/ Eclipse + SVN Tutorial>
+	o <!url tutorials/modules/ Module Development Tutorial>
+	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
 	o <!url javadoc/ Javadocs>
 
 ==Modules==

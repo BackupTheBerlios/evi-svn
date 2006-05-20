@@ -143,7 +143,7 @@ When you close the application, press Ctrl+W or rightclick -> close on the tab, 
 You can also download the HelloWorld.java, the manifest, the compiled HelloWorld.class and the generated JAR from <!url helloworld/>.
 
 ==The API: IModule And IPanel==
-The module engine is contained in the package <!url ../javadoc/org/schwering/evi/core/package-summary.html org.schwering.evi.core>. For developers, the interfaces <!url ../javadoc/org/schwering/evi/core/IModule.html \<code\>IModule\</code\>> and <!url ../javadoc/org/schwering/evi/core/IPanel.html \<code\>IPanel\</code\>> are very important.
+The module engine is contained in the package <!url ../../javadoc/org/schwering/evi/core/package-summary.html org.schwering.evi.core>. For developers, the interfaces <!url ../../javadoc/org/schwering/evi/core/IModule.html \<code\>IModule\</code\>> and <!url ../../javadoc/org/schwering/evi/core/IPanel.html \<code\>IPanel\</code\>> are very important.
 
 ===IModule===
 Every module //must// implement \<code\>IModule\</code\>. 

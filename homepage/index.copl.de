@@ -21,8 +21,8 @@ Das Basismodul heiﬂt "framework".
 	o Entwickler-Zugang (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
 ===Documents===
-	o <!url module_tutorial/ Modul-Entwicklungs-Tutorial>
-	o <!url svn_tutorial/ Eclipse+SVN-Tutorial> 
+	o <!url tutorials/modules/ Modul-Entwicklungs-Tutorial>
+	o <!url tutorials/svn/ Eclipse+SVN-Tutorial> 
 	o <!url javadoc/ Javadocs>
 
 ==Geplante Module==

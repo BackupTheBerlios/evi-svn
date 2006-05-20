@@ -183,7 +183,7 @@ You can also download the HelloWorld.java, the manifest, the compiled HelloWorld
 <a name="The_API:_IModule_And_IPanel"></a>
 <h2>The API: IModule And IPanel</h2>
 <p>
-The module engine is contained in the package <a href="../javadoc/org/schwering/evi/core/package-summary.html">org.schwering.evi.core</a>. For developers, the interfaces <a href="../javadoc/org/schwering/evi/core/IModule.html"><code>IModule</code></a> and <a href="../javadoc/org/schwering/evi/core/IPanel.html"><code>IPanel</code></a> are very important.
+The module engine is contained in the package <a href="../../javadoc/org/schwering/evi/core/package-summary.html">org.schwering.evi.core</a>. For developers, the interfaces <a href="../../javadoc/org/schwering/evi/core/IModule.html"><code>IModule</code></a> and <a href="../../javadoc/org/schwering/evi/core/IPanel.html"><code>IPanel</code></a> are very important.
 </p>
 <a name="IModule"></a>
 <h3>IModule</h3>
