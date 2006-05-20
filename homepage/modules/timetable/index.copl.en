@@ -1,0 +1,11 @@
+TITLE=EVI Module Dummy Site
+MACROS=macros.conf
+=evi() Module Dummy Site=
+
+[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+
+Hi,
+
+this will be the homepage of an evi() module.
+
+Bye

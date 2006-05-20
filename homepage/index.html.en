@@ -41,29 +41,30 @@ The main module is named &quot;framework&quot;.
 After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
 </p>
 <ul style="list-style-type: square;">
-<li>Communication<ul style="list-style-type: disc;">
-<li>IRC (Internet Relay Chat) [10]</li>
-<li>ICQ (Instant Messenging) (I hope) [5]</li>
-<li>possibly also some other IM protocols? [3]</li>
+<li>Communication <ul style="list-style-type: disc;">
+<li><a href="modules/irc/">IRC</a> (Internet Relay Chat) [10]</li>
+<li><a href="modules/icq/">ICQ</a> (Instant Messenging) (I hope) [5]</li>
+<li>maybe also other IM protocols [3]</li>
 </ul>
 </li>
 <li>Entertainment<ul style="list-style-type: disc;">
-<li>Pong single/multiplayer [10]</li>
-<li>TicTacToe single/multiplayer [7]</li>
-<li>possibly Skat  multiplayer (cardgame) [4]</li>
+<li><a href="modules/pong/">Pong</a> single/multiplayer [10]</li>
+<li><a href="modules/tictactoe/">TicTacToe</a> single/multiplayer [7]</li>
+<li>Skat multiplayer (possibly) [4]</li>
 </ul>
 </li>
 <li>Tools<ul style="list-style-type: disc;">
-<li>DCC for IRC [9]</li>
+<li><a href="modules/dcc/">DCC</a> for IRC [9]</li>
 <li>IRC log streamer [8]</li>
-<li>calendar [5]</li>
-<li>timetable [5]</li>
-<li>SMTP mailbox checker [7]</li>
-<li>file manager [7]</li>
-<li>image viewer [4]</li>
-<li>very simple webbrowser [5]</li>
-<li>audio-player would be great [6]</li>
-<li>IDv3-Tag administrator [2]</li>
+<li><a href="modules/calendar/">Calendar</a> [5]</li>
+<li><a href="modules/timetable/">Timetable</a> [5]</li>
+<li><a href="modules/mailbox/">Mailbox Supvervisor</a> [7]</li>
+<li><a href="modules/filemanager/">Filemanager</a> [7]</li>
+<li>Imageviewer [4]</li>
+<li>small Webbrowser :-) [5]</li>
+<li><a href="modules/audioplayer/">Audio-Player</a> would be great [6]</li>
+<li><a href="modules/calculator/">Calculator</a> [7]</li>
+<li>IDv3-Tag Administrator [2]</li>
 </ul>
 </li>
 </ul>

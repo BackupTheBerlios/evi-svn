@@ -28,23 +28,24 @@ Das Basismodul heißt "framework".
 ==Geplante Module==
 Da hinter in eckigen Klammern die Priorität (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorität werden wir die Module auch schreiben (also dringende Module zu erst...)
 	- Kommunikation
-		* IRC (Internet Relay Chat) [10]
-		* ICQ (Instant Messenging) (hoffentlich) [5]
+		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
+		* <!url modules/icq/ ICQ> (Instant Messenging) (hoffentlich) [5]
 		* vielleicht noch weitere IM-Protokolle? [3]
 	- Spiele
-		* Pong single/multiplayer [10]
-		* TicTacToe single/multiplayer [7]
+		* <!url modules/pong/ Pong> single/multiplayer [10]
+		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
 		* Skat multiplayer (vielleicht) [4]
 	- Tools
-		* DCC für IRC [9]
+		* <!url modules/dcc/ DCC> für IRC [9]
 		* IRC log streamer [8]
-		* Kalender [5]
-		* Stundenplan [5]
-		* SMTP Mailbox Überprüfer [7]
-		* Dateimanager [7]
+		* <!url modules/calendar/ Kalender> [5]
+		* <!url modules/timetable/ Stundenplan> [5]
+		* <!url modules/mailbox/ Mailbox Überprüfer> [7]
+		* <!url modules/filemanager/ Dateimanager> [7]
 		* Bildbetrachter [4]
 		* winzigkleiner Webbrowser :-) [5]
-		* Audio-Player wäre super [6]
+		* <!url modules/audioplayer/ Audio-Player> wäre super [6]
+		* <!url modules/calculator/ Taschenrechner> [7]
 		* IDv3-Tag Verwalter [2]
 
 ==Der Name==

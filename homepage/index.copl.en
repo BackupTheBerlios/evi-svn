@@ -26,25 +26,26 @@ The main module is named "framework".
 
 ==Modules==
 After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
-	- Communication
-		* IRC (Internet Relay Chat) [10]
-		* ICQ (Instant Messenging) (I hope) [5]
-		* possibly also some other IM protocols? [3]
+	- Communication 
+		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
+		* <!url modules/icq/ ICQ> (Instant Messenging) (I hope) [5]
+		* maybe also other IM protocols [3]
 	- Entertainment
-		* Pong single/multiplayer [10]
-		* TicTacToe single/multiplayer [7]
-		* possibly Skat  multiplayer (cardgame) [4]
+		* <!url modules/pong/ Pong> single/multiplayer [10]
+		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
+		* Skat multiplayer (possibly) [4]
 	- Tools
-		* DCC for IRC [9]
+		* <!url modules/dcc/ DCC> for IRC [9]
 		* IRC log streamer [8]
-		* calendar [5]
-		* timetable [5]
-		* SMTP mailbox checker [7]
-		* file manager [7]
-		* image viewer [4]
-		* very simple webbrowser [5]
-		* audio-player would be great [6]
-		* IDv3-Tag administrator [2]
+		* <!url modules/calendar/ Calendar> [5]
+		* <!url modules/timetable/ Timetable> [5]
+		* <!url modules/mailbox/ Mailbox Supvervisor> [7]
+		* <!url modules/filemanager/ Filemanager> [7]
+		* Imageviewer [4]
+		* small Webbrowser :-) [5]
+		* <!url modules/audioplayer/ Audio-Player> would be great [6]
+		* <!url modules/calculator/ Calculator> [7]
+		* IDv3-Tag Administrator [2]
 
 ==The Name evi()==
 evi() is an acronym and means **E**xtensible **V**erena **I**nterface.
