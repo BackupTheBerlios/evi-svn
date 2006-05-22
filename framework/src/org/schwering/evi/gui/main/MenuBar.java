@@ -98,7 +98,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	 * @param module The module for which menu entries are to be added.
 	 */
 	private void addModule(ModuleContainer module) {
-		JMenu menu;
+		JMenu menu = null;
 		if (module.isMenuable()) {
 			try {
 				menu = ModuleMenuInvoker.invoke(module);
@@ -122,8 +122,10 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	 * @return The default module menu.
 	 */
 	private JMenu getDefaultModuleMenu(final ModuleContainer module) {
-		if (!module.isPanel() && !module.isConfigurable()
-				&& module.getId() == null) {
+		if (module == null || module.getId() == null) {
+			return null;
+		}
+		if (!module.isPanel() && !module.isApplet() && !module.isConfigurable()) {
 			return null;
 		}
 		
@@ -135,7 +137,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenu m = new JMenu(name);
 		m.setMnemonic(name.charAt(0));
 		
-		if (module.isPanel()) {
+		if (module.isPanel() || module.isApplet()) {
 			JMenuItem i = new JMenuItem(Messages.getString("MenuBar.NEW_INSTANCE")); //$NON-NLS-1$
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
