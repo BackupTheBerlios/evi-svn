@@ -1,11 +1,11 @@
 package org.schwering.evi.util;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -69,7 +69,7 @@ public class RightClickMenu extends JPopupMenu {
 	/**
 	 * Calls super.show() and enables/disables cut and paste.
 	 */
-	public void show(Component invoker, int x, int y) {
+	public void show(JComponent invoker, int x, int y) {
 		menuItemCut.setEnabled(text.isEditable());
 		menuItemPaste.setEnabled(text.isEditable());
 		super.show(invoker, x, y);
@@ -79,7 +79,16 @@ public class RightClickMenu extends JPopupMenu {
 	 * Adds a right click listener.
 	 */
 	private void addRightClickListener() {
-		text.addMouseListener(new MouseListener() {
+		addRightClickListener(text, this);
+	}
+	
+	/**
+	 * Adds a right click listener to the component.
+	 * @param c The component to which the listener is added.
+	 */
+	private static void addRightClickListener(final JComponent c, 
+			final JPopupMenu menu) {
+		c.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { 
 			}
 			public void mouseEntered(MouseEvent e) {
@@ -89,7 +98,7 @@ public class RightClickMenu extends JPopupMenu {
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 1 
 						&& e.getButton() == MouseEvent.BUTTON3) {
-					show(text, e.getX(), e.getY());
+					menu.show(c, e.getX(), e.getY());
 				}
 			}
 			public void mouseReleased(MouseEvent e) {
@@ -98,13 +107,23 @@ public class RightClickMenu extends JPopupMenu {
 	}
 	
 	/**
+	 * Adds a right click menu to the component. 
+	 * @param component The c, e.g. a JPanel.
+	 * @param menu The menu.
+	 */
+	public static void addRightClickMenu(JComponent c, JPopupMenu menu) {
+		addRightClickListener(c, menu);
+		c.add(menu);
+	}
+	
+	/**
 	 * Adds a right click menu to the text component. The menu provides 
 	 * copy, paste, cut, select all.
 	 * @param textComponent The text component, e.g. a JTextField.
 	 */
-	public static void addRightClickMenu(JTextComponent textComponent) {
-		RightClickMenu menu = new RightClickMenu(textComponent);
+	public static void addRightClickMenu(JTextComponent tc) {
+		RightClickMenu menu = new RightClickMenu(tc);
 		menu.addRightClickListener();
-		textComponent.add(menu);
+		tc.add(menu);
 	}
 }
