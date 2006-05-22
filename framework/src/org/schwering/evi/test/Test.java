@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.*;
 
 /**
@@ -30,9 +29,6 @@ public class Test extends JPanel implements IModule, IPanel {
 		JTable table = new JTable(data, new String[] { "ID", "Instances" });
 		
 		JLabel label = new JLabel("Running Modules");
-		label.setForeground(MainConfiguration.getColor("color.primary"));
-		label.setBackground(MainConfiguration.getColor("color.secondary"));
-		label.setFont(MainConfiguration.getFont("font.primary"));
 		
 		add(label, BorderLayout.NORTH);
 		add(table, BorderLayout.CENTER);

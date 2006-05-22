@@ -63,7 +63,7 @@ public class ExceptionDialog extends JFrame {
 	 * @param exc The exception.
 	 */
 	private ExceptionDialog(Throwable exc) {
-		this("An error occured", exc);
+		this(Messages.getString("ExceptionDialog.0"), exc); //$NON-NLS-1$
 	}
 	
 	/**
@@ -72,42 +72,44 @@ public class ExceptionDialog extends JFrame {
 	 * @param exc The exception.
 	 */
 	private ExceptionDialog(String msg, Throwable exc) {
-		super("Error");
+		super(Messages.getString("ExceptionDialog.1")); //$NON-NLS-1$
 		
 		JPanel exceptionPanel = getExceptionPanel(msg, exc);
 		JPanel environmentPanel = new EnvironmentPanel();
 		JPanel configurationPanel = getConfigurationPanel();
 		
 		JTabbedPane tabs = new JTabbedPane();
-		tabs.add("Exception", exceptionPanel);
-		tabs.add("Environment", environmentPanel);
-		tabs.add("Configuration", configurationPanel);
+		tabs.add(Messages.getString("ExceptionDialog.2"), exceptionPanel); //$NON-NLS-1$
+		tabs.add(Messages.getString("ExceptionDialog.3"), environmentPanel); //$NON-NLS-1$
+		tabs.add(Messages.getString("ExceptionDialog.4"), configurationPanel); //$NON-NLS-1$
 		
-		JButton exit = new JButton("Exit");
+		JButton exit = new JButton(Messages.getString("ExceptionDialog.5")); //$NON-NLS-1$
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Util.askToExit();
 			}
 		});
-		JButton proceed = new JButton("Proceed");
+		exit.setToolTipText(Messages.getString("ExceptionDialog.SHUTS_DOWN_APPLICATION")); //$NON-NLS-1$
+		JButton proceed = new JButton(Messages.getString("ExceptionDialog.6")); //$NON-NLS-1$
 		proceed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
+		proceed.setToolTipText(Messages.getString("ExceptionDialog.GO_ON_WORKING")); //$NON-NLS-1$
 		JPanel buttons = new JPanel();
 		buttons.add(exit);
 		buttons.add(proceed);
 
 		JPanel main = new JPanel();
 		main.setLayout(new BorderLayout());
-		main.setBorder(new TitledBorder("An error occured"));
+		main.setBorder(new TitledBorder(Messages.getString("ExceptionDialog.0"))); //$NON-NLS-1$
 		main.add(tabs, BorderLayout.CENTER);
 		main.add(buttons, BorderLayout.SOUTH);
 		
 		getContentPane().add(main);
 	    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Error");
+		setTitle(Messages.getString("ExceptionDialog.8")); //$NON-NLS-1$
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		Util.centerComponent(this);
 		setVisible(true);
@@ -171,17 +173,17 @@ public class ExceptionDialog extends JFrame {
 		
 		int j = confKeys.length;
 		for (int i = 0; i < modules.length; i++) {
-			vars[j+i][0] = "Module #"+ (i+1);
+			vars[j+i][0] = Messages.getString("ExceptionDialog.9")+ (i+1); //$NON-NLS-1$
 			vars[j+i][1] = modules[i].toString();
 		}
 		
 		j = confKeys.length + modules.length;
 		for (int i = 0; i < autoloadIds.length; i++) {
-			vars[j+i][0] = "Autoload #"+ (i+1);
-			vars[j+i][1] = autoloadIds[i] +" "+ autoloadArgs[i];
+			vars[j+i][0] = Messages.getString("ExceptionDialog.10")+ (i+1); //$NON-NLS-1$
+			vars[j+i][1] = autoloadIds[i] +" "+ autoloadArgs[i]; //$NON-NLS-1$
 		}
 		
-		JTable table = new JTable(vars, new String[] { "Variable", "Value" }) {
+		JTable table = new JTable(vars, new String[] { Messages.getString("ExceptionDialog.12"), Messages.getString("ExceptionDialog.13") }) { //$NON-NLS-1$ //$NON-NLS-2$
 			private static final long serialVersionUID = -2586950109604656442L;
 
 			public boolean isCellEditable(int x, int y) {

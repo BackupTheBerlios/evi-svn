@@ -35,9 +35,8 @@ implements IPanel, IModuleLoaderListener {
 	/**
 	 * The panel's title.
 	 */
-	public static final String DEFAULT_TITLE = "Auto Start";
-	
-	
+	public static final String DEFAULT_TITLE = Messages.getString("ModuleAutoStartConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
+		
 	/**
 	 * Gives access to the one and only instance of the configuration panel.
 	 * This avoids that the user might create a bunch of configuration panels
@@ -127,20 +126,22 @@ implements IPanel, IModuleLoaderListener {
 		public LoadPanel(ModuleAutoStartConfigurationPanel o) {
 			super(new GridLayout(1, 0));
 			this.owner = o;
-			setBorder(new TitledBorder("Start automatically:"));
+			setBorder(new TitledBorder(Messages.getString("ModuleAutoStartConfigurationPanel.START_AUTOMATICALLY") +":")); //$NON-NLS-1$ //$NON-NLS-2$
 			String[] ids = ModuleAutoStartConfiguration.getIds();
 			String[] args = ModuleAutoStartConfiguration.getArgs();
 			
 			String[][] data = new String[ids.length][2];
 			for (int i = 0; i < data.length; i++) {
 				data[i][0] = ids[i];
-				data[i][1] = (args[i] != null) ? args[i] : "";
+				data[i][1] = (args[i] != null) ? args[i] : ""; //$NON-NLS-1$
 			}
-			String[] header = new String[] { "Module", "Arguments "}; 
+			String[] header = new String[] { 
+					Messages.getString("ModuleAutoStartConfigurationPanel.MODULE"),   //$NON-NLS-1$ 
+					Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS") //$NON-NLS-1$
+			};
 			
 			final JTable table = new JTable(data, header);
-			table.setToolTipText("Double click the row where you want to "+
-					"modify the arguments.");
+			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.DOUBLE_CLICK_TO_MODIFY_ARGUMENTS")); //$NON-NLS-1$
 			table.getModel().addTableModelListener(new TableModelListener() {
 				public void tableChanged(TableModelEvent e) {
 					if (e.getType() == TableModelEvent.UPDATE) {
@@ -155,10 +156,8 @@ implements IPanel, IModuleLoaderListener {
 				}
 			});
 			final JPopupMenu rightClickMenu = new JPopupMenu();
-			JMenuItem editArgsItem = new JMenuItem("Edit Arguments");
-			editArgsItem.setToolTipText("Arguments are transmitted to the "+
-					"module when it starts. Put in your arguments in the "+
-					"right column.");
+			JMenuItem editArgsItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.EDIT_ARGUMENTS")); //$NON-NLS-1$
+			editArgsItem.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS_ARE_GIVEN_TO_MODULE")); //$NON-NLS-1$
 			editArgsItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int[] selected = table.getSelectedRows();
@@ -168,7 +167,7 @@ implements IPanel, IModuleLoaderListener {
 				}
 			});
 			rightClickMenu.add(editArgsItem);
-			JMenuItem removeItem = new JMenuItem("Remove");
+			JMenuItem removeItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.REMOVE")); //$NON-NLS-1$
 			removeItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
@@ -224,14 +223,15 @@ implements IPanel, IModuleLoaderListener {
 		public ModulePanel(ModuleAutoStartConfigurationPanel o) {
 			super(new GridLayout(1, 0));
 			this.owner = o;
-			setBorder(new TitledBorder("Available modules (select -> "+
-					"right click -> add):"));
+			setBorder(new TitledBorder(Messages.getString("ModuleAutoStartConfigurationPanel.AVAILABLE_MODULES"))); //$NON-NLS-1$
 			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
 			String[][] data = new String[containers.length][1];
 			for (int i = 0; i < data.length; i++) {
 				data[i][0] = containers[i].getId();
 			}
-			String[] header = new String[] { "Module" }; 
+			String[] header = new String[] { 
+					Messages.getString("ModuleAutoStartConfigurationPanel.MODULE") //$NON-NLS-1$ 
+			};
 			
 			final JTable table = new JTable(data, header) {
 				private static final long serialVersionUID = 370084356696900374L;
@@ -239,17 +239,15 @@ implements IPanel, IModuleLoaderListener {
 					return false;
 				}
 			};
-			table.setToolTipText("All modules that are currently available "+
-					"and thus could be started automatically are listed in "+
-					"this table.");
+			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.ALL_MODULES_THAT_ARE_AVAILBLE")); //$NON-NLS-1$
 			final JPopupMenu rightClickMenu = new JPopupMenu();
-			JMenuItem addItem = new JMenuItem("Add to Autostart");
+			JMenuItem addItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.ADD_TO_AUTOSTART")); //$NON-NLS-1$
 			addItem.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
 					for (int i = 0; i < selected.length; i++) {
 						String id = (String)table.getModel().getValueAt(selected[i], 0);
-						ModuleAutoStartConfiguration.addModule(id, "");
+						ModuleAutoStartConfiguration.addModule(id, ""); //$NON-NLS-1$
 					}
 					owner.reloadLoadPanel();
 				}
@@ -273,7 +271,7 @@ implements IPanel, IModuleLoaderListener {
 						int selected = table.getSelectedRow();
 						if (selected != -1) {
 							String id = (String)table.getModel().getValueAt(selected, 0);
-							ModuleAutoStartConfiguration.addModule(id, "");
+							ModuleAutoStartConfiguration.addModule(id, ""); //$NON-NLS-1$
 							owner.reloadLoadPanel();
 						}
 					}

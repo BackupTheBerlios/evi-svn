@@ -8,6 +8,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -22,6 +23,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.schwering.evi.conf.LanguageAdministrator;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.EVI;
@@ -43,7 +45,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	/**
 	 * The panel's title.
 	 */
-	public static final String DEFAULT_TITLE = "Configuration";
+	public static final String DEFAULT_TITLE = Messages.getString("MainConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 	
 	/**
 	 * Gives access to the one and only instance of the configuration panel.
@@ -72,7 +74,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 */
 	private MainConfigurationPanel() {
 		super(new BorderLayout());
-		setBorder(new TitledBorder("EVI configuration:"));
+		setBorder(new TitledBorder(Messages.getString("MainConfigurationPanel.EVI_CONFIGURATION"))); //$NON-NLS-1$
 		
 		JPanel p = new JPanel(new GridLayout(9, 0));
 		addLanguageChooser(p);
@@ -86,7 +88,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		addModuleListField(p);
 
 		JPanel buttons = new JPanel();
-		saveButton = new JButton("Save");
+		saveButton = new JButton(Messages.getString("MainConfigurationPanel.SAVE")); //$NON-NLS-1$
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				save();
@@ -105,12 +107,16 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox language;
 
 	private void addLanguageChooser(JPanel p) {
-		String[] langs = Util.getInstalledLanguages();
-		language = new JComboBox(langs);
-		language.setToolTipText("The application language");
+		Locale[] available = LanguageAdministrator.AVAILABLE_LOCALES;
+		Wrapper[] objs = new Wrapper[available.length];
+		for (int i = 0; i < objs.length; i++) {
+			objs[i] = new Wrapper(available[i].getDisplayLanguage(), available[i]);
+		}
+		language = new JComboBox(objs);
+		language.setToolTipText(Messages.getString("MainConfigurationPanel.MAIN_APPLICATION_LANGUAGE")); //$NON-NLS-1$
 		try {
-			String current = MainConfiguration.getString("app.lang");
-			language.setSelectedItem(current);
+			Locale current = MainConfiguration.getLocale("app.lang"); //$NON-NLS-1$
+			language.setSelectedIndex(find(current, objs));
 		} catch (Exception exc) {
 		}
 		
@@ -121,7 +127,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(language, BorderLayout.WEST);		
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Language:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.LANGUAGE"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -130,15 +136,15 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 
 	private void addTabBarPositionChooser(JPanel p) {
 		Wrapper[] objs = new Wrapper[] {
-				new Wrapper("Top", new Integer(JTabbedPane.TOP)),
-				new Wrapper("Right", new Integer(JTabbedPane.RIGHT)),
-				new Wrapper("Bottom", new Integer(JTabbedPane.BOTTOM)),
-				new Wrapper("Left", new Integer(JTabbedPane.LEFT)),
+				new Wrapper(Messages.getString("MainConfigurationPanel.TOP"), new Integer(JTabbedPane.TOP)), //$NON-NLS-1$
+				new Wrapper(Messages.getString("MainConfigurationPanel.RIGHT"), new Integer(JTabbedPane.RIGHT)), //$NON-NLS-1$
+				new Wrapper(Messages.getString("MainConfigurationPanel.BOTTOM"), new Integer(JTabbedPane.BOTTOM)), //$NON-NLS-1$
+				new Wrapper(Messages.getString("MainConfigurationPanel.LEFT"), new Integer(JTabbedPane.LEFT)), //$NON-NLS-1$
 		};
 		tabBarPosition = new JComboBox(objs);
-		tabBarPosition.setToolTipText("The position of the main tabbar.");
+		tabBarPosition.setToolTipText(Messages.getString("MainConfigurationPanel.POSITION_OF_TABBAR")); //$NON-NLS-1$
 		try {
-			int current = MainConfiguration.getInt("gui.tabs.placement");
+			int current = MainConfiguration.getInt("gui.tabs.placement"); //$NON-NLS-1$
 			tabBarPosition.setSelectedIndex(find(new Integer(current), objs));
 		} catch (Exception exc) {
 		}
@@ -150,7 +156,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(tabBarPosition, BorderLayout.WEST);		
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Tabbar position:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.TABBAR_POSITION"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -166,10 +172,10 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 			objs[i] = new Wrapper(name, lafs[i]);
 		}
 		lookAndFeels = new JComboBox(objs);
-		lookAndFeels.setToolTipText("The appearance of the application. "+
-				"Takes effect after the next start.");
+		lookAndFeels.setToolTipText(Messages.getString("MainConfigurationPanel.APPEARANCE_OF_APPLICATION")+ //$NON-NLS-1$
+				Messages.getString("MainConfigurationPanel.TAKES_EFFECT_AFTER_NEXT_START")); //$NON-NLS-1$
 		try {
-			String current = MainConfiguration.getString("gui.lookandfeel");
+			String current = MainConfiguration.getString("gui.lookandfeel"); //$NON-NLS-1$
 		    EVI.getInstance().getMainFrame().repaint();
 			lookAndFeels.setSelectedIndex(find(current, objs));
 		} catch (Exception exc) {
@@ -182,7 +188,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(lookAndFeels, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Look and Feel:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.LOOK_AND_FEEL"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -190,9 +196,9 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JRadioButton askToExit;
 	
 	private void addAskToExitCheckBox(JPanel p) {
-		boolean current = MainConfiguration.getBoolean("gui.asktoexit", true);
-		JRadioButton yes = new JRadioButton("Yes", current);
-		JRadioButton no = new JRadioButton("No", !current);
+		boolean current = MainConfiguration.getBoolean("gui.asktoexit", true); //$NON-NLS-1$
+		JRadioButton yes = new JRadioButton(Messages.getString("MainConfigurationPanel.YES"), current); //$NON-NLS-1$
+		JRadioButton no = new JRadioButton(Messages.getString("MainConfigurationPanel.NO"), !current); //$NON-NLS-1$
 		ButtonGroup group = new ButtonGroup();
 		group.add(yes);
 		group.add(no);
@@ -207,7 +213,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(no, BorderLayout.CENTER);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Ask to exit when closing:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.ASK_TO_EXIT_WHEN_CLOSING"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -217,7 +223,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox primFontStyle;
 	
 	private void addPrimaryFontSelector(JPanel p) {
-		Font current = MainConfiguration.getFont("font.primary");
+		Font current = MainConfiguration.getFont("font.primary"); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
 		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
@@ -232,10 +238,10 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		RightClickMenu.addRightClickMenu(primFontSize);
 		
 		Wrapper[] objs = new Wrapper[4];
-		objs[0] = new Wrapper("Plain", "PLAIN");
-		objs[1] = new Wrapper("Bold", "BOLD");
-		objs[2] = new Wrapper("Italic", "Italic");
-		objs[3] = new Wrapper("Bold & Italic", "BOLDITALIC");
+		objs[0] = new Wrapper(Messages.getString("MainConfigurationPanel.PLAIN"), "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[1] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD"), "BOLD"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[2] = new Wrapper(Messages.getString("MainConfigurationPanel.ITALIC"), "ITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[3] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD_AND_ITALIC"), "BOLDITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
 		primFontStyle = new JComboBox(objs);
 		primFontStyle.setSelectedIndex(find(currentFontStyle, objs));
 		
@@ -243,7 +249,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub1.add(primFontName);
 		JPanel sub2 = new JPanel(new BorderLayout());
 		sub2.add(primFontSize, BorderLayout.WEST);
-		sub2.add(new JLabel("pt  "), BorderLayout.CENTER);
+		sub2.add(new JLabel("pt  "), BorderLayout.CENTER); //$NON-NLS-1$
 		sub2.add(primFontStyle, BorderLayout.EAST);
 		
 		JPanel sub = new JPanel(new GridLayout(2, 0));
@@ -251,7 +257,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(sub2);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Primary font:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.PRIMARY_FONT"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -261,7 +267,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox secFontStyle;
 	
 	private void addSecondaryFontSelector(JPanel p) {
-		Font current = MainConfiguration.getFont("font.secondary");
+		Font current = MainConfiguration.getFont("font.secondary"); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
 		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
@@ -276,10 +282,10 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		RightClickMenu.addRightClickMenu(secFontSize);
 		
 		Wrapper[] objs = new Wrapper[4];
-		objs[0] = new Wrapper("Plain", "PLAIN");
-		objs[1] = new Wrapper("Bold", "BOLD");
-		objs[2] = new Wrapper("Italic", "Italic");
-		objs[3] = new Wrapper("Bold & Italic", "BOLDITALIC");
+		objs[0] = new Wrapper(Messages.getString("MainConfigurationPanel.PLAIN"), "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[1] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD"), "BOLD"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[2] = new Wrapper(Messages.getString("MainConfigurationPanel.ITALIC"), "ITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
+		objs[3] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD_AND_ITALIC"), "BOLDITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
 		secFontStyle = new JComboBox(objs);
 		secFontStyle.setSelectedIndex(find(currentFontStyle, objs));
 		
@@ -287,7 +293,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub1.add(secFontName);
 		JPanel sub2 = new JPanel(new BorderLayout());
 		sub2.add(secFontSize, BorderLayout.WEST);
-		sub2.add(new JLabel("pt  "), BorderLayout.CENTER);
+		sub2.add(new JLabel("pt  "), BorderLayout.CENTER); //$NON-NLS-1$
 		sub2.add(secFontStyle, BorderLayout.EAST);
 		
 		JPanel sub = new JPanel(new GridLayout(2, 0));
@@ -295,7 +301,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(sub2);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Secondary font:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.SECONDARY_FONT"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -303,18 +309,18 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private Color primaryColor;
 	
 	private void addPrimaryColorChooser(JPanel p) {
-		primaryColor = MainConfiguration.getColor("color.primary", Color.RED);
+		primaryColor = MainConfiguration.getColor("color.primary", Color.RED); //$NON-NLS-1$
 		
-		final JButton label = new JButton("    ");
+		final JButton label = new JButton("    "); //$NON-NLS-1$
 		label.setBorderPainted(false);
 		label.setEnabled(false);
 		label.setBackground(primaryColor);
 		
-		final JButton choose = new JButton("Choose...");
+		final JButton choose = new JButton(Messages.getString("MainConfigurationPanel.CHOOSE_COLOR")); //$NON-NLS-1$
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Color c = JColorChooser.showDialog(choose, 
-						"Primary Color", primaryColor);
+						Messages.getString("MainConfigurationPanel.PRIMARY_COLOR"), primaryColor); //$NON-NLS-1$
 				if (c != null) {
 					primaryColor = c;
 					label.setBackground(primaryColor);
@@ -329,7 +335,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(label, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Primary color:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.PRIMARY_COLOR"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -337,19 +343,19 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private Color secondaryColor;
 	
 	private void addSecondaryColorChooser(JPanel p) {
-		secondaryColor = MainConfiguration.getColor("color.secondary", 
+		secondaryColor = MainConfiguration.getColor("color.secondary",  //$NON-NLS-1$
 				Color.BLUE);
 		
-		final JButton label = new JButton("    ");
+		final JButton label = new JButton("    "); //$NON-NLS-1$
 		label.setBorderPainted(false);
 		label.setEnabled(false);
 		label.setBackground(secondaryColor);
 		
-		final JButton choose = new JButton("Choose...");
+		final JButton choose = new JButton(Messages.getString("MainConfigurationPanel.CHOOSE_COLOR")); //$NON-NLS-1$
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Color c = JColorChooser.showDialog(choose, 
-						"Secondary Color", secondaryColor);
+						Messages.getString("MainConfigurationPanel.SECONDARY_COLOR"), secondaryColor); //$NON-NLS-1$
 				if (c != null) {
 					secondaryColor = c;
 					label.setBackground(secondaryColor);
@@ -364,7 +370,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(label, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Secondary color:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.SECONDARY_COLOR"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -372,12 +378,12 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JTextField moduleList;
 	
 	private void addModuleListField(JPanel p) {
-		String current = MainConfiguration.getString("app.modulelist", 
+		String current = MainConfiguration.getString("app.modulelist",  //$NON-NLS-1$
 				ModuleConfigurationPanel.MODULE_LIST_URL);
 		moduleList = new JTextField(current, 10);
 		RightClickMenu.addRightClickMenu(moduleList);
 		
-		JButton reset = new JButton("Reset");
+		JButton reset = new JButton(Messages.getString("MainConfigurationPanel.RESET")); //$NON-NLS-1$
 		reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				moduleList.setText(ModuleConfigurationPanel.MODULE_LIST_URL);
@@ -391,7 +397,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		sub.add(moduleList, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Module List URL:"));
+		row.add(new JLabel(Messages.getString("MainConfigurationPanel.MODULE_LIST_URL"))); //$NON-NLS-1$
 		row.add(sub);
 		p.add(row);
 	}
@@ -440,19 +446,21 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private void save() {
 		Wrapper w;
 		
-		String lang = (String)language.getSelectedItem();
-		MainConfiguration.setString("app.lang", lang);
+		w = (Wrapper)language.getSelectedItem();
+		Locale lang = (Locale)w.getObject();
+		MainConfiguration.setLocale("app.lang", lang); //$NON-NLS-1$
+		LanguageAdministrator.load();
 		
 		w = (Wrapper)tabBarPosition.getSelectedItem();
 		int tabPos = ((Integer)w.getObject()).intValue();
-		MainConfiguration.setInt("gui.tabs.placement", tabPos);
+		MainConfiguration.setInt("gui.tabs.placement", tabPos); //$NON-NLS-1$
 		EVI.getInstance().getMainFrame().getMainTabBar().setTabPlacement(tabPos);
 		
 		w = (Wrapper)lookAndFeels.getSelectedItem();
 		String lookAndFeel = (String)w.getObject();
-		MainConfiguration.setString("gui.lookandfeel", lookAndFeel);
+		MainConfiguration.setString("gui.lookandfeel", lookAndFeel); //$NON-NLS-1$
 		
-		MainConfiguration.setBoolean("gui.asktoexit", askToExit.isSelected());
+		MainConfiguration.setBoolean("gui.asktoexit", askToExit.isSelected()); //$NON-NLS-1$
 		
 		String primaryFontName = (String)primFontName.getSelectedItem();
 		String primaryFontSize = primFontSize.getText().trim();
@@ -460,7 +468,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		String primaryFontStyle = (String)w.getObject();
 		Font primaryFont = Util.decodeFont(primaryFontName, primaryFontSize, 
 				primaryFontStyle);
-		MainConfiguration.setFont("font.primary", primaryFont);
+		MainConfiguration.setFont("font.primary", primaryFont); //$NON-NLS-1$
 		
 		String secondaryFontName = (String)secFontName.getSelectedItem();
 		String secondaryFontSize = secFontSize.getText().trim();
@@ -468,14 +476,14 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		String secondaryFontStyle = (String)w.getObject();
 		Font secondaryFont = Util.decodeFont(secondaryFontName, secondaryFontSize, 
 				secondaryFontStyle);
-		MainConfiguration.setFont("font.secondary", secondaryFont);
+		MainConfiguration.setFont("font.secondary", secondaryFont); //$NON-NLS-1$
 		
-		MainConfiguration.setColor("color.primary", primaryColor);
+		MainConfiguration.setColor("color.primary", primaryColor); //$NON-NLS-1$
 
-		MainConfiguration.setColor("color.secondary", secondaryColor);
+		MainConfiguration.setColor("color.secondary", secondaryColor); //$NON-NLS-1$
 	
 		String moduleListURL = moduleList.getText();
-		MainConfiguration.setString("app.modulelist", moduleListURL);
+		MainConfiguration.setString("app.modulelist", moduleListURL); //$NON-NLS-1$
 	}
 	
 	/* (non-Javadoc)

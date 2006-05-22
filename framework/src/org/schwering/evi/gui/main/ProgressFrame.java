@@ -47,7 +47,7 @@ public class ProgressFrame extends JFrame {
 		JPanel p = new JPanel(new BorderLayout(1,1));
 		pb = new JProgressBar();
 		pb.setStringPainted(true);
-		update(0, "Loading "+ EVI.TITLE);
+		update(0, EVI.TITLE);
 		p.add(pb);
 		return p;
 	}

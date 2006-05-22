@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Hallo!</title>
+</head>
+<body>
+<h1>Morgen!</h1>
+
+<p>Du hast gerade zum ersten mal 
+<b><font size="+1" color="#ff0000">E</font><font size="+1" color="#0000ff">V</font><font size="+1" color="#ffff00">I</font></b> 
+gestartet...</p>
+
+<p><b><font size="+1" color="#ff0000">E</font><font size="+1" color="#0000ff">V</font><font size="+1" color="#ffff00">I</font></b>
+ist ein Java Framework f&uuml;r Internet-Kommunikation.
+(<a href="about.html.de">Mehr &uuml;ber <b><font size="+1" color="#ff0000">E</font><font size="+1" color="#0000ff">V</font><font size="+1" color="#ffff00">I</font></b></a>)</p>
+
+<p>Wir wollen einige Standard-Kommunikationsprotokolle unterst&uuml;tzen; auf jeden Fall 
+IRC und hoffentlich auch ICQ.<br>
+Zus&auml;tzlich wollen wir auch einige Spiele und n&uuml;tzliche Tools wie einen Stundenplan 
+und so ein Zeug anbieten.<br>
+Siehe auch <code><a href="about.html.de">&Uuml;ber -&gt; &Uuml;ber EVI</a></code> for more information.</p>
+
+<p>Wahrscheinlich willst du jetzt mal anfangen... Mir w&uuml;rde da spontan das folgende einfallen:</p>
+<ul>
+<li> Du k&ouml;nntest 
+<b><font size="+1" color="#ff0000">E</font><font size="+1" color="#0000ff">V</font><font size="+1" color="#ffff00">I</font></b>
+konfigurieren: <code>EVI -&gt; Konfiguration</code> </li>
+<li> Du solltest wohl Module laden: <code>EVI -&gt; Module</code> Denn ohne Module macht das Framework recht wenig Sinn :-) </li>
+</ul>
+
+</body>
+</html>

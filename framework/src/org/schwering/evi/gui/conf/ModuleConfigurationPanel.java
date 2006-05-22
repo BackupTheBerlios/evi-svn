@@ -50,12 +50,12 @@ implements IPanel, IModuleLoaderListener {
 	/**
 	 * The panel's title.
 	 */
-	public static final String DEFAULT_TITLE = "Modules";
+	public static final String DEFAULT_TITLE = Messages.getString("ModuleConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 	
 	/**
 	 * The default module list URL.
 	 */
-	public static final String MODULE_LIST_URL = "http://evi.berlios.de/modulelist";
+	public static final String MODULE_LIST_URL = Messages.getString("ModuleConfigurationPanel.EVI_BERLIOS_DE_MODULELIST"); //$NON-NLS-1$
 	
 	/**
 	 * Gives access to the one and only instance of the configuration panel.
@@ -132,9 +132,9 @@ implements IPanel, IModuleLoaderListener {
 		public InputPanel(ModuleConfigurationPanel o) {
 			super(new GridLayout(3, 1));
 			this.owner = o;
-			setBorder(new TitledBorder("Load new module:"));
+			setBorder(new TitledBorder(Messages.getString("ModuleConfigurationPanel.LOAD_NEW_MODULE") +":")); //$NON-NLS-1$ //$NON-NLS-2$
 			add(createLoadByJARPanel());
-			add(new JLabel("or"));
+			add(new JLabel(Messages.getString("ModuleConfigurationPanel.OR"))); //$NON-NLS-1$
 			add(createLoadByClassNamePanel());
 		}
 		
@@ -154,14 +154,14 @@ implements IPanel, IModuleLoaderListener {
 			urlFileChooser.setFileFilter(new FileFilter() {
 				public boolean accept(File f) {
 					return f.isDirectory() 
-						|| f.toString().toLowerCase().endsWith(".jar");
+						|| f.toString().toLowerCase().endsWith(".jar"); //$NON-NLS-1$
 				}
 				public String getDescription() {
-					return "Java Archive (*.jar)";
+					return Messages.getString("ModuleConfigurationPanel.JAVA_ARCHIVE"); //$NON-NLS-1$
 				}
 			});
 			
-			JButton urlChooseButton = new JButton("Choose");
+			JButton urlChooseButton = new JButton(Messages.getString("ModuleConfigurationPanel.CHOOSE_FILE")); //$NON-NLS-1$
 			urlChooseButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					File current;
@@ -185,7 +185,7 @@ implements IPanel, IModuleLoaderListener {
 				}
 			});
 			
-			JButton urlAddButton = new JButton("Add");
+			JButton urlAddButton = new JButton(Messages.getString("ModuleConfigurationPanel.ADD")); //$NON-NLS-1$
 			urlAddButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					new Thread() {
@@ -195,7 +195,7 @@ implements IPanel, IModuleLoaderListener {
 								ModuleLoader.load(url);
 								ModuleConfiguration.addURL(url);
 							} catch (Exception exc) {
-								ExceptionDialog.show("Could not load module", 
+								ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.COULD_NOT_LOAD_MODULE"),  //$NON-NLS-1$
 										exc);
 							}
 						}
@@ -203,7 +203,7 @@ implements IPanel, IModuleLoaderListener {
 				}
 			});
 			
-			JButton getList = new JButton("Get List");
+			JButton getList = new JButton(Messages.getString("ModuleConfigurationPanel.GET_LIST")); //$NON-NLS-1$
 			getList.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					obtainUrlsFromInternet();
@@ -216,7 +216,7 @@ implements IPanel, IModuleLoaderListener {
 			urlButtonPanel.add(getList);
 			
 			JPanel p1 = new JPanel(new BorderLayout());
-			p1.add(new JLabel("URL: "), BorderLayout.WEST);
+			p1.add(new JLabel(Messages.getString("ModuleConfigurationPanel.URL") +": "), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
 			p1.add(urlComboBox, BorderLayout.CENTER);
 			p1.add(urlButtonPanel, BorderLayout.EAST);
 			return p1;
@@ -230,7 +230,7 @@ implements IPanel, IModuleLoaderListener {
 			final JTextField classNameTextField = new JTextField();
 			RightClickMenu.addRightClickMenu(classNameTextField);
 			
-			JButton addClassNameButton = new JButton("Add");
+			JButton addClassNameButton = new JButton(Messages.getString("ModuleConfigurationPanel.ADD")); //$NON-NLS-1$
 			addClassNameButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					new Thread() {
@@ -240,7 +240,7 @@ implements IPanel, IModuleLoaderListener {
 								ModuleLoader.load(className);
 								ModuleConfiguration.addClassName(className);
 							} catch (Exception exc) {
-								ExceptionDialog.show("Could not load module", 
+								ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.COULD_NOT_LOAD_MODULE"),  //$NON-NLS-1$
 										exc);
 							}
 						}
@@ -252,7 +252,7 @@ implements IPanel, IModuleLoaderListener {
 			classNameButtonPanel.add(addClassNameButton);
 			
 			JPanel p2 = new JPanel(new BorderLayout());
-			p2.add(new JLabel("Classname: "), BorderLayout.WEST);
+			p2.add(new JLabel(Messages.getString("ModuleConfigurationPanel.CLASSNAME") +": "), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
 			p2.add(classNameTextField, BorderLayout.CENTER);
 			p2.add(classNameButtonPanel, BorderLayout.EAST);
 			return p2;
@@ -265,7 +265,7 @@ implements IPanel, IModuleLoaderListener {
 			new Thread() {
 				public void run() {
 					try {
-						String strurl = MainConfiguration.getString("app.modulelist", 
+						String strurl = MainConfiguration.getString("app.modulelist",  //$NON-NLS-1$
 								MODULE_LIST_URL);
 						URL url = new URL(strurl);
 						InputStream is = url.openStream();
@@ -279,7 +279,7 @@ implements IPanel, IModuleLoaderListener {
 						}
 						br.close();
 					} catch (Exception exc) {
-						ExceptionDialog.show("Obtaining module list failed", exc);
+						ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.OBTAINING_MODULE_FAILED"), exc); //$NON-NLS-1$
 					}
 				}
 			}.start();
@@ -293,7 +293,7 @@ implements IPanel, IModuleLoaderListener {
 			try {
 				urlComboBox.setSelectedItem(url.toString());
 			} catch (Exception exc) {
-				urlComboBox.setSelectedItem("file://");
+				urlComboBox.setSelectedItem("file://"); //$NON-NLS-1$
 			}
 		}
 		
@@ -309,7 +309,7 @@ implements IPanel, IModuleLoaderListener {
 				try {
 					return MainConfiguration.CONFIG_DIR.toURL();
 				} catch (Exception e) {
-					ExceptionDialog.show("Unexpected exception", e);
+					ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.UNEXPECTED_EXCEPTION"), e); //$NON-NLS-1$
 					return null;
 				}
 			}
@@ -351,8 +351,11 @@ implements IPanel, IModuleLoaderListener {
 				data[i][2] = String.valueOf(containers[i].getVersion());
 				data[i][3] = buf.toString();
 			}
-			String[] header = new String[] { "Destination", "Module",
-					"Version", "Requirements"}; 
+			String[] header = new String[] { 
+					Messages.getString("ModuleConfigurationPanel.SOURCE"), //$NON-NLS-1$ 
+					Messages.getString("ModuleConfigurationPanel.MODULE"), //$NON-NLS-1$
+					Messages.getString("ModuleConfigurationPanel.VERSION"), //$NON-NLS-1$
+					Messages.getString("ModuleConfigurationPanel.REQUIREMENTS")};  //$NON-NLS-1$
 						
 			final JTable table = new JTable(data, header) {
 				private static final long serialVersionUID = -4479060561124641756L;
@@ -367,7 +370,7 @@ implements IPanel, IModuleLoaderListener {
 			table.sizeColumnsToFit(-1);
 
 			final JPopupMenu rightClickMenu = new JPopupMenu();
-			JMenuItem removeItem = new JMenuItem("Remove");
+			JMenuItem removeItem = new JMenuItem(Messages.getString("ModuleConfigurationPanel.REMOVE")); //$NON-NLS-1$
 			removeItem.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();

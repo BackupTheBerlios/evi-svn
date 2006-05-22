@@ -13,9 +13,9 @@ public class HelloWorldPanel extends HTMLBrowser {
 	/**
 	 * Default title of the panel.
 	 */
-	public static final String DEFAULT_TITLE = "Hello!";
+	public static final String DEFAULT_TITLE = Messages.getString("HelloWorldPanel.0"); //$NON-NLS-1$
 	
-	private static final String HELLO_HTML = "hello.html";
+	private static final String HELLO_HTML = Messages.getString("HelloWorldPanel.1"); //$NON-NLS-1$
 	
 	/**
 	 * Gives access to the one and only instance of the configuration panel.

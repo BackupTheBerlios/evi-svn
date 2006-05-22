@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.schwering.evi.util.ExceptionDialog;
@@ -28,7 +29,7 @@ import org.schwering.evi.util.Util;
  * <li> gui.topleft (Point) </li>
  * <li> gui.tabs.placement (int) </li>
  * <li> app.sayhello (boolean) </li>
- * <li> app.lang (String) </li>
+ * <li> app.lang (Locale) </li>
  * <li> app.modulelist (String [in URL format], default 
  * {@link org.schwering.evi.gui.conf.ModuleConfigurationPanel#MODULE_LIST_URL})
  * </li>
@@ -69,7 +70,7 @@ public abstract class MainConfiguration {
 		} else {
 			CONFIG_DIR = new File(CONFIG_FOLDER_NAME);
 		}
-		
+
 		File confFile = new File(CONFIG_DIR, MAIN_CONFIG_FILE_NAME);
 		if (!confFile.isFile()) {
 			try {
@@ -458,6 +459,44 @@ public abstract class MainConfiguration {
 		int b = value.getBlue();
 		int a = value.getAlpha();
 		String s = r +" "+ g +" "+ b +" "+ a;
+		props.setProperty(key, s);
+	}
+	
+	/**
+	 * Grabs a locale.
+	 * @param key The key.
+	 * @return A new locale.
+	 */
+	public static Locale getLocale(String key) {
+		return getLocale(key, LanguageAdministrator.getUserLanguage());
+	}
+	
+	/**
+	 * Grabs a locale.
+	 * @param key The key.
+	 * @param def The default locale.
+	 * @return A new locale.
+	 */
+	public static Locale getLocale(String key, Locale def) {
+		String s = getString(key);
+		if (s != null && s.length() > 0) {
+			try {
+				return new Locale(s);
+			} catch (Exception exc) {
+				return def;
+			}
+		} else {
+			return def;
+		}
+	}
+	
+	/**
+	 * Sets a new locale value. In fact, just the language is set (e.g. "de").
+	 * @param key The key.
+	 * @param value The value.
+	 */
+	public static void setLocale(String key, Locale value) {
+		String s = value.getLanguage();
 		props.setProperty(key, s);
 	}
 }

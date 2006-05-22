@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>&Uuml;ber EVI</title>
+</head>
+<body>
+<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></h1>
+<p>Das hier ist 
+<b><font size="+1" color="#ff0000">E</font><font size="+1" color="#0000ff">V</font><font size="+1" color="#ffff00">I</font></b>,
+eine Java Framework f&uuml;r Internet-Kommunikation.</p>
+
+<p>Was dich interessieren k&ouml;nnte:</p>
+<ul>
+<li> Unsere Homepage: <a href="http://evi.berlios.de">http://evi.berlios.de</a> </li>
+<li> &Uuml;ber den <a href="name.html.de">Namen EVI</a> </li>
+<li> Das Programm ist freie Software unter der <a href="license.html">GNU General Public License</a> </li>
+</ul>
+
+</body>
+</html>

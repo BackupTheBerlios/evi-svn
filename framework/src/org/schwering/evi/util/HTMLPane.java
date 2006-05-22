@@ -21,7 +21,6 @@ public class HTMLPane extends JEditorPane
 implements HyperlinkListener, KeyListener {
 	private static final long serialVersionUID = 7455924935046624890L;
 	private Vector history = new Vector();
-	private Vector listeners = new Vector(2);
 	
 	/**
 	 * Creates a new HTML frame with the content of a resource.
@@ -50,7 +49,7 @@ implements HyperlinkListener, KeyListener {
 	public HTMLPane(URL url) {
 		super();
 		setEditable(false);
-		setContentType("text/html");
+		setContentType("text/html"); //$NON-NLS-1$
 		addHyperlinkListener(this);
 		addKeyListener(this);
 		RightClickMenu.addRightClickMenu(this);
@@ -70,33 +69,6 @@ implements HyperlinkListener, KeyListener {
 			} else {
 				goTo(e.getURL());
 			}
-		}
-	}
-	
-	/**
-	 * Adds a new listener.
-	 * @param listener The listener.
-	 */
-	public void addListener(IHTMLListener listener) {
-		listeners.add(listener);
-	}
-	
-	/**
-	 * Removes a listener.
-	 * @param listener The listener.
-	 */
-	public void removeListener(IHTMLListener listener) {
-		listeners.remove(listener);
-	}
-	
-	/**
-	 * Fires the <code>siteChanged</code> event for all listeners.
-	 * @param url The newly loaded site.
-	 */
-	void fireSiteChanged(URL url) {
-		int len = listeners.size();
-		for (int i = 0; i < len; i++) {
-			((IHTMLListener)listeners.get(i)).siteChanged(url);
 		}
 	}
 	
@@ -135,7 +107,7 @@ implements HyperlinkListener, KeyListener {
 				setPage(prev);
 			}
 		} catch (Exception exc) {
-			showError(new Exception("Could not load previous page!"));
+			showError(new Exception(Messages.getString("HTMLPane.COULD_NOT_LOAD_PREVIOUS_PAGE"))); //$NON-NLS-1$
 		}
 	}
 	
@@ -153,15 +125,27 @@ implements HyperlinkListener, KeyListener {
 	}
 	
 	/**
-	 * Tries to load a page. The old page is NOT added to history.
+	 * Tries to load a page. The old page is NOT added to history in this method.
 	 * @param url The new page's URL.
 	 * @see #goTo(URL)
 	 */
-	public void setPage(URL url) {
+	public void setPage(final URL url) {
+		new Thread() {
+			public void run() {
+				setPageHelperMethod(url);
+			}
+		}.start();
+	}
+	
+	/**
+	 * The helper method for {@link #setPage(URL)}. Needed due to access to 
+	 * <code>super.setPage</code>.
+	 * @param url The new page's URL.
+	 */
+	private void setPageHelperMethod(URL url) {
 		try {
 			super.setPage(url);
 			setCaretPosition(0);
-			fireSiteChanged(url);
 		} catch (Throwable t) {
 			showError(t);
 		}
@@ -172,14 +156,14 @@ implements HyperlinkListener, KeyListener {
 	 * @param t The <code>Throwable</code> which was thrown.
 	 */
 	public void showError(Throwable t) {
-		setText("<html>"+ 
-				"<body>"+
-				"<h1>An error occured while loading the page</h1>"+
-				"<pre>"+
+		setText("<html>"+  //$NON-NLS-1$
+				"<body>"+ //$NON-NLS-1$
+				"<h1>"+Messages.getString("HTMLPane.LOAD_ERROR")+"</h1>"+ //$NON-NLS-1$
+				"<pre>"+ //$NON-NLS-1$
 				Util.exceptionToString(t)+
-				"</pre>"+
-				"</body>"+
-				"</html>");
+				"</pre>"+ //$NON-NLS-1$
+				"</body>"+ //$NON-NLS-1$
+				"</html>"); //$NON-NLS-1$
 		setCaretPosition(0);
 	}
 }

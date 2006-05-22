@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -21,34 +19,6 @@ import org.schwering.evi.gui.main.MainFrame;
  * @version $Id$
  */
 public class Util {
-	/**
-	 * Returns the installed EVI languages. 
-	 * They language files are found in the JAR's lang/ directory.
-	 */
-	public static String[] getInstalledLanguages() {
-		FilenameFilter filter = new FilenameFilter() {
-			public boolean accept(File dir, String file) {
-				try {
-					return file.toLowerCase().endsWith(".lang")
-						&& new File(dir, file).isFile();
-				} catch (Exception exc) {
-					return false;
-				}
-			}
-		};
-		String[] files = MainConfiguration.CONFIG_DIR.list(filter);
-		if (files == null) {
-			return new String[0];
-		}
-		String[] langs = new String[files.length+1];
-		langs[0] = "English";
-		for (int i = 1; i < langs.length; i++) {
-			int endIndex = files[i-1].length() - ".lang".length();
-			langs[i] = files[i-1].substring(0, endIndex);
-		}
-		return langs;
-	}
-	
 	/**
 	 * Returns the installed look and feels.
 	 * @return The installed look and feels.
@@ -99,7 +69,7 @@ public class Util {
 	 */
 	public static String exceptionToString(Throwable exc) {
 		if (exc == null) {
-			return "(no exception given)";
+			return "(no exception given)"; //$NON-NLS-1$
 		}
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
@@ -134,7 +104,7 @@ public class Util {
 	 */
 	public static String encodeFont(Font f) {
 		if (f == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		String fontname = f.getFamily();
 		int size = f.getSize();
@@ -164,15 +134,15 @@ public class Util {
 	 */
 	public static String encodeFontStyle(int style) {
 		if (style == Font.PLAIN) {
-			return "PLAIN";
+			return "PLAIN"; //$NON-NLS-1$
 		} else if ((style & Font.BOLD) != 0 && (style & Font.ITALIC) != 0) {
-			return "BOLDITALIC";
+			return "BOLDITALIC"; //$NON-NLS-1$
 		} else if ((style & Font.BOLD) != 0) {
-			return "BOLD";
+			return "BOLD"; //$NON-NLS-1$
 		} else if ((style & Font.ITALIC) != 0) {
-			return "ITALIC";
+			return "ITALIC"; //$NON-NLS-1$
 		} else {
-			return "PLAIN";
+			return "PLAIN"; //$NON-NLS-1$
 		}
 	}
 	
@@ -193,11 +163,11 @@ public class Util {
 		}
 		
 		if (size == null) {
-			size = "";
+			size = ""; //$NON-NLS-1$
 		}
 		
 		if (style == null) {
-			style = "PLAIN";
+			style = "PLAIN"; //$NON-NLS-1$
 		} 
 		
 		char delim;
@@ -208,12 +178,12 @@ public class Util {
 		}
 		
 		style = style.toUpperCase();
-		if (style.indexOf("ITALIC") != -1 && style.indexOf("BOLD") != -1) {
-			style = "BOLDITALIC";
-		} else if (style.indexOf("ITALIC") != -1) {
-			style = "ITALIC";
-		} else if (style.indexOf("BOLD") != -1) {
-			style = "BOLD";
+		if (style.indexOf("ITALIC") != -1 && style.indexOf("BOLD") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
+			style = "BOLDITALIC"; //$NON-NLS-1$
+		} else if (style.indexOf("ITALIC") != -1) { //$NON-NLS-1$
+			style = "ITALIC"; //$NON-NLS-1$
+		} else if (style.indexOf("BOLD") != -1) { //$NON-NLS-1$
+			style = "BOLD"; //$NON-NLS-1$
 		}
 		
 		String s = fontname + delim + style + delim + size;
@@ -224,9 +194,9 @@ public class Util {
 	 * Asks whether the user wants to exit and does the respective.
 	 */		
 	public static void askToExit() {
-		if (MainConfiguration.getBoolean("gui.asktoexit")) {
-			int i = JOptionPane.showConfirmDialog(null, "Do you really "+
-			"want to exit?", "Exit?", JOptionPane.YES_NO_OPTION);
+		if (MainConfiguration.getBoolean("gui.asktoexit")) { //$NON-NLS-1$
+			int i = JOptionPane.showConfirmDialog(null, Messages.getString("Util.19"), //$NON-NLS-1$
+			Messages.getString("Util.20"), JOptionPane.YES_NO_OPTION); //$NON-NLS-2$
 			if (i != JOptionPane.YES_OPTION) {
 				return;
 			}

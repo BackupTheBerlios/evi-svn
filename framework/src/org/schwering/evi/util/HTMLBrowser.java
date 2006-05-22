@@ -10,23 +10,20 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.text.Document;
-import javax.swing.text.html.HTMLDocument;
 
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.gui.EVI;
 import org.schwering.evi.gui.main.MainFrame;
-import org.schwering.evi.gui.main.TabBar;
 
 /**
  * A <code>HTMLPane</code> with a 'Home' and 'Back' button.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
+public class HTMLBrowser extends JPanel implements IPanel {
 	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
 	private HTMLPane htmlPane;
+	private String title;
 	
 	/**
 	 * Creates a new HTMLBrowser.
@@ -57,15 +54,14 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 		startURL = url;
 
 		htmlPane = new HTMLPane(url);
-		htmlPane.addListener(this);
 		
-		JButton home = new JButton("Home");
+		JButton home = new JButton(Messages.getString("HTMLBrowser.HOME")); //$NON-NLS-1$
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				htmlPane.setPage(startURL);
 			}
 		});
-		JButton back = new JButton("Back");
+		JButton back = new JButton(Messages.getString("HTMLBrowser.BACK")); //$NON-NLS-1$
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				htmlPane.goBack();
@@ -79,25 +75,6 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.util.IHTMLListener#siteChanged(java.net.URL)
-	 */
-	public void siteChanged(URL url) {
-		EVI evi = EVI.getInstance();
-		if (evi == null) {
-			return;
-		}
-		MainFrame mf = evi.getMainFrame();
-		if (mf == null) {
-			return;
-		}
-		TabBar tabBar = mf.getMainTabBar();
-		if (tabBar == null) {
-			return;
-		}
-		tabBar.setTitle(this, getTitle());
-	}
-	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
@@ -117,24 +94,20 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLListener {
 	public Component getPanelInstance() {
 		return this;
 	}
+	
+	/**
+	 * Sets a new title.
+	 * @param title The new title.
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+		MainFrame.getInstance().getMainTabBar().setTitle(this, title);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#getTitle()
 	 */
 	public String getTitle() {
-		try {
-			Document doc = htmlPane.getDocument();
-			HTMLDocument htmldoc = (HTMLDocument)doc;
-			URL url = htmldoc.getBase();
-			String file = url.getFile();
-			int delim = file.lastIndexOf('/');
-			if (delim != -1 && delim != file.length() -1 ) {
-				return file.substring(delim + 1, file.length());
-			} else {
-				return file;
-			}
-		} catch (Exception exc) {
-			return "Untitled";
-		}
+		return (title != null) ? title : Messages.getString("HTMLBrowser.DEFAULT_TITLE"); //$NON-NLS-1$
 	}
 }

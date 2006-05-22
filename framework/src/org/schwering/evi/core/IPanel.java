@@ -34,10 +34,9 @@ public interface IPanel {
 	 * object. This means that this method must not create a new panel but 
 	 * return just a reference to a once created panel.<br />
 	 * <br />
-	 * If the implementing module <code>extends java.awt.Component</code> (e.g.
-	 * if it <code>extends javax.swing.JPanel</code>) this method simply might 
-	 * return <code>this</code>.<br />
-	 * <br />
+	 * If the implementing module class <code>extends java.awt.Component</code>
+	 * (e.g. if it <code>extends javax.swing.JPanel</code>) this method simply 
+	 * might return <code>this</code>.<br />
 	 * @return The concrete GUI-part as <code>java.awt.Component</code>.
 	 */
 	public Component getPanelInstance();

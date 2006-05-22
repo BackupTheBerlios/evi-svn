@@ -13,9 +13,9 @@ public class AboutPanel extends HTMLBrowser {
 	/**
 	 * Default title of the panel.
 	 */
-	public static final String DEFAULT_TITLE = "About";
+	public static final String DEFAULT_TITLE = Messages.getString("AboutPanel.0"); //$NON-NLS-1$
 	
-	private static final String ABOUT_HTML = "about.html";
+	private static final String ABOUT_HTML = Messages.getString("AboutPanel.1"); //$NON-NLS-1$
 	
 	/**
 	 * Displays a panel with a short description.

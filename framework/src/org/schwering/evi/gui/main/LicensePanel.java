@@ -26,16 +26,16 @@ public class LicensePanel extends JPanel implements IPanel {
 	/**
 	 * Default title of the panel.
 	 */
-	public static final String DEFAULT_TITLE = "License";
+	public static final String DEFAULT_TITLE = Messages.getString("LicensePanel.LICENSE"); //$NON-NLS-1$
 	
-	private static final String LICENSE_HTML = "license.html";
+	private static final String LICENSE_HTML = "license.html"; //$NON-NLS-1$
 	
 	/**
 	 * Displays a panel with a textfield and some license/copyright information.
 	 */
 	public LicensePanel() {
 		super(new GridLayout(1, 1));
-		final JLabel label = new JLabel("Loading...");
+		final JLabel label = new JLabel(Messages.getString("LicensePanel.LOADING")); //$NON-NLS-1$
 		add(label);
 		new Thread() {
 			public void run() {
@@ -62,22 +62,22 @@ public class LicensePanel extends JPanel implements IPanel {
 	 * @return The GPL disclaimer.
 	 */
 	private JTextComponent createCopyrightPanel() {
-		String s = "Copyright (C) 2006 Christoph Schwering\n"+
-		"\n"+
-		"This program is free software; you can redistribute it and/or\n"+
-		"modify it under the terms of the GNU General Public License as\n"+
-		"published by the Free Software Foundation; either version 2 of the\n"+
-		"License.\n"+
-		"\n"+
-		"This program is distributed in the hope that it will be useful, but\n"+
-		"WITHOUT ANY WARRANTY; without even the implied warranty of\n"+
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\n"+
-		"General Public License for more details.\n"+
-		"\n"+
-		"You should have received a copy of the GNU General Public License\n" +
-		"along with this program; if not, write to the Free Software\n" +
-		"Foundation, Inc., 59 Temple Place, Suite 330, Boston, \n" +
-		"MA 02111-1307, USA.";
+		String s = "Copyright (C) 2006 Christoph Schwering\n"+ //$NON-NLS-1$
+		"\n"+ //$NON-NLS-1$
+		"This program is free software; you can redistribute it and/or\n"+ //$NON-NLS-1$
+		"modify it under the terms of the GNU General Public License as\n"+ //$NON-NLS-1$
+		"published by the Free Software Foundation; either version 2 of the\n"+ //$NON-NLS-1$
+		"License.\n"+ //$NON-NLS-1$
+		"\n"+ //$NON-NLS-1$
+		"This program is distributed in the hope that it will be useful, but\n"+ //$NON-NLS-1$
+		"WITHOUT ANY WARRANTY; without even the implied warranty of\n"+ //$NON-NLS-1$
+		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\n"+ //$NON-NLS-1$
+		"General Public License for more details.\n"+ //$NON-NLS-1$
+		"\n"+ //$NON-NLS-1$
+		"You should have received a copy of the GNU General Public License\n" + //$NON-NLS-1$
+		"along with this program; if not, write to the Free Software\n" + //$NON-NLS-1$
+		"Foundation, Inc., 59 Temple Place, Suite 330, Boston, \n" + //$NON-NLS-1$
+		"MA 02111-1307, USA."; //$NON-NLS-1$
 		JTextArea textArea = new JTextArea(s);
 		textArea.setEditable(false);
 		RightClickMenu.addRightClickMenu(textArea);

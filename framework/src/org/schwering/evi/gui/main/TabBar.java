@@ -55,7 +55,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 * Creates a new tabbar.
 	 */
 	public TabBar() {
-		setTabPlacement(MainConfiguration.getInt("gui.tabs.placement", TOP));
+		setTabPlacement(MainConfiguration.getInt("gui.tabs.placement", TOP)); //$NON-NLS-1$
 		
 		addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -115,7 +115,7 @@ implements IModuleListener, IModuleLoaderListener {
 		try {
 			addTab((IPanel)newInstance);
 		} catch (Exception exc) {
-			ExceptionDialog.show("Unexpected error occured", exc);
+			ExceptionDialog.show(Messages.getString("TabBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
 		}
 	}
 	
@@ -140,7 +140,7 @@ implements IModuleListener, IModuleLoaderListener {
 			table.remove(panel.getPanelInstance());
 			remove(panel);
 		} catch (Exception exc) {
-			ExceptionDialog.show("Unexpected error occured", exc);
+			ExceptionDialog.show(Messages.getString("TabBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
 		}
 	}
 
@@ -160,7 +160,7 @@ implements IModuleListener, IModuleLoaderListener {
 		table.put(component, panel);
 		
 		if (title == null || title.length() == 0) {
-			title = "Untitled";
+			title = Messages.getString("TabBar.UNTITLED"); //$NON-NLS-1$
 		}
 		
 		super.insertTab(title, icon, component, title, index);
@@ -279,8 +279,9 @@ implements IModuleListener, IModuleLoaderListener {
 		 * Creates a new menu with "close".
 		 */
 		public RightClickMenu() {
-			JMenuItem close = new JMenuItem("Close");
-			close.setMnemonic('C');
+			String title = Messages.getString("TabBar.CLOSE");
+			JMenuItem close = new JMenuItem(title); //$NON-NLS-1$
+			close.setMnemonic(title.charAt(0));
 			close.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					removeSelectedTab();

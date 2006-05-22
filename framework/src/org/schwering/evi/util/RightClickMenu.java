@@ -20,10 +20,10 @@ public class RightClickMenu extends JPopupMenu {
 	private static final long serialVersionUID = 6669520773465427749L;
 	
 	private JTextComponent text;
-	private JMenuItem menuItemCopy = new JMenuItem("Copy");
-	private JMenuItem menuItemCut = new JMenuItem("Cut");
-	private JMenuItem menuItemPaste = new JMenuItem("Paste");
-	private JMenuItem menuItemSelectAll = new JMenuItem("Select All");
+	private JMenuItem menuItemCopy = new JMenuItem(Messages.getString("RightClickMenu.COPY")); //$NON-NLS-1$
+	private JMenuItem menuItemCut = new JMenuItem(Messages.getString("RightClickMenu.CUT")); //$NON-NLS-1$
+	private JMenuItem menuItemPaste = new JMenuItem(Messages.getString("RightClickMenu.PASTE")); //$NON-NLS-1$
+	private JMenuItem menuItemSelectAll = new JMenuItem(Messages.getString("RightClickMenu.SELECT_ALL")); //$NON-NLS-1$
 	
 	/**
 	 * Creates and adds a new right click menu. It has the standard options 

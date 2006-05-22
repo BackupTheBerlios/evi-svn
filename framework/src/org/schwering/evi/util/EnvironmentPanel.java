@@ -25,7 +25,7 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 	/**
 	 * Default title of the panel.
 	 */
-	public static final String DEFAULT_TITLE = "Environment";
+	public static final String DEFAULT_TITLE = Messages.getString("EnvironmentPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 	
 	private MemoryPanel memoryPanel = new MemoryPanel();
 	
@@ -56,7 +56,7 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 			vars[i][1] = sysProps.getProperty(keys[i]);
 		}
 		
-		JTable table = new JTable(vars, new String[] { "Variable", "Value" }) {
+		JTable table = new JTable(vars, new String[] { Messages.getString("EnvironmentPanel.VARIABLE"), Messages.getString("EnvironmentPanel.VALUE") }) { //$NON-NLS-1$ //$NON-NLS-2$
 			private static final long serialVersionUID = 2298937007677219773L;
 
 			public boolean isCellEditable(int x, int y) {

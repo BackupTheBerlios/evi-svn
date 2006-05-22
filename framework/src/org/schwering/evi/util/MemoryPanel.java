@@ -56,7 +56,7 @@ public class MemoryPanel extends JPanel {
 	 */
 	public MemoryPanel(int options) {
 		this.options = options;
-		JButton collect = new JButton("Collect");
+		JButton collect = new JButton(Messages.getString("MemoryPanel.COLLECT")); //$NON-NLS-1$
 		collect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Runtime.getRuntime().gc();
@@ -98,10 +98,13 @@ public class MemoryPanel extends JPanel {
 			bar.setMinimum(0);
 			bar.setMaximum(totalKb);
 			bar.setValue(usedKb);
-			bar.setString(percent +"%");
+			bar.setString(percent +"%"); //$NON-NLS-1$
 		}
 		if ((options & LABEL) != 0) {
-			memory.setText(usedKb +" KB of "+ totalKb +" KB used  ");
+			memory.setText(usedKb 
+					+" "+ Messages.getString("MemoryPanel.KB_OF") //$NON-NLS-1$ //$NON-NLS-2$
+					+ totalKb 
+					+" "+ Messages.getString("MemoryPanel.KB_USED")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 	
