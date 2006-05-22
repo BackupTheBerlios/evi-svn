@@ -66,6 +66,7 @@ implements IModuleListener, IModuleLoaderListener {
 		f = new Font(f.getName(), Font.BOLD, f.getSize());
 		closeButton.setFont(f);
 		closeButton.setToolTipText(Messages.getString("ToolBar.CLOSE_TAB")); //$NON-NLS-1$
+		closeButton.setFocusPainted(false);
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainFrame mf = MainFrame.getInstance();
@@ -79,6 +80,7 @@ implements IModuleListener, IModuleLoaderListener {
 				tb.removeSelectedTab();
 			}
 		});
+		
 		add(buttonPanel, BorderLayout.WEST);
 		add(appletPanel, BorderLayout.CENTER);
 		add(closeButton, BorderLayout.EAST);
@@ -172,6 +174,7 @@ implements IModuleListener, IModuleLoaderListener {
 			return;
 		}
 		JButton button = new JButton(module.getName());
+		button.setFocusPainted(false);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
