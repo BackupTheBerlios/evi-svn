@@ -291,6 +291,14 @@ public final class ModuleContainer {
 	}
 	
 	/**
+	 * Returns <code>true</code> if the module implements <code>IApplet</code>.
+	 * @return <code>true</code> if the module implements <code>IApplet</code>.
+	 */
+	public boolean isApplet() {
+		return classImplements(cls, IApplet.class);
+	}
+	
+	/**
 	 * Returns <code>true</code> if the module implements 
 	 * <code>IMenuable</code>.
 	 * @return <code>true</code> if the module implements 

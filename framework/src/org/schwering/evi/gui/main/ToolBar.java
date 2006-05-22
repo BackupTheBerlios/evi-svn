@@ -1,6 +1,7 @@
 package org.schwering.evi.gui.main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import org.schwering.evi.core.IApplet;
+import org.schwering.evi.core.IModule;
+import org.schwering.evi.core.IModuleListener;
 import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
@@ -29,14 +33,15 @@ import org.schwering.evi.util.ExceptionDialog;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class ToolBar extends JToolBar implements IModuleLoaderListener {
+public class ToolBar extends JToolBar 
+implements IModuleListener, IModuleLoaderListener {
 	private static final long serialVersionUID = 6169662234007355911L;
 	
 	/**
 	 * Contains all modules and their respective buttons. Used to remove 
 	 * buttons when a module is unloaded.
 	 */
-	private Hashtable table = new Hashtable();
+	private Hashtable buttonTable = new Hashtable();
 	
 	/**
 	 * The panel which contains the buttons.
@@ -46,7 +51,7 @@ public class ToolBar extends JToolBar implements IModuleLoaderListener {
 	/**
 	 * The panel which contains the small plugins.
 	 */
-	private JPanel pluginPanel = new JPanel();
+	private JPanel appletPanel = new JPanel();
 	
 	/**
 	 * Creates a new ToolBar.
@@ -75,54 +80,94 @@ public class ToolBar extends JToolBar implements IModuleLoaderListener {
 			}
 		});
 		add(buttonPanel, BorderLayout.WEST);
-		add(pluginPanel, BorderLayout.CENTER);
+		add(appletPanel, BorderLayout.CENTER);
 		add(closeButton, BorderLayout.EAST);
 		
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
 		for (int i = 0; i < modules.length; i++) {
-			addModule(modules[i]);
+			addButton(modules[i]);
+			
+			if (modules[i].isApplet()) {
+				modules[i].addListener(this);
+			}
 		}
 		ModuleLoader.addListener(this);
-	}
-	
-	/**
-	 * Adds a new button to the buttonpanel.
-	 * @param b The new button.
-	 */
-	public void add(JButton b) {
-		buttonPanel.add(b);
-	}
-	
-	/**
-	 * Removes a button.
-	 * @param b The button.
-	 */
-	public void remove(JButton b) {
-		buttonPanel.remove(b);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
 	 */
 	public void loaded(ModuleContainer loadedModule) {
-		addModule(loadedModule);
+		addButton(loadedModule);
+		
+		if (loadedModule.isApplet()) {
+			loadedModule.addListener(this);
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
 	 */
 	public void unloaded(ModuleContainer unloadedModule) {
-		if (!unloadedModule.isPanel()) {
-			return;
+		removeButton(unloadedModule);
+	}
+
+	/**
+	 * The event method fired when a module is instantiated. 
+	 * If the module which is instantiated is an an instance of 
+	 * <code>IApplet</code>, the applet-panel is added.
+	 * @param newInstance The newly created instance object.
+	 */
+	public void instantiated(IModule newInstance) {
+		try {
+			addApplet((IApplet)newInstance);
+		} catch (Exception exc) {
+			ExceptionDialog.show(Messages.getString("ToolBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
 		}
-		Object o = table.remove(unloadedModule);
-		if (o != null && o instanceof JButton) {
-			JButton button = (JButton)o;
-			remove(button);
+	}
+	
+	/**
+	 * The event method fired when a module is disposed.
+	 * If the disposing module is an instance of <code>IPanel</code>, 
+	 * the respective tab is removed.
+	 * @param disposedInstance The instance object which disposing.
+	 */
+	public void disposed(IModule disposedInstance) {
+		try {
+			IApplet applet = (IApplet)disposedInstance;
+			removeApplet(applet);
+		} catch (Exception exc) {
+			ExceptionDialog.show(Messages.getString("TabBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
 		}
 	}
 
-	private void addModule(final ModuleContainer module) {
+	/**
+	 * Adds a new component to the appletpanel.
+	 * @param b The new component.
+	 */
+	private void addApplet(IApplet a) {
+		if (a != null) {
+			Component c = a.getAppletInstance();
+			if (c != null) {
+				appletPanel.add(c);
+			}
+		}
+	}
+	
+	/**
+	 * Removes a component.
+	 * @param c The component.
+	 */
+	private void removeApplet(IApplet a) {
+		if (a != null) {
+			Component c = a.getAppletInstance();
+			if (c != null) {
+				appletPanel.remove(c);
+			}
+		}
+	}
+	
+	private void addButton(final ModuleContainer module) {
 		if (!module.isPanel()) {
 			return;
 		}
@@ -132,11 +177,23 @@ public class ToolBar extends JToolBar implements IModuleLoaderListener {
 				try {
 					ModuleFactory.newInstance(module);
 				} catch (Exception exc) {
-					ExceptionDialog.show("", exc); //$NON-NLS-1$
+					ExceptionDialog.show(Messages.getString("MODULE_INSTANTIATION_EXCEPTION_NOTICE"), //$NON-NLS-1$ 
+							exc);
 				}
 			}
 		});
-		add(button);
-		table.put(module, button);
+		buttonPanel.add(button);
+		buttonTable.put(module, button);
+	}
+	
+	private void removeButton(ModuleContainer module) {
+		if (!module.isPanel()) {
+			return;
+		}
+		Object o = buttonTable.remove(module);
+		if (o != null && o instanceof JButton) {
+			JButton button = (JButton)o;
+			buttonPanel.remove(button);
+		}
 	}
 }

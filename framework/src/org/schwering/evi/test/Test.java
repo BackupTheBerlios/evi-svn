@@ -9,13 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import org.schwering.evi.core.*;
+import org.schwering.evi.util.MemoryPanel;
 
 /**
  * Test module.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id: Test.java 50 2006-05-11 00:21:14Z schwering $
  */
-public class Test extends JPanel implements IModule, IPanel {
+public class Test extends JPanel implements IModule, IPanel, IApplet {
 	private static final long serialVersionUID = 6675184535258501432L;
 	
 	public Test() {
@@ -51,5 +52,11 @@ public class Test extends JPanel implements IModule, IPanel {
 	 */
 	public String getTitle() {
 		return "Testmodule";
+	}
+
+	private Component applet = new MemoryPanel(MemoryPanel.BAR);
+	
+	public Component getAppletInstance() {
+		return applet;
 	}
 }
