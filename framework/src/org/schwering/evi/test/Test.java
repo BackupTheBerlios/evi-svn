@@ -1,38 +1,57 @@
 package org.schwering.evi.test;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.GridLayout;
 
 import javax.swing.Icon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 
 import org.schwering.evi.core.*;
-import org.schwering.evi.util.MemoryPanel;
 
 /**
  * Test module.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id: Test.java 50 2006-05-11 00:21:14Z schwering $
  */
-public class Test extends JPanel implements IModule, IPanel, IApplet {
+public class Test extends JPanel implements IModule, IPanel, Runnable {
 	private static final long serialVersionUID = 6675184535258501432L;
+
+	private JTable table = new JTable();
+	private Thread thread;
+	private volatile boolean run = true;
 	
 	public Test() {
-		super(new BorderLayout());
-		String[] ids = ModuleLoader.getLoadedIds();
-		Object[][] data = new Object[ids.length][2];
-		for (int i = 0; i < data.length; i++) {
-			data[i][0] = ids[i];
-			data[i][1] = String.valueOf(ModuleLoader.getLoadedModule(ids[i]).getInstances().length);
+		super(new GridLayout(1, 1));
+		setBorder(new TitledBorder("Running Modules"));
+		thread = new Thread(this);
+		thread.start();
+	}
+	
+	public void run() {
+		while (run) {
+			try {
+				updateTable();
+				Thread.sleep(2000);
+			} catch (Exception exc) {
+			}
 		}
-		JTable table = new JTable(data, new String[] { "ID", "Instances" });
-		
-		JLabel label = new JLabel("Running Modules");
-		
-		add(label, BorderLayout.NORTH);
-		add(table, BorderLayout.CENTER);
+	}
+	
+	private void updateTable() {
+		remove(table);
+		String[] ids = ModuleLoader.getLoadedIds();
+		table = new JTable(ids.length, 2);
+		for (int i = 0; i < ids.length; i++) {
+			String id = ids[i];
+			String count = String.valueOf(ModuleLoader.getLoadedModule(ids[i]).getInstances().length);
+			table.setValueAt(id, i, 0);
+			table.setValueAt(count, i, 1);
+		}
+		add(table);
+		revalidate();
+		repaint();
 	}
 	
 	public Icon getIcon() {
@@ -44,19 +63,11 @@ public class Test extends JPanel implements IModule, IPanel, IApplet {
 	}
 	
 	public void dispose() {
+		run = false;
 		System.out.println("IModule.dispose() in org.schwering.evi.test.Test");
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getTitle()
-	 */
+
 	public String getTitle() {
 		return "Testmodule";
-	}
-
-	private Component applet = new MemoryPanel(MemoryPanel.BAR);
-	
-	public Component getAppletInstance() {
-		return applet;
 	}
 }
