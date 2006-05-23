@@ -18,11 +18,17 @@ public class HelloWorldPanel extends HTMLBrowser {
 	private static final String HELLO_HTML = Messages.getString("HelloWorldPanel.1"); //$NON-NLS-1$
 	
 	/**
-	 * Gives access to the one and only instance of the configuration panel.
-	 * This avoids that the user might create a bunch of configuration panels
+	 * Gives access to the one and only instance of the panel.
+	 * This avoids that the user might create a bunch of panels
 	 * which would make no sense.
 	 */
 	private static HelloWorldPanel instance = null;
+	
+	/**
+	 * The number of times getInstance() was invoked. 
+	 * Exactly this times dispose() will be invoked.
+	 */
+	private static int instanceCount = 0;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -33,6 +39,7 @@ public class HelloWorldPanel extends HTMLBrowser {
 		if (instance == null) {
 			instance = new HelloWorldPanel();
 		}
+		instanceCount++;
 		return instance;
 	}
 	
@@ -49,5 +56,16 @@ public class HelloWorldPanel extends HTMLBrowser {
 	 */
 	public String getTitle() {
 		return DEFAULT_TITLE;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#dispose()
+	 */
+	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+			super.dispose();
+		}
 	}
 }

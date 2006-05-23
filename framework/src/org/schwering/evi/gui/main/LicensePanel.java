@@ -31,9 +31,35 @@ public class LicensePanel extends JPanel implements IPanel {
 	private static final String LICENSE_HTML = "license.html"; //$NON-NLS-1$
 	
 	/**
+	 * Gives access to the one and only instance of the panel.
+	 * This avoids that the user might create a bunch of panels
+	 * which would make no sense.
+	 */
+	private static LicensePanel instance = null;
+	
+	/**
+	 * The number of times getInstance() was invoked. 
+	 * Exactly this times dispose() will be invoked.
+	 */
+	private static int instanceCount = 0;
+	
+	/**
+	 * Creates one initial instance and returns it in future until 
+	 * <code>dispose()</code> is invoked.
+	 * @return The current instance.
+	 */
+	public static LicensePanel getInstance() {
+		if (instance == null) {
+			instance = new LicensePanel();
+		}
+		instanceCount++;
+		return instance;
+	}
+	
+	/**
 	 * Displays a panel with a textfield and some license/copyright information.
 	 */
-	public LicensePanel() {
+	private LicensePanel() {
 		super(new GridLayout(1, 1));
 		final JLabel label = new JLabel(Messages.getString("LicensePanel.LOADING")); //$NON-NLS-1$
 		add(label);
@@ -83,12 +109,6 @@ public class LicensePanel extends JPanel implements IPanel {
 		RightClickMenu.addRightClickMenu(textArea);
 		return textArea;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#dispose()
-	 */
-	public void dispose() {
-	}
 
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#getIcon()
@@ -109,5 +129,15 @@ public class LicensePanel extends JPanel implements IPanel {
 	 */
 	public String getTitle() {
 		return DEFAULT_TITLE;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#dispose()
+	 */
+	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 }
