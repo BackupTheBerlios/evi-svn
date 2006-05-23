@@ -38,11 +38,17 @@ implements IPanel, IModuleLoaderListener {
 	public static final String DEFAULT_TITLE = Messages.getString("ModuleAutoStartConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 		
 	/**
-	 * Gives access to the one and only instance of the configuration panel.
-	 * This avoids that the user might create a bunch of configuration panels
+	 * Gives access to the one and only instance of this panel.
+	 * This avoids that the user might create a bunch of panels
 	 * which would make no sense.
 	 */
 	private static ModuleAutoStartConfigurationPanel instance = null;
+	
+	/**
+	 * The number of times getInstance() was invoked. 
+	 * Exactly this times dispose() will be invoked.
+	 */
+	private static int instanceCount = 0;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -53,6 +59,7 @@ implements IPanel, IModuleLoaderListener {
 		if (instance == null) {
 			instance = new ModuleAutoStartConfigurationPanel();
 		}
+		instanceCount++;
 		return instance;
 	}
 	
@@ -304,11 +311,15 @@ implements IPanel, IModuleLoaderListener {
 	public Icon getIcon() {
 		return null;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
 	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 	
 	/* (non-Javadoc)

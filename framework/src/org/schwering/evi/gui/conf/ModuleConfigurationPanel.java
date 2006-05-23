@@ -58,11 +58,17 @@ implements IPanel, IModuleLoaderListener {
 	public static final String MODULE_LIST_URL = Messages.getString("ModuleConfigurationPanel.EVI_BERLIOS_DE_MODULELIST"); //$NON-NLS-1$
 	
 	/**
-	 * Gives access to the one and only instance of the configuration panel.
-	 * This avoids that the user might create a bunch of configuration panels
+	 * Gives access to the one and only instance of this panel.
+	 * This avoids that the user might create a bunch of panels
 	 * which would make no sense.
 	 */
 	private static ModuleConfigurationPanel instance = null;
+	
+	/**
+	 * The number of times getInstance() was invoked. 
+	 * Exactly this times dispose() will be invoked.
+	 */
+	private static int instanceCount = 0;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -73,9 +79,10 @@ implements IPanel, IModuleLoaderListener {
 		if (instance == null) {
 			instance = new ModuleConfigurationPanel();
 		}
+		instanceCount++;
 		return instance;
 	}
-	
+		
 	private InputPanel inputPanel = new InputPanel(this);
 	private TablePanel tablePanel = new TablePanel();
 	
@@ -426,11 +433,15 @@ implements IPanel, IModuleLoaderListener {
 	public Icon getIcon() {
 		return null;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
 	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 	
 	/* (non-Javadoc)

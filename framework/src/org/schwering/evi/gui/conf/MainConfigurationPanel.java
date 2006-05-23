@@ -47,14 +47,20 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 */
 	public static final String DEFAULT_TITLE = Messages.getString("MainConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 	
+	private JButton saveButton;
+	
 	/**
-	 * Gives access to the one and only instance of the configuration panel.
-	 * This avoids that the user might create a bunch of configuration panels
+	 * Gives access to the one and only instance of this panel.
+	 * This avoids that the user might create a bunch of panels
 	 * which would make no sense.
 	 */
 	private static MainConfigurationPanel instance = null;
 	
-	private JButton saveButton;
+	/**
+	 * The number of times getInstance() was invoked. 
+	 * Exactly this times dispose() will be invoked.
+	 */
+	private static int instanceCount = 0;
 	
 	/**
 	 * Creates one initial instance and returns it in future until 
@@ -65,6 +71,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		if (instance == null) {
 			instance = new MainConfigurationPanel();
 		}
+		instanceCount++;
 		return instance;
 	}
 	
@@ -511,7 +518,11 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
 	public void dispose() {
-		save();
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+			save();
+		}
 	}
 	
 	/* (non-Javadoc)
