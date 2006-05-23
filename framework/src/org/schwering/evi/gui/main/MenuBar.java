@@ -47,6 +47,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		addMainConfigurationMenu(fileMenu);
 		addModuleConfigurationMenu(fileMenu);
 		addModuleAutoStartConfigurationMenu(fileMenu);
+		addRunningModulesMenu(fileMenu);
 		fileMenu.addSeparator();
 		addCloseMenu(fileMenu);
 		addExitMenu(fileMenu);
@@ -243,6 +244,20 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		m.add(i);
 	}
 	
+	private void addRunningModulesMenu(JMenu m) {
+		String title = RunningModulesPanel.DEFAULT_TITLE;
+		JMenuItem i = new JMenuItem(title);
+		i.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addTab(RunningModulesPanel.getInstance());
+			}
+		});
+		if (title != null && title.length() > 0) {
+			i.setMnemonic(title.charAt(0));
+		}
+		m.add(i);
+	}
+	
 	private void addCloseMenu(JMenu m) {
 		String title = Messages.getString("MenuBar.CLOSE_TAB"); //$NON-NLS-1$
 		JMenuItem i = new JMenuItem(title);
@@ -278,7 +293,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		JMenuItem i = new JMenuItem(title);
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addTab(new LicensePanel());
+				addTab(LicensePanel.getInstance());
 			}
 		});
 		if (title != null && title.length() > 0) {
