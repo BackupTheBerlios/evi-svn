@@ -156,14 +156,15 @@ implements IModuleListener, IModuleLoaderListener {
 		String title = panel.getTitle();
 		Icon icon = panel.getIcon();
 		Component component = panel.getPanelInstance();
-		
-		table.put(component, panel);
-		
+				
 		if (title == null || title.length() == 0) {
 			title = Messages.getString("TabBar.UNTITLED"); //$NON-NLS-1$
 		}
 		
 		super.insertTab(title, icon, component, title, index);
+		// super.insertTab removes the component <-> panel 
+		// pair from the table if it already was contained
+		table.put(component, panel);
 		setSelectedComponent(component);
 		forwardFocusInWindow();
 	}
@@ -237,6 +238,7 @@ implements IModuleListener, IModuleLoaderListener {
 			((IPanel)owner).dispose();
 			super.removeTabAt(index);
 		} else {
+			System.out.println("Simple brutal removeTabAt owner="+owner);
 			super.removeTabAt(index);
 		}
 	}
