@@ -238,7 +238,6 @@ implements IModuleListener, IModuleLoaderListener {
 			((IPanel)owner).dispose();
 			super.removeTabAt(index);
 		} else {
-			System.out.println("Simple brutal removeTabAt owner="+owner);
 			super.removeTabAt(index);
 		}
 	}
