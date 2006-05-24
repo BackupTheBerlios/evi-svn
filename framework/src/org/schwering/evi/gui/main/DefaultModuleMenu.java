@@ -35,6 +35,30 @@ public class DefaultModuleMenu extends JMenu {
 	protected ModuleContainer module;
 	
 	/**
+	 * Creates a new module menu with the title 
+	 * <code>module.getName()</code>.
+	 * @param module The module for which a menu is generated.
+	 */
+	public DefaultModuleMenu(ModuleContainer module) {
+		this(module, module.getName());
+	}
+	
+	/**
+	 * Creates a new module menu with a given title.
+	 * @param module The module for which a menu is generated.
+	 * @param title The menu's title.
+	 */
+	public DefaultModuleMenu(ModuleContainer module, String title) {
+		super(module.getName());
+		this.module = module;
+		
+		setMnemonic(module.getName().charAt(0));
+		addNewInstanceItem();
+		addConfigurationItem();
+		addInfoItem();
+	}
+	
+	/**
 	 * Simply returns the title. Can be overridden to just change 
 	 * the title of the "New instance" item.
 	 * @return The "New instance" item title.
@@ -59,20 +83,6 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected String getInfoTitle() {
 		return Messages.getString("DefaultModuleMenu.INFO"); //$NON-NLS-1$
-	}
-	
-	public DefaultModuleMenu(ModuleContainer module) {
-		this(module, module.getName());
-	}
-	
-	public DefaultModuleMenu(ModuleContainer module, String title) {
-		super(module.getName());
-		this.module = module;
-		
-		setMnemonic(module.getName().charAt(0));
-		addNewInstanceItem();
-		addConfigurationItem();
-		addInfoItem();
 	}
 	
 	/**
