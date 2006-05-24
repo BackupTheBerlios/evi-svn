@@ -23,6 +23,7 @@ import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
+import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
 
 /**
@@ -90,8 +91,18 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 				terminateAll(rows);
 			}
 		});
+		JMenuItem item3 = new JMenuItem(Messages.getString("RunningModulesPanel.NEW_INSTANCE")); //$NON-NLS-1$
+		item3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] rows = table.getSelectedRows();
+				instantiate(rows);
+			}
+		});
+		
 		menu.add(item1);
 		menu.add(item2);
+		menu.addSeparator();
+		menu.add(item3);
 		RightClickMenu.addRightClickMenu(table, menu);
 	}
 	
@@ -171,6 +182,24 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 				for (int j = 0; j < instances.length; j++) {
 					ModuleFactory.disposeInstance(instances[j]);
 				}
+			}
+		}
+	}
+	
+	/**
+	 * Instantiates a number of modules with.
+	 * @param rows The rows of the table belonging to the modules that are 
+	 * to be instantiated.
+	 */
+	private void instantiate(int[] rows) {
+		for (int i = 0; i < rows.length; i++) {
+			try {
+				String id = (String)table.getValueAt(rows[i], 0);
+				ModuleContainer container = ModuleLoader.getLoadedModule(id);
+				ModuleFactory.newInstance(container);
+			} catch (Exception exc) {
+				ExceptionDialog.show(Messages.getString("RunningModulesPanel.NEW_INSTANCE_FAILED"), //$NON-NLS-1$
+						exc);
 			}
 		}
 	}
