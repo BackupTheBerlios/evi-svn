@@ -3,6 +3,10 @@ package org.schwering.evi.core;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import javax.swing.JMenu;
+
+import org.schwering.evi.gui.main.DefaultModuleMenu;
+
 /**
  * Allows to instantiate the menu of a "menuable" module.
  * <br /><br />
@@ -20,7 +24,7 @@ public final class ModuleMenuInvoker {
 	/**
 	 * The required return type.
 	 */
-	private static final Class RETURN_TYPE = javax.swing.JMenu.class;
+	private static final Class RETURN_TYPE = JMenu.class;
 
 	/**
 	 * No instances allowed/useful.
@@ -42,13 +46,32 @@ public final class ModuleMenuInvoker {
 	 * @throws NullPointerException If <code>module</code> is 
 	 * <code>null</code>.
 	 */
-	public static javax.swing.JMenu invoke(ModuleContainer module) 
+	public static JMenu invoke(ModuleContainer module) 
 	throws ModuleInvocationException {
-		if (!module.isMenuable()) {
+		if (module.isDefaultMenuable()) {
+			return getDefaultMenu(module);
+		} else if (module.isCustomMenuable()) {
+			return getCustomMenu(module);
+		} else if (module.isMenuable()) {
+			throw new ModuleInvocationException("Module neither implements "+
+					"IDefaultMenuable nor ICustomMenuable.");
+		} else {
 			throw new ModuleInvocationException("Module is not " +
-					"configurable");
+					"menuable");
 		}
-		
+	}
+	
+	/**
+	 * Invokes the static method <code>getMenu</code> which must be defined 
+	 * in the module's main class.
+	 * @param module The module whose menu should be created.
+	 * @return The module's custom <code>JMenu</code>.
+	 * @throws ModuleInvocationException If the module's main class does 
+	 * not define the method or does not define it in a correct way or 
+	 * if invoking the method fails for any other reason.
+	 */
+	private static JMenu getCustomMenu(ModuleContainer module) 
+	throws ModuleInvocationException {
 		Class cls = module.getModuleClass();
 		Method method;
 		try {
@@ -84,10 +107,27 @@ public final class ModuleMenuInvoker {
 		
 		try {
 			Object o = method.invoke(null, null);
-			return (javax.swing.JMenu)o;
+			return (JMenu)o;
 		} catch (Exception exc) {
 			throw new ModuleInvocationException("Could not "+
-					"create module configuration panel", exc);
+					"create custom module menu", exc);
+		}
+	}
+	
+	/**
+	 * Returns the default module menu.
+	 * @param module The module for which the module should be generated.
+	 * @return The default module menu.
+	 * @throws ModuleInvocationException If anyhting fails.
+	 * @see org.schwering.evi.gui.main.DefaultModuleMenu
+	 */
+	private static JMenu getDefaultMenu(ModuleContainer module) 
+	throws ModuleInvocationException {
+		try {
+			return new DefaultModuleMenu(module);
+		} catch (Exception exc) {
+			throw new ModuleInvocationException("Could not "+
+					"create default module menu", exc);
 		}
 	}
 }

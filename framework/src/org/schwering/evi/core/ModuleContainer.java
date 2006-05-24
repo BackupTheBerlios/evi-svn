@@ -321,6 +321,28 @@ public final class ModuleContainer {
 	}
 	
 	/**
+	 * Returns <code>true</code> if the module implements 
+	 * <code>IDefaultMenuable</code>.
+	 * @return <code>true</code> if the module implements 
+	 * <code>IDefaultMenuable</code>.
+	 * @see ModuleMenuInvoker
+	 */
+	public boolean isDefaultMenuable() {
+		return classImplements(cls, IDefaultMenuable.class);
+	}
+	
+	/**
+	 * Returns <code>true</code> if the module implements 
+	 * <code>ICustomMenuable</code>.
+	 * @return <code>true</code> if the module implements 
+	 * <code>ICustomMenuable</code>.
+	 * @see ModuleMenuInvoker
+	 */
+	public boolean isCustomMenuable() {
+		return classImplements(cls, ICustomMenuable.class);
+	}
+	
+	/**
 	 * Indicates whether a given class implements a given interface.
 	 * @param c The class.
 	 * @param i The interface.

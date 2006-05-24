@@ -55,6 +55,7 @@ package org.schwering.evi.core;
  * }
  * </pre>
  * @see ModuleConfigurationInvoker
+ * @see ModuleContainer#isConfigurable()
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */

@@ -21,6 +21,7 @@ import java.awt.Component;
  * <a name="modules_imodule_iapplet"></a>
  * <u>To put it in a nutshell:</u> Modules that are inteded to display an 
  * applet should implement both, <code>IModule</code> and <code>IApplet</code>. 
+ * @see ModuleContainer#isApplet()
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
