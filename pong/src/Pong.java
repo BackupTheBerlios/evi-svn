@@ -1,15 +1,21 @@
 import java.awt.Component;
 
 import javax.swing.Icon;
+import javax.swing.JMenu;
 
 import org.schwering.evi.core.IConfigurable;
+import org.schwering.evi.core.ICustomMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
+import org.schwering.evi.core.ModuleContainer;
+import org.schwering.evi.core.ModuleLoader;
+import org.schwering.evi.gui.main.DefaultModuleMenu;
 
 /**
  * @author Mike Kremer
  */
-public class Pong implements IModule, IPanel, IConfigurable {
+public class Pong 
+implements IModule, IPanel, IConfigurable, ICustomMenuable {
 	private static Pong instance = null;
 	private GLDisplay display;
 	
@@ -52,5 +58,15 @@ public class Pong implements IModule, IPanel, IConfigurable {
 	
 	public static IPanel getConfigPanel() {
 		return new PongConfig();
+	}
+	
+	public static JMenu getMenu() {
+		ModuleContainer m = ModuleLoader.getLoadedModule("Pong");
+		return new DefaultModuleMenu(m) {
+			private static final long serialVersionUID = 1L;
+			protected String getNewInstanceTitle() {
+				return "Play!";
+			}
+		};
 	}
 }
