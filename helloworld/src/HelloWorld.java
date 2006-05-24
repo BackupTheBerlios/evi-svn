@@ -1,9 +1,12 @@
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.schwering.evi.conf.MainConfiguration;
+import org.schwering.evi.core.IDefaultMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
 
@@ -14,9 +17,15 @@ import org.schwering.evi.core.IPanel;
  * It implements IModule because it is a module.
  * It implements IPanel because it is a graphical module.
  */
-public class HelloWorld extends JPanel implements IModule, IPanel {
+public class HelloWorld extends JPanel 
+implements IModule, IPanel, IDefaultMenuable {
 	public HelloWorld() {
-		add(new JLabel("Hello World!"));
+		JLabel label = new JLabel("Hello World!");
+		label.setForeground(Color.YELLOW);
+		label.setBackground(MainConfiguration.getColor("color.secondary"));
+		label.setFont(MainConfiguration.getFont("font.primary"));
+		setBackground(MainConfiguration.getColor("color.secondary"));
+		add(label);
 	}
 
 	/**
