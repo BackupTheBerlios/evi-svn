@@ -108,7 +108,7 @@ public class RightClickMenu extends JPopupMenu {
 	
 	/**
 	 * Adds a right click menu to the component. 
-	 * @param component The c, e.g. a JPanel.
+	 * @param c The c, e.g. a JPanel.
 	 * @param menu The menu.
 	 */
 	public static void addRightClickMenu(JComponent c, JPopupMenu menu) {
@@ -119,7 +119,7 @@ public class RightClickMenu extends JPopupMenu {
 	/**
 	 * Adds a right click menu to the text component. The menu provides 
 	 * copy, paste, cut, select all.
-	 * @param textComponent The text component, e.g. a JTextField.
+	 * @param tc The text component, e.g. a JTextField.
 	 */
 	public static void addRightClickMenu(JTextComponent tc) {
 		RightClickMenu menu = new RightClickMenu(tc);
