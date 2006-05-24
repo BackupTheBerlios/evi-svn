@@ -32,9 +32,40 @@ import org.schwering.evi.util.HTMLBrowser;
 public class DefaultModuleMenu extends JMenu {
 	private static final long serialVersionUID = 8086518440159292776L;
 	
-	protected ModuleContainer module; 
+	protected ModuleContainer module;
+	
+	/**
+	 * Simply returns the title. Can be overridden to just change 
+	 * the title of the "New instance" item.
+	 * @return The "New instance" item title.
+	 */
+	protected String getNewInstanceTitle() {
+		return Messages.getString("DefaultModuleMenu.NEW_INSTANCE"); //$NON-NLS-1$
+	}
+	
+	/**
+	 * Simply returns the title. Can be overridden to just change 
+	 * the title of the "Configure" item.
+	 * @return The "Configure" item title.
+	 */
+	protected String getConfigureTitle() {
+		return Messages.getString("DefaultModuleMenu.CONFIGURE"); //$NON-NLS-1$
+	}
+	
+	/**
+	 * Simply returns the title. Can be overridden to just change 
+	 * the title of the "Info" item.
+	 * @return The "Info" item title.
+	 */
+	protected String getInfoTitle() {
+		return Messages.getString("DefaultModuleMenu.INFO"); //$NON-NLS-1$
+	}
 	
 	public DefaultModuleMenu(ModuleContainer module) {
+		this(module, module.getName());
+	}
+	
+	public DefaultModuleMenu(ModuleContainer module, String title) {
 		super(module.getName());
 		this.module = module;
 		
@@ -49,13 +80,14 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addNewInstanceItem() {
 		if (module.isPanel() || module.isApplet()) {
-			JMenuItem i = new JMenuItem(Messages.getString("DefaultModuleMenu.NEW_INSTANCE")); //$NON-NLS-1$
+			JMenuItem i = new JMenuItem(getNewInstanceTitle());
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						ModuleFactory.newInstance(module);
 					} catch (Exception exc) {
-						ExceptionDialog.show(Messages.getString("DefaultModuleMenu.MODULE_INSTANTIATION_EXCEPTION_NOTICE"),  //$NON-NLS-1$
+						ExceptionDialog.show(
+								Messages.getString("DefaultModuleMenu.MODULE_INSTANTIATION_EXCEPTION_NOTICE"),  //$NON-NLS-1$
 								exc);
 					}
 				}
@@ -69,7 +101,7 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addConfigurationItem() {
 		if (module.isConfigurable()) {
-			JMenuItem i = new JMenuItem(Messages.getString("DefaultModuleMenu.CONFIGURE")); //$NON-NLS-1$
+			JMenuItem i = new JMenuItem(getConfigureTitle());
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -90,15 +122,15 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addInfoItem() {
 		if (module.getInfoURL() != null) {
-			JMenuItem i = new JMenuItem(Messages.getString("DefaultModuleMenu.INFO")); //$NON-NLS-1$
+			JMenuItem i = new JMenuItem(getInfoTitle());
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						URL url = module.getInfoURL();
 						HTMLBrowser browser = new HTMLBrowser(url) {
-							private static final long serialVersionUID = 2883659303596869565L;
+							private static final long serialVersionUID = 1;
 							public String getTitle() {
-								return module.getName() +" "+ Messages.getString("DefaultModuleMenu.INFO"); //$NON-NLS-1$
+								return module.getName() +" "+ getInfoTitle();
 							}
 						};
 						addTab(browser);
