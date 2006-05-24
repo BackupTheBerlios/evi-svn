@@ -3,7 +3,6 @@ package org.schwering.evi.gui.main;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.util.Hashtable;
 
 import javax.swing.JMenu;
@@ -13,9 +12,7 @@ import javax.swing.KeyStroke;
 
 import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.core.ModuleConfigurationInvoker;
 import org.schwering.evi.core.ModuleContainer;
-import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.core.ModuleMenuInvoker;
 import org.schwering.evi.gui.conf.MainConfigurationPanel;
@@ -23,7 +20,6 @@ import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleConfigurationPanel;
 import org.schwering.evi.util.EnvironmentPanel;
 import org.schwering.evi.util.ExceptionDialog;
-import org.schwering.evi.util.HTMLBrowser;
 import org.schwering.evi.util.Util;
 
 /**
@@ -104,102 +100,14 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			try {
 				menu = ModuleMenuInvoker.invoke(module);
 			} catch (Exception exc) {
-				menu = getDefaultModuleMenu(module);
 				ExceptionDialog.show(Messages.getString("MenuBar.MENU_FAILED_EXCEPTION_NOTICE"),  //$NON-NLS-1$
 						exc);
 			}
-		} else {
-			menu = getDefaultModuleMenu(module);
 		}
 		if (menu != null) {
 			add(menu, getMenuCount() - 1);
 			table.put(module, menu);
 		}
-	}
-	
-	/**
-	 * Returns the default module menu.
-	 * @param module The module for which the module should be generated.
-	 * @return The default module menu.
-	 */
-	private JMenu getDefaultModuleMenu(final ModuleContainer module) {
-		if (module == null || module.getId() == null) {
-			return null;
-		}
-		if (!module.isPanel() && !module.isApplet() && !module.isConfigurable()) {
-			return null;
-		}
-		
-		String name = module.getName();
-		if (name == null || name.length() == 0) {
-			name = Messages.getString("MenuBar.UNTITLED"); //$NON-NLS-1$
-		}
-		
-		JMenu m = new JMenu(name);
-		m.setMnemonic(name.charAt(0));
-		
-		if (module.isPanel() || module.isApplet()) {
-			JMenuItem i = new JMenuItem(Messages.getString("MenuBar.NEW_INSTANCE")); //$NON-NLS-1$
-			i.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						ModuleFactory.newInstance(module);
-					} catch (Exception exc) {
-						ExceptionDialog.show(Messages.getString("MenuBar.MODULE_INSTANTIATION_EXCEPTION_NOTICE"),  //$NON-NLS-1$
-								exc);
-					}
-				}
-			});
-			m.add(i);
-		}
-		
-		if (module.isConfigurable()) {
-			JMenuItem i = new JMenuItem(Messages.getString("MenuBar.CONFIGURE")); //$NON-NLS-1$
-			i.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						IPanel config = ModuleConfigurationInvoker.invoke(module);
-						addTab(config);
-					} catch (Exception exc) {
-						ExceptionDialog.show(Messages.getString("MenuBar.MODULE_CONFIGURATION_EXCEPTION_NOTICE"), //$NON-NLS-1$
-								exc); //$NON-NLS-1$
-					}
-				}
-			});
-			m.add(i);
-		}
-		
-		if (module.getInfoURL() != null) {
-			JMenuItem i = new JMenuItem(Messages.getString("MenuBar.INFO")); //$NON-NLS-1$
-			i.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						URL url = module.getInfoURL();
-						HTMLBrowser browser = new HTMLBrowser(url) {
-							private static final long serialVersionUID = 2883659303596869565L;
-							public String getTitle() {
-								return module.getName() +" "+ Messages.getString("MenuBar.INFO"); //$NON-NLS-1$
-							}
-						};
-						addTab(browser);
-					} catch (Exception exc) {
-						ExceptionDialog.show(Messages.getString("MenuBar.MODULE_INFORMATION_EXCEPTION_NOTICE"), //$NON-NLS-1$
-								exc); //$NON-NLS-1$
-					}
-				}
-			});
-			m.add(i);
-		}
-		
-		return m;
-	}
-	
-	/**
-	 * Just a shorthand for MainFrame.getInstance().getMainTabBar().addTab().
-	 * @param panel The panel which should be added.
-	 */
-	private void addTab(IPanel panel) {
-		MainFrame.getInstance().getMainTabBar().addTab(panel);
 	}
 	
 	private void addMainConfigurationMenu(JMenu m) {
@@ -328,5 +236,13 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			i.setMnemonic(title.charAt(0));
 		}
 		m.add(i);
+	}
+	
+	/**
+	 * Just a shorthand for MainFrame.getInstance().getMainTabBar().addTab().
+	 * @param panel The panel which should be added.
+	 */
+	private void addTab(IPanel panel) {
+		MainFrame.getInstance().getMainTabBar().addTab(panel);
 	}
 }
