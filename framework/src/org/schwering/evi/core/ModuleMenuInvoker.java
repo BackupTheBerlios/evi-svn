@@ -33,14 +33,22 @@ public final class ModuleMenuInvoker {
 	}
 	
 	/**
-	 * Instantiates the module's menu. 
+	 * Instantiates the module's menu.<br />
 	 * This method doesn't do any special (no internal registering or so).<br />
-	 * It just looks for a static method, invokes it and returns the returned 
-	 * object. Have a look at {@link IMenuable} to learn how to define 
-	 * this static method.
+	 * <br />
+	 * There are two possible cases:
+	 * <ul> 
+	 * <li> The module implements <code>IDefaultMenuable</code>. In this case,
+	 * a {@link org.schwering.evi.gui.main.DefaultModuleMenu} is created and 
+	 * returned. </li>
+	 * <li> The module implements <code>ICustomMenuable</code>. Then this 
+	 * method looks for a static method in the module's main class, invokes it 
+	 * and returns the returned object. Have a look at {@link ICustomMenuable} 
+	 * to learn how to define this static method.</li>
+	 * </ul>
 	 * @param module The module that should be configurable.
-	 * @return The <code>IPanel</code> which represents the module 
-	 * configuration.
+	 * @return The <code>javax.swing.JMenu</code> which represents the module 
+	 * menu.
 	 * @throws ModuleInvocationException If the module is not menuable or 
 	 * if invoking the method fails.
 	 * @throws NullPointerException If <code>module</code> is 
