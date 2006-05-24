@@ -196,7 +196,7 @@ public class Util {
 	public static void askToExit() {
 		if (MainConfiguration.getBoolean("gui.asktoexit")) { //$NON-NLS-1$
 			int i = JOptionPane.showConfirmDialog(null, Messages.getString("Util.19"), //$NON-NLS-1$
-			Messages.getString("Util.20"), JOptionPane.YES_NO_OPTION); //$NON-NLS-2$
+					Messages.getString("Util.20"), JOptionPane.YES_NO_OPTION); //$NON-NLS-2$
 			if (i != JOptionPane.YES_OPTION) {
 				return;
 			}
