@@ -89,7 +89,7 @@ public class LicensePanel extends JPanel implements IPanel {
 	 * @return The GPL disclaimer.
 	 */
 	private JTextComponent createCopyrightPanel() {
-		String s = EVI.TITLE +" "+ EVI.VERSION + "\n"+ //$NON-NLS-1$ //$NON-NLS-2$
+		String s = EVI.TITLE +" Framework "+ EVI.VERSION + "\n"+ //$NON-NLS-1$ //$NON-NLS-2$
 		"\n"+ //$NON-NLS-1$
 		"Copyright (C) 2006 Christoph Schwering\n"+ //$NON-NLS-1$
 		"\n"+ //$NON-NLS-1$
