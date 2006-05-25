@@ -12,6 +12,10 @@ package org.schwering.evi.core;
  * 		...
  * 	}
  * </pre>
+ * If the <code>getMenu</code> method returns <code>null</code>, no 
+ * menu is added.<br />
+ * If <code>getMenu</code> throws an <code>Exception</code>, the user 
+ * is told about it and no menu is added.
  * @see ModuleMenuInvoker
  * @see ModuleContainer#isCustomMenuable()
  * @author Christoph Schwering (mailto:schwering@gmail.com)

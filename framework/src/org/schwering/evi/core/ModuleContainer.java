@@ -107,19 +107,19 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Adds a modulelistener for this module.
+	 * Adds a <code>IModuleListener</code> for this module.
 	 * @param listener The new listener.
 	 */
-	public void addListener(IModuleListener listener) {
+	public void addModuleListener(IModuleListener listener) {
 		listeners.add(listener);
 	}
 	
 	/**
-	 * Removes a modulelistener.
+	 * Removes a <code>IModuleListener</code> from this module.
 	 * @param listener The listener.
 	 * @return <code>true</code> if successfully removed.
 	 */
-	public boolean removeListener(IModuleListener listener) {
+	public boolean removeModuleListener(IModuleListener listener) {
 		return listeners.remove(listener);
 	}
 	

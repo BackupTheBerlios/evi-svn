@@ -275,19 +275,41 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * Adds a new listener.
+	 * Adds a new <code>ModuleLoaderListener</code>.
 	 * @param listener The <code>IModuleLoaderListener</code>.
 	 */
-	public static void addListener(IModuleLoaderListener listener) {
+	public static void addModuleLoaderListener(IModuleLoaderListener listener) {
 		listeners.add(listener);
 	}
 	
 	/**
-	 * Removes a listener.
+	 * Removes a <code>ModuleLoaderListener</code>.
 	 * @param listener The <code>IModuleLoaderListener</code>.
 	 */
-	public static void removeListener(IModuleLoaderListener listener) {
+	public static void removeModuleLoaderListener(IModuleLoaderListener listener) {
 		listeners.remove(listener);
+	}
+	
+	/**
+	 * Adds a <code>IModuleListener</code> to all loaded modules.
+	 * @param listener The <code>IModuleListener</code>.
+	 */
+	public static void addModuleListener(IModuleListener listener) {
+		ModuleContainer[] containers = getLoadedModules();
+		for (int i = 0; i < containers.length; i++) {
+			containers[i].addModuleListener(listener);
+		}
+	}
+	
+	/**
+	 * Removes a <code>IModuleListener</code> from all loaded modules.
+	 * @param listener The <code>IModuleListener</code>.
+	 */
+	public static void removeModuleListener(IModuleListener listener) {
+		ModuleContainer[] containers = getLoadedModules();
+		for (int i = 0; i < containers.length; i++) {
+			containers[i].removeModuleListener(listener);
+		}
 	}
 	
 	/**
