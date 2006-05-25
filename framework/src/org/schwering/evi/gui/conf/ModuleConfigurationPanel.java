@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+import java.util.Vector;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -27,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.AbstractTableModel;
 
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.conf.ModuleConfiguration;
@@ -44,7 +46,7 @@ import org.schwering.evi.util.RightClickMenu;
  * @version $Id$
  */
 public class ModuleConfigurationPanel extends JPanel 
-implements IPanel, IModuleLoaderListener {
+implements IPanel {
 	private static final long serialVersionUID = 7345516016302120010L;
 
 	/**
@@ -94,38 +96,53 @@ implements IPanel, IModuleLoaderListener {
 		super(new BorderLayout());
 		add(inputPanel, BorderLayout.NORTH);
 		add(tablePanel, BorderLayout.CENTER);
-		ModuleLoader.addListener(this);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
 	 */
-	public void loaded(ModuleContainer loadedModule) {
-		reloadTablePanel();
+	public Component getPanelInstance() {
+		return this;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		return DEFAULT_TITLE;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getIcon()
+	 */
+	public Icon getIcon() {
+		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
-	public void unloaded(ModuleContainer unloadedModule) {
-		reloadTablePanel();
-	}
-
-	/**
-	 * Removes the tablepanel, creates a new one and adds it again. 
-	 * This method is a quite brutal way to reload the table :-).
-	 */
-	private void reloadTablePanel() {
-		remove(tablePanel);
-		tablePanel = new TablePanel();
-		add(tablePanel, BorderLayout.CENTER);
-		revalidate();
-		repaint();
+	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.Component#requestFocusInWindow()
+	 */
+	public boolean requestFocusInWindow() {
+		boolean b1 = super.requestFocusInWindow();
+		boolean b2 = (inputPanel != null) ? inputPanel.requestFocusInWindow() 
+				: true;
+		return b1 && b2;
+	}
+
 	/**
 	 * Gives a user interface to put in a URL from where a module can be 
 	 * (down)loaded.
+	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
 	class InputPanel extends JPanel {
 		private static final long serialVersionUID = -3316773806722992040L;
@@ -335,6 +352,7 @@ implements IPanel, IModuleLoaderListener {
 	
 	/**
 	 * Draws a table with all modules, their version and their requirements.
+	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
 	class TablePanel extends JPanel {
 		private static final long serialVersionUID = 6389410631669650830L;
@@ -345,35 +363,12 @@ implements IPanel, IModuleLoaderListener {
 		 */
 		public TablePanel() {
 			super(new GridLayout(1, 0));
-			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
-			Object[][] data = new Object[containers.length][4];
-			for (int i = 0; i < data.length; i++) {
-				StringBuffer buf = new StringBuffer();
-				Requirement[] reqs = containers[i].getRequirements();
-				for (int j = 0; j < reqs.length; j++) {
-					buf.append(reqs[i].toString());
-				}
-				data[i][0] = containers[i].getSource();
-				data[i][1] = containers[i].getId();
-				data[i][2] = String.valueOf(containers[i].getVersion());
-				data[i][3] = buf.toString();
-			}
-			String[] header = new String[] { 
-					Messages.getString("ModuleConfigurationPanel.SOURCE"), //$NON-NLS-1$ 
-					Messages.getString("ModuleConfigurationPanel.MODULE"), //$NON-NLS-1$
-					Messages.getString("ModuleConfigurationPanel.VERSION"), //$NON-NLS-1$
-					Messages.getString("ModuleConfigurationPanel.REQUIREMENTS")};  //$NON-NLS-1$
-						
-			final JTable table = new JTable(data, header) {
-				private static final long serialVersionUID = -4479060561124641756L;
-				public boolean isCellEditable(int x, int y) {
-					return false;
-				}
-			}; 
+			final JTable table = new JTable(new TableModel());
 			table.getColumnModel().getColumn(0).setPreferredWidth(150);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
 			table.getColumnModel().getColumn(2).setPreferredWidth(10);
 			table.getColumnModel().getColumn(3).setPreferredWidth(150);
+			table.getColumnModel().getColumn(4).setPreferredWidth(50);
 			table.sizeColumnsToFit(-1);
 
 			final JPopupMenu rightClickMenu = new JPopupMenu();
@@ -413,44 +408,113 @@ implements IPanel, IModuleLoaderListener {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
-	 */
-	public Component getPanelInstance() {
-		return this;
-	}
 	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getTitle()
+	/**
+	 * A table model that updates the table using listeners.
+	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
-	public String getTitle() {
-		return DEFAULT_TITLE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getIcon()
-	 */
-	public Icon getIcon() {
-		return null;
-	}
+	class TableModel extends AbstractTableModel 
+	implements IModuleLoaderListener {
+		private static final long serialVersionUID = 9083965451997722754L;
 
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#dispose()
-	 */
-	public void dispose() {
-		instanceCount--;
-		if (instanceCount == 0) {
-			instance = null;
+		/**
+		 * Stores all currently loaded modules as 
+		 * <code>ModuleContainer</code>s.
+		 */
+		private Vector modules;
+		
+		/**
+		 * The column names.
+		 */
+		private String[] colNames = new String[] { 
+				Messages.getString("ModuleConfigurationPanel.SOURCE"), //$NON-NLS-1$ 
+				Messages.getString("ModuleConfigurationPanel.MODULE"), //$NON-NLS-1$
+				Messages.getString("ModuleConfigurationPanel.VERSION"), //$NON-NLS-1$
+				Messages.getString("ModuleConfigurationPanel.NAME"), //$NON-NLS-1$
+				Messages.getString("ModuleConfigurationPanel.REQUIREMENTS") //$NON-NLS-1$
+		};
+		
+		/**
+		 * Creates a new object. The constructor simply fills the vector 
+		 * with the currently loaded modules.
+		 */
+		public TableModel() {
+			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
+			modules = new Vector(containers.length);
+			for (int i = 0; i < containers.length; i++) {
+				modules.add(containers[i]);
+			}
+			ModuleLoader.addListener(this);
 		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.awt.Component#requestFocusInWindow()
-	 */
-	public boolean requestFocusInWindow() {
-		boolean b1 = super.requestFocusInWindow();
-		boolean b2 = (inputPanel != null) ? inputPanel.requestFocusInWindow() 
-				: true;
-		return b1 && b2;
+
+		/* (non-Javadoc)
+		 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+		 */
+		public void loaded(ModuleContainer loadedModule) {
+			modules.add(loadedModule);
+			int i = modules.indexOf(loadedModule);
+			fireTableRowsInserted(i, i);
+		}
+
+		/* (non-Javadoc)
+		 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+		 */
+		public void unloaded(ModuleContainer unloadedModule) {
+			int i = modules.indexOf(unloadedModule);
+			modules.remove(unloadedModule);
+			fireTableRowsDeleted(i, i);
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnCount()
+		 */
+		public int getColumnCount() {
+			return 5;
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getRowCount()
+		 */
+		public int getRowCount() {
+			return modules.size();
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnName(int)
+		 */
+		public String getColumnName(int col) {
+			return colNames[col];
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getValueAt(int, int)
+		 */
+		public Object getValueAt(int row, int col) {
+			ModuleContainer m = (ModuleContainer)modules.get(row);
+			if (col == 0) {
+				return m.getSource();
+			} else if (col == 1) {
+				return m.getId();
+			} else if (col == 2) {
+				return new Float(m.getVersion());
+			} else if (col == 3) {
+				return m.getName();
+			} else {
+				Requirement[] reqs = m.getRequirements();
+				StringBuffer buf = new StringBuffer();
+				for (int i = 0; i < reqs.length; i++) {
+					buf.append(reqs[i].toString());
+					buf.append(" ");
+				}
+				return buf.toString();
+			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnClass(int)
+		 */
+		public Class getColumnClass(int col) {
+			return getValueAt(0, col).getClass();
+		}
 	}
 }
