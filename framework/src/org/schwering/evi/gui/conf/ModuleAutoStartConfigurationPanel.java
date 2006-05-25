@@ -78,7 +78,7 @@ implements IPanel, IModuleLoaderListener {
 		loadWrapper.add(loadPanel);
 		add(moduleWrapper);
 		add(loadWrapper);
-		ModuleLoader.addListener(this);
+		ModuleLoader.addModuleLoaderListener(this);
 	}
 	
 	/* (non-Javadoc)

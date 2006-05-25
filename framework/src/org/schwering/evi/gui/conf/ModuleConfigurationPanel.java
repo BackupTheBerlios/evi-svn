@@ -444,7 +444,7 @@ implements IPanel {
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
 			}
-			ModuleLoader.addListener(this);
+			ModuleLoader.addModuleLoaderListener(this);
 		}
 
 		/* (non-Javadoc)

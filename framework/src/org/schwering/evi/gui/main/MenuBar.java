@@ -66,7 +66,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		for (int i = 0; i < modules.length; i++) {
 			addModule(modules[i]);
 		}
-		ModuleLoader.addListener(this);
+		ModuleLoader.addModuleLoaderListener(this);
 	}
 	
 	/* (non-Javadoc)

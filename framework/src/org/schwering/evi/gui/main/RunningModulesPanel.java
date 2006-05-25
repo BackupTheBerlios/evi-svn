@@ -11,7 +11,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
@@ -73,8 +72,6 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		super(new GridLayout(1, 1));
 		setBorder(new TitledBorder(DEFAULT_TITLE));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.add(table);
 		add(table);
 		
 		JMenuItem item1 = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE")); //$NON-NLS-1$
@@ -225,6 +222,9 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		instanceCount--;
 		if (instanceCount == 0) {
 			instance = null;
+			TableModel model = (TableModel)table.getModel();
+			ModuleLoader.removeModuleListener((IModuleListener)model);
+			ModuleLoader.removeModuleLoaderListener((IModuleLoaderListener)model);
 		}
 	}
 
@@ -250,6 +250,14 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		private Vector modules;
 		
 		/**
+		 * The column names.
+		 */
+		private String[] colNames = new String[] {
+				Messages.getString("RunningModulesPanel.MODULE_ID"),  //$NON-NLS-1$
+				Messages.getString("RunningModulesPanel.INSTANCE_COUNT"),  //$NON-NLS-1$
+		};
+		
+		/**
 		 * Creates a new object. The constructor simply fills the vector 
 		 * with the currently loaded modules.
 		 */
@@ -258,9 +266,9 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 			modules = new Vector(containers.length);
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
-				containers[i].addListener(this);
 			}
-			ModuleLoader.addListener(this);
+			ModuleLoader.addModuleListener(this);
+			ModuleLoader.addModuleLoaderListener(this);
 		}
 
 		/* (non-Javadoc)
@@ -314,7 +322,14 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		public int getRowCount() {
 			return modules.size();
 		}
-
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnName(int)
+		 */
+		public String getColumnName(int col) {
+			return colNames[col];
+		}
+		
 		/* (non-Javadoc)
 		 * @see javax.swing.table.TableModel#getValueAt(int, int)
 		 */
@@ -327,5 +342,11 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 			}
 		}
 		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnClass(int)
+		 */
+		public Class getColumnClass(int col) {
+			return getValueAt(0, col).getClass();
+		}
 	}
 }

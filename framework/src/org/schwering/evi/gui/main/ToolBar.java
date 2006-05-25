@@ -90,10 +90,10 @@ implements IModuleListener, IModuleLoaderListener {
 			addButton(modules[i]);
 			
 			if (modules[i].isApplet()) {
-				modules[i].addListener(this);
+				modules[i].addModuleListener(this);
 			}
 		}
-		ModuleLoader.addListener(this);
+		ModuleLoader.addModuleLoaderListener(this);
 	}
 	
 	/* (non-Javadoc)
@@ -103,7 +103,7 @@ implements IModuleListener, IModuleLoaderListener {
 		addButton(loadedModule);
 		
 		if (loadedModule.isApplet()) {
-			loadedModule.addListener(this);
+			loadedModule.addModuleListener(this);
 		}
 	}
 
