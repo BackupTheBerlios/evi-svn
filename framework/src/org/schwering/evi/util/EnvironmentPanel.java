@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.schwering.evi.core.IPanel;
+import org.schwering.evi.gui.EVI;
 
 /**
  * A panel which contains a scrollable table with the environment information.
@@ -43,7 +44,6 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 		Properties sysProps = System.getProperties();
 		Enumeration sysKeys = sysProps.keys();
 		int sysLen = sysProps.size();
-		String[][] vars = new String[sysLen][2];
 		
 		String[] keys = new String[sysLen];
 		for (int i = 0; i < sysLen && sysKeys.hasMoreElements(); i++) {
@@ -51,7 +51,12 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 		}
 		Arrays.sort(keys);
 		
-		for (int i = 0; i < sysLen; i++) {
+		String[][] vars = new String[sysLen+2][2];
+		vars[0][0] = "Program name";
+		vars[0][1] = EVI.TITLE;
+		vars[1][0] = "Program version";
+		vars[1][1] = String.valueOf(EVI.VERSION);
+		for (int i = 2; i < sysLen; i++) {
 			vars[i][0] = keys[i];
 			vars[i][1] = sysProps.getProperty(keys[i]);
 		}
