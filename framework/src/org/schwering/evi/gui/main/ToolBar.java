@@ -180,7 +180,10 @@ implements IModuleListener, IModuleLoaderListener {
 				try {
 					ModuleFactory.newInstance(module);
 				} catch (Exception exc) {
-					ExceptionDialog.show(Messages.getString("MODULE_INSTANTIATION_EXCEPTION_NOTICE"), //$NON-NLS-1$ 
+					ExceptionDialog.show(
+							Messages.getString("MODULE_INSTANTIATION_EXCEPTION_NOTICE") //$NON-NLS-1$ 
+							+":\n"+  //$NON-NLS-1$ 
+							module.getId(),
 							exc);
 				}
 			}

@@ -268,7 +268,9 @@ public class EVI {
 					}
 					ModuleFactory.newInstance(container, argarr);
 				} catch (ModuleInstantiationException exc) {
-					ExceptionDialog.show(Messages.getString("EVI.32"), exc); //$NON-NLS-1$
+					ExceptionDialog.show(
+							Messages.getString("EVI.32") +":\n"+  //$NON-NLS-1$  //$NON-NLS-2$
+							container.getId(), exc); //$NON-NLS-1$
 				}
 			}
 		}

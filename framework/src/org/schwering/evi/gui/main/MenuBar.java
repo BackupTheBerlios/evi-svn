@@ -100,7 +100,9 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			try {
 				menu = ModuleMenuInvoker.invoke(module);
 			} catch (Exception exc) {
-				ExceptionDialog.show(Messages.getString("MenuBar.MENU_FAILED_EXCEPTION_NOTICE"),  //$NON-NLS-1$
+				ExceptionDialog.show(
+						Messages.getString("MenuBar.MENU_FAILED_EXCEPTION_NOTICE") +":\n"+ //$NON-NLS-1$ //$NON-NLS-2$
+						module.getId(),
 						exc);
 			}
 		}
