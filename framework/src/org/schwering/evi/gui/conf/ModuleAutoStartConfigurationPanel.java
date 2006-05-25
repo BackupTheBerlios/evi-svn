@@ -211,6 +211,10 @@ implements IPanel {
 		}
 	}
 	
+	/**
+	 * A table model that updates the table using listeners.
+	 * @author Christoph Schwering (schwering@gmail.com)
+	 */
 	class LoadTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 4482500674100897664L;
 
