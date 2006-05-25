@@ -150,11 +150,9 @@ implements IPanel {
 				}
 
 				public void editingStopped(ChangeEvent arg0) {
-					int i = table.getSelectedRow();
-					int j = table.getSelectedColumn();
-					String arg = (String)table.getCellEditor(i, j).getCellEditorValue();
-					model.args.set(i, arg);
-					model.fireTableCellUpdated(i, j);
+					int row = table.getSelectedRow();
+					String arg = (String)table.getCellEditor(row, 1).getCellEditorValue();
+					model.updateArg(row, arg);
 				}
 			});
 			table.setDefaultEditor(String.class, dce);
@@ -258,6 +256,12 @@ implements IPanel {
 			int i = ids.size() - 1;
 			fireTableRowsInserted(i, i);
 			ModuleAutoStartConfiguration.addModule(id, arg);
+		}
+		
+		public void updateArg(int row, String arg) {
+			args.set(row, arg);
+			fireTableCellUpdated(row, 1);
+			ModuleAutoStartConfiguration.updateArg(row, arg);
 		}
 		
 		public void remove(int i) {
