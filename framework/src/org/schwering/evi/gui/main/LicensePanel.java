@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 
 import org.schwering.evi.core.IPanel;
+import org.schwering.evi.gui.EVI;
 import org.schwering.evi.util.HTMLBrowser;
 import org.schwering.evi.util.RightClickMenu;
 
@@ -88,24 +89,31 @@ public class LicensePanel extends JPanel implements IPanel {
 	 * @return The GPL disclaimer.
 	 */
 	private JTextComponent createCopyrightPanel() {
-		String s = "Copyright (C) 2006 Christoph Schwering\n"+ //$NON-NLS-1$
+		String s = EVI.TITLE +" "+ EVI.VERSION + "\n\n"+ //$NON-NLS-1$ //$NON-NLS-2$
+		"This copyright notice and the license only apply to the EVI "+ //$NON-NLS-1$
+		"framework. All EVI modules are subject to the copyright of "+ //$NON-NLS-1$
+		"their respective owners!"+ //$NON-NLS-1$
 		"\n"+ //$NON-NLS-1$
-		"This program is free software; you can redistribute it and/or\n"+ //$NON-NLS-1$
-		"modify it under the terms of the GNU General Public License as\n"+ //$NON-NLS-1$
-		"published by the Free Software Foundation; either version 2 of the\n"+ //$NON-NLS-1$
+		"Copyright (C) 2006 Christoph Schwering\n"+ //$NON-NLS-1$
+		"\n"+ //$NON-NLS-1$
+		"This program is free software; you can redistribute it and/or "+ //$NON-NLS-1$
+		"modify it under the terms of the GNU General Public License as "+ //$NON-NLS-1$
+		"published by the Free Software Foundation; either version 2 of the "+ //$NON-NLS-1$
 		"License.\n"+ //$NON-NLS-1$
 		"\n"+ //$NON-NLS-1$
-		"This program is distributed in the hope that it will be useful, but\n"+ //$NON-NLS-1$
-		"WITHOUT ANY WARRANTY; without even the implied warranty of\n"+ //$NON-NLS-1$
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\n"+ //$NON-NLS-1$
+		"This program is distributed in the hope that it will be useful, but "+ //$NON-NLS-1$
+		"WITHOUT ANY WARRANTY; without even the implied warranty of "+ //$NON-NLS-1$
+		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU "+ //$NON-NLS-1$
 		"General Public License for more details.\n"+ //$NON-NLS-1$
 		"\n"+ //$NON-NLS-1$
-		"You should have received a copy of the GNU General Public License\n" + //$NON-NLS-1$
-		"along with this program; if not, write to the Free Software\n" + //$NON-NLS-1$
-		"Foundation, Inc., 59 Temple Place, Suite 330, Boston, \n" + //$NON-NLS-1$
+		"You should have received a copy of the GNU General Public License " + //$NON-NLS-1$
+		"along with this program; if not, write to the Free Software" + //$NON-NLS-1$
+		"Foundation, Inc., 59 Temple Place, Suite 330, Boston, " + //$NON-NLS-1$
 		"MA 02111-1307, USA."; //$NON-NLS-1$
 		JTextArea textArea = new JTextArea(s);
 		textArea.setEditable(false);
+		textArea.setWrapStyleWord(false);
+		textArea.setLineWrap(true);
 		RightClickMenu.addRightClickMenu(textArea);
 		return textArea;
 	}
