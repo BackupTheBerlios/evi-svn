@@ -1,5 +1,6 @@
 package org.schwering.evi.gui.main;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
@@ -72,7 +74,10 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		super(new GridLayout(1, 1));
 		setBorder(new TitledBorder(DEFAULT_TITLE));
 		
-		add(table);
+		JScrollPane scrollPane = new JScrollPane(table);
+		JPanel panel = new JPanel(new BorderLayout(1, 0));
+		panel.add(scrollPane);
+		add(panel);
 		
 		JMenuItem item1 = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE")); //$NON-NLS-1$
 		item1.addActionListener(new ActionListener() {
