@@ -126,6 +126,8 @@ implements IPanel {
 		instanceCount--;
 		if (instanceCount == 0) {
 			instance = null;
+			IModuleLoaderListener l = (IModuleLoaderListener)tablePanel.model;
+			ModuleLoader.removeModuleLoaderListener(l);
 		}
 	}
 	
@@ -356,6 +358,7 @@ implements IPanel {
 	 */
 	class TablePanel extends JPanel {
 		private static final long serialVersionUID = 6389410631669650830L;
+		private TableModel model = new TableModel();
 
 		/**
 		 * Draws a table with all modules, their version and their requirements.
@@ -363,7 +366,7 @@ implements IPanel {
 		 */
 		public TablePanel() {
 			super(new GridLayout(1, 0));
-			final JTable table = new JTable(new TableModel());
+			final JTable table = new JTable(model);
 			table.getColumnModel().getColumn(0).setPreferredWidth(150);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
 			table.getColumnModel().getColumn(2).setPreferredWidth(10);

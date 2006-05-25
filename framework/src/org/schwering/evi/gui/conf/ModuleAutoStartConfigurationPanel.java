@@ -119,6 +119,49 @@ implements IPanel, IModuleLoaderListener {
 		moduleWrapper.repaint();
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
+	 */
+	public Component getPanelInstance() {
+		return this;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getTitle()
+	 */
+	public String getTitle() {
+		return DEFAULT_TITLE;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#getIcon()
+	 */
+	public Icon getIcon() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IPanel#dispose()
+	 */
+	public void dispose() {
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+			ModuleLoader.removeModuleLoaderListener(this);
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.Component#requestFocusInWindow()
+	 */
+	public boolean requestFocusInWindow() {
+		boolean b1 = super.requestFocusInWindow();
+		boolean b2 = (loadPanel != null) ? loadPanel.requestFocusInWindow() 
+				: true;
+		return b1 && b2;
+	}
+
 	/**
 	 * Draws a table with all modules that are automatically loaded.
 	 */
@@ -289,46 +332,5 @@ implements IPanel, IModuleLoaderListener {
 			JScrollPane scrollPane = new JScrollPane(table);
 			add(scrollPane);
 		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
-	 */
-	public Component getPanelInstance() {
-		return this;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getTitle()
-	 */
-	public String getTitle() {
-		return DEFAULT_TITLE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#getIcon()
-	 */
-	public Icon getIcon() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IPanel#dispose()
-	 */
-	public void dispose() {
-		instanceCount--;
-		if (instanceCount == 0) {
-			instance = null;
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.awt.Component#requestFocusInWindow()
-	 */
-	public boolean requestFocusInWindow() {
-		boolean b1 = super.requestFocusInWindow();
-		boolean b2 = (loadPanel != null) ? loadPanel.requestFocusInWindow() 
-				: true;
-		return b1 && b2;
 	}
 }

@@ -300,10 +300,20 @@ public final class ModuleContainer {
 	
 	/**
 	 * Returns <code>true</code> if the module implements 
-	 * <code>IMenuable</code>.
+	 * <code>IButtonable</code>.
 	 * @return <code>true</code> if the module implements 
-	 * <code>IMenuable</code>.
+	 * <code>IButtonable</code>.
 	 * @see ModuleConfigurationInvoker
+	 */
+	public boolean isButtonable() {
+		return classImplements(cls, IButtonable.class);
+	}
+	
+	/**
+	 * Returns <code>true</code> if the module implements 
+	 * <code>IConfigurableable</code>.
+	 * @return <code>true</code> if the module implements 
+	 * <code>IConfigurableable</code>.
 	 */
 	public boolean isConfigurable() {
 		return classImplements(cls, IConfigurable.class);

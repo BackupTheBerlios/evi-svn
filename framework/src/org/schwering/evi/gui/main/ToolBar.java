@@ -170,7 +170,7 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	private void addButton(final ModuleContainer module) {
-		if (!module.isPanel()) {
+		if (!module.isButtonable()) {
 			return;
 		}
 		JButton button = new JButton(module.getName());
@@ -190,7 +190,7 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	private void removeButton(ModuleContainer module) {
-		if (!module.isPanel()) {
+		if (!module.isButtonable()) {
 			return;
 		}
 		Object o = buttonTable.remove(module);
