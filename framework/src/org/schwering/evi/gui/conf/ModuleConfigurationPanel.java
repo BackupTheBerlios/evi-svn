@@ -379,7 +379,7 @@ implements IPanel {
 			removeItem.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
-					for (int i = 0; i < selected.length; i++) {
+					for (int i = selected.length - 1; i >= 0; i--) {
 						Object source = table.getModel().getValueAt(selected[i], 0);
 						String id = (String)table.getModel().getValueAt(selected[i], 1);
 						ModuleConfiguration.remove(source);
