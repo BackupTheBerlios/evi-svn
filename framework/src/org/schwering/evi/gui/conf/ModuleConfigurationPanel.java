@@ -409,8 +409,7 @@ implements IPanel {
 			JScrollPane scrollPane = new JScrollPane(table);
 			add(scrollPane);
 		}
-	}
-	
+	}	
 	
 	/**
 	 * A table model that updates the table using listeners.

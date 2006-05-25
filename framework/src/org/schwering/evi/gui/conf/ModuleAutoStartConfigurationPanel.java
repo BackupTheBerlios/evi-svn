@@ -6,16 +6,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.table.AbstractTableModel;
 
 import org.schwering.evi.conf.ModuleAutoStartConfiguration;
 import org.schwering.evi.core.IModuleLoaderListener;
@@ -29,7 +33,7 @@ import org.schwering.evi.core.ModuleLoader;
  * @version $Id$
  */
 public class ModuleAutoStartConfigurationPanel extends JPanel 
-implements IPanel, IModuleLoaderListener {
+implements IPanel {
 	private static final long serialVersionUID = 420606842791596917L;
 
 	/**
@@ -63,7 +67,7 @@ implements IPanel, IModuleLoaderListener {
 		return instance;
 	}
 	
-	private LoadPanel loadPanel = new LoadPanel(this);
+	private LoadPanel loadPanel = new LoadPanel();
 	private ModulePanel modulePanel = new ModulePanel(this);
 	private JPanel loadWrapper = new JPanel(new GridLayout(1, 0));
 	private JPanel moduleWrapper = new JPanel(new GridLayout(1, 0));
@@ -78,47 +82,7 @@ implements IPanel, IModuleLoaderListener {
 		loadWrapper.add(loadPanel);
 		add(moduleWrapper);
 		add(loadWrapper);
-		ModuleLoader.addModuleLoaderListener(this);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
-	 */
-	public void loaded(ModuleContainer loadedModule) {
-		reloadModulePanel();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
-	 */
-	public void unloaded(ModuleContainer unloadedModule) {
-		reloadModulePanel();
-	}
-
-	/**
-	 * Removes the loadpanel, creates a new one and adds it again. 
-	 * This method is a quite brutal way to reload the table :-).
-	 */
-	private void reloadLoadPanel() {
-		loadWrapper.remove(loadPanel);
-		loadPanel = new LoadPanel(this);
-		loadWrapper.add(loadPanel);
-		loadWrapper.revalidate();
-		loadWrapper.repaint();
-	}
-	
-	/**
-	 * Removes the loadpanel, creates a new one and adds it again. 
-	 * This method is a quite brutal way to reload the table :-).
-	 */
-	private void reloadModulePanel() {
-		moduleWrapper.remove(modulePanel);
-		modulePanel = new ModulePanel(this);
-		moduleWrapper.add(modulePanel);
-		moduleWrapper.revalidate();
-		moduleWrapper.repaint();
-	}
-	
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IPanel#getPanelInstance()
@@ -148,7 +112,8 @@ implements IPanel, IModuleLoaderListener {
 		instanceCount--;
 		if (instanceCount == 0) {
 			instance = null;
-			ModuleLoader.removeModuleLoaderListener(this);
+			IModuleLoaderListener l = (IModuleLoaderListener)modulePanel.model;
+			ModuleLoader.removeModuleLoaderListener(l);
 		}
 	}
 	
@@ -167,44 +132,34 @@ implements IPanel, IModuleLoaderListener {
 	 */
 	class LoadPanel extends JPanel {
 		private static final long serialVersionUID = 7788432414929181492L;
-		private ModuleAutoStartConfigurationPanel owner;
+
+		private LoadTableModel model = new LoadTableModel();
 		
 		/**
 		 * Draws a table with all modules, their version and their requirements.
 		 * @param o The owning moduleconfigurationpanel.
 		 */
-		public LoadPanel(ModuleAutoStartConfigurationPanel o) {
+		public LoadPanel() {
 			super(new GridLayout(1, 0));
-			this.owner = o;
 			setBorder(new TitledBorder(Messages.getString("ModuleAutoStartConfigurationPanel.START_AUTOMATICALLY") +":")); //$NON-NLS-1$ //$NON-NLS-2$
-			String[] ids = ModuleAutoStartConfiguration.getIds();
-			String[] args = ModuleAutoStartConfiguration.getArgs();
 			
-			String[][] data = new String[ids.length][2];
-			for (int i = 0; i < data.length; i++) {
-				data[i][0] = ids[i];
-				data[i][1] = (args[i] != null) ? args[i] : ""; //$NON-NLS-1$
-			}
-			String[] header = new String[] { 
-					Messages.getString("ModuleAutoStartConfigurationPanel.MODULE"),   //$NON-NLS-1$ 
-					Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS") //$NON-NLS-1$
-			};
-			
-			final JTable table = new JTable(data, header);
-			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.DOUBLE_CLICK_TO_MODIFY_ARGUMENTS")); //$NON-NLS-1$
-			table.getModel().addTableModelListener(new TableModelListener() {
-				public void tableChanged(TableModelEvent e) {
-					if (e.getType() == TableModelEvent.UPDATE) {
-						ModuleAutoStartConfiguration.removeAll();
-						int rowcount = table.getRowCount();
-						for (int i = 0; i < rowcount; i++) {
-							String id = (String)table.getModel().getValueAt(i, 0);
-							String arg = (String)table.getModel().getValueAt(i, 1);
-							ModuleAutoStartConfiguration.addModule(id, arg);
-						}
-					}
+			final JTable table = new JTable(model);
+			DefaultCellEditor dce = new DefaultCellEditor(new JTextField());
+			dce.addCellEditorListener(new CellEditorListener() {
+				public void editingCanceled(ChangeEvent arg0) {
+				}
+
+				public void editingStopped(ChangeEvent arg0) {
+					int i = table.getSelectedRow();
+					int j = table.getSelectedColumn();
+					String arg = (String)table.getCellEditor(i, j).getCellEditorValue();
+					model.args.set(i, arg);
+					model.fireTableCellUpdated(i, j);
 				}
 			});
+			table.setDefaultEditor(String.class, dce);
+			table.setCellEditor(dce);
+			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.DOUBLE_CLICK_TO_MODIFY_ARGUMENTS")); //$NON-NLS-1$
 			final JPopupMenu rightClickMenu = new JPopupMenu();
 			JMenuItem editArgsItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.EDIT_ARGUMENTS")); //$NON-NLS-1$
 			editArgsItem.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS_ARE_GIVEN_TO_MODULE")); //$NON-NLS-1$
@@ -221,12 +176,9 @@ implements IPanel, IModuleLoaderListener {
 			removeItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
-					for (int i = 0; i < selected.length; i++) {
-						String id = (String)table.getModel().getValueAt(selected[i], 0);
-						String arg = (String)table.getModel().getValueAt(selected[i], 1);
-						ModuleAutoStartConfiguration.remove(id, arg);
+					for (int i = selected.length - 1; i >= 0; i--) {
+						model.remove(selected[i]);
 					}
-					owner.reloadLoadPanel();
 				}
 			});
 			rightClickMenu.add(removeItem);
@@ -259,12 +211,112 @@ implements IPanel, IModuleLoaderListener {
 		}
 	}
 	
+	class LoadTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = 4482500674100897664L;
+
+		/**
+		 * Stores all ids.
+		 */
+		private Vector ids;
+		
+		/**
+		 * Stores all arguments.
+		 */
+		private Vector args;
+		
+		/**
+		 * The column names.
+		 */
+		private String[] colNames = new String[] { 
+				Messages.getString("ModuleAutoStartConfigurationPanel.MODULE"),   //$NON-NLS-1$ 
+				Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS") //$NON-NLS-1$
+		};
+		
+		/**
+		 * Creates a new object. The constructor simply fills the vector 
+		 * with the currently loaded modules.
+		 */
+		public LoadTableModel() {
+			String[] idsArr = ModuleAutoStartConfiguration.getIds();
+			String[] argsArr = ModuleAutoStartConfiguration.getArgs();
+			ids = new Vector(idsArr.length);
+			args = new Vector(idsArr.length);
+			
+			for (int i = 0; i < idsArr.length; i++) {
+				ids.add(i, idsArr[i]);
+				args.add(i, (argsArr[i] != null) ? argsArr[i] : ""); //$NON-NLS-1$
+			}
+		}
+		
+		public void add(String id, String arg) {
+			ids.add(id);
+			args.add(arg);
+			int i = ids.size() - 1;
+			fireTableRowsInserted(i, i);
+			ModuleAutoStartConfiguration.addModule(id, arg);
+		}
+		
+		public void remove(int i) {
+			String id = (String)ids.remove(i);
+			String arg = (String)args.remove(i);
+			ModuleAutoStartConfiguration.remove(id, arg);
+			fireTableRowsDeleted(i, i);
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnCount()
+		 */
+		public int getColumnCount() {
+			return 2;
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getRowCount()
+		 */
+		public int getRowCount() {
+			return ids.size();
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnName(int)
+		 */
+		public String getColumnName(int col) {
+			return colNames[col];
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getValueAt(int, int)
+		 */
+		public Object getValueAt(int row, int col) {
+			if (col == 0) {
+				return (String)ids.get(row);
+			} else {
+				return (String)args.get(row);
+			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#isCellEditable(int, int)
+		 */
+		public boolean isCellEditable(int row, int col) {
+			return col == 1;
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnClass(int)
+		 */
+		public Class getColumnClass(int col) {
+			return String.class;
+		}
+	}
+	
 	/**
 	 * Draws a table with all available module ids.
 	 */
 	class ModulePanel extends JPanel {
 		private static final long serialVersionUID = 1991518906418792176L;
 		private ModuleAutoStartConfigurationPanel owner;
+		private ModuleTableModel model = new ModuleTableModel();
 		
 		/**
 		 * Draws a table with all module ids.
@@ -274,21 +326,8 @@ implements IPanel, IModuleLoaderListener {
 			super(new GridLayout(1, 0));
 			this.owner = o;
 			setBorder(new TitledBorder(Messages.getString("ModuleAutoStartConfigurationPanel.AVAILABLE_MODULES"))); //$NON-NLS-1$
-			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
-			String[][] data = new String[containers.length][1];
-			for (int i = 0; i < data.length; i++) {
-				data[i][0] = containers[i].getId();
-			}
-			String[] header = new String[] { 
-					Messages.getString("ModuleAutoStartConfigurationPanel.MODULE") //$NON-NLS-1$ 
-			};
 			
-			final JTable table = new JTable(data, header) {
-				private static final long serialVersionUID = 370084356696900374L;
-				public boolean isCellEditable(int x, int y) {
-					return false;
-				}
-			};
+			final JTable table = new JTable(model);
 			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.ALL_MODULES_THAT_ARE_AVAILBLE")); //$NON-NLS-1$
 			final JPopupMenu rightClickMenu = new JPopupMenu();
 			JMenuItem addItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.ADD_TO_AUTOSTART")); //$NON-NLS-1$
@@ -296,10 +335,9 @@ implements IPanel, IModuleLoaderListener {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
 					for (int i = 0; i < selected.length; i++) {
-						String id = (String)table.getModel().getValueAt(selected[i], 0);
-						ModuleAutoStartConfiguration.addModule(id, ""); //$NON-NLS-1$
+						ModuleContainer mc = (ModuleContainer)table.getValueAt(selected[i], 0);
+						owner.loadPanel.model.add(mc.getId(), "");
 					}
-					owner.reloadLoadPanel();
 				}
 			});
 			rightClickMenu.add(addItem);
@@ -320,9 +358,8 @@ implements IPanel, IModuleLoaderListener {
 							&& e.getButton() == MouseEvent.BUTTON1) {
 						int selected = table.getSelectedRow();
 						if (selected != -1) {
-							String id = (String)table.getModel().getValueAt(selected, 0);
-							ModuleAutoStartConfiguration.addModule(id, ""); //$NON-NLS-1$
-							owner.reloadLoadPanel();
+							ModuleContainer mc = (ModuleContainer)table.getValueAt(selected, 0);
+							owner.loadPanel.model.add(mc.getId(), "");
 						}
 					}
 				}
@@ -331,6 +368,95 @@ implements IPanel, IModuleLoaderListener {
 			});
 			JScrollPane scrollPane = new JScrollPane(table);
 			add(scrollPane);
+		}
+	}
+	
+	/**
+	 * A table model that updates the table using listeners.
+	 * @author Christoph Schwering (schwering@gmail.com)
+	 */
+	class ModuleTableModel extends AbstractTableModel 
+	implements IModuleLoaderListener {
+		private static final long serialVersionUID = 6212004722975790077L;
+
+		/**
+		 * Stores all currently loaded modules as 
+		 * <code>ModuleContainer</code>s.
+		 */
+		private Vector modules;
+		
+		/**
+		 * The column names.
+		 */
+		private String[] colNames = new String[] { 
+				Messages.getString("ModuleAutoStartConfigurationPanel.MODULE") //$NON-NLS-1$ 
+		};
+		
+		/**
+		 * Creates a new object. The constructor simply fills the vector 
+		 * with the currently loaded modules.
+		 */
+		public ModuleTableModel() {
+			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
+			modules = new Vector(containers.length);
+			for (int i = 0; i < containers.length; i++) {
+				modules.add(containers[i]);
+			}
+			ModuleLoader.addModuleLoaderListener(this);
+		}
+
+		/* (non-Javadoc)
+		 * @see org.schwering.evi.core.IModuleLoaderListener#loaded(org.schwering.evi.core.ModuleContainer)
+		 */
+		public void loaded(ModuleContainer loadedModule) {
+			modules.add(loadedModule);
+			int i = modules.indexOf(loadedModule);
+			fireTableRowsInserted(i, i);
+		}
+
+		/* (non-Javadoc)
+		 * @see org.schwering.evi.core.IModuleLoaderListener#unloaded(org.schwering.evi.core.ModuleContainer)
+		 */
+		public void unloaded(ModuleContainer unloadedModule) {
+			int i = modules.indexOf(unloadedModule);
+			modules.remove(unloadedModule);
+			fireTableRowsDeleted(i, i);
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnCount()
+		 */
+		public int getColumnCount() {
+			return 1;
+		}
+
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getRowCount()
+		 */
+		public int getRowCount() {
+			return modules.size();
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnName(int)
+		 */
+		public String getColumnName(int col) {
+			return colNames[col];
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getValueAt(int, int)
+		 */
+		public Object getValueAt(int row, int col) {
+			ModuleContainer m = (ModuleContainer)modules.get(row);
+			return m;
+		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableModel#getColumnClass(int)
+		 */
+		public Class getColumnClass(int col) {
+			return getValueAt(0, col).getClass();
 		}
 	}
 }

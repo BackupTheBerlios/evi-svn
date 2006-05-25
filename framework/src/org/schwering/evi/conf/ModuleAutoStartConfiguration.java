@@ -165,6 +165,18 @@ public abstract class ModuleAutoStartConfiguration {
 	}
 	
 	/**
+	 * Updates the argument at the <code>i</code>th index.
+	 * @param i The index of the module that's to be changed.
+	 * @param arg The new argument.
+	 */
+	public static void updateArg(int i, String arg) {
+		if (arg == null) {
+			arg = "";
+		}
+		argList.set(i, arg);
+	}
+	
+	/**
 	 * Removes a module.
 	 * @param id The module's id.
 	 * @param arg The argument.
