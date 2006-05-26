@@ -99,7 +99,6 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			if (module.isCustomMenuable()) {
 				menu = module.getCustomMenu();
 			} else {
-				System.out.println("module = default");
 				menu = new DefaultModuleMenu(module);
 			}
 		}
