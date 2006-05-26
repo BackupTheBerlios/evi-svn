@@ -113,7 +113,7 @@ public class LicensePanel extends JPanel implements IPanel {
 		"MA 02111-1307, USA."; //$NON-NLS-1$
 		JTextArea textArea = new JTextArea(s);
 		textArea.setEditable(false);
-		textArea.setWrapStyleWord(false);
+		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
 		RightClickMenu.addRightClickMenu(textArea);
 		return textArea;
