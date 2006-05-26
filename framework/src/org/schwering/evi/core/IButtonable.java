@@ -1,13 +1,5 @@
 package org.schwering.evi.core;
 
-/**
- * Interface for modules that display a button in the toolbar.<br />
- * <br />
- * Modules that implement this interface will have a quick start 
- * button at the toolbar.
- * @see ModuleContainer#isButtonable()
- * @author Christoph Schwering (mailto:schwering@gmail.com)
- * @version $Id$
- */
-public interface IButtonable extends IModule {
+public interface IButtonable extends IModuleInfo {
+	public boolean isButtonable();
 }

@@ -32,72 +32,7 @@ import java.util.jar.Attributes;
  * @version $Id$
  */
 public final class ModuleLoader extends URLClassLoader {
-	/**
-	 * The module's main class (which is also the id) attribute in the 
-	 * manifest.<br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Class</code>".<br />
-	 * An example for a module-class in a manifest-file is:<br />
-	 * <code>Module-Class: bla.package.comes.here.MyModule</code>
-	 */
-	public static final String ATTR_MODULE_CLASS = "Module-Class";
-	
-	/**
-	 * The module's version attribute in the manifest. It is optional to 
-	 * define a module version.<br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Version</code>".<br />
-	 * An example for a module-version-attribute in a manifest-file is:<br />
-	 * <code>Module-Version: 1.0</code>
-	 */
-	public static final String ATTR_MODULE_VERSION = "Module-Version";
-	
-	/**
-	 * The module's name attribute in the manifest. It is optional to 
-	 * define a module name. If no name is set, the id is also used as name.
-	 * <br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Version</code>".<br />
-	 * An example for a module-version-attribute in a manifest-file is:<br />
-	 * <code>Module-Version: 1.0</code>
-	 */
-	public static final String ATTR_MODULE_NAME = "Module-Name";
-		
-	/**
-	 * The module's protocols attribute in the manifest. It is optional to
-	 * define protocols. For example, a browser module should register "http".
-	 * <br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Protocols</code>".<br />
-	 * An example for a module-protocol-attribute in a manifest-file is:
-	 * <br />
-	 * "<code>Module-Protocols: http https irc</code>".
-	 */
-	public static final String ATTR_MODULE_PROTOCOLS = "Module-Protocols";
-	
-	/**
-	 * The module's requirements attribute in the manifest. It is optional to
-	 * define requirements.<br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Requirements</code>".<br />
-	 * An example for a module-requirement-attribute in a manifest-file is:
-	 * <br />
-	 * "<code>Module-Requirements: foo.bar.BlaModule foo.bar.BlupModule:1.0 
-	 * foo.bar.BumModule foo.bar.PiffModule foo.bar.PaffModule:2.1</code>".
-	 */
-	public static final String ATTR_MODULE_REQUIREMENTS = "Module-Requirements";
-	
-	/**
-	 * The module's information attribute in the manifest. It is optional to
-	 * define an information attribute; its value should be the name of a 
-	 * HTML file resource in the JAR.<br />
-	 * This field is public because you should know about this attribute.<br />
-	 * This field's value is: "<code>Module-Information</code>".<br />
-	 * An example for a module-information-attribute in a manifest-file is:
-	 * <br />
-	 * "<code>Module-Information: about.html</code>".
-	 */
-	public static final String ATTR_MODULE_INFORMATION = "Module-Information";
+	private static final String ATTR_MODULE_INFO_CLASS = "Module-Info-Class";
 	
 	/**
 	 * Contains the <code>ModuleContainer</code> objects. Each value's key 
@@ -124,14 +59,7 @@ public final class ModuleLoader extends URLClassLoader {
 		this.url = url;
 	}
 	
-	/**
-	 * Searches for the "Main-Class" as specified in the JAR's manifest.
-	 * @return The name of the Main-Class, if specified, or 
-	 * <code>DEFAULT_MAIN_CLASS</code>.
-	 * @throws ModuleLoaderException E.g. if the JAR cannot be opened.
-	 */
-	private ModuleLoader.ModuleInfoContainer getModuleInfo() 
-	throws ModuleLoaderException {
+	private Class getModuleInfoClass() throws ModuleLoaderException {
 		try {
 			URL jarURL = new URL("jar", "", url +"!/");
 			JarURLConnection conn = (JarURLConnection)jarURL.openConnection();
@@ -140,145 +68,23 @@ public final class ModuleLoader extends URLClassLoader {
 				throw new ModuleLoaderException("No Module-Class defined");
 			}
 			
-			String moduleClassName = getModuleClassName(attr);
-			if (moduleClassName == null) {
-				throw new ModuleLoaderException("No Module-Class defined");
-			} else {
-				ModuleInfoContainer info = new ModuleInfoContainer();
-				info.moduleClassName = moduleClassName;
-				info.version = getModuleVersion(attr);
-				info.name = getModuleName(attr);
-				info.protocols = getProtocols(attr);
-				info.requirements = getRequirements(attr);
-				info.infoURL = getInfoURL(jarURL, attr);
-				return info;
+			String infoClassName = attr.getValue(ATTR_MODULE_INFO_CLASS);
+			if (infoClassName == null) {
+				throw new ModuleLoaderException("No Module-Info defined");
 			}
+			infoClassName = infoClassName.trim();
+			Class infoClass = findClass(infoClassName);
+			return infoClass;
 		} catch (Exception exc) {
 			throw new ModuleLoaderException(exc);
 		}
 	}
 	
 	/**
-	 * Grabs the module's main class or <code>null</code>.
-	 * @param attr The manifest's attributes.
-	 * @return The module's main class or <code>null</code>.
-	 */
-	private String getModuleClassName(Attributes attr) {
-		String s = attr.getValue(ATTR_MODULE_CLASS);
-		return (s != null) ? s.trim() : null;
-	}
-	
-	/**
-	 * Grabs the module version, <code>0.0</code> by default.
-	 * @param attr The manifest's attributes.
-	 * @return The module version or <code>0.0</code>.
-	 */
-	private float getModuleVersion(Attributes attr) {
-		String s = attr.getValue(ATTR_MODULE_VERSION);
-		return parseFloat(s);
-	}
-	
-	/**
-	 * Grabs the module name or <code>null</code>.
-	 * @param attr The manifest's attributes.
-	 * @return The module name or <code>null</code>.
-	 */
-	private String getModuleName(Attributes attr) {
-		String s = attr.getValue(ATTR_MODULE_NAME);
-		return (s != null) ? s.trim() : null;
-	}
-
-	/**
-	 * Grabs the protocols the module can handle.
-	 * @param attr The manifest's attributes.
-	 * @return The protocols.
-	 */
-	private String[] getProtocols(Attributes attr) {
-		String str = attr.getValue(ATTR_MODULE_PROTOCOLS);
-		if (str == null) {
-			return null;
-		}
-		return str.trim().split(" ");
-	}
-	
-	/**
-	 * Grabs the requirements out of a JAR.
-	 * @param attr The manifest's attributes.
-	 * @return The requirements.
-	 */
-	private Requirement[] getRequirements(Attributes attr) {
-		String str = attr.getValue(ATTR_MODULE_REQUIREMENTS);
-		if (str == null) {
-			return null;
-		}
-		String[] strArr = str.trim().split(" ");
-		Requirement[] reqs = new Requirement[strArr.length];
-		for (int i = 0; i < strArr.length; i++) {
-			String[] strIdAndVersion = strArr[i].split(":");
-			String id = strIdAndVersion[0].trim();
-			float version;
-			if (strIdAndVersion.length > 1) {
-				version = parseFloat(strIdAndVersion[1].trim());
-			} else {
-				version = 0.0f;
-			}
-			reqs[i] = new Requirement(id, version);
-		}
-		return reqs;
-	}
-	
-	/**
-	 * Returns the information URL or <code>null</code>. The information URL 
-	 * is specified via {@link #ATTR_MODULE_INFORMATION} in the manifest.
-	 * @param context The URL context. Simply the URL of the JAR file.
-	 * @param attr The manifest's attributes.
-	 * @return
-	 */
-	private URL getInfoURL(URL context, Attributes attr) {
-		String value = attr.getValue(ATTR_MODULE_INFORMATION);
-		if (value != null) {
-			try {
-				return new URL(context, value);
-			} catch (Exception exc) {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-	
-	/**
-	 * Parses a float or returns 0.
-	 * @param s The string which represents a float.
-	 * @return The the float or 0.0 if parsing fails.
-	 */
-	private static float parseFloat(String s) {
-		try {
-			return Float.parseFloat(s);
-		} catch (Exception exc) {
-			return 0.0f;
-		}
-	}
-	
-	/**
-	 * A small helper class that just contains information grabbed out of a
-	 * JAR's manifest.
-	 * @author chs
-	 */
-	private class ModuleInfoContainer {
-		String moduleClassName;
-		float version;
-		String name;
-		String[] protocols;
-		Requirement[] requirements;
-		URL infoURL;
-	}
-	
-	/**
 	 * Adds a new <code>ModuleLoaderListener</code>.
 	 * @param listener The <code>IModuleLoaderListener</code>.
 	 */
-	public static void addModuleLoaderListener(IModuleLoaderListener listener) {
+	public static void addListener(IModuleLoaderListener listener) {
 		listeners.add(listener);
 	}
 	
@@ -286,30 +92,8 @@ public final class ModuleLoader extends URLClassLoader {
 	 * Removes a <code>ModuleLoaderListener</code>.
 	 * @param listener The <code>IModuleLoaderListener</code>.
 	 */
-	public static void removeModuleLoaderListener(IModuleLoaderListener listener) {
+	public static void removeListener(IModuleLoaderListener listener) {
 		listeners.remove(listener);
-	}
-	
-	/**
-	 * Adds a <code>IModuleListener</code> to all loaded modules.
-	 * @param listener The <code>IModuleListener</code>.
-	 */
-	public static void addModuleListener(IModuleListener listener) {
-		ModuleContainer[] containers = getLoadedModules();
-		for (int i = 0; i < containers.length; i++) {
-			containers[i].addModuleListener(listener);
-		}
-	}
-	
-	/**
-	 * Removes a <code>IModuleListener</code> from all loaded modules.
-	 * @param listener The <code>IModuleListener</code>.
-	 */
-	public static void removeModuleListener(IModuleListener listener) {
-		ModuleContainer[] containers = getLoadedModules();
-		for (int i = 0; i < containers.length; i++) {
-			containers[i].removeModuleListener(listener);
-		}
 	}
 	
 	/**
@@ -363,32 +147,18 @@ public final class ModuleLoader extends URLClassLoader {
 	public static ModuleContainer load(URL url) throws ModuleLoaderException {
 		try {
 			ModuleLoader loader = new ModuleLoader(url);
-			ModuleLoader.ModuleInfoContainer info = loader.getModuleInfo();
+			Class moduleInfoClass = loader.getModuleInfoClass();
+			Object object = moduleInfoClass.newInstance();
+			IModuleInfo moduleInfo = (IModuleInfo)object;
 			
-			String moduleClassName = info.moduleClassName;
-			Class cls = loader.findClass(moduleClassName);
-			float version = info.version;
-			ModuleContainer module = new ModuleContainer(cls, version);
+			ModuleContainer container = new ModuleContainer(moduleInfo);
+			container.setSource(url);
 			
-			String name = info.name;
-			module.setName(name);
-			
-			String[] protocols = info.protocols;
-			module.setProtocols(protocols);
-			
-			Requirement[] requirements = info.requirements;
-			module.setRequirements(requirements);
-			
-			URL infoURL = info.infoURL;
-			module.setInfoURL(infoURL);
-			
-			module.setSource(url);
-			
-			String id = module.getId();
+			String id = container.getId();
 			if (!isLoaded(id)) {
-				table.put(id, module);
-				fireLoaded(module);
-				return module;
+				table.put(id, container);
+				fireLoaded(container);
+				return container;
 			} else {
 				return getLoadedModule(id);
 			}
@@ -400,8 +170,11 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * Loads a one-class-module. The version is simply 0.0 and there are no 
-	 * requirements. The method also fires the 	 
+	 * Loads a one-class-module. The module has plain settings, this means 
+	 * it cannot be buttonable nor menuable nor configurable. However, 
+	 * of course it can implement <code>IApplet</code> and/or 
+	 * <code>IPanel</code>.<br />
+	 * The method also fires the 	 
 	 * {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param moduleClassName The classname: <code>my.package.Class</code>
 	 * @return A <code>ModuleContainer</code> for the module.
@@ -410,18 +183,14 @@ public final class ModuleLoader extends URLClassLoader {
 	public static ModuleContainer load(String moduleClassName) 
 	throws ModuleLoaderException {
 		try {
-			float version = 0.0f;
-			Requirement[] requirements = new Requirement[0];
-			
-			Class cls = Class.forName(moduleClassName);
-			ModuleContainer module = new ModuleContainer(cls, version);
-			module.setRequirements(requirements);
-			module.setSource(moduleClassName);
-			String id = module.getId();
+			Class moduleClass = Class.forName(moduleClassName);
+			ModuleContainer container = new ModuleContainer(moduleClass);
+			container.setSource(moduleClassName);
+			String id = container.getId();
 			if (!isLoaded(id)) {
-				table.put(id, module);
-				fireLoaded(module);
-				return module;
+				table.put(id, container);
+				fireLoaded(container);
+				return container;
 			} else {
 				return getLoadedModule(id);
 			}

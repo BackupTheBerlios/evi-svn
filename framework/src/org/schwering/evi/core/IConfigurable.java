@@ -59,5 +59,6 @@ package org.schwering.evi.core;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public interface IConfigurable extends IModule {
+public interface IConfigurable extends IModuleInfo {
+	public IPanel getConfigPanel();
 }

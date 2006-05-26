@@ -1,6 +1,7 @@
 package org.schwering.evi.core;
 
 import java.lang.reflect.Constructor;
+import java.net.URL;
 
 /**
  * Provides methods to instantiate and dispose a module.<br />
@@ -81,29 +82,52 @@ public final class ModuleFactory {
 	public static synchronized IModule newInstance(ModuleContainer module, 
 			Object[] args) throws ModuleInstantiationException {
 		try {
-			int len = (args != null) ? args.length : 0;
-			Class[] wantedTypes = new Class[len];
-			for (int i = 0; i < len; i++) {
-				wantedTypes[i] = args[i].getClass();
-			}
-			
-			Class moduleClass = module.getModuleClass();
-			Constructor[] cons = moduleClass.getConstructors();
-			for (int i = 0; i < cons.length; i++) {
-				Class[] argList = cons[i].getParameterTypes();
-				if (argListMatches(argList, wantedTypes)) {
-					Constructor c = cons[i];
-					IModule o = (IModule)c.newInstance(args);
-					module.registerInstance(o);
-					module.fireInstantiated(o);
-					return o;
+			IModuleInfo info = module.getModuleInfo();
+			IModule instance = null;
+			if (info != null) {
+				Object object = null;
+				if (args == null) {
+					object = info.newInstance();
+				} else if (args.length == 1 
+						&& args[0] instanceof URL
+						&& module.isURLHandler()) {
+					URL url = (URL)args[0];
+					object = ((IURLHandler)info).newInstance(url);
+				} else if (module.isParameterizable()) {
+					object = ((IParameterizable)info).newInstance(args);
 				}
+				instance = (IModule)object;
+			} else {
+				Constructor c = searchConstructor(module, args);
+				Object object = c.newInstance(args);
+				instance = (IModule)object;
 			}
-			throw new ModuleInstantiationException("No matching constructor.");
+			module.registerInstance(instance);
+			module.fireInstantiated(instance);
+			return instance;
 		} catch (Throwable exc) {
 			throw new ModuleInstantiationException("Creating instance failed.",
 					exc);
 		}
+	}
+	
+	private static Constructor searchConstructor(ModuleContainer module, 
+			Object[] args) throws ModuleInstantiationException {
+		int len = (args != null) ? args.length : 0;
+		Class[] wantedTypes = new Class[len];
+		for (int i = 0; i < len; i++) {
+			wantedTypes[i] = args[i].getClass();
+		}
+		
+		Class moduleClass = module.getModuleClass();
+		Constructor[] cons = moduleClass.getConstructors();
+		for (int i = 0; i < cons.length; i++) {
+			Class[] argList = cons[i].getParameterTypes();
+			if (argListMatches(argList, wantedTypes)) {
+				return cons[i];
+			}
+		}
+		throw new ModuleInstantiationException("No matching constructor.");
 	}
 	
 	/**
@@ -118,18 +142,18 @@ public final class ModuleFactory {
 	 * @param o The module.
 	 * @return <code>true</code> if the module is unregistered successfully.
 	 */
-	public synchronized static boolean disposeInstance(IModule o) {
-		if (o == null) {
+	public synchronized static boolean disposeInstance(IModule instance) {
+		if (instance == null) {
 			return false;
 		}
-		String id = ModuleContainer.getIdByClass(o.getClass());
+		String id = ModuleContainer.getIdByClass(instance.getClass());
 		ModuleContainer container = ModuleLoader.getLoadedModule(id);
 		if (container == null) {
 			return false;
 		}
-		container.fireDisposed(o);
-		boolean returnValue = container.unregisterInstance(o);
-		o.dispose();
+		container.fireDisposed(instance);
+		boolean returnValue = container.unregisterInstance(instance);
+		instance.dispose();
 		return returnValue;
 	}
 	
