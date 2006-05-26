@@ -3,7 +3,7 @@ package org.schwering.evi.gui.main;
 import org.schwering.evi.util.HTMLBrowser;
 
 /**
- * A panel with a textfield containing the license.
+ * A panel with a textfield containing the some information.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
