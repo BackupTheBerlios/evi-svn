@@ -1,7 +1,7 @@
 package org.schwering.evi.core;
 
 /**
- * Interface for modules display a button in the toolbar.<br />
+ * Interface for modules that display a button in the toolbar.<br />
  * <br />
  * Modules that implement this interface will have a quick start 
  * button at the toolbar.
