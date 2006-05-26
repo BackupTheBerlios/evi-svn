@@ -3,12 +3,90 @@
 <title>Help</title>
 </head>
 <body>
-<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Help</h1>
-<p><i>TODO: Write it :-)</i></p>
+<h1>
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+ Help</h1>
 <ul>
-<li> What are modules? </li>
-<li> Where do I get modules? </li>
-<li> How to load modules? </li>
-<li> What means "Autostart"? </li>
+<li> <a href="#what">What are modules?</a> </li>
+<li> <a href="#where">Where do I get modules?</a> </li>
+<li> <a href="#load">How to load modules?</a> </li>
+<li> <a href="#autostart">What means "Auto Start"?</a> </li>
+<hr>
+
+<a name="what"></a>
+<h2>What are modules?</h2>
+<p>Well, 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+is a framework, or call it an interface.<br>
+So interface for what? For modules.<br>
+Without modules, 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+is nothing. Modules actually bring the functionality. An IRC- or ICQ-client, 
+a game or any other tool can be written as 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+module. By choosing a bunch of modules, the user customizes the application 
+to fit his needs.</p>
+
+<a name="where"></a>
+<h2>Where do I get modules?</h2>
+<p>You can find and download modules from the 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+project homepage: <a href="http://evi.berlios.de">http://evi.berlios.de</a>.</p>
+<p>You can also load modules directly from the internet. See the next question 
+for information how to do that.</p>
+
+<a name="load"></a>
+<h2>How to load modules?</h2>
+<p>To load modules, choose <code>EVI</code> in the menu at the top and then click 
+<code>Modules</code>.<br>
+In this panel, you have an empty dropdown list at the top and the buttons 
+<code>Add</code>, <code>Browse</code> and <code>Get List</code> (or similar).</p>
+<p>Before you can <code>Add</code> a module, you need to choose one. There are 
+two ways to do this:</p>
+<ul>
+<li> Go to <a href="http://evi.berlios.de">http://evi.berlios.de</a>, donwload 
+a module JAR and save it to harddisk. Then click <code>Browse</code> in the 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+load-module-panel and choose the downloaded JAR file. Then click the <code>Add</code>
+button. </li>
+<li> The other way is to directly let 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+download the module from the internet. Hit the <code>Get List</code> button in the 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+load-module-panel. Moments later, the dropdown box at the left will be filled 
+with a list of URLs. Each URL points to a module JAR file. Choose any module that 
+pleases you and press the <code>Add</code> button. </li>
+</ul>
+<p>After hitting <code>Add</code>, the module is added to the table at the bottom. 
+The module will be loaded in future.</p>
+<p>A short notice about the second way (let 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+download the module): This is nice to quickly test a module. The disadvantage is that 
+the module is downloaded each time 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+starts. Hence, the startup time increases. You might want to download the 
+module's JAR file manually from the internet and then load it from harddisk.</p>
+
+<a name="autostart"></a>
+<h2>What means "Auto Start"?</h2>
+<p>You might want 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+to start specific modules when the application starts. An example: you might want 
+the IRC- or ICQ-client to be started and connected automatically.</p>
+<p>You can tell 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+to do so. Click <code>EVI</code> in the menubar and choose <code>Auto Start</code>.<br>
+A panel will appear with to tables: The first table lists all loaded modules, the 
+second shows those that will be started automatically.</p>
+<p>You can either rightclick a row in the first table and click <code>Add to 
+Auto Start</code> or simply double click it. The module will appear in the bottom 
+table.</p>
+<p>Some modules can take arguments. These arguments let them know what the should do 
+when they're started. You can pass arguments to it by doing rightclick on a row 
+in the bottom table and then click <code>Edit Arguments</code>. The cursor will 
+jump into the right cell of the selected row and you can type the arguments.<br>
+Such an argument might be the address of the server the module should connect 
+to when it's started or a URL or something like that.</p>
+
 </body>
 </html>

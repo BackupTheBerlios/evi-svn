@@ -3,12 +3,104 @@
 <title>Hilfe</title>
 </head>
 <body>
-<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Hilfe</h1>
-<p><i>TODO: Schreiben :-)</i></p>
+<h1>
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+ Hilfe</h1>
 <ul>
-<li> Was sind Module? </li>
-<li> Wo kriege ich Module? </li>
-<li> Wie lade ich ein Modul? </li>
-<li> Was ist der "Autostart"? </li>
+<li> <a href="#what">Was sind Module?</a> </li>
+<li> <a href="#where">Wo krieg ich Module?</a> </li>
+<li> <a href="#load">Wie lade ich Module?</a> </li>
+<li> <a href="#autostart">Was ist der "Autostart"?</a> </li>
+<hr>
+
+<a name="what"></a>
+<h2>Was sind Module?</h2>
+<p> 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+ist ein Framework, man kann es auch Schnittstelle nennen.<br>
+Also Schnittstelle f&uuml;r was? F&uuml;r Module.<br>
+Ohne Module ist 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+nichts. Denn die Module bringen die eigentliche Funktionalit&auml;t. Ein Modul kann 
+zum Beispiel ein IRC- oder ICQ-Client sein oder irgendein Spiel. Durch die Wahl 
+der Module kann jeder Benutzer sich sein 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+so einstellen wie er m&ouml;chte.</p>
+
+<a name="where"></a>
+<h2>Wo krieg ich Module?</h2>
+<p>Du kannst Module von der 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+Projekt-Homepage runterladen: <a href="http://evi.berlios.de">http://evi.berlios.de</a>.</p>
+<p>Du brauchst aber gar nicht auf die Homepage zu gehen, denn du kannst Module 
+direkt &uuml;ber 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+aus dem Internet laden. Unter dem n&auml;chsten Punkt ist das erkl&auml;rt.</p>
+
+<a name="load"></a>
+<h2>Wie lade ich Module?</h2>
+<p>Um Module zu laden, w&auml;hle <code>EVI</code> im Men&uuml; und klicke dann auf  
+<code>Module</code>.<br>
+In diesem Fensterchen hast du eine leere Auswahl-Box (das Ding mit dem Textfeld und 
+dem Pfeil daneben) und die Kn&ouml;pfe <code>Hinzuf&uuml;gen</code>, <code>Durchsuchen</code> 
+und <code>Hole Liste</code>.</p>
+<p>Before du ein Modul <code>Hinzuf&uuml;gst</code> und damit l&auml;dst, musst du 
+es erstmal ausw&auml;hlen. Dazu gibt es zwei M&ouml;glichkeiten:</p>
+<ul>
+<li> Du gehst auf <a href="http://evi.berlios.de">http://evi.berlios.de</a>, l&auml;dst 
+eine JAR-Datei eines Moduls runter und speicherst es auf deiner Festplatte. 
+Dann klickst du in 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+auf den <code>Durchsuchen</code> Knopf und suchst die runtergeladene Datei. 
+Wenn du sie gefunden und ausgew&auml;hlt hast, dr&uuml;ckst du auf 
+<code>Hinzuf&uuml;gen</code>. </li>
+<li> Der andere Weg l&auml;sst 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+die Module direkt aus dem Internet laden. Geh auf den <code>Hole Liste</code> Knopf 
+und warte, bis die Ausw&auml;hl-Liste links von dem <code>Hinzuf&uuml;gen</code> Knopf 
+gef&uuml;llt wurde (dr&uuml;ck auf den Pfeil; wenn dann ein paar Adressen auftauchen, 
+ist sie gef&uuml;llt). Dann dr&uuml;ckst du auf den Pfeil der Auswahl-Box und suchst 
+dir eine der Adressen aus. Jede URL in dieser Liste zeigt auf eine JAR-Datei eines 
+Moduls. Du w&auml;hlst also eine aus und klickst dann auf 
+<code>Hinzuf&uuml;gen</code>. </li>
+</ul>
+<p>Wenn du <code>Hinzfu&uuml;gen</code> dr&uuml;ckst, taucht das Modul in der 
+Tabelle auf. Es ist also geladen und wird auch bei sp&auml;teren Starts von 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+geladen.</p>
+<p>Noch eine kleine Bemerkung zum zweiten Weg 
+(<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+das Modul selber aus dem Internet runterladen zu lassen): Das ist gut, um ein Modul 
+mal auszuprobieren. Das Modul muss aber jedesmal, wenn 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+startet, aus dem Internet geladen werden. Das erh&ouml;ht die Startdauer von 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+ziemlich stark. Wenn dir das Modul also gef&auml;llt, solltest du es manuell 
+runterladen, auf der Festplatte abspeichern und dann laden.</p>
+
+<a name="autostart"></a>
+<h2>Was ist der "Autostart"?</h2>
+<p>Stell dir vor, du willst ein Modul bei jedem Programmstart von 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+automatisch starten. Das macht zum Beispiel Sinn, wenn du ein Modul f&uuml;r 
+IRC oder ICQ hast und du willst, dass sich das Modul automatisch beim Start von 
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>
+verbindet und einloggt.</p>
+<p>Dazu gibt es den Autostart. Um Module automatisch zu starten, gehe wieder im 
+Men&uuml; auf <code>EVI</code> und w&auml;hle <code>Autostart</code>. In dem 
+neuen Fenster hast du zwei Tabellen: in der oberen sind alle Module aufgelistet, 
+in der unteren all diejenigen, die automatisch gestartet werden sollen.</p>
+<p>Um ein Modul jetzt automatisch starten zu lassen, w&auml;hlst du es in der oberen 
+Tabelle aus, machst Rechtsklick und w&auml;hlst <code>Zum Autostart hinzuf&uuml;gen</code>.
+Das Modul taucht dann auch in der unteren Liste auf, es wird also automatisch gestartet 
+werden.</p>
+<p>Jetzt k&ouml;nnte es Sinn machen, dem Modul beim automatischen Start Argumente 
+zu &uuml;bergeben. Zum Beispiel k&ouml;nnte man so einem IRC-Modul mitteilen, zu 
+welchem Server es sich verbinden soll. Um dem Modul beim Autostart Argumente zu 
+&uuml;bergeben, w&auml;hle das Modul in der unteren Tabelle aus, mache Rechtsklick 
+und geh dann auf <code>Argumente bearbeiten</code>. In der Tabellenzelle rechts 
+neben dem ausgew&auml;hlten Modul wird dann der Cursor blinken und du kannst 
+ein Argument eingeben. Was du da genau eingibst, h&auml;ngt vom Modul ab.</p>
+
 </body>
 </html>
