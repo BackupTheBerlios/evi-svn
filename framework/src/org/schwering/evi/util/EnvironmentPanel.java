@@ -56,9 +56,9 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 		vars[0][1] = EVI.TITLE;
 		vars[1][0] = "Program version";
 		vars[1][1] = String.valueOf(EVI.VERSION);
-		for (int i = 2; i < sysLen; i++) {
-			vars[i][0] = keys[i];
-			vars[i][1] = sysProps.getProperty(keys[i]);
+		for (int i = 0; i < sysLen; i++) {
+			vars[i+2][0] = keys[i];
+			vars[i+2][1] = sysProps.getProperty(keys[i]);
 		}
 		
 		JTable table = new JTable(vars, new String[] { Messages.getString("EnvironmentPanel.VARIABLE"), Messages.getString("EnvironmentPanel.VALUE") }) { //$NON-NLS-1$ //$NON-NLS-2$
