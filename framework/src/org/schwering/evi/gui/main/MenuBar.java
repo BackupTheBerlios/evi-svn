@@ -56,9 +56,10 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 			aboutMenu.setMnemonic(title.charAt(0));
 		}
 		aboutMenu.setMnemonic('A');
-		addLicenseMenu(aboutMenu);
 		addEnvironmentMenu(aboutMenu);
+		addLicenseMenu(aboutMenu);
 		addInformationMenu(aboutMenu);
+		addHelpMenu(aboutMenu);
 		add(aboutMenu);
 		
 		
@@ -232,6 +233,20 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		i.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addTab(new AboutPanel());
+			}
+		});
+		if (title != null && title.length() > 0) {
+			i.setMnemonic(title.charAt(0));
+		}
+		m.add(i);
+	}
+	
+	private void addHelpMenu(JMenu m) {
+		String title = HelpPanel.DEFAULT_TITLE;
+		JMenuItem i = new JMenuItem(title);
+		i.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addTab(new HelpPanel());
 			}
 		});
 		if (title != null && title.length() > 0) {
