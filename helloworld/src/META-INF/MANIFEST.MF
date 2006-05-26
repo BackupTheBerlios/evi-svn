@@ -1,2 +1,1 @@
-Module-Class: HelloWorld
-Module-Name:  Hello
+Module-Info-Class: HelloWorldInfo
