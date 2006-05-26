@@ -1,1 +1,7 @@
-Work for university.
+2006-05-26:
+	Restructure org.schwering.evi.core:
+	All settings except Module-Class from manifest to class-methods.
+	Remove ModuleMenuInvoker and ModuleConfigurationInvoker, build one class 
+	ModuleMethodInvoker (invokes any static method). ModuleContainer 
+	invokes appropriate methods. 
+	Add respective interfaces or think about it well.
