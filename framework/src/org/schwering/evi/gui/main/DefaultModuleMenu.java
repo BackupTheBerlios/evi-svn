@@ -8,7 +8,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.core.ModuleConfigurationInvoker;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.util.ExceptionDialog;
@@ -115,7 +114,7 @@ public class DefaultModuleMenu extends JMenu {
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						IPanel config = ModuleConfigurationInvoker.invoke(module);
+						IPanel config = module.getConfigPanel();
 						addTab(config);
 					} catch (Exception exc) {
 						ExceptionDialog.show(Messages.getString("DefaultModuleMenu.MODULE_CONFIGURATION_EXCEPTION_NOTICE"), //$NON-NLS-1$

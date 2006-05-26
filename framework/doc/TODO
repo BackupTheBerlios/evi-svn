@@ -1,4 +1,13 @@
 2006-05-26:
+    Javadoc!!
+    
+2006-05-26:
+	TabBar.addTab(IPanel) line 165: setSelectedComponent(component)
+	This line results in ArrayIndexOutOfBoundsException in Swing 
+	classes under Java 1.4.2_03-b02.
+	
+
+2006-05-26:
 	Restructure org.schwering.evi.core:
 	All settings except Module-Class from manifest to class-methods.
 	Remove ModuleMenuInvoker and ModuleConfigurationInvoker, build one class 

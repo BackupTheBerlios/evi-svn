@@ -80,8 +80,11 @@ implements IModuleListener, IModuleLoaderListener {
 			}
 		});
 		
-		ModuleLoader.addModuleListener(this);
-		ModuleLoader.addModuleLoaderListener(this);
+		ModuleContainer[] containers = ModuleLoader.getLoadedModules();
+		for (int i = 0; i < containers.length; i++) {
+			containers[i].addListener(this);
+		}
+		ModuleLoader.addListener(this);
 	}
 	
 	/* (non-Javadoc)
@@ -89,7 +92,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 */
 	public void loaded(ModuleContainer loadedModule) {
 		if (loadedModule.isPanel()) {
-			loadedModule.addModuleListener(this);
+			loadedModule.addListener(this);
 		}
 	}
 

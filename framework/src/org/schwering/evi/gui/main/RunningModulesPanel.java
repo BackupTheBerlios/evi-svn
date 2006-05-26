@@ -228,8 +228,11 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		if (instanceCount == 0) {
 			instance = null;
 			TableModel model = (TableModel)table.getModel();
-			ModuleLoader.removeModuleListener((IModuleListener)model);
-			ModuleLoader.removeModuleLoaderListener((IModuleLoaderListener)model);
+			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
+			for (int i = 0; i < containers.length; i++) {
+				containers[i].removeListener((IModuleListener)model);
+			}
+			ModuleLoader.removeListener((IModuleLoaderListener)model);
 		}
 	}
 
@@ -271,9 +274,9 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 			modules = new Vector(containers.length);
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
+				containers[i].addListener(this);
 			}
-			ModuleLoader.addModuleListener(this);
-			ModuleLoader.addModuleLoaderListener(this);
+			ModuleLoader.addListener(this);
 		}
 
 		/* (non-Javadoc)

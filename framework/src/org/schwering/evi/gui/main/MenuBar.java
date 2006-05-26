@@ -14,12 +14,10 @@ import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleLoader;
-import org.schwering.evi.core.ModuleMenuInvoker;
 import org.schwering.evi.gui.conf.MainConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleAutoStartConfigurationPanel;
 import org.schwering.evi.gui.conf.ModuleConfigurationPanel;
 import org.schwering.evi.util.EnvironmentPanel;
-import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
 /**
@@ -67,7 +65,7 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 		for (int i = 0; i < modules.length; i++) {
 			addModule(modules[i]);
 		}
-		ModuleLoader.addModuleLoaderListener(this);
+		ModuleLoader.addListener(this);
 	}
 	
 	/* (non-Javadoc)
@@ -98,13 +96,11 @@ public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	private void addModule(ModuleContainer module) {
 		JMenu menu = null;
 		if (module.isMenuable()) {
-			try {
-				menu = ModuleMenuInvoker.invoke(module);
-			} catch (Exception exc) {
-				ExceptionDialog.show(
-						Messages.getString("MenuBar.MENU_FAILED_EXCEPTION_NOTICE") +":\n"+ //$NON-NLS-1$ //$NON-NLS-2$
-						module.getId(),
-						exc);
+			if (module.isCustomMenuable()) {
+				menu = module.getCustomMenu();
+			} else {
+				System.out.println("module = default");
+				menu = new DefaultModuleMenu(module);
 			}
 		}
 		if (menu != null) {

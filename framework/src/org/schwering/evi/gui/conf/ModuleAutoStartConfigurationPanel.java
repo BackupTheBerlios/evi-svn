@@ -113,7 +113,7 @@ implements IPanel {
 		if (instanceCount == 0) {
 			instance = null;
 			IModuleLoaderListener l = (IModuleLoaderListener)modulePanel.model;
-			ModuleLoader.removeModuleLoaderListener(l);
+			ModuleLoader.removeListener(l);
 		}
 	}
 	
@@ -410,7 +410,7 @@ implements IPanel {
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
 			}
-			ModuleLoader.addModuleLoaderListener(this);
+			ModuleLoader.addListener(this);
 		}
 
 		/* (non-Javadoc)

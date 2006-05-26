@@ -85,15 +85,15 @@ implements IModuleListener, IModuleLoaderListener {
 		add(appletPanel, BorderLayout.CENTER);
 		add(closeButton, BorderLayout.EAST);
 		
+		ModuleLoader.addListener(this);
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules();
 		for (int i = 0; i < modules.length; i++) {
 			addButton(modules[i]);
 			
 			if (modules[i].isApplet()) {
-				modules[i].addModuleListener(this);
+				modules[i].addListener(this);
 			}
 		}
-		ModuleLoader.addModuleLoaderListener(this);
 	}
 	
 	/* (non-Javadoc)
@@ -103,7 +103,7 @@ implements IModuleListener, IModuleLoaderListener {
 		addButton(loadedModule);
 		
 		if (loadedModule.isApplet()) {
-			loadedModule.addModuleListener(this);
+			loadedModule.addListener(this);
 		}
 	}
 
@@ -152,6 +152,7 @@ implements IModuleListener, IModuleLoaderListener {
 			Component c = a.getAppletInstance();
 			if (c != null) {
 				appletPanel.add(c);
+				appletPanel.revalidate();
 			}
 		}
 	}
@@ -165,14 +166,24 @@ implements IModuleListener, IModuleLoaderListener {
 			Component c = a.getAppletInstance();
 			if (c != null) {
 				appletPanel.remove(c);
+				appletPanel.revalidate();
 			}
 		}
 	}
 	
-	private void addButton(final ModuleContainer module) {
+	private void addButton(ModuleContainer module) {
 		if (!module.isButtonable()) {
 			return;
 		}
+		JButton button = (module.isCustomButtonable()) 
+							? module.getCustomButton()
+							: getDefaultButton(module);
+		buttonPanel.add(button);
+		buttonPanel.revalidate();
+		buttonTable.put(module, button);
+	}
+	
+	private JButton getDefaultButton(final ModuleContainer module) {
 		JButton button = new JButton(module.getName());
 		button.setFocusPainted(false);
 		button.addActionListener(new ActionListener() {
@@ -188,8 +199,7 @@ implements IModuleListener, IModuleLoaderListener {
 				}
 			}
 		});
-		buttonPanel.add(button);
-		buttonTable.put(module, button);
+		return button;
 	}
 	
 	private void removeButton(ModuleContainer module) {
@@ -200,6 +210,7 @@ implements IModuleListener, IModuleLoaderListener {
 		if (o != null && o instanceof JButton) {
 			JButton button = (JButton)o;
 			buttonPanel.remove(button);
+			buttonPanel.revalidate();
 		}
 	}
 }

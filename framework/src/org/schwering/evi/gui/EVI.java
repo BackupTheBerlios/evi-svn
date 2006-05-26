@@ -292,7 +292,7 @@ public class EVI {
 				URL url = new URL(arg);
 				String protocol = url.getProtocol();
 				for (int j = 0; j < modules.length; j++) {
-					if (modules[j].handlesProtocol(protocol)) {
+					if (modules[j].handlesURL(protocol)) {
 						ModuleFactory.newInstance(modules[j], 
 								new Object[] { url });
 					}
