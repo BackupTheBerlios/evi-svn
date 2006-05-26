@@ -185,8 +185,10 @@ public final class ModuleContainer {
 		if (info != null && info.getInfoURL() != null 
 				&& source instanceof URL) {
 			try {
-				return new URL((URL)source, info.getInfoURL());
+				URL context = new URL("jar", "", source.toString() +"!/");
+				return new URL(context, info.getInfoURL());
 			} catch (Exception exc) {
+				exc.printStackTrace();
 				return null;
 			}
 		} else {

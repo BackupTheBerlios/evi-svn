@@ -1,2 +1,2 @@
 Main-Class: org.schwering.evi.gui.EVI
-Module-Info: org.schwering.evi.test.TestInfo
+Module-Info-Class: org.schwering.evi.test.TestInfo
