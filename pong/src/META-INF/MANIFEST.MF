@@ -1,4 +1,1 @@
-Module-Class: Pong
-Module-Version: 1.0
-Module-Name: Pong
-Module-Information: about.html
+Module-Info-Class: PongInfo

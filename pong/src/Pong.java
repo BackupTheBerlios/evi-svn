@@ -3,8 +3,6 @@ import java.awt.Component;
 import javax.swing.Icon;
 import javax.swing.JMenu;
 
-import org.schwering.evi.core.IConfigurable;
-import org.schwering.evi.core.ICustomMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
@@ -14,8 +12,7 @@ import org.schwering.evi.gui.main.DefaultModuleMenu;
 /**
  * @author Mike Kremer
  */
-public class Pong 
-implements IModule, IPanel, IConfigurable, ICustomMenuable {
+public class Pong implements IModule, IPanel {
 	private static Pong instance = null;
 	private GLDisplay display;
 	
@@ -56,7 +53,7 @@ implements IModule, IPanel, IConfigurable, ICustomMenuable {
 		System.out.println("Pong.dispose()");
 	}
 	
-	public static IPanel getConfigPanel() {
+	public IPanel getConfigPanel() {
 		return new PongConfig();
 	}
 	
