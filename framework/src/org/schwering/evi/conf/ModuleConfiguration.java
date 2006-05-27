@@ -121,7 +121,7 @@ public abstract class ModuleConfiguration {
 			}
 			String[] classNames = getClassNames();
 			for (int i = 0; i < classNames.length; i++) {
-				pw.println(classNames[i]);
+				pw.println(classNames[i].toString());
 			}
 		} catch (Exception exc) {
 			ExceptionDialog.show("Saving modules-config failed", exc);
@@ -178,7 +178,8 @@ public abstract class ModuleConfiguration {
 	 */
 	public static void addURL(String s) throws MalformedURLException {
 		if (s != null) {
-			list.add(new URL(s));
+			URL url = new URL(s); 
+			list.add(url);
 		}
 	}
 
