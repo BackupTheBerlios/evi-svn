@@ -171,7 +171,6 @@ public class MainFrame extends JFrame {
 			is.close();
 			setIconImage(new ImageIcon(iconBytes).getImage());
 		} catch (Exception exc) {
-			exc.printStackTrace();
 		}
 	}
 }
