@@ -121,7 +121,7 @@ public class Util {
 	}
 	
 	/**
-	 * Returns a string representation of the font style. <br />
+	 * Returns a string representation of the font style. <br>
 	 * The result is one of the following:
 	 * <ul>
 	 * <li> PLAIN </li>

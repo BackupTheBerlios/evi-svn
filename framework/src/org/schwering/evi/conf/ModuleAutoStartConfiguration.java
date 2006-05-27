@@ -12,7 +12,7 @@ import org.schwering.evi.util.ExceptionDialog;
 /**
  * Administers the module auto start configuration file. Each entry must be 
  * an id of a module. Each of these modules is started automagically when the 
- * client starts.<br />
+ * client starts.<br>
  * The format of the file is quite simple:
  * <pre>
  * my.package.Foobar
@@ -26,7 +26,7 @@ import org.schwering.evi.util.ExceptionDialog;
  */
 public abstract class ModuleAutoStartConfiguration {
 	/**
-	 * The auto start list.<br />
+	 * The auto start list.<br>
 	 * It is tried to set it to <code>CONFIG_DIR/autostart</code>.
 	 */
 	public static final File MODULE_AUTO_START_CONFIG_FILE;

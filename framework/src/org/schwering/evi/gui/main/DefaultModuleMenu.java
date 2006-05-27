@@ -15,7 +15,7 @@ import org.schwering.evi.util.HTMLBrowser;
 
 /**
  * The (default) menu for modules that implement 
- * {@link org.schwering.evi.core.IDefaultMenuable}.<br />
+ * {@link org.schwering.evi.core.IDefaultMenuable}.<br>
  * This default has up to three points:
  * <ul>
  * <li> "New instance" (if {@link org.schwering.evi.core.ModuleContainer#isApplet()} || {@link org.schwering.evi.core.ModuleContainer#isPanel()}

@@ -26,8 +26,8 @@ import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
 
 /**
- * The main tabbar of the application.<br />
- * <br />
+ * The main tabbar of the application.<br>
+ * <br>
  * Though it is possible to add all kinds of <code>java.awt.Component</code>s
  * to the tabbar, one should add only <code>IPanel</code>s. There are two 
  * kinds of <code>IPanel</code>s: those that are instances of 
@@ -142,7 +142,7 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 
 	/**
-	 * Adds a panel.<br />
+	 * Adds a panel.<br>
 	 * Do not use this method to add module instances! New module instances 
 	 * are added automatically with a listener 
 	 * ({@link #instantiated(IModule)}).
@@ -167,7 +167,7 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	/**
-	 * Removes a panel.<br />
+	 * Removes a panel.<br>
 	 * Do not use this method to remove module instances! Module instances 
 	 * are removed automatically with a listener 
 	 * ({@link #instantiated(IModule)}).
@@ -258,7 +258,7 @@ implements IModuleListener, IModuleLoaderListener {
 	/**
 	 * Tries to catch the focus and passes it on to the selected panel.
 	 * @return <code>false</code> if it definitely failed. <code>true</code> 
-	 * does not guarantee anything.<br />
+	 * does not guarantee anything.<br>
 	 * @see Component#requestFocusInWindow()
 	 */
 	private boolean forwardFocusInWindow() {

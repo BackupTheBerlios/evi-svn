@@ -13,7 +13,7 @@ import org.schwering.evi.util.ExceptionDialog;
 
 /**
  * Administers the module configuration file. Modules listet in this file are 
- * loaded. Each URL must point to a module's URL file.<br />
+ * loaded. Each URL must point to a module's URL file.<br>
  * The format of the file is quite simple:
  * <pre>
  * http://www.test.de/module.jar
@@ -22,14 +22,14 @@ import org.schwering.evi.util.ExceptionDialog;
  * # And this class will be loaded directly by the default classloader: 
  * # (And thus must be in the classpath when starting the application)
  * org.schwering.evi.modules.BlaModule
- * </pre><br />
+ * </pre><br>
  * Because internally a <code>HashSet</code> is used, no URL is stored twice.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
 public abstract class ModuleConfiguration {
 	/**
-	 * The module list.<br />
+	 * The module list.<br>
 	 * It is tried to set it to <code>CONFIG_DIR/modules</code>.
 	 */
 	public static final File MODULES_CONFIG_FILE;

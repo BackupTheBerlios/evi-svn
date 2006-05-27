@@ -240,7 +240,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		primFontName = new JComboBox(fonts);
 		primFontName.setSelectedItem(currentFontName);
 		
-		primFontSize = new JTextField(2);
+		primFontSize = new JTextField(3);
 		primFontSize.setText(String.valueOf(currentFontSize));
 		RightClickMenu.addRightClickMenu(primFontSize);
 		
@@ -284,7 +284,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		secFontName = new JComboBox(fonts);
 		secFontName.setSelectedItem(currentFontName);
 		
-		secFontSize = new JTextField(2);
+		secFontSize = new JTextField(3);
 		secFontSize.setText(String.valueOf(currentFontSize));
 		RightClickMenu.addRightClickMenu(secFontSize);
 		

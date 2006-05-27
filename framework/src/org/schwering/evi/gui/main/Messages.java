@@ -28,7 +28,7 @@ public class Messages {
 	
 	/**
 	 * Loads the <code>ResourceBundle</code> with the given locale.
-	 * <br />
+	 * <br>
 	 * Invoked by {@link org.schwering.evi.conf.LanguageAdministrator}.
 	 * @param locale The language which is to be loaded.
 	 */

@@ -29,7 +29,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * </ul>
  * These elements are added with a <code>BorderLayout</code>.
  * The buttonpanel is at the left (WEST), the pluginpanel at the 
- * middle (CENTER) and the closebutton is at the right (EAST).<br />
+ * middle (CENTER) and the closebutton is at the right (EAST).
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
