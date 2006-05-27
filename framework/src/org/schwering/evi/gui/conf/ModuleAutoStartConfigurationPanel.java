@@ -199,7 +199,6 @@ implements IPanel {
 							ModuleContainer container = ModuleLoader.getLoadedModule(id);
 							editArgsEnabled = container.isParameterizable();
 						} catch (Exception exc) {
-							exc.printStackTrace();
 							editArgsEnabled = true;
 						}
 						editArgsItem.setEnabled(editArgsEnabled);
