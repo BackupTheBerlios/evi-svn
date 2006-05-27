@@ -194,7 +194,7 @@ public final class ModuleFactory {
 	 * Because (as told two lines above) this method does more than just 
 	 * calling <code>dispose()</code>: it also unregisters the instance 
 	 * internally and fires the respective event.
-	 * @param o The module.
+	 * @param instance The module.
 	 * @return <code>true</code> if the module is unregistered successfully.
 	 */
 	public synchronized static boolean disposeInstance(IModule instance) {

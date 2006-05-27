@@ -7,9 +7,9 @@ package org.schwering.evi.core;
  * This class defines just <i>one</i> requirement, e.g. just one module 
  * required by some other module.<br>
  * <br>
- * <b>Note:</b> Requirements of modules are defined in the requiring module's
- * JAR's manifest file. Use the {@link ModuleLoader#ATTR_MODULE_REQUIREMENTS}
- * attribute. Probably, this class is not interesting for module developers!
+ * <b>Note:</b> Requirements of modules can be defined by the ModuleInfoClass. 
+ * It needs to implement the {@link IDemanding} interface and override the 
+ * {@link IDemanding#getRequirements()} method.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */

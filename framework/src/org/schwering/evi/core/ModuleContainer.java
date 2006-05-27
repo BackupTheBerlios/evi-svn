@@ -439,7 +439,7 @@ public final class ModuleContainer {
 	 * @param protocol The protocol which is to check.
 	 * @return <code>true</code> if <code>protocol</code> is a registered 
 	 * protocol for this module.
-	 * @see IModuleInfo#getProtocols()
+	 * @see IURLHandler#getProtocols()
 	 * @see #isURLHandler()
 	 */
 	public boolean handlesURL(String protocol) {
