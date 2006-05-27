@@ -1,7 +1,7 @@
 package org.schwering.evi.core;
 
 /**
- * Module-Info-Class interface for configurable modules.<br>
+ * ModuleInfoClass interface for configurable modules.<br>
  * Implement this interface in your Module-Info-Class if your module 
  * provides a configuration.
  * @see ModuleContainer#isConfigurable()
