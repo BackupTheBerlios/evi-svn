@@ -159,7 +159,7 @@ implements IPanel {
 			table.setCellEditor(dce);
 			table.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.DOUBLE_CLICK_TO_MODIFY_ARGUMENTS")); //$NON-NLS-1$
 			final JPopupMenu rightClickMenu = new JPopupMenu();
-			JMenuItem editArgsItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.EDIT_ARGUMENTS")); //$NON-NLS-1$
+			final JMenuItem editArgsItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.EDIT_ARGUMENTS")); //$NON-NLS-1$
 			editArgsItem.setToolTipText(Messages.getString("ModuleAutoStartConfigurationPanel.ARGUMENTS_ARE_GIVEN_TO_MODULE")); //$NON-NLS-1$
 			editArgsItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -192,6 +192,17 @@ implements IPanel {
 					if (e.getClickCount() == 1 
 							&& e.getButton() == MouseEvent.BUTTON3
 							&& table.getSelectedRow() != -1) {
+						int row = table.getSelectedRow();
+						String id = (String)table.getValueAt(row, 0);
+						boolean editArgsEnabled = false;
+						try {
+							ModuleContainer container = ModuleLoader.getLoadedModule(id);
+							editArgsEnabled = container.isParameterizable();
+						} catch (Exception exc) {
+							exc.printStackTrace();
+							editArgsEnabled = true;
+						}
+						editArgsItem.setEnabled(editArgsEnabled);
 						rightClickMenu.show(table, e.getX(), e.getY());
 					} else if (e.getClickCount() == 2
 							&& e.getButton() == MouseEvent.BUTTON1) {
@@ -307,7 +318,16 @@ implements IPanel {
 		 * @see javax.swing.table.TableModel#isCellEditable(int, int)
 		 */
 		public boolean isCellEditable(int row, int col) {
-			return col == 1;
+			if (col != 1) {
+				return false;
+			}
+			try {
+				String id = (String)ids.get(row);
+				ModuleContainer container = ModuleLoader.getLoadedModule(id);
+				return container.isParameterizable();
+			} catch (Exception exc) {
+				return false;
+			}
 		}
 
 		/* (non-Javadoc)
