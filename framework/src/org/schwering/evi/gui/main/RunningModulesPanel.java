@@ -346,7 +346,7 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 			if (col == 0) {
 				return m.getId();
 			} else {
-				return new Integer(m.getInstances().length);
+				return String.valueOf(m.getInstances().length);
 			}
 		}
 		
