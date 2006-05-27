@@ -47,6 +47,7 @@ public class ProgressFrame extends JFrame {
 		JPanel p = new JPanel(new BorderLayout(1,1));
 		pb = new JProgressBar();
 		pb.setStringPainted(true);
+		pb.setIndeterminate(false);
 		update(0, EVI.TITLE);
 		p.add(pb);
 		return p;
@@ -81,4 +82,12 @@ public class ProgressFrame extends JFrame {
 		pb.setString(s);
 	}
 	
+	/**
+	 * Changes the indeterminate-style of the progressbar. 
+	 * Simply invokes <code>JProgressBar.setIndeterminate(b)</code>.
+	 * @param b Enable/disable indetermination.
+	 */
+	public void setIndeterminate(boolean b) {
+		pb.setIndeterminate(b);
+	}
 }
