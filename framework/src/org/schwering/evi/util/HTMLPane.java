@@ -145,7 +145,6 @@ implements HyperlinkListener, KeyListener {
 	private void setPageHelperMethod(URL url) {
 		try {
 			super.setPage(url);
-			setCaretPosition(0);
 		} catch (Throwable t) {
 			showError(t);
 		}
