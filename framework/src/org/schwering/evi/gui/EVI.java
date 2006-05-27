@@ -120,12 +120,14 @@ public class EVI {
 		}
 		
 		progress.update(35, Messages.getString("EVI.7")); //$NON-NLS-1$
+		progress.setIndeterminate(true);
 		try {
 			loadModules();
 		} catch (Exception exc) {
 			ExceptionDialog.show(Messages.getString("EVI.2"),  //$NON-NLS-1$
 					exc);
 		}
+		progress.setIndeterminate(false);
 		
 		progress.update(50, Messages.getString("EVI.9")); //$NON-NLS-1$
 		try {
