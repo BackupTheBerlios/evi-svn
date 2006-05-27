@@ -10,8 +10,8 @@ import java.util.Hashtable;
 import java.util.jar.Attributes;
 
 /**
- * Provides methods to load JARs.<br />
- * <br />
+ * Provides methods to load JARs.<br>
+ * <br>
  * For a module developer, most of these methods are probably unimportant.
  * However, he might be interesting in the following: 
  * <ul>
@@ -59,13 +59,21 @@ public final class ModuleLoader extends URLClassLoader {
 		this.url = url;
 	}
 	
+	/**
+	 * Loads the <code>Module-Info-Class</code> implementation of the JAR.
+	 * @return The <code>Class</code> representation of the class 
+	 * the <code>Module-Info-Class</code> manifest-attribute points to.
+	 * @throws ModuleLoaderException If the JAR cannot be loaded, if 
+	 * the Module-Info-Class attribute is not defined or if the class 
+	 * cannot be found for any reason.
+	 */
 	private Class getModuleInfoClass() throws ModuleLoaderException {
 		try {
 			URL jarURL = new URL("jar", "", url +"!/");
 			JarURLConnection conn = (JarURLConnection)jarURL.openConnection();
 			Attributes attr = conn.getMainAttributes();
 			if (attr == null) {
-				throw new ModuleLoaderException("No Module-Class defined");
+				throw new ModuleLoaderException("No Module-Info-Class defined");
 			}
 			
 			String infoClassName = attr.getValue(ATTR_MODULE_INFO_CLASS);
@@ -123,7 +131,7 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * Loads a new module.
+	 * Loads a new module from a JAR.
 	 * Fires the {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param f The destination of the JAR.
 	 * @return A <code>ModuleContainer</code> for the module.
@@ -138,7 +146,7 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 
 	/**
-	 * Loads a new module. 
+	 * Loads a new module from a JAR. 
 	 * Fires the {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param url The destination of the JAR.
 	 * @return A <code>ModuleContainer</code> for the module.
@@ -173,7 +181,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * Loads a one-class-module. The module has plain settings, this means 
 	 * it cannot be buttonable nor menuable nor configurable. However, 
 	 * of course it can implement <code>IApplet</code> and/or 
-	 * <code>IPanel</code>.<br />
+	 * <code>IPanel</code>.<br>
 	 * The method also fires the 	 
 	 * {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
 	 * @param moduleClassName The classname: <code>my.package.Class</code>

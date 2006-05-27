@@ -1,34 +1,21 @@
 package org.schwering.evi.core;
 
 /**
- * Basis interface for modules.<br />
- * This interface must be implemented by all modules. It forces them 
- * to provide the core functionalities: creating and destroying module
- * instances.
- * <br />
- * <br />
- * <b>Note #1:</b> Modules need to define a constructor for being instantiated.
- * This constructor must take no arguments.
- * An example constructor would be (for a class named <code>Constructor</code>:
- * <br />
- * <pre>	public Constructor() { ... }</pre>
- * <br />
- * <br />
- * <b>Note #2:</b> Modules might want to be parameterizable to be 
- * interactive with other modules. To achieve this, the constructor simply must
- * To achieve this, you need to define a second constructor that requires the 
- * respective arguments.<br />
- * To create an instance of a parameterizable module you need the 
- * {@link ModuleFactory#newInstance(ModuleContainer, Object[])} method.
- * An example constructor would be:<br />
- * <pre>	public Constructor(URL addr, Object[] blabla) { ... }</pre>
- * <br />
- * <br />
- * <b>Note #3:</b> This interface requires all implementing classes to define 
- * a method <code>dispose</code>. This method should never be invoked directly!
- * Instead, there is {@link ModuleFactory#disposeInstance(IModule)} which 
- * not only invokes this <code>dispose</code> method but also cares about some 
- * internal things.
+ * ModuleClass basis interface.<br>
+ * <br>
+ * Each ModuleClass must implement this interface. The ModuleClass is 
+ * something like the main class of the module. When you would like to 
+ * display a <code>JFrame</code>, the ModuleClass would extend 
+ * <code>JFrame</code>.<br>
+ * <br>
+ * Every module needs a ModuleClass and a ModuleInfoClass. The latter 
+ * must implement {@link IModuleInfo}. It provides all basical 
+ * information of the menu like its name the version etc.<br>
+ * <br>
+ * <b>Note:</b> Never instantiate modules directly via their constructor(s) or 
+ * via <code>IModuleInfo.newInstance</code>!! <i>Instead</i> it is 
+ * <i>highly</i> recommended to use the {@link ModuleFactory} class to 
+ * <b>create and dispose module instances</b>.
  * @see ModuleLoader
  * @see ModuleContainer
  * @see ModuleFactory
@@ -38,8 +25,9 @@ package org.schwering.evi.core;
 public interface IModule {
 	/**
 	 * Should clean up used resources when the module is shut down. For 
-	 * example, this method should close opened streams and files.
-	 * This method should never be invoked directly! Instead, there is 
+	 * example, this method should close opened streams and files.<br>
+	 * <br>
+	 * <b>Note:</b> Never invoke this method directly! Instead, there is 
 	 * {@link ModuleFactory#disposeInstance(IModule)} which not only invokes 
 	 * this <code>dispose</code> method but also cares about some internal 
 	 * things.

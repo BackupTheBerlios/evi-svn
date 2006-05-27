@@ -5,18 +5,18 @@ import java.awt.Component;
 import javax.swing.Icon;
 
 /**
- * Interface for graphical modules.<br />
- * <br />
+ * Module-Class interface for graphical modules.<br>
+ * <br>
  * This interface must be implemented by modules which have a graphical
- * frontend which might be accessible through a tabbar, for example.<br />
- * <br />
+ * frontend which might be accessible through a tabbar, for example.<br>
+ * <br>
  * This interface does not extend {@link IModule}. The reason is that 
  * <code>IPanel</code>s might (and also must) also be used for configuration 
  * dialogs and so on. Nevertheless, the <code>IPanel</code> interface defines 
  * a <code>dispose()</code> method same like the <code>IModule</code> 
  * interface. Hence, each class that implements <code>IPanel</code> can also 
- * implement <code>IModule</code> and vice versa.<br />
- * <br />
+ * implement <code>IModule</code> and vice versa.<br>
+ * <br>
  * <a name="modules_imodule_ipanel"></a>
  * <u>To put it in a nutshell:</u> Modules that are inteded to have a GUI 
  * should implement both, <code>IModule</code> and <code>IPanel</code>. 
@@ -32,11 +32,11 @@ public interface IPanel {
 	 * {@link java.awt.Component}. Each invokation of 
 	 * <code>getPanelInstance</code> must return a reference to the same 
 	 * object. This means that this method must not create a new panel but 
-	 * return just a reference to a once created panel.<br />
-	 * <br />
+	 * return just a reference to a once created panel.<br>
+	 * <br>
 	 * If the implementing module class <code>extends java.awt.Component</code>
 	 * (e.g. if it <code>extends javax.swing.JPanel</code>) this method simply 
-	 * might return <code>this</code>.<br />
+	 * might return <code>this</code>.<br>
 	 * @return The concrete GUI-part as <code>java.awt.Component</code>.
 	 */
 	public Component getPanelInstance();
@@ -56,8 +56,8 @@ public interface IPanel {
 	public Icon getIcon();
 	
 	/**
-	 * Should clean up used resources when the panel is shut down.<br />
-	 * <br />
+	 * Should clean up used resources when the panel is shut down.<br>
+	 * <br>
 	 * This method is also declared in <code>IModule</code> 
 	 * ({@link IModule#dispose()}). This makes it easy to write a graphical 
 	 * module that implements both, <code>IModule</code> and 

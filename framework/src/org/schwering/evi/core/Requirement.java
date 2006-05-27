@@ -3,10 +3,10 @@ package org.schwering.evi.core;
 /**
  * Requirements define relations between modules. A module might require one 
  * or more other modules. Not only the existence but also a specific version 
- * might be required .<br />
+ * might be required .<br>
  * This class defines just <i>one</i> requirement, e.g. just one module 
- * required by some other module.<br />
- * <br />
+ * required by some other module.<br>
+ * <br>
  * <b>Note:</b> Requirements of modules are defined in the requiring module's
  * JAR's manifest file. Use the {@link ModuleLoader#ATTR_MODULE_REQUIREMENTS}
  * attribute. Probably, this class is not interesting for module developers!

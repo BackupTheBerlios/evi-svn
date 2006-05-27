@@ -8,11 +8,14 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 
 /**
- * Provides access to a concrete module.<br />
+ * Provides access to and control over a module.<br>
  * This class administers the module's main class, its id, its version number,
  * the module's requirements and, more importantly, also all current instances
- * of the module.<br />
- * <br />
+ * of the module.<br>
+ * <br>
+ * <code>ModuleContainer</code> and <code>ModuleLoader</code> set up the core 
+ * classes of the module engine.
+ * <br>
  * The most interesting methods for module developers are the following:
  * <ul>
  * <li> {@link ModuleLoader#getLoadedModule(String)}
@@ -34,6 +37,16 @@ public final class ModuleContainer {
 	private HashSet instances = new HashSet(5);
 	private Vector listeners = new Vector(2);
 	
+	/**
+	 * Creates a new container based on a single class, a ModuleClass.<br>
+	 * Such a module is extremely plain because is cannot have any 
+	 * <code>IModuleInfo</code> object. Therefore all <code>IModuleInfo</code>
+	 * related methods will return <code>false</code> respectively 
+	 * <code>null</code>.
+	 * @param moduleClass The module class that must extend 
+	 * <code>IModule</code>.
+	 * @throws ModuleLoaderException If the given class is no module.
+	 */
 	ModuleContainer(Class moduleClass) throws ModuleLoaderException {
 		if (!isModule(moduleClass)) {
 			throw new ModuleLoaderException(moduleClass +" is no module");
@@ -41,6 +54,12 @@ public final class ModuleContainer {
 		cls = moduleClass;
 	}
 	
+	/**
+	 * Creates a new container based on a ModuleInfoClass.
+	 * @param moduleInfo An instance of <code>IModuleInfo</code>.
+	 * @throws ModuleLoaderException If the <code>moduleInfo</code> doesn't 
+	 * represent a proper ModuleClass (that implements <code>IModule</code>).
+	 */
 	ModuleContainer(IModuleInfo moduleInfo) throws ModuleLoaderException {
 		this(moduleInfo.getModuleClass());
 		info = moduleInfo;
@@ -51,7 +70,7 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Registers a new instance of a module. <br />
+	 * Registers a new instance of a module. <br>
 	 * Invoked by {@link ModuleFactory#newInstance(ModuleContainer)} 
 	 * and 
 	 * {@link ModuleFactory#newInstance(ModuleContainer, Object[])}.
@@ -63,7 +82,7 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Removes an instance.<br />
+	 * Removes an instance.<br>
 	 * Invoked by {@link ModuleFactory#disposeInstance(IModule)}.
 	 * @param o A reference to the instance.
 	 * @see #registerInstance(IModule)
@@ -124,9 +143,8 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns the id.
+	 * Returns the id. This is the ModuleClass's classname.
 	 * @return The id.
-	 * @see ModuleLoader#ATTR_MODULE_CLASS
 	 */
 	public String getId() {
 		return getIdByClass(cls);
@@ -162,10 +180,11 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns the name of the module. If no name was set (a name is set if a 
-	 * <code>ModuleName</code> attribute exists in the manifest), the module's
-	 * id is returned.
+	 * Returns the name of the module. If no name is set (i.e. if 
+	 * <code>IModuleInfo.getName</code> returns <code>null</code>), 
+	 * the module's id is returned.
 	 * @return The name or, if no name is set, the id.
+	 * @see IModuleInfo#getName()
 	 */
 	public String getName() {
 		if (info != null && info.getName() != null) {
@@ -180,6 +199,7 @@ public final class ModuleContainer {
 	 * resource should be a HTML file that contains some describing 
 	 * information.
 	 * @return A URL that points to the information resource HTML file. 
+	 * @see IModuleInfo#getInfoURL()
 	 */
 	public URL getInfoURL() {
 		if (info != null && info.getInfoURL() != null 
@@ -215,42 +235,51 @@ public final class ModuleContainer {
 	/**
 	 * Returns the id.
 	 * @return The id.
-	 * @see ModuleLoader#ATTR_MODULE_CLASS
 	 */
 	public String toString() {
 		return getId();
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements <code>IModule</code>.
-	 * @return <code>true</code> if the module implements <code>IModule</code>.
+	 * Returns <code>true</code> if the ModuleClass implements 
+	 * <code>IModule</code>.
+	 * @return <code>true</code> if the ModuleClass implements 
+	 * <code>IModule</code>.
+	 * @see IModule
 	 */
 	private static boolean isModule(Class c) {
 		return classImplements(c, IModule.class);
 	}
 
 	/**
-	 * Returns <code>true</code> if the module implements <code>IApplet</code>.
-	 * @return <code>true</code> if the module implements <code>IApplet</code>.
+	 * Returns <code>true</code> if the ModuleClass implements 
+	 * <code>IApplet</code>.
+	 * @return <code>true</code> if the ModuleClass implements 
+	 * <code>IApplet</code>.
+	 * @see IApplet
 	 */
 	public boolean isApplet() {
 		return classImplements(cls, IApplet.class);
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements <code>IPanel</code>.
-	 * @return <code>true</code> if the module implements <code>IPanel</code>.
+	 * Returns <code>true</code> if the ModuleClass implements 
+	 * <code>IPanel</code>.
+	 * @return <code>true</code> if the ModuleClass implements 
+	 * <code>IPanel</code>.
+	 * @see IPanel
 	 */
 	public boolean isPanel() {
 		return classImplements(cls, IPanel.class);
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IButtonable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IButtonable</code>.
 	 * @see IButtonable
+	 * @see #isCustomButtonable()
 	 */
 	public boolean isButtonable() {
 		return info != null && info instanceof IButtonable
@@ -258,11 +287,12 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>ICustomMenuable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>ICustomMenuable</code>.
 	 * @see ICustomButtonable
+	 * @see #getCustomButton()
 	 */
 	public boolean isCustomButtonable() {
 		return isButtonable() && info instanceof ICustomButtonable;
@@ -276,6 +306,7 @@ public final class ModuleContainer {
 	 * <code>ICustomButtonable.getCustomButton</code> method is 
 	 * invoked.
 	 * @return The custom button or <code>null</code>.
+	 * @see #isCustomButtonable()
 	 */
 	public JButton getCustomButton() {
 		return (isCustomButtonable())
@@ -284,11 +315,12 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IConfigurable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IConfigurable</code>.
 	 * @see IConfigurable
+	 * @see #getConfigPanel()
 	 */
 	public boolean isConfigurable() {
 		return info != null && info instanceof IConfigurable;
@@ -302,6 +334,7 @@ public final class ModuleContainer {
 	 * <code>IConfigurable.getConfigPanel</code> method is 
 	 * invoked.
 	 * @return The config panel or <code>null</code>.
+	 * @see #isConfigurable()
 	 */
 	public IPanel getConfigPanel() {
 		return (isConfigurable()) 
@@ -310,11 +343,12 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IDemanding</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IDemanding</code>.
 	 * @see IDemanding
+	 * @see #getRequirements()
 	 */
 	public boolean isDemanding() {
 		return info != null && info instanceof IDemanding;
@@ -324,7 +358,7 @@ public final class ModuleContainer {
 	 * Returns the current requirements. If there are no requirements, the 
 	 * returned array has length 0.
 	 * @return The current requirements. 
-	 * @see IModuleInfo#getRequirements()
+	 * @see #isDemanding()
 	 */
 	public Requirement[] getRequirements() {
 		if (isDemanding()) {
@@ -336,11 +370,12 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IMenuable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IMenuable</code>.
 	 * @see IMenuable
+	 * @see #isCustomMenuable()
 	 */
 	public boolean isMenuable() {
 		return info != null && info instanceof IMenuable
@@ -348,11 +383,12 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>ICustomMenuable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>ICustomMenuable</code>.
 	 * @see ICustomMenuable
+	 * @see #getCustomMenu()
 	 */
 	public boolean isCustomMenuable() {
 		return isMenuable() && info instanceof ICustomMenuable;
@@ -366,6 +402,7 @@ public final class ModuleContainer {
 	 * <code>ICustomMenuable.getCustomMenu</code> method is 
 	 * invoked.
 	 * @return The custom menu or <code>null</code>.
+	 * @see #isCustomMenuable()
 	 */
 	public JMenu getCustomMenu() {
 		return (isCustomMenuable())
@@ -374,22 +411,24 @@ public final class ModuleContainer {
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IParameterizable</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IParameterizable</code>.
 	 * @see IParameterizable
+	 * @see ModuleFactory#newInstance(ModuleContainer, Object[])
 	 */
 	public boolean isParameterizable() {
 		return info != null && info instanceof IParameterizable;
 	}
 	
 	/**
-	 * Returns <code>true</code> if the module implements 
+	 * Returns <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IURLHandler</code>.
-	 * @return <code>true</code> if the module implements 
+	 * @return <code>true</code> if the ModuleInfoClass implements 
 	 * <code>IURLHandler</code>.
 	 * @see IURLHandler
+	 * @see #handlesURL(String)
 	 */
 	public boolean isURLHandler() {
 		return info != null && info instanceof IURLHandler;
@@ -401,6 +440,7 @@ public final class ModuleContainer {
 	 * @return <code>true</code> if <code>protocol</code> is a registered 
 	 * protocol for this module.
 	 * @see IModuleInfo#getProtocols()
+	 * @see #isURLHandler()
 	 */
 	public boolean handlesURL(String protocol) {
 		if (!isURLHandler()) {

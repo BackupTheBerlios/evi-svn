@@ -16,7 +16,7 @@ public interface IModuleListener {
 	/**
 	 * Fired when a module is instantiated via 
 	 * {@link ModuleFactory#newInstance(ModuleContainer)}.
-	 * <br />
+	 * <br>
 	 * When a module is instantiated, the following things happen in this 
 	 * order:
 	 * <ol>
@@ -35,7 +35,7 @@ public interface IModuleListener {
 	/**
 	 * Fired when a module is disposed via 
 	 * {@link ModuleFactory#disposeInstance(IModule)}.
-	 * <br />
+	 * <br>
 	 * When a module is disposed, the following things happen in this order:
 	 * <ol>
 	 * <li> This event is fired. 
