@@ -271,6 +271,7 @@ implements IPanel {
 			urlComboBoxContainer.remove(urlComboBox);
 			urlComboBoxContainer.add(loadingProgressBar);
 			urlComboBoxContainer.revalidate();
+			urlComboBoxContainer.repaint();
 		}
 		
 		/**
@@ -281,6 +282,7 @@ implements IPanel {
 			loadingProgressBar = null;
 			urlComboBoxContainer.add(urlComboBox);
 			urlComboBoxContainer.revalidate();
+			urlComboBoxContainer.repaint();
 		}
 		
 		/**
