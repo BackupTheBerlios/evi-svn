@@ -115,11 +115,9 @@ public final class ModuleFactory {
 				} else if (args.length == 1 
 						&& args[0] instanceof URL
 						&& module.isURLHandler()) {
-					System.out.println("args is URL");
 					URL url = (URL)args[0];
 					object = ((IURLHandler)info).newInstance(url);
 				} else if (module.isParameterizable()) {
-					System.out.println("args != null");
 					object = ((IParameterizable)info).newInstance(args);
 				} else {
 					StringBuffer msg = new StringBuffer();
