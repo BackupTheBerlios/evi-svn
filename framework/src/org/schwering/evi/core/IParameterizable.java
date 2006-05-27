@@ -1,7 +1,7 @@
 package org.schwering.evi.core;
 
 /**
- * Module-Info-Class interface for parameterizable modules.<br>
+ * ModuleInfoClass interface for parameterizable modules.<br>
  * A module is parameterizable if arguments can be passed to it when 
  * being instantiated.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
