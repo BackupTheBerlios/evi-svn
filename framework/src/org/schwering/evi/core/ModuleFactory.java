@@ -105,20 +105,47 @@ public final class ModuleFactory {
 	 */
 	public static synchronized IModule newInstance(ModuleContainer module, 
 			Object[] args) throws ModuleInstantiationException {
+		System.out.println("newInstance("+ module +", "+ args.length +")");
 		try {
 			IModuleInfo info = module.getModuleInfo();
 			IModule instance = null;
 			if (info != null) {
 				Object object = null;
 				if (args == null) {
+					System.out.println("args == null");
 					object = info.newInstance();
 				} else if (args.length == 1 
 						&& args[0] instanceof URL
 						&& module.isURLHandler()) {
+					System.out.println("args is URL");
 					URL url = (URL)args[0];
 					object = ((IURLHandler)info).newInstance(url);
 				} else if (module.isParameterizable()) {
+					System.out.println("args != null");
 					object = ((IParameterizable)info).newInstance(args);
+				} else {
+					StringBuffer msg = new StringBuffer();
+					msg.append("The method failed:\n");
+					msg.append("\tnewInstance("+ module +", args)\n");
+					msg.append("where args ");
+					if (args == null) {
+						msg.append("null.\n");
+					} else {
+						msg.append("has "+args.length+" elements:\n");
+						for (int i = 0; i < args.length; i++) {
+							msg.append("\targs["+i+"] is instance of ");
+							msg.append((args[i] == null) ? null : args[i].getClass());
+							msg.append("\n");
+						}
+					}
+					msg.append("Module information:\n");
+					msg.append("\tURLHandler: ");
+					msg.append((module.isURLHandler()) ? "yes" : "no");
+					msg.append("\n");
+					msg.append("\tParameterizable: ");
+					msg.append((module.isParameterizable()) ? "yes" : "no");
+					msg.append("\n");
+					throw new ModuleInstantiationException(msg.toString());
 				}
 				instance = (IModule)object;
 			} else {
@@ -129,6 +156,8 @@ public final class ModuleFactory {
 			module.registerInstance(instance);
 			module.fireInstantiated(instance);
 			return instance;
+		} catch (ModuleInstantiationException exc) {
+			throw exc;
 		} catch (Throwable exc) {
 			throw new ModuleInstantiationException("Creating instance failed.",
 					exc);
