@@ -23,9 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.OverlayLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.AbstractTableModel;
@@ -148,7 +150,9 @@ implements IPanel {
 	 */
 	class InputPanel extends JPanel {
 		private static final long serialVersionUID = -3316773806722992040L;
+		private JPanel urlComboBoxContainer;
 		private JComboBox urlComboBox;
+		private JProgressBar loadingProgressBar;
 		private ModuleConfigurationPanel owner;
 		
 		/**
@@ -211,19 +215,23 @@ implements IPanel {
 				}
 			});
 			
-			JButton urlAddButton = new JButton(Messages.getString("ModuleConfigurationPanel.ADD")); //$NON-NLS-1$
+			final JButton urlAddButton = new JButton(Messages.getString("ModuleConfigurationPanel.ADD")); //$NON-NLS-1$
 			urlAddButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					new Thread() {
 						public void run() {
 							try {
 								URL url = getURLText();
+								urlAddButton.setEnabled(false);
+								enableProgressBar();
 								ModuleLoader.load(url);
 								ModuleConfiguration.addURL(url);
 							} catch (Exception exc) {
 								ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.COULD_NOT_LOAD_MODULE"),  //$NON-NLS-1$
 										exc);
 							}
+							urlAddButton.setEnabled(true);
+							disableProgressBar();
 						}
 					}.start();
 				}
@@ -236,6 +244,9 @@ implements IPanel {
 				}
 			});
 			
+			urlComboBoxContainer = new JPanel(new GridLayout(1, 0));
+			urlComboBoxContainer.add(urlComboBox);
+			
 			JPanel urlButtonPanel = new JPanel(new GridLayout(1, 3));
 			urlButtonPanel.add(urlChooseButton);
 			urlButtonPanel.add(urlAddButton);
@@ -243,9 +254,33 @@ implements IPanel {
 			
 			JPanel p1 = new JPanel(new BorderLayout());
 			p1.add(new JLabel(Messages.getString("ModuleConfigurationPanel.URL") +": "), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
-			p1.add(urlComboBox, BorderLayout.CENTER);
+			p1.add(urlComboBoxContainer, BorderLayout.CENTER);
 			p1.add(urlButtonPanel, BorderLayout.EAST);
 			return p1;
+		}
+		
+		/**
+		 * Starts and adds the indeterminate progressbar.
+		 */
+		private void enableProgressBar() {
+			loadingProgressBar = new JProgressBar();
+			loadingProgressBar.setStringPainted(true);
+			loadingProgressBar.setString(Messages.getString("ModuleConfigurationPanel.LOADING_MODULE")); //$NON-NLS-1$
+			loadingProgressBar.setIndeterminate(true);
+			loadingProgressBar.setToolTipText(Messages.getString("ModuleConfigurationPanel.LOADING_MODULE_TOOLTIP")); //$NON-NLS-1$
+			urlComboBoxContainer.remove(urlComboBox);
+			urlComboBoxContainer.add(loadingProgressBar);
+			urlComboBoxContainer.revalidate();
+		}
+		
+		/**
+		 * Removes the indeterminate progressbar.
+		 */
+		private void disableProgressBar() {
+			urlComboBoxContainer.remove(loadingProgressBar);
+			loadingProgressBar = null;
+			urlComboBoxContainer.add(urlComboBox);
+			urlComboBoxContainer.revalidate();
 		}
 		
 		/**
@@ -506,7 +541,7 @@ implements IPanel {
 				StringBuffer buf = new StringBuffer();
 				for (int i = 0; i < reqs.length; i++) {
 					buf.append(reqs[i].toString());
-					buf.append(" ");
+					buf.append(" "); //$NON-NLS-1$
 				}
 				return buf.toString();
 			}
