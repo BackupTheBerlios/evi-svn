@@ -105,14 +105,12 @@ public final class ModuleFactory {
 	 */
 	public static synchronized IModule newInstance(ModuleContainer module, 
 			Object[] args) throws ModuleInstantiationException {
-		System.out.println("newInstance("+ module +", "+ args.length +")");
 		try {
 			IModuleInfo info = module.getModuleInfo();
 			IModule instance = null;
 			if (info != null) {
 				Object object = null;
 				if (args == null) {
-					System.out.println("args == null");
 					object = info.newInstance();
 				} else if (args.length == 1 
 						&& args[0] instanceof URL
