@@ -180,7 +180,7 @@ public class EVI {
 			for (int i = 0; i < murks.length; i++) {
 				progress.update(85 + i, murks[i]);
 				for (int j = 0; j < 2; j++) {
-					Thread.sleep(33);
+					Thread.sleep(20 * (murks.length - i));
 				}
 			}
 		} catch (Exception exc) {
