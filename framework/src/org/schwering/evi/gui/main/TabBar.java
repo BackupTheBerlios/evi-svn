@@ -149,6 +149,9 @@ implements IModuleListener, IModuleLoaderListener {
 	 * @param panel The new panel.
 	 */
 	public void addTab(IPanel panel) {
+		if (panel == null) {
+			return;
+		}
 		int index = getTabCount();
 		String title = panel.getTitle();
 		Icon icon = panel.getIcon();
