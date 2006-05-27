@@ -3,7 +3,7 @@ package org.schwering.evi.core;
 import java.awt.Component;
 
 /**
- * Module-Class interface for tiny applets.<br>
+ * ModuleClass interface for tiny applets.<br>
  * <br>
  * This interface must be implemented by modules which want to display a small
  * panel at the main application's toolbar. This small panel is typically at 
