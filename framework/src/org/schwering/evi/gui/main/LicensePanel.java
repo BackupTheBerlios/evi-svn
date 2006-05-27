@@ -73,7 +73,7 @@ public class LicensePanel extends JPanel implements IPanel {
 				JSplitPane splitPane = new JSplitPane(
 						JSplitPane.VERTICAL_SPLIT);
 				splitPane.add(new JScrollPane(copyright));
-				splitPane.add(new JScrollPane(license));
+				splitPane.add(license);
 				int location = (int)((double)getHeight() * 0.4);
 			    splitPane.setDividerLocation((location > 0) ? location : 100);
 
