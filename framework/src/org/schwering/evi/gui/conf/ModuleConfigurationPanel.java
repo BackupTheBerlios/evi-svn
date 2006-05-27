@@ -172,7 +172,7 @@ implements IPanel {
 			urlComboBox = new JComboBox();
 			urlComboBox.setEditable(true);
 			try {
-				setURLText(MainConfiguration.CONFIG_DIR.toURL());
+				setURLText(MainConfiguration.HOME_DIR.toURL());
 			} catch (Exception exc) {
 			}
 			

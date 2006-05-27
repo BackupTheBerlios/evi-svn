@@ -15,7 +15,7 @@ import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.Util;
 
 /**
- * Administers the main configuration file.<br />
+ * Administers the main configuration file.<br>
  * The format of the file is quite simple:
  * <pre>
  * key=value
@@ -40,28 +40,34 @@ import org.schwering.evi.util.Util;
  */
 public abstract class MainConfiguration {
 	/**
-	 * The program's config dir.<br />
+	 * The user's home directory.
+	 */
+	public static final File HOME_DIR;
+	
+	/**
+	 * The program's config dir.<br>
 	 * It is tried to set it to <code>${user.home}/.evi</code>.
 	 */
 	public static final File CONFIG_DIR;
 	
 	/**
-	 * The main configuration file.<br />
+	 * The main configuration file.<br>
 	 * It is tried to set it to <code>CONFIG_DIR/modules</code>.
 	 */
 	public static final File MAIN_CONFIG_FILE;
+	
+	/**
+	 * The user's home directory.
+	 */
 	
 	private static final String CONFIG_FOLDER_NAME = ".evi";
 	private static final String MAIN_CONFIG_FILE_NAME = "conf";
 	
 	static {
-		String home = System.getProperty("user.home", "");
-		if (home.charAt(home.length()-1) != File.separatorChar) {
-			home += File.separatorChar;
-		}
-		home += CONFIG_FOLDER_NAME;
+		File homeDir = new File(System.getProperty("user.home", ""));
+		HOME_DIR = homeDir;
 		
-		File configDir = new File(home);
+		File configDir = new File(homeDir, CONFIG_FOLDER_NAME);
 		if (!configDir.exists()) {
 			configDir.mkdir();
 		}
@@ -162,7 +168,7 @@ public abstract class MainConfiguration {
 	}
 	
 	/**
-	 * Grabs a <code>String</code> out of the configuration.<br />
+	 * Grabs a <code>String</code> out of the configuration.<br>
 	 * Default value is <code>""</code>.
 	 * @param key The key.
 	 * @return The String.
@@ -172,7 +178,7 @@ public abstract class MainConfiguration {
 	}
 	
 	/**
-	 * Grabs a <code>String</code> out of the configuration.<br />
+	 * Grabs a <code>String</code> out of the configuration.<br>
 	 * If the requested value does not exist, a new property with the key and 
 	 * the default value is set.
 	 * @param key The key.
@@ -199,7 +205,7 @@ public abstract class MainConfiguration {
 	}
 	
 	/**
-	 * Grabs a <code>int</code> out of the configuration.<br />
+	 * Grabs a <code>int</code> out of the configuration.<br>
 	 * The default value is 0.
 	 * @param key The key.
 	 * @return The int.
@@ -232,7 +238,7 @@ public abstract class MainConfiguration {
 	}
 
 	/**
-	 * Grabs a <code>double</code> out of the configuration.<br />
+	 * Grabs a <code>double</code> out of the configuration.<br>
 	 * The default is 0.0.
 	 * @param key The key.
 	 * @return The double.
@@ -265,7 +271,7 @@ public abstract class MainConfiguration {
 	}
 	
 	/**
-	 * Grabs a <code>boolean</code> out of the configuration.<br />
+	 * Grabs a <code>boolean</code> out of the configuration.<br>
 	 * The default is true.
 	 * @param key The key.
 	 * @return The boolean.
@@ -299,7 +305,7 @@ public abstract class MainConfiguration {
 	}
 	
 	/**
-	 * Grabs a point with format <code>(&lt;x&gt;|&lt;y&gt;)</code>.<br />
+	 * Grabs a point with format <code>(&lt;x&gt;|&lt;y&gt;)</code>.<br>
 	 * The default is (0|0).
 	 * @param key The key.
 	 * @return A new point.
@@ -342,7 +348,7 @@ public abstract class MainConfiguration {
 	
 	/**
 	 * Grabs a dimension with format <code>&lt;width&gt;x&lt;height&gt;</code>.
-	 * <br />
+	 * <br>
 	 * The default is 0x0 which is probably not very useful.
 	 * @param key The key.
 	 * @return A new point.
