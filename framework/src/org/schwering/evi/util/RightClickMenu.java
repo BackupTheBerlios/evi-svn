@@ -1,5 +1,6 @@
 package org.schwering.evi.util;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -69,7 +70,7 @@ public class RightClickMenu extends JPopupMenu {
 	/**
 	 * Calls super.show() and enables/disables cut and paste.
 	 */
-	public void show(JComponent invoker, int x, int y) {
+	public void show(Component invoker, int x, int y) {
 		menuItemCut.setEnabled(text.isEditable());
 		menuItemPaste.setEnabled(text.isEditable());
 		super.show(invoker, x, y);
