@@ -82,7 +82,9 @@ implements IModuleListener, IModuleLoaderListener {
 		
 		ModuleContainer[] containers = ModuleLoader.getLoadedModules();
 		for (int i = 0; i < containers.length; i++) {
-			containers[i].addListener(this);
+			if (containers[i].isPanel()) {
+				containers[i].addListener(this);
+			}
 		}
 		ModuleLoader.addListener(this);
 	}
