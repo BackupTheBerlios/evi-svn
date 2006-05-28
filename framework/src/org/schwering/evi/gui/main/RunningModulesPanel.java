@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.Icon;
@@ -25,7 +27,6 @@ import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
-import org.schwering.evi.util.RightClickMenu;
 
 /**
  * Shows all running module instances.
@@ -79,33 +80,67 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 		panel.add(scrollPane);
 		add(panel);
 		
-		JMenuItem item1 = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE")); //$NON-NLS-1$
-		item1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int[] rows = table.getSelectedRows();
-				terminate(rows);
-			}
-		});
-		JMenuItem item2 = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE_ALL")); //$NON-NLS-1$
-		item2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int[] rows = table.getSelectedRows();
-				terminateAll(rows);
-			}
-		});
-		JMenuItem item3 = new JMenuItem(Messages.getString("RunningModulesPanel.NEW_INSTANCE")); //$NON-NLS-1$
-		item3.addActionListener(new ActionListener() {
+		final JMenuItem newInstance = new JMenuItem(Messages.getString("RunningModulesPanel.NEW_INSTANCE")); //$NON-NLS-1$
+		newInstance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] rows = table.getSelectedRows();
 				instantiate(rows);
 			}
 		});
+		final JMenuItem terminateOne = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE")); //$NON-NLS-1$
+		terminateOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] rows = table.getSelectedRows();
+				terminate(rows);
+			}
+		});
+		final JMenuItem terminateAll = new JMenuItem(Messages.getString("RunningModulesPanel.TERMINATE_ALL")); //$NON-NLS-1$
+		terminateAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] rows = table.getSelectedRows();
+				terminateAll(rows);
+			}
+		});
 		
-		menu.add(item1);
-		menu.add(item2);
+		menu.add(newInstance);
 		menu.addSeparator();
-		menu.add(item3);
-		RightClickMenu.addRightClickMenu(table, menu);
+		menu.add(terminateOne);
+		menu.add(terminateAll);
+		
+		table.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { 
+			}
+			public void mouseEntered(MouseEvent e) {
+			}
+			public void mouseExited(MouseEvent e) {
+			}
+			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 1 
+						&& e.getButton() == MouseEvent.BUTTON3) {
+					try {
+						int i = table.getSelectedRow();
+						if (i != -1) {
+							newInstance.setEnabled(true);
+							Object object = table.getValueAt(i, 1);
+							int count = Integer.parseInt((String)object);
+							terminateOne.setEnabled(count >= 1);
+							terminateAll.setEnabled(count >= 2);
+						} else {
+							newInstance.setEnabled(false);
+							terminateOne.setEnabled(false);
+							terminateAll.setEnabled(false);
+						}
+					} catch (Exception exc) {
+						newInstance.setEnabled(true);
+						terminateOne.setEnabled(true);
+						terminateAll.setEnabled(true);
+					}
+					menu.show(table, e.getX(), e.getY());
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+			}
+		} );
 	}
 	
 	/**
