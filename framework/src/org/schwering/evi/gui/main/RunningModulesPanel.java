@@ -118,10 +118,14 @@ public class RunningModulesPanel extends JPanel implements IPanel {
 				if (e.getClickCount() == 1 
 						&& e.getButton() == MouseEvent.BUTTON3) {
 					try {
-						int i = table.getSelectedRow();
-						if (i != -1) {
+						int selRowCount = table.getSelectedRowCount();
+						if (selRowCount > 1) {
 							newInstance.setEnabled(true);
-							Object object = table.getValueAt(i, 1);
+							terminateOne.setEnabled(true);
+							terminateAll.setEnabled(true);
+						} else if (selRowCount == 1) {
+							newInstance.setEnabled(true);
+							Object object = table.getValueAt(table.getSelectedRow(), 1);
 							int count = Integer.parseInt((String)object);
 							terminateOne.setEnabled(count >= 1);
 							terminateAll.setEnabled(count >= 2);
