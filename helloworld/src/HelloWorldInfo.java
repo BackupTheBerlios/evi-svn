@@ -55,7 +55,7 @@ public class HelloWorldInfo implements IModuleInfo, ICustomButtonable,
 	}
 
 	public String getInfoURL() {
-		return "hello.html.de";
+		return null;
 	}
 
 	public Class getModuleClass() {
