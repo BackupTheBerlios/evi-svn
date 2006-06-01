@@ -1,5 +1,23 @@
 <body>
 This module engine is the heart of EVI and essential for module development.
+<p>
+There are two major interfaces which <b>must be implemented</b>:
+<ul>
+<li> <code>IModuleInfo</code> defines meta information  </li>
+<li> <code>IModule</code> must be implemented by the concrete module </li>
+</ul>
+Note that generally the class that implements <code>IModuleInfo</code> should 
+not be the same that implements <code>IModule</code>.<br>
+The class that implements <code>IModuelInfo</code> must define a constructor 
+that takes no arguments.
+</p>
+<p>
+There's a number of different interfaces which can be used to give the 
+module certain features and properties.
+</p>
+<p>
+It is recommended to have a look at the <a href="package-tree.html">Package 
+Tree</a> to get an overview of the interfaces.
 
 @version 1.0
 @author Christoph Schwering (mailto:schwering@gmail.com)
