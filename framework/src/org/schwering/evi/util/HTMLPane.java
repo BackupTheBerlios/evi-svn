@@ -8,8 +8,6 @@ import java.util.Vector;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.text.Element;
-import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
@@ -136,7 +134,6 @@ implements HyperlinkListener, KeyListener {
 	public void goToPrevious() {
 		try {
 			int index = previousURLs.size() - 1;
-			System.out.println("index = "+ index);
 			if (index >= 0) {
 				URL prev = (URL)previousURLs.get(index);
 				previousURLs.remove(index);
@@ -234,9 +231,6 @@ implements HyperlinkListener, KeyListener {
 		try {
 			super.setPage(resourceToURL("htmlerror.html"));
 			
-// bad workaround:
-			setText("<center>"+ t.getLocalizedMessage() +"</center>");
-
 // does not work -- why??
 //			HTMLDocument doc = (HTMLDocument)getDocument();
 //			Element msgElem = doc.getElement("message");
