@@ -116,6 +116,10 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPanelListener {
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
 	}
 
+	/**
+	 * Updates the address field.
+	 * @param url The new displayed URL.
+	 */
 	public void addressChanged(URL url) {
 		addrField.setText(url.toString());
 	}

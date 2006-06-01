@@ -8,6 +8,8 @@ import java.util.Vector;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
@@ -20,7 +22,21 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 public class HTMLPane extends JEditorPane 
 implements HyperlinkListener, KeyListener {
 	private static final long serialVersionUID = 7455924935046624890L;
-	private Vector history = new Vector();
+	private Vector previousURLs = new Vector();
+	private Vector nextURLs = new Vector();
+	private Vector listeners = new Vector(2);
+
+	/**
+	 * Creates a new empty HTML frame.
+	 */
+	public HTMLPane() {
+		super();
+		setEditable(false);
+		setContentType("text/html"); //$NON-NLS-1$
+		addHyperlinkListener(this);
+		addKeyListener(this);
+		RightClickMenu.addRightClickMenu(this);
+	}
 	
 	/**
 	 * Creates a new HTML frame with the content of a resource.
@@ -29,7 +45,7 @@ implements HyperlinkListener, KeyListener {
 	 * a seperate module).
 	 */
 	public HTMLPane(String resource) {
-		this(HTMLPane.class.getClassLoader().getResource(resource));
+		this(resourceToURL(resource));
 	}
 	
 	/**
@@ -47,13 +63,22 @@ implements HyperlinkListener, KeyListener {
 	 * @param url The URL whose content should be displayed.
 	 */
 	public HTMLPane(URL url) {
-		super();
-		setEditable(false);
-		setContentType("text/html"); //$NON-NLS-1$
-		addHyperlinkListener(this);
-		addKeyListener(this);
-		RightClickMenu.addRightClickMenu(this);
+		this();
 		setPage(url);
+	}
+	
+	public void addListener(IHTMLPanelListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(IHTMLPanelListener listener) {
+		listeners.remove(listener);
+	}
+	
+	private void fireAddressChanged(URL url) {
+		for (int i = 0; i < listeners.size(); i++) {
+			((IHTMLPanelListener)listeners.get(i)).addressChanged(url);
+		}
 	}
 	
 	/**
@@ -77,7 +102,7 @@ implements HyperlinkListener, KeyListener {
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyChar() == 'b' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			goBack();
+			goToPrevious();
 		}
 	}
 
@@ -96,17 +121,59 @@ implements HyperlinkListener, KeyListener {
 	}
 	
 	/**
+	 * Returns the previously called URLs.
+	 * @return The "previous" history.
+	 */
+	public URL[] getPreviousURLs() {
+		URL[] previous = new URL[nextURLs.size()];
+		nextURLs.toArray(previous);
+		return previous;
+	}
+	
+	/**
 	 * Goes the the previous page in history.
 	 */
-	public void goBack() {
+	public void goToPrevious() {
 		try {
-			int index = history.size() - 1;
+			int index = previousURLs.size() - 1;
+			System.out.println("index = "+ index);
 			if (index >= 0) {
-				URL prev = (URL)history.get(index);
-				history.remove(index);
+				URL prev = (URL)previousURLs.get(index);
+				previousURLs.remove(index);
+				URL current = getPage();
+				nextURLs.add(current);
 				setPage(prev);
 			}
 		} catch (Exception exc) {
+			showError(new Exception(Messages.getString("HTMLPane.COULD_NOT_LOAD_PREVIOUS_PAGE"))); //$NON-NLS-1$
+		}
+	}
+	
+	/**
+	 * Returns the URLs called after the current one.
+	 * @return The "next" history.
+	 */
+	public URL[] getNextURLs() {
+		URL[] next = new URL[nextURLs.size()];
+		nextURLs.toArray(next);
+		return next;
+	}
+	
+	/**
+	 * Goes the the next page in history.
+	 */
+	public void goToNext() {
+		try {
+			int index = nextURLs.size() - 1;
+			if (index >= 0) {
+				URL current = getPage();
+				previousURLs.add(current);
+				URL next = (URL)nextURLs.get(index);
+				nextURLs.remove(index);
+				setPage(next);
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
 			showError(new Exception(Messages.getString("HTMLPane.COULD_NOT_LOAD_PREVIOUS_PAGE"))); //$NON-NLS-1$
 		}
 	}
@@ -119,7 +186,8 @@ implements HyperlinkListener, KeyListener {
 	public void goTo(URL url) {
 		URL old = getPage();
 		if (old != null) {
-			history.add(old);
+			previousURLs.add(old);
+			nextURLs.removeAllElements();
 		}
 		setPage(url);
 	}
@@ -130,6 +198,9 @@ implements HyperlinkListener, KeyListener {
 	 * @see #goTo(URL)
 	 */
 	public void setPage(final URL url) {
+		if (url == null) {
+			return;
+		}
 		new Thread() {
 			public void run() {
 				setPageHelperMethod(url);
@@ -144,6 +215,11 @@ implements HyperlinkListener, KeyListener {
 	 */
 	private void setPageHelperMethod(URL url) {
 		try {
+			fireAddressChanged(url);
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		try {
 			super.setPage(url);
 		} catch (Throwable t) {
 			showError(t);
@@ -155,14 +231,32 @@ implements HyperlinkListener, KeyListener {
 	 * @param t The <code>Throwable</code> which was thrown.
 	 */
 	public void showError(Throwable t) {
-		setText("<html>"+  //$NON-NLS-1$
-				"<body>"+ //$NON-NLS-1$
-				"<h1>"+Messages.getString("HTMLPane.LOAD_ERROR")+"</h1>"+ //$NON-NLS-1$
-				"<pre>"+ //$NON-NLS-1$
-				Util.exceptionToString(t)+
-				"</pre>"+ //$NON-NLS-1$
-				"</body>"+ //$NON-NLS-1$
-				"</html>"); //$NON-NLS-1$
+		try {
+			super.setPage(resourceToURL("htmlerror.html"));
+			
+// bad workaround:
+			setText("<center>"+ t.getLocalizedMessage() +"</center>");
+
+// does not work -- why??
+//			HTMLDocument doc = (HTMLDocument)getDocument();
+//			Element msgElem = doc.getElement("message");
+//			doc.setInnerHTML(msgElem, Messages.getString("HTMLPane.LOAD_ERROR"));
+//			Element stacktraceElem = doc.getElement("stacktrace");
+//			doc.setInnerHTML(stacktraceElem, Util.exceptionToString(t));
+//			super.setDocument(doc);
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
 		setCaretPosition(0);
+	}
+	
+	/**
+	 * Converts a resource that must be in the classpath that contains 
+	 * this class (HTMLPane) to a URL.
+	 * @param resource The resource name.
+	 * @return A URL that points to the URL or <code>null</code>.
+	 */
+	private static URL resourceToURL(String resource) {
+		return HTMLPane.class.getClassLoader().getResource(resource);
 	}
 }

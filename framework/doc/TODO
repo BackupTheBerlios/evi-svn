@@ -1,3 +1,6 @@
+2006-06-01:
+    Fix HTMLPane error pages. Document.getElement does not work?!
+
 2006-05-27:
     Introduce priorities for IButtonable, IMenuable [and IApplet?].
     Additional interfaces?

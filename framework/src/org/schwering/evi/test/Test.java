@@ -26,7 +26,7 @@ public class Test extends HTMLBrowser implements IModule, IPanel {
 	}
 	
 	public Test() {
-		super("hello.html");
+		super();
 	}
 	
 	public String getTitle() {
