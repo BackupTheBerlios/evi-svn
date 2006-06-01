@@ -10,6 +10,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.main.MainFrame;
@@ -19,11 +20,19 @@ import org.schwering.evi.gui.main.MainFrame;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class HTMLBrowser extends JPanel implements IPanel {
+public class HTMLBrowser extends JPanel implements IPanel, IHTMLPanelListener {
 	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
-	private HTMLPane htmlPane;
+	private JTextField addrField = new JTextField(); 
+	private HTMLPane htmlPane = new HTMLPane();
 	private String title;
+	
+	/**
+	 * Creates a new empty HTMLBrowser
+	 */
+	public HTMLBrowser() {
+		this((URL)null);
+	}
 	
 	/**
 	 * Creates a new HTMLBrowser.
@@ -52,27 +61,63 @@ public class HTMLBrowser extends JPanel implements IPanel {
 	public HTMLBrowser(URL url) {
 		super(new BorderLayout());
 		startURL = url;
-
-		htmlPane = new HTMLPane(url);
+		
+		RightClickMenu.addRightClickMenu(addrField);
+		addrField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s = addrField.getText();
+				try {
+					URL url = new URL(s);
+					htmlPane.goTo(url);
+				} catch (Exception exc) {
+					// try it with a "http://" in front of the address
+					try {
+						if (s.indexOf("http://") == -1) {
+							 s = "http://"+ s;
+							 URL url = new URL(s);
+							 htmlPane.goTo(url);
+						}
+					} catch (Exception exc2) {
+					}
+				}
+			}
+		});
+		
+		htmlPane.addListener(this);
+		htmlPane.goTo(url);
 		
 		JButton home = new JButton(Messages.getString("HTMLBrowser.HOME")); //$NON-NLS-1$
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				htmlPane.setPage(startURL);
+				htmlPane.goTo(startURL);
 			}
 		});
-		JButton back = new JButton(Messages.getString("HTMLBrowser.BACK")); //$NON-NLS-1$
-		back.addActionListener(new ActionListener() {
+		JButton prev = new JButton(Messages.getString("HTMLBrowser.PREVIOUS")); //$NON-NLS-1$
+		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				htmlPane.goBack();
+				htmlPane.goToPrevious();
+			}
+		});
+		JButton next = new JButton(Messages.getString("HTMLBrowser.NEXT")); //$NON-NLS-1$
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				htmlPane.goToNext();
 			}
 		});
 		
 		JPanel top = new JPanel(new BorderLayout());
-		top.add(home, BorderLayout.EAST);	
-		top.add(back, BorderLayout.WEST);
+		top.add(home, BorderLayout.EAST);
+		top.add(addrField, BorderLayout.CENTER);
+		JPanel prevnext = new JPanel();
+		prevnext.add(prev);
+		prevnext.add(next);
+		top.add(prevnext, BorderLayout.WEST);
 		add(top, BorderLayout.NORTH);
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
+	}
+
+	public void addressChanged(URL url) {
+		addrField.setText(url.toString());
 	}
 
 	/* (non-Javadoc)
