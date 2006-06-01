@@ -3,6 +3,9 @@ package org.schwering.evi.core;
 /**
  * ModuleInfoClass basis interface.<br>
  * <br>
+ * The implementing class must define a constructor that takes no arguments 
+ * (the implicit default constructor).
+ * <br>
  * Each ModuleInfoClass must implement this interface. The ModuleInfoClass 
  * provides the basical information for each module such as its appearance 
  * name or its version.<br>
