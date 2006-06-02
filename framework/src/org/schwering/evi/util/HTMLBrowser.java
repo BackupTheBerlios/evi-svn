@@ -9,6 +9,7 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -20,11 +21,13 @@ import org.schwering.evi.gui.main.MainFrame;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class HTMLBrowser extends JPanel implements IPanel, IHTMLPanelListener {
+public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 	private static final long serialVersionUID = 4347796608541318947L;
 	private URL startURL;
 	private JTextField addrField = new JTextField(); 
 	private HTMLPane htmlPane = new HTMLPane();
+	private JPanel statusPanel = new JPanel(new BorderLayout());
+	private JProgressBar progressBar = new JProgressBar();
 	private String title;
 	
 	/**
@@ -86,6 +89,8 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPanelListener {
 		htmlPane.addListener(this);
 		htmlPane.goTo(url);
 		
+		statusPanel.add(progressBar);
+		
 		JButton home = new JButton(Messages.getString("HTMLBrowser.HOME")); //$NON-NLS-1$
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,8 +119,32 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPanelListener {
 		top.add(prevnext, BorderLayout.WEST);
 		add(top, BorderLayout.NORTH);
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
+		add(statusPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Draws a progressbar.
+	 * @param url The new displayed URL.
+	 * @see #loaded(URL)
+	 */
+	public void loading(URL url) {
+		progressBar.setIndeterminate(true);
+		progressBar.setValue(0);
+		progressBar.setString("Loading "+ url);
+		progressBar.setStringPainted(true);
+	}
+
+	/**
+	 * Hides the progessar.
+	 * @param url The new displayed URL.
+	 * @see #loading(URL)
+	 */
+	public void loaded(URL url) {
+		progressBar.setIndeterminate(false);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(false);
+	}
+	
 	/**
 	 * Updates the address field.
 	 * @param url The new displayed URL.

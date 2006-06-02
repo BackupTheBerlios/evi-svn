@@ -65,17 +65,52 @@ implements HyperlinkListener, KeyListener {
 		setPage(url);
 	}
 	
-	public void addListener(IHTMLPanelListener listener) {
+	/**
+	 * Adds a new listener.
+	 * @param listener The new listener.
+	 */
+	public void addListener(IHTMLPaneListener listener) {
 		listeners.add(listener);
 	}
 	
-	public void removeListener(IHTMLPanelListener listener) {
+	/**
+	 * Removes a listener.
+	 * @param listener The listener.
+	 */
+	public void removeListener(IHTMLPaneListener listener) {
 		listeners.remove(listener);
 	}
 	
+	/**
+	 * Fires the <code>addressChanged</code> event.
+	 * @param url The new address.
+	 * @see IHTMLPaneListener#addressChanged(URL)
+	 */
 	private void fireAddressChanged(URL url) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((IHTMLPanelListener)listeners.get(i)).addressChanged(url);
+			((IHTMLPaneListener)listeners.get(i)).addressChanged(url);
+		}
+	}
+	
+	/**
+	 * Fires the <code>loading</code> event.
+	 * @param url The new address.
+	 * @see IHTMLPaneListener#loading(URL)
+	 */
+	private void fireLoading(URL url) {
+		for (int i = 0; i < listeners.size(); i++) {
+			((IHTMLPaneListener)listeners.get(i)).loading(url);
+		}
+	}
+	
+	/**
+	 * Fires the <code>loaded</code> event.
+	 * @param url The new address.
+	 * @see IHTMLPaneListener#loaded(URL)
+	 */
+	private void fireLoaded(URL url) {
+		for (int i = 0; i < listeners.size(); i++) {
+			((IHTMLPaneListener)listeners.get(i)).loaded(url);
 		}
 	}
 	
@@ -86,11 +121,15 @@ implements HyperlinkListener, KeyListener {
 		if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 			JEditorPane pane = (JEditorPane)e.getSource();
 			if (e instanceof HTMLFrameHyperlinkEvent) {
+				URL url = e.getURL();
 				HTMLFrameHyperlinkEvent evt = (HTMLFrameHyperlinkEvent)e;
 				HTMLDocument doc = (HTMLDocument)pane.getDocument();
+				fireLoading(url);
 				doc.processHTMLFrameHyperlinkEvent(evt);
+				fireLoaded(url);
 			} else {
-				goTo(e.getURL());
+				URL url = e.getURL();
+				goTo(url);
 			}
 		}
 	}
@@ -211,16 +250,14 @@ implements HyperlinkListener, KeyListener {
 	 * @param url The new page's URL.
 	 */
 	private void setPageHelperMethod(URL url) {
-		try {
-			fireAddressChanged(url);
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		}
+		fireLoading(url);
 		try {
 			super.setPage(url);
 		} catch (Throwable t) {
 			showError(t);
 		}
+		fireLoaded(url);
+		fireAddressChanged(url);
 	}
 	
 	/**

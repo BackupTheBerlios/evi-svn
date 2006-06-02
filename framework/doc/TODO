@@ -7,8 +7,3 @@
     Random order of buttons/menus results from Hashtable in ModuleLoader.
     ModuleLoader could tell each ModuleContainer its index and this 
     index (in the loaded-module-row) could be used as priority, too.
-
-2006-05-26:
-	TabBar.addTab(IPanel) line 165: setSelectedComponent(component)
-	This line results in ArrayIndexOutOfBoundsException in Swing 
-	classes under Java 1.4.2_03-b02.
