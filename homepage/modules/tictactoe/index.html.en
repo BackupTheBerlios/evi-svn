@@ -1,17 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><title>EVI Module Dummy Site</title></head><body>
-<a name="EVI_Module_Dummy_Site"></a>
-<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Module Dummy Site</h1>
+<a name="TicTacToe"></a>
+<h1>TicTacToe</h1>
 <p>
 [ <a href="index.html.en">English</a> | <a href="index.html.de">Deutsch</a> | <a href="../../"><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></a> ]
 </p>
 <p>
-Hi,
+TicTacToe is the simply game with a 3x3 board and two players both trying to get three fields in a row.
 </p>
 <p>
-this will be the homepage of an <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> module.
+TicTacToe itself is quite easy to implement. Three years ago I implemented a multiplayer-version of TicTacToe, I don't remember whether it was also singleplayer-capable. Nevertheless, TicTacToe is not to be underestimated. One should think about it before writing it.
 </p>
 <p>
-Bye
+I'm gonna rewrite it, however, because I want TicTacToe to support the following:
+</p>
+<ul style="list-style-type: square;">
+<li>singleplayer</li>
+<li>nultiplayer via direct connection (brings up the port-problem)</li>
+<li>multiplayer via instant IRC and ICQ</li>
+<li>possibly also multiple games at once?</li>
+</ul>
+<p>
+For the multiplayer stuff we just need an interface and the respective implementations.
 </p>
 </body></html>

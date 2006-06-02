@@ -1,31 +1,20 @@
 TITLE=EVI Extensible Verena Interface
 MACROS=macros.copl
-=evi()=
+HEADER=header.html.en
+FOOTER=footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> ]
+=What's evi()?=
+evi() is a Framework. The goal is to develop a bunch of modules for **internet communication**, **entertainment** and some **tools**. evi() is free software and licensed under the GNU GPL. evi() is written in Java and is based upon the Swing Toolkit.
 
-==What's evi()?==
-evi() is an attempt to write a Java framework. The goal is to develop a bunch of modules for internet communication and some other stuff. More information under <!url #Modules modules>. 
-evi() is free software and licensed under the GNU GPL.
+evi() is an acronym and means **E**xtensible **V**erena **I**nterface. The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 
-===Developer Information===
-The framework is almost finished. No module is finished yet. However, the module Pong is already usable.
+And I'm Christoph Schwering <schwering@gmail.com>.
 
-===SVN Repository===
-The main module is named "framework".
-	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
-	o Anonymous: svn checkout svn:\//svn.berlios.de/evi
-	o Anonymous (HTTP): svn checkout http:\//svn.berlios.de/evi
-	o Developer: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
-	o Developer (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
-===Documents===
-	o <!url tutorials/modules/ Module Development Tutorial>
-	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
-	o <!url javadoc/ Javadocs>
+=Download=
+**Nothing downloadable yet.** While the framework has been finished these days, we don't have no modules yet. 
 
-==Modules==
-After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
+These are the modules we **plan** to write. After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
 	- Communication 
 		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
 		* <!url modules/icq/ ICQ> (Instant Messenging) (I hope) [5]
@@ -47,15 +36,21 @@ After each point in brackets its priority (1 = low, 10 = high). We'll develop th
 		* <!url modules/calculator/ Calculator> [7]
 		* IDv3-Tag Administrator [2]
 
-==The Name evi()==
-evi() is an acronym and means **E**xtensible **V**erena **I**nterface.
-The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 
-==Contact==
-Christoph Schwering <schwering@gmail.com>
-Niklas Kurth <niklas@4kurths.com>
-Mike?
+=Resources=
+Here are some developer information. If you'd like to write an evi() module, you're very welcome :-).
 
-<!HTML>
-<table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
-<!/HTML>
+==SVN Repository==
+The main module is named "framework".
+	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
+	o Anonymous: svn checkout svn:\//svn.berlios.de/evi
+	o Anonymous: svn checkout http:\//svn.berlios.de/evi
+	o Developer: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
+	o Developer: svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
+
+==Documents==
+	o <!url tutorials/modules/ Module Development Tutorial>
+	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
+	o <!url javadoc/ Javadocs>
+	o <!url modulelifecycle.png Module Lifecycle>
+

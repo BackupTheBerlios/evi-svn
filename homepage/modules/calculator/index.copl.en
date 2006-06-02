@@ -1,11 +1,10 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=Calculator=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
+I'd really like to write a calculator. 
 
-this will be the homepage of an evi() module.
-
-Bye
+The user should put in his mathematical term. When he clicks '=', the term string should be parsed and the result be calculated.
+This would make it easy to allow the user to define functions f(x).

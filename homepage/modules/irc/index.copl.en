@@ -1,11 +1,15 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=IRC=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
+The IRC module will depend on <!url http://moepii.sourceforge.net IRClib> and probably parts of the moepII code. However, I'm not gonna copy moepII because I'd like to improve things like support for colored text (these fucking mIRC colors) and ordered nick lists.
 
-this will be the homepage of an evi() module.
+The module also needs a very good configuration. For example, I'd like to have different "profiles". The user then could add "org.schwering.evi.modules.irc.IRC <profilename>" to his autostart so that the evi() would automatically connect to a specific IRC network at startup.
 
-Bye
+
+The module needs to offer a good API for other modules like DCC and games. 
+
+It is important that modules like DCC can prevent the IRC module to display special kinds of messages as normal messages. I mean, the DCC module should check an incoming message for being a DCC command and, in this case, it should prevent IRC from displaying it.
+This can be realized with a listener system where priorities can be assigned by listeners.

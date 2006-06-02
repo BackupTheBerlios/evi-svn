@@ -1,11 +1,7 @@
-TITLE=EVI Module Dummy Site
+TITLE=EVI DCC Module
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=DCC=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
-
-this will be the homepage of an evi() module.
-
-Bye
+Well, DCC needs to be supported for file transfers via IRC. DCC will not be integrated into IRC directly but as "extending" module for the IRC module.

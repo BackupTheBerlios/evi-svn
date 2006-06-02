@@ -1,11 +1,8 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=Mailbox Checker=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
-
-this will be the homepage of an evi() module.
-
-Bye
+The mailbox checker should simply use java.mail to check out a POP3 account whether new mail has come in or not. 
+A good configuration would be nice.

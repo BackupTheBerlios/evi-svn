@@ -1,11 +1,7 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=Audioplayer=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
-
-this will be the homepage of an evi() module.
-
-Bye
+There seems to be a nice <!url http://www.javazoom.net/javalayer/javalayer.html MP3 library> out there. Check it out. Audio player would be very very great.

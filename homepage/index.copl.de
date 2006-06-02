@@ -1,61 +1,56 @@
-TITLE=EVI Extensible Verena Interface
+TITLE=EVI Framework
 MACROS=macros.copl
-=evi()=
+HEADER=header.html.de
+FOOTER=footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> ]
+=Was ist evi()?=
+evi() ist ein Framework. Es sollen Module f√ºr **Internet Kommunikation**, **Unterhaltung** und andere **Tools** geschrieben werden. evi() ist Freie Software und steht unter der GNU GPL. evi() ist in Java geschrieben und baut auf dem Swing Toolkit auf.
 
-==Was ist das?==
-evi() ist ein Framework, das Module laden kann. evi()s Module sollen Internetkommunikation (IRC, ICQ) beherrschen, ein paar mehr oder weniger sinnvolle Tools (Kalender, Stundenplan, Filemanager...) und ein paar Spiele (Pong...) bereitstellen.
+evi() ist ein Akronym und hei√üt **E**xtensible **V**erena **I**nterface. Die Namen Verena und Evi stehen f√ºr Verena Baumeister bzw. Eva Valder aus Euskirchen bzw. Palmersheim.
 
-evi() ist in Java geschrieben und benutzt das Swing Toolkit. Es ist plattformunabh‰ngig. Und evi() ist Freie Software unter der GNU GPL.
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering <schwering@gmail.com>.
 
-==Entwickler-Informationen==
-Bis jetzt gibt es noch nicht viel! Bisher ist noch kein Modul wirklich fertig, auch das Framework ist noch nicht ganz fertig.
 
-===SVN Repository===
-Das Basismodul heiﬂt "framework".
-	o <!url http://svn.berlios.de/viewcvs/evi SVN mit Webbrowser angucken>
-	o Anonymer Zugang: svn checkout svn:\//svn.berlios.de/evi
-	o Anonymer Zugang (HTTP): svn checkout http:\//svn.berlios.de/evi
-	o Entwickler-Zugang: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
-	o Entwickler-Zugang (HTTPS): svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
+=Download=
+**Nichts runterladbares bis jetzt!** Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
 
-===Documents===
-	o <!url tutorials/modules/ Modul-Entwicklungs-Tutorial>
-	o <!url tutorials/svn/ Eclipse+SVN-Tutorial> 
-	o <!url javadoc/ Javadocs>
-
-==Geplante Module==
-Da hinter in eckigen Klammern die Priorit‰t (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorit‰t werden wir die Module auch schreiben (also dringende Module zu erst...)
-	- Kommunikation
+Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorit√§t (1 = niedrig, 10 = hoch).
+	- Kommunikation 
 		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
-		* <!url modules/icq/ ICQ> (Instant Messenging) (hoffentlich) [5]
-		* vielleicht noch weitere IM-Protokolle? [3]
-	- Spiele
+		* <!url modules/icq/ ICQ> (Instant Messenging) (hoff ich) [5]
+		* vielleicht auch andere IM Protokolle [3]
+	- Unterhaltung
 		* <!url modules/pong/ Pong> single/multiplayer [10]
 		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
 		* Skat multiplayer (vielleicht) [4]
+		* Schere-Stein-Papier [4]
 	- Tools
-		* <!url modules/dcc/ DCC> f¸r IRC [9]
-		* IRC log streamer [8]
+		* <!url modules/dcc/ DCC> f√ºr IRC [9]
+		* IRC Log Streamer [8]
 		* <!url modules/calendar/ Kalender> [5]
 		* <!url modules/timetable/ Stundenplan> [5]
-		* <!url modules/mailbox/ Mailbox ‹berpr¸fer> [7]
+		* <!url modules/mailbox/ Mailbox √úberwacher> [7]
 		* <!url modules/filemanager/ Dateimanager> [7]
 		* Bildbetrachter [4]
-		* winzigkleiner Webbrowser :-) [5]
-		* <!url modules/audioplayer/ Audio-Player> w‰re super [6]
+		* <!url modules/audioplayer/ Audio-Player> w√§r super [6]
 		* <!url modules/calculator/ Taschenrechner> [7]
-		* IDv3-Tag Verwalter [2]
+		* IDv3-Tag Administrator [2]
 
-==Der Name==
-evi() steht f¸r **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erh‰lt seinen Sinn nur dadurch, dass Evi bzw. Verena f¸r Eva Valder aus Palmersheim bzw. Verena aus Euskirchen stehen.
 
-==Kontakt==
-Christoph Schwering <schwering@gmail.com>
-Niklas Kurth <niklas@4kurths.com>
-Und der Herr Mike, der der Welt ein Pong schenkte? :-)
+=Resourcen=
+Hier ein paar Entwickler-Informationen. Wenn jemand ein evi() Modul schreiben will, w√§r das nat√ºrlich ne dolle Sache.
 
-<!HTML>
-<table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
-<!/HTML>
+==SVN Repository==
+Das Modul des evi() Frameworks hei√üt "framework".
+	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
+	o Anonymous: svn checkout svn:\//svn.berlios.de/evi
+	o Anonymous: svn checkout http:\//svn.berlios.de/evi
+	o Developer: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
+	o Developer: svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
+
+==Texte==
+	o <!url tutorials/modules/ Module Development Tutorial>
+	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
+	o <!url javadoc/ Javadocs>
+	o <!url modulelifecycle.png Module Lifecycle>
+

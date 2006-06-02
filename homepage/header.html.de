@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>EVI Framework</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="navi">
+	<ul>
+	<li><a href="#Was_ist_EVI?" class="red">&Uuml;ber EVI</a></li>
+	<li><a href="#Download" class="blue">Download</a></li>
+	<li><a href="#Resourcen" class="yellow">Resourcen</a></li>
+	</ul>
+</div>
+<div id="main">
+	<div id="lang"><a href="index.html.en">English</a></div>

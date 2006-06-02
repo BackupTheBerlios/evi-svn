@@ -1,88 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head><title>EVI Extensible Verena Interface</title></head><body>
-<a name="EVI"></a>
-<h1><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></h1>
+<html>
+<head>
+<title>EVI Framework</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="navi">
+	<ul>
+	<li><a href="#Was_ist_EVI?" class="red">&Uuml;ber EVI</a></li>
+	<li><a href="#Download" class="blue">Download</a></li>
+	<li><a href="#Resourcen" class="yellow">Resourcen</a></li>
+	</ul>
+</div>
+<div id="main">
+	<div id="lang"><a href="index.html.en">English</a></div>
+<a name="Was_ist_EVI?"></a>
+<h1>Was ist <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</h1>
 <p>
-[ <a href="index.html.en">English</a> | <a href="index.html.de">Deutsch</a> ]
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Framework. Es sollen Module f&uuml;r <b>Internet Kommunikation</b>, <b>Unterhaltung</b> und andere <b>Tools</b> geschrieben werden. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist Freie Software und steht unter der GNU GPL. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und baut auf dem Swing Toolkit auf.
 </p>
-<a name="Was_ist_das?"></a>
-<h2>Was ist das?</h2>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Framework, das Module laden kann. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>s Module sollen Internetkommunikation (IRC, ICQ) beherrschen, ein paar mehr oder weniger sinnvolle Tools (Kalender, Stundenplan, Filemanager...) und ein paar Spiele (Pong...) bereitstellen.
+<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Akronym und hei&szlig;t <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Die Namen Verena und Evi stehen f&uuml;r Verena Baumeister bzw. Eva Valder aus Euskirchen bzw. Palmersheim.
 </p>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und benutzt das Swing Toolkit. Es ist plattformunabh&auml;ngig. Und <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist Freie Software unter der GNU GPL.
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering &lt;schwering@gmail.com&gt;.
 </p>
-<a name="Entwickler-Informationen"></a>
-<h2>Entwickler-Informationen</h2>
+<br />
+<a name="Download"></a>
+<h1>Download</h1>
 <p>
-Bis jetzt gibt es noch nicht viel! Bisher ist noch kein Modul wirklich fertig, auch das Framework ist noch nicht ganz fertig.
+<b>Nichts runterladbares bis jetzt!</b> Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
 </p>
-<a name="SVN_Repository"></a>
-<h3>SVN Repository</h3>
 <p>
-Das Basismodul hei&szlig;t &quot;framework&quot;.
-</p>
-<ul style="list-style-type: circle;">
-<li><a href="http://svn.berlios.de/viewcvs/evi">SVN mit Webbrowser angucken</a></li>
-<li>Anonymer Zugang: svn checkout svn://svn.berlios.de/evi</li>
-<li>Anonymer Zugang (HTTP): svn checkout http://svn.berlios.de/evi</li>
-<li>Entwickler-Zugang: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
-<li>Entwickler-Zugang (HTTPS): svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
-</ul>
-<a name="Documents"></a>
-<h3>Documents</h3>
-<ul style="list-style-type: circle;">
-<li><a href="tutorials/modules/">Modul-Entwicklungs-Tutorial</a></li>
-<li><a href="tutorials/svn/">Eclipse+SVN-Tutorial</a> </li>
-<li><a href="javadoc/">Javadocs</a></li>
-</ul>
-<a name="Geplante_Module"></a>
-<h2>Geplante Module</h2>
-<p>
-Da hinter in eckigen Klammern die Priorit&auml;t (1 = gering, 10 = dringend). In etwa in dieser Reihenfolge der Priorit&auml;t werden wir die Module auch schreiben (also dringende Module zu erst...)
+Die folgenden Module sind <b>geplant</b>. Hinter jedem Modul steht die Priorit&auml;t (1 = niedrig, 10 = hoch).
 </p>
 <ul style="list-style-type: square;">
-<li>Kommunikation<ul style="list-style-type: disc;">
+<li>Kommunikation <ul style="list-style-type: disc;">
 <li><a href="modules/irc/">IRC</a> (Internet Relay Chat) [10]</li>
-<li><a href="modules/icq/">ICQ</a> (Instant Messenging) (hoffentlich) [5]</li>
-<li>vielleicht noch weitere IM-Protokolle? [3]</li>
+<li><a href="modules/icq/">ICQ</a> (Instant Messenging) (hoff ich) [5]</li>
+<li>vielleicht auch andere IM Protokolle [3]</li>
 </ul>
 </li>
-<li>Spiele<ul style="list-style-type: disc;">
+<li>Unterhaltung<ul style="list-style-type: disc;">
 <li><a href="modules/pong/">Pong</a> single/multiplayer [10]</li>
 <li><a href="modules/tictactoe/">TicTacToe</a> single/multiplayer [7]</li>
 <li>Skat multiplayer (vielleicht) [4]</li>
+<li>Schere-Stein-Papier [4]</li>
 </ul>
 </li>
 <li>Tools<ul style="list-style-type: disc;">
 <li><a href="modules/dcc/">DCC</a> f&uuml;r IRC [9]</li>
-<li>IRC log streamer [8]</li>
+<li>IRC Log Streamer [8]</li>
 <li><a href="modules/calendar/">Kalender</a> [5]</li>
 <li><a href="modules/timetable/">Stundenplan</a> [5]</li>
-<li><a href="modules/mailbox/">Mailbox &Uuml;berpr&uuml;fer</a> [7]</li>
+<li><a href="modules/mailbox/">Mailbox &Uuml;berwacher</a> [7]</li>
 <li><a href="modules/filemanager/">Dateimanager</a> [7]</li>
 <li>Bildbetrachter [4]</li>
-<li>winzigkleiner Webbrowser :-) [5]</li>
-<li><a href="modules/audioplayer/">Audio-Player</a> w&auml;re super [6]</li>
+<li><a href="modules/audioplayer/">Audio-Player</a> w&auml;r super [6]</li>
 <li><a href="modules/calculator/">Taschenrechner</a> [7]</li>
-<li>IDv3-Tag Verwalter [2]</li>
+<li>IDv3-Tag Administrator [2]</li>
 </ul>
 </li>
 </ul>
-<a name="Der_Name"></a>
-<h2>Der Name</h2>
+<br />
+<a name="Resourcen"></a>
+<h1>Resourcen</h1>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> steht f&uuml;r <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Dieser wahnsinnig sinnvolle Name erh&auml;lt seinen Sinn nur dadurch, dass Evi bzw. Verena f&uuml;r Eva Valder aus Palmersheim bzw. Verena aus Euskirchen stehen.
+Hier ein paar Entwickler-Informationen. Wenn jemand ein <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Modul schreiben will, w&auml;r das nat&uuml;rlich ne dolle Sache.
 </p>
-<a name="Kontakt"></a>
-<h2>Kontakt</h2>
+<a name="SVN_Repository"></a>
+<h2>SVN Repository</h2>
 <p>
-Christoph Schwering &lt;schwering@gmail.com&gt;<br />
-Niklas Kurth &lt;niklas@4kurths.com&gt;<br />
-Und der Herr Mike, der der Welt ein Pong schenkte? :-)
+Das Modul des <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Frameworks hei&szlig;t &quot;framework&quot;.
 </p>
+<ul style="list-style-type: circle;">
+<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
+<li>Anonymous: svn checkout svn://svn.berlios.de/evi</li>
+<li>Anonymous: svn checkout http://svn.berlios.de/evi</li>
+<li>Developer: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
+<li>Developer: svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
+</ul>
+<a name="Texte"></a>
+<h2>Texte</h2>
+<ul style="list-style-type: circle;">
+<li><a href="tutorials/modules/">Module Development Tutorial</a></li>
+<li><a href="tutorials/svn/">Eclipse + SVN Tutorial</a></li>
+<li><a href="javadoc/">Javadocs</a></li>
+<li><a href="modulelifecycle.png">Module Lifecycle</a></li>
+</ul>
+</div>
+<br style="clear: both;" />
 
-<table width="300"><tr><td align="left"><a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a></td><td align="right"><a href="http://copl.sourceforge.net">Powered by COPL.</td></table>
 
-</body></html>
+<div style="text-align: center;">
+	<a style="padding: 100px;" href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
+	<a href="http://copl.sourceforge.net">Written in COPL.</a>
+</div>
+</body>
+</html>

@@ -1,11 +1,17 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=TicTacToe=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
+TicTacToe is the simply game with a 3x3 board and two players both trying to get three fields in a row.
 
-this will be the homepage of an evi() module.
+TicTacToe itself is quite easy to implement. Three years ago I implemented a multiplayer-version of TicTacToe, I don't remember whether it was also singleplayer-capable. Nevertheless, TicTacToe is not to be underestimated. One should think about it before writing it.
 
-Bye
+I'm gonna rewrite it, however, because I want TicTacToe to support the following:
+	- singleplayer
+	- nultiplayer via direct connection (brings up the port-problem)
+	- multiplayer via instant IRC and ICQ
+	- possibly also multiple games at once?
+For the multiplayer stuff we just need an interface and the respective implementations.
+

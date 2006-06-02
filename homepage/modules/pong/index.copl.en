@@ -1,11 +1,17 @@
 TITLE=EVI Module Dummy Site
 MACROS=macros.copl
-=evi() Module Dummy Site=
+=Pong=
 
 [ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
 
-Hi,
+Mike Kremer (mikelsoft at gmail dot com) has written Pong. His implementation requires JOGL (OpenGL library) and JOAL/OpenAL (sound library). 
+Can we replace JOAL (and therefore eliminate OpenAL) with standard libraries?
 
-this will be the homepage of an evi() module.
+Pong has bugs:
+	- the ball goes through the pad at high speed
+	- control over the pad is lost if the mouse focus gets out of the window (--> keyboard?)
 
-Bye
+Needed features:
+	- keyboard controls in addition to mouse
+	- configuration (sound on/off, keys)
+	- multiplayer would be great but difficult due to connection speed problem -- just try it out?

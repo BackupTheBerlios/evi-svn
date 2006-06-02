@@ -1,0 +1,7 @@
+org.schwering.evi.conf
+org.schwering.evi.core
+org.schwering.evi.gui
+org.schwering.evi.gui.conf
+org.schwering.evi.gui.main
+org.schwering.evi.test
+org.schwering.evi.util
