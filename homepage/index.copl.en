@@ -1,4 +1,4 @@
-TITLE=EVI Extensible Verena Interface
+TITLE=EVI Framework
 MACROS=macros.copl
 HEADER=header.html.en
 FOOTER=footer.html
@@ -14,6 +14,5 @@ You might notice that all components are no new inventions. What makes the diffe
 
 
 evi() is an acronym and means **E**xtensible **V**erena **I**nterface. The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
-
 
 And I'm Christoph Schwering (<!url mailto:schwering@gmail.com>).

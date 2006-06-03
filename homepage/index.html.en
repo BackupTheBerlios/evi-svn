@@ -7,9 +7,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="index.html.en" class="red">What's EVI</a></li>
+		<li><a href="index.html.en" class="red">What's EVI?</a></li>
 		<li><a href="download.html.en" class="blue">Download</a></li>
-		<li><a href="resources.html.en" class="yellow">Resources</a></li>
+		<li><a href="development.html.en" class="yellow">Development</a></li>
 		</ul>
 	</div>
 	<div id="lang"><a href="index.html.de">Deutsch</a></div>
@@ -31,7 +31,6 @@ You might notice that all components are no new inventions. What makes the diffe
 <p>
 <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> is an acronym and means <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 </p>
-<br />
 <p>
 And I'm Christoph Schwering (<a href="mailto:schwering@gmail.com">mailto:schwering@gmail.com</a>).
 </p>
