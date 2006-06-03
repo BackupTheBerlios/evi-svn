@@ -1,92 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>EVI Framework</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div id="navi">
-	<ul>
-	<li><a href="#Was_ist_EVI?" class="red">&Uuml;ber EVI</a></li>
-	<li><a href="#Download" class="blue">Download</a></li>
-	<li><a href="#Resourcen" class="yellow">Resourcen</a></li>
-	</ul>
-</div>
 <div id="main">
+	<div id="navi">
+		<ul>
+		<li><a href="index.html.de" class="red">Was ist EVI</a></li>
+		<li><a href="download.html.de" class="blue">Download</a></li>
+		<li><a href="resources.html.de" class="yellow">Resourcen</a></li>
+		</ul>
+	</div>
 	<div id="lang"><a href="index.html.en">English</a></div>
+	<div id="text">
 <a name="Was_ist_EVI?"></a>
-<h1>Was ist <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b>?</h1>
+<h1>Was ist <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>?</h1>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Framework. Es sollen Module f&uuml;r <b>Internet Kommunikation</b>, <b>Unterhaltung</b> und andere <b>Tools</b> geschrieben werden. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist Freie Software und steht unter der GNU GPL. <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist in Java geschrieben und baut auf dem Swing Toolkit auf.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist ein Framework. Es ist in Java geschrieben und baut auf dem Swing Toolkit auf. <br />
+Es sollen Module f&uuml;r <b>Internet Kommunikation</b>, <b>Unterhaltung</b> und andere <b>Tools</b> geschrieben werden.<br />
+Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
 </p>
 <p>
-<b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> ist ein Akronym und hei&szlig;t <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Die Namen Verena und Evi stehen f&uuml;r Verena Baumeister bzw. Eva Valder aus Euskirchen bzw. Palmersheim.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist Freie Software und steht unter der GNU GPL. <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist in Java geschrieben und baut auf dem Swing Toolkit auf.
 </p>
 <p>
-Und der Knallidiot von dem ganzen bin ich: Christoph Schwering &lt;schwering@gmail.com&gt;.
+Das im gro&szlig;en und ganzen nichts neues. Jedes der Module wurde schon x-mal programmiert. Der Unterschied ist, dass wir diese Dinger alle unter ein Dach bringen wollen. Das Ergebnis soll eine plattformunabh&auml;ngige Basis-Anwendung sein, mit der man allt&auml;gliche und einfache Aufgaben erledigt.
 </p>
 <br />
-<a name="Download"></a>
-<h1>Download</h1>
 <p>
-<b>Nichts runterladbares bis jetzt!</b> Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist ein Akronym und hei&szlig;t <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Dieser wahnsinnig sinnvolle Name erh&auml;lt seinen Sinn nur dadurch, dass Evi bzw. Verena f&uuml;r Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
 </p>
-<p>
-Die folgenden Module sind <b>geplant</b>. Hinter jedem Modul steht die Priorit&auml;t (1 = niedrig, 10 = hoch).
-</p>
-<ul style="list-style-type: square;">
-<li>Kommunikation <ul style="list-style-type: disc;">
-<li><a href="modules/irc/">IRC</a> (Internet Relay Chat) [10]</li>
-<li><a href="modules/icq/">ICQ</a> (Instant Messenging) (hoff ich) [5]</li>
-<li>vielleicht auch andere IM Protokolle [3]</li>
-</ul>
-</li>
-<li>Unterhaltung<ul style="list-style-type: disc;">
-<li><a href="modules/pong/">Pong</a> single/multiplayer [10]</li>
-<li><a href="modules/tictactoe/">TicTacToe</a> single/multiplayer [7]</li>
-<li>Skat multiplayer (vielleicht) [4]</li>
-<li>Schere-Stein-Papier [4]</li>
-</ul>
-</li>
-<li>Tools<ul style="list-style-type: disc;">
-<li><a href="modules/dcc/">DCC</a> f&uuml;r IRC [9]</li>
-<li>IRC Log Streamer [8]</li>
-<li><a href="modules/calendar/">Kalender</a> [5]</li>
-<li><a href="modules/timetable/">Stundenplan</a> [5]</li>
-<li><a href="modules/mailbox/">Mailbox &Uuml;berwacher</a> [7]</li>
-<li><a href="modules/filemanager/">Dateimanager</a> [7]</li>
-<li>Bildbetrachter [4]</li>
-<li><a href="modules/audioplayer/">Audio-Player</a> w&auml;r super [6]</li>
-<li><a href="modules/calculator/">Taschenrechner</a> [7]</li>
-<li>IDv3-Tag Administrator [2]</li>
-</ul>
-</li>
-</ul>
 <br />
-<a name="Resourcen"></a>
-<h1>Resourcen</h1>
 <p>
-Hier ein paar Entwickler-Informationen. Wenn jemand ein <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Modul schreiben will, w&auml;r das nat&uuml;rlich ne dolle Sache.
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering (<a href="mailto:schwering@gmail.com">mailto:schwering@gmail.com</a>).
 </p>
-<a name="SVN_Repository"></a>
-<h2>SVN Repository</h2>
-<p>
-Das Modul des <b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b> Frameworks hei&szlig;t &quot;framework&quot;.
-</p>
-<ul style="list-style-type: circle;">
-<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
-<li>Anonymous: svn checkout svn://svn.berlios.de/evi</li>
-<li>Anonymous: svn checkout http://svn.berlios.de/evi</li>
-<li>Developer: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
-<li>Developer: svn checkout https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
-</ul>
-<a name="Texte"></a>
-<h2>Texte</h2>
-<ul style="list-style-type: circle;">
-<li><a href="tutorials/modules/">Module Development Tutorial</a></li>
-<li><a href="tutorials/svn/">Eclipse + SVN Tutorial</a></li>
-<li><a href="javadoc/">Javadocs</a></li>
-<li><a href="modulelifecycle.png">Module Lifecycle</a></li>
-</ul>
+	</div>
 </div>
 <br style="clear: both;" />
 

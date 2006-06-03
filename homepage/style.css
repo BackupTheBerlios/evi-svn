@@ -1,14 +1,17 @@
-#main { border: 2px #000000 solid; margin-left: 10%; margin-right: 10%; text-align: justify; padding-left: 85px; padding-right: 10px; }
-#navi { float: left; }
-#navi ul { list-style-type: none; text-align: right; }
-#navi li { line-height: 50px; width: 100%; text-align: center; } 
-#navi a { border: 1px #000000 solid; color: #000000; font-size: 120%; font-weight: bold; padding: 5px 9px 5px 9px; }
+#main { border: 2px #000000 solid; margin-left: 10%; margin-right: 10%; padding-left: 20px}
+#navi { float: left; padding-right: 10px; margin-left: -80px;  }
+#navi ul { list-style-type: none; list-style-position: outside; padding-left: 0px; line-height: 50px; text-align: right; }
+#navi a { border: 1px #000000 solid; color: #000000; font-size: 120%; font-weight: bold; padding: 5px 9px 5px 9px; } 
 #navi a.red { background-color: #ff0000; text-decoration: none; }
-#navi a.red:hover { background-color: #e00000; }
+#navi a.red:hover { background-color: #d00000; }
 #navi a.blue { background-color: #0000ff; text-decoration: none; }
-#navi a.blue:hover { background-color: #0000e0; }
+#navi a.blue:hover { background-color: #0000d0; }
 #navi a.yellow { background-color: #ffff00; text-decoration: none; }
-#navi a.yellow:hover { background-color: #e0e000; }
-#lang { float: right; }
+#navi a.yellow:hover { background-color: #d0d000; }
+#text { text-align: justify; padding-right: 20px; }
+#lang { float: right; padding: 5px 5px 5px 5px; border-left: 1px #000000 solid; margin-left: 5px;  border-bottom: 1px #000000 solid; margin-bottom: 5px; }
+body {font-family: sans-serif; }
 h1 { font-size: 200%; margin-left: -15px; }
 h2 { font-size: 120%; }
+a { color: #000099; text-decoration: none; }
+a:hover { color: #ff0000; text-decoration: underline; }

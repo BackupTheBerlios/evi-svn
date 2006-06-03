@@ -4,53 +4,16 @@ HEADER=header.html.de
 FOOTER=footer.html
 
 =Was ist evi()?=
-evi() ist ein Framework. Es sollen Module für **Internet Kommunikation**, **Unterhaltung** und andere **Tools** geschrieben werden. evi() ist Freie Software und steht unter der GNU GPL. evi() ist in Java geschrieben und baut auf dem Swing Toolkit auf.
+evi() ist ein Framework. Es ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
+Es sollen Module für **Internet Kommunikation**, **Unterhaltung** und andere **Tools** geschrieben werden.
+Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
 
-evi() ist ein Akronym und heißt **E**xtensible **V**erena **I**nterface. Die Namen Verena und Evi stehen für Verena Baumeister bzw. Eva Valder aus Euskirchen bzw. Palmersheim.
+evi() ist Freie Software und steht unter der GNU GPL. evi() ist in Java geschrieben und baut auf dem Swing Toolkit auf.
 
-Und der Knallidiot von dem ganzen bin ich: Christoph Schwering <schwering@gmail.com>.
-
-
-=Download=
-**Nichts runterladbares bis jetzt!** Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
-
-Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
-	- Kommunikation 
-		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
-		* <!url modules/icq/ ICQ> (Instant Messenging) (hoff ich) [5]
-		* vielleicht auch andere IM Protokolle [3]
-	- Unterhaltung
-		* <!url modules/pong/ Pong> single/multiplayer [10]
-		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
-		* Skat multiplayer (vielleicht) [4]
-		* Schere-Stein-Papier [4]
-	- Tools
-		* <!url modules/dcc/ DCC> für IRC [9]
-		* IRC Log Streamer [8]
-		* <!url modules/calendar/ Kalender> [5]
-		* <!url modules/timetable/ Stundenplan> [5]
-		* <!url modules/mailbox/ Mailbox Überwacher> [7]
-		* <!url modules/filemanager/ Dateimanager> [7]
-		* Bildbetrachter [4]
-		* <!url modules/audioplayer/ Audio-Player> wär super [6]
-		* <!url modules/calculator/ Taschenrechner> [7]
-		* IDv3-Tag Administrator [2]
+Das im großen und ganzen nichts neues. Jedes der Module wurde schon x-mal programmiert. Der Unterschied ist, dass wir diese Dinger alle unter ein Dach bringen wollen. Das Ergebnis soll eine plattformunabhängige Basis-Anwendung sein, mit der man alltägliche und einfache Aufgaben erledigt.
 
 
-=Resourcen=
-Hier ein paar Entwickler-Informationen. Wenn jemand ein evi() Modul schreiben will, wär das natürlich ne dolle Sache.
+evi() ist ein Akronym und heißt **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erhält seinen Sinn nur dadurch, dass Evi bzw. Verena für Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
 
-==SVN Repository==
-Das Modul des evi() Frameworks heißt "framework".
-	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
-	o Anonymous: svn checkout svn:\//svn.berlios.de/evi
-	o Anonymous: svn checkout http:\//svn.berlios.de/evi
-	o Developer: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
-	o Developer: svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
-==Texte==
-	o <!url tutorials/modules/ Module Development Tutorial>
-	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
-	o <!url javadoc/ Javadocs>
-	o <!url modulelifecycle.png Module Lifecycle>
-
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering (<!url mailto:schwering@gmail.com>).

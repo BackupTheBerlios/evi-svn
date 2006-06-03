@@ -1,0 +1,31 @@
+TITLE=EVI Extensible Verena Interface
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
+
+=Download=
+**Nothing downloadable yet.** While the framework has been finished these days, we don't have no modules yet. 
+
+These are the modules we **plan** to write. After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
+	- Communication 
+		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
+		* <!url modules/icq/ ICQ> (Instant Messenging) (I hope) [5]
+		* maybe also other IM protocols [3]
+	- Entertainment
+		* <!url modules/pong/ Pong> single/multiplayer [10]
+		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
+		* Skat multiplayer (possibly) [4]
+		* Rock-Paper-Scissors [4]
+	- Tools
+		* <!url modules/dcc/ DCC> for IRC [9]
+		* IRC log streamer [8]
+		* <!url modules/calendar/ Calendar> [5]
+		* <!url modules/timetable/ Timetable> [5]
+		* <!url modules/mailbox/ Mailbox Supvervisor> [7]
+		* <!url modules/filemanager/ Filemanager> [7]
+		* Imageviewer [4]
+		* small Webbrowser :-) [5]
+		* <!url modules/audioplayer/ Audio-Player> would be great [6]
+		* <!url modules/calculator/ Calculator> [7]
+		* IDv3-Tag Administrator [2]
+
