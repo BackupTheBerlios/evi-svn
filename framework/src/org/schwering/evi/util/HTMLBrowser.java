@@ -29,6 +29,8 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 	private JPanel statusPanel = new JPanel(new BorderLayout());
 	private JProgressBar progressBar = new JProgressBar();
 	private String title;
+	JButton prevButton = new JButton(Messages.getString("HTMLBrowser.PREVIOUS")); //$NON-NLS-1$
+	JButton nextButton = new JButton(Messages.getString("HTMLBrowser.NEXT")); //$NON-NLS-1$
 	
 	/**
 	 * Creates a new empty HTMLBrowser
@@ -97,25 +99,25 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 				htmlPane.goTo(startURL);
 			}
 		});
-		JButton prev = new JButton(Messages.getString("HTMLBrowser.PREVIOUS")); //$NON-NLS-1$
-		prev.addActionListener(new ActionListener() {
+		prevButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				htmlPane.goToPrevious();
 			}
 		});
-		JButton next = new JButton(Messages.getString("HTMLBrowser.NEXT")); //$NON-NLS-1$
-		next.addActionListener(new ActionListener() {
+		prevButton.setEnabled(false);
+		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				htmlPane.goToNext();
 			}
 		});
+		nextButton.setEnabled(false);
 		
 		JPanel top = new JPanel(new BorderLayout());
 		top.add(home, BorderLayout.EAST);
 		top.add(addrField, BorderLayout.CENTER);
 		JPanel prevnext = new JPanel();
-		prevnext.add(prev);
-		prevnext.add(next);
+		prevnext.add(prevButton);
+		prevnext.add(nextButton);
 		top.add(prevnext, BorderLayout.WEST);
 		add(top, BorderLayout.NORTH);
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
@@ -151,6 +153,8 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 	 */
 	public void addressChanged(URL url) {
 		addrField.setText(url.toString());
+		prevButton.setEnabled(htmlPane.getPreviousURLs().length > 0);
+		nextButton.setEnabled(htmlPane.getNextURLs().length > 0);
 	}
 
 	/* (non-Javadoc)

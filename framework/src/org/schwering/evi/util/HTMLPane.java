@@ -162,8 +162,8 @@ implements HyperlinkListener, KeyListener {
 	 * @return The "previous" history.
 	 */
 	public URL[] getPreviousURLs() {
-		URL[] previous = new URL[nextURLs.size()];
-		nextURLs.toArray(previous);
+		URL[] previous = new URL[previousURLs.size()];
+		previousURLs.toArray(previous);
 		return previous;
 	}
 	
