@@ -2,6 +2,7 @@ package org.schwering.evi.gui;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.net.URI;
 import java.net.URL;
 
 import org.schwering.evi.conf.LanguageAdministrator;
@@ -35,6 +36,14 @@ public class EVI {
 	 * The program's version.
 	 */
 	public static final float VERSION = 0.1f;
+	
+	/**
+	 * The protocol name which makes EVI load a module.
+	 * If a URL like <code>eviload:http://evi.berlios.de/test.jar</code> is 
+	 * given as command line argument, the test.jar is tried to be loaded 
+	 * as module.
+	 */
+	public static final String LOAD_SCHEME = "eviload";
 	
 	/**
 	 * Gives access to the one and only instance of the application.
@@ -123,6 +132,16 @@ public class EVI {
 		progress.setIndeterminate(true);
 		try {
 			loadModules();
+		} catch (Exception exc) {
+			ExceptionDialog.show(Messages.getString("EVI.2"),  //$NON-NLS-1$
+					exc);
+		}
+		progress.setIndeterminate(false);
+		
+		progress.update(45, Messages.getString("EVI.7")); //$NON-NLS-1$
+		progress.setIndeterminate(true);
+		try {
+			loadArgRelatedModules(args);
 		} catch (Exception exc) {
 			ExceptionDialog.show(Messages.getString("EVI.2"),  //$NON-NLS-1$
 					exc);
@@ -230,6 +249,34 @@ public class EVI {
 	}
 	
 	/**
+	 * Loads modules specified in the command line arguments.
+	 * @param args
+	 */
+	private void loadArgRelatedModules(String[] args) {
+		for (int i = 0; i < args.length; i++) {
+			try {
+				URI uri = new URI(args[i]);
+				if (uri.getScheme().equalsIgnoreCase(LOAD_SCHEME)) {
+					String m = uri.getSchemeSpecificPart();
+					try {
+						if (m.toLowerCase().endsWith("jar")) {
+							URL url = new URL(m);
+							ModuleLoader.load(url);
+						} else {
+							ModuleLoader.load(m);
+						}
+					} catch (Exception exc) {
+						ExceptionDialog.show(Messages.getString("EVI.23")+  //$NON-NLS-1$
+								m +"\n"+ //$NON-NLS-1$
+								Messages.getString("EVI.25"), exc); //$NON-NLS-1$
+					}
+				}
+			} catch (Exception exc) {
+			}
+		}
+	}
+	
+	/**
 	 * Checks dependencies and automatically starts respective modules.
 	 */
 	private void checkModuleDependencies() {
@@ -272,7 +319,7 @@ public class EVI {
 				} catch (ModuleInstantiationException exc) {
 					ExceptionDialog.show(
 							Messages.getString("EVI.32") +":\n"+  //$NON-NLS-1$  //$NON-NLS-2$
-							container.getId(), exc); //$NON-NLS-1$
+							container.getId(), exc);
 				}
 			}
 		}
@@ -291,16 +338,15 @@ public class EVI {
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
 			try {
-				URL url = new URL(arg);
-				String protocol = url.getProtocol();
+				URI uri = new URI(arg);
+				String scheme = uri.getScheme();
 				for (int j = 0; j < modules.length; j++) {
-					if (modules[j].handlesURL(protocol)) {
+					if (modules[j].handlesURI(scheme)) {
 						ModuleFactory.newInstance(modules[j], 
-								new Object[] { url });
+								new Object[] { uri });
 					}
 				}
 			} catch (Exception exc) {
-				exc.printStackTrace();
 			}
 		}
 	}
