@@ -57,7 +57,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @param url The URL of the JAR.
 	 */
 	private ModuleLoader(URL url) {
-		super(new URL[] { url });
+		super(new URL[] { url }, ModuleLoader.class.getClassLoader());
 		this.url = url;
 	}
 	
