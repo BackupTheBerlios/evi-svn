@@ -1,6 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
+import java.net.URI;
 
 import javax.swing.JButton;
 
@@ -9,14 +9,14 @@ import org.schwering.evi.core.IMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleInfo;
 import org.schwering.evi.core.IParameterizable;
-import org.schwering.evi.core.IURLHandler;
+import org.schwering.evi.core.IURIHandler;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleFactory;
 import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
 
 public class HelloWorldInfo implements IModuleInfo, ICustomButtonable, 
-								IMenuable, IURLHandler, IParameterizable {
+								IMenuable, IURIHandler, IParameterizable {
 
 	public boolean isMenuable() {
 		return true;
@@ -26,8 +26,12 @@ public class HelloWorldInfo implements IModuleInfo, ICustomButtonable,
 		return new String[] { "http" };
 	}
 
-	public IModule newInstance(URL url) {
-		return new HelloWorld(url);
+	public IModule newInstance(URI uri) {
+		try {
+			return new HelloWorld(uri.toURL());
+		} catch (Exception exc) {
+			return null;
+		}
 	}
 
 	public boolean isButtonable() {
