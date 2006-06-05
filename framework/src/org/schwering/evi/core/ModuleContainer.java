@@ -33,9 +33,12 @@ public final class ModuleContainer {
 	private Class cls;
 	private IModuleInfo info;
 	private Object source;
+	private int priority = priorityCounter++;
 	
 	private HashSet instances = new HashSet(5);
 	private Vector listeners = new Vector(2);
+	
+	private static int priorityCounter = 0;
 	
 	/**
 	 * Creates a new container based on a single class, a ModuleClass.<br>
@@ -230,6 +233,20 @@ public final class ModuleContainer {
 	 */
 	public Object getSource() {
 		return source;
+	}
+	
+	/**
+	 * Returns the module's priority in the module hierarchy.
+	 * The first loaded module has the priority 0, the second 1 etc.<br>
+	 * <br>
+	 * Note that if a module has been loaded and unloaded again, its priority 
+	 * is not given to any module again. An example: Let module X have the 
+	 * priority 2. If module X is unloaded, no other module will get the 
+	 * priority 2. Instead, it will go on with 3 etc.
+	 * @return The module's position at the loading chain.
+	 */
+	public int getPriority() {
+		return priority;
 	}
 	
 	/**

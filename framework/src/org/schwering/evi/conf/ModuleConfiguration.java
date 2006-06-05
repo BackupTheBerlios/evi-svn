@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashSet;
+import java.util.Vector;
 
 import org.schwering.evi.util.ExceptionDialog;
 
@@ -23,7 +23,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * # (And thus must be in the classpath when starting the application)
  * org.schwering.evi.modules.BlaModule
  * </pre><br>
- * Because internally a <code>HashSet</code> is used, no URL is stored twice.
+ * No URL is stored twice.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
@@ -49,7 +49,7 @@ public abstract class ModuleConfiguration {
 		MODULES_CONFIG_FILE = moduleFile;
 	}
 	
-	private static HashSet list = new HashSet();
+	private static Vector list = new Vector();
 	
 	/**
 	 * No instances allowed/useful.
@@ -178,8 +178,10 @@ public abstract class ModuleConfiguration {
 	 */
 	public static void addURL(String s) throws MalformedURLException {
 		if (s != null) {
-			URL url = new URL(s); 
-			list.add(url);
+			URL url = new URL(s);
+			if (!list.contains(url)) {
+				list.add(url);
+			}
 		}
 	}
 
@@ -188,7 +190,7 @@ public abstract class ModuleConfiguration {
 	 * @param url The URL.
 	 */
 	public static void addURL(URL url) {
-		if (url != null) {
+		if (url != null && !list.contains(url)) {
 			list.add(url);
 		}
 	}
@@ -198,7 +200,7 @@ public abstract class ModuleConfiguration {
 	 * @param s The classname of the class.
 	 */
 	public static void addClassName(String s) {
-		if (s != null) {
+		if (s != null && !list.contains(s)) {
 			list.add(s);
 		}
 	}

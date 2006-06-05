@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.JarURLConnection;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -247,8 +249,10 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * Returns an array of the loaded modules.
-	 * @return An array containing all loaded modules.
+	 * Returns a sorted array of the loaded modules. It is sorted by the 
+	 * module's priorities, i.e. the returned array represents the 
+	 * order in which the modules were loaded.
+	 * @return A sorted array containing all loaded modules.
 	 */
 	public static ModuleContainer[] getLoadedModules() {
 		Vector list = new Vector();
@@ -258,6 +262,20 @@ public final class ModuleLoader extends URLClassLoader {
 		}
 		ModuleContainer[] arr = new ModuleContainer[list.size()];
 		list.toArray(arr);
+		Comparator comparator = new Comparator() {
+			public int compare(Object o1, Object o2) {
+				ModuleContainer m1 = (ModuleContainer)o1;
+				ModuleContainer m2 = (ModuleContainer)o2;
+				if (m1.getPriority() < m2.getPriority()) {
+					return -1;
+				} else if (m1.getPriority() == m2.getPriority()) {
+					return 0;
+				} else {
+					return 1;
+				}
+			}
+		};
+		Arrays.sort(arr, comparator);
 		return arr;
 	}
 	
