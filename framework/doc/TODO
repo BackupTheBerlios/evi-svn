@@ -1,9 +1,12 @@
+2006-06-05:
+    Improve priorities!
+
+2006-06-04:
+    Java Web Start is very nice, but doesn't load the evi.jar classes
+    properly? The org.schwering.evi.core.IModuleInfo interface for 
+    example is not properly loaded globally and therefore loading a 
+    module results in a ClassNotFoundException because it implements 
+    this class.
+
 2006-06-01:
     Fix HTMLPane error pages. Document.getElement does not work?!
-
-2006-05-27:
-    Introduce priorities for IButtonable, IMenuable [and IApplet?].
-    Additional interfaces?
-    Random order of buttons/menus results from Hashtable in ModuleLoader.
-    ModuleLoader could tell each ModuleContainer its index and this 
-    index (in the loaded-module-row) could be used as priority, too.
