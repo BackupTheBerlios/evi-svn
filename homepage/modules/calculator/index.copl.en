@@ -1,8 +1,9 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=Calculator=
+TITLE=EVI Calculator
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() Calculator=
 
 I'd really like to write a calculator. 
 

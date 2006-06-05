@@ -1,11 +1,8 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=evi() Module Dummy Site=
+TITLE=EVI Calendar
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() Calendar=
 
-Hi,
-
-this will be the homepage of an evi() module.
-
-Bye
+A nice simply useless calendar.

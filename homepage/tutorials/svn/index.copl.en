@@ -1,9 +1,9 @@
 TITLE=Eclipse + SVN Tutorial
-MACROS=macros.copl
-STYLE=style.css
-=Eclipse + SVN Tutorial=
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> ]
+=Eclipse + SVN Tutorial=
 
 ==What Is Eclipse?==
 Eclipse is a great integrated development environment (IDE), especially for Java.

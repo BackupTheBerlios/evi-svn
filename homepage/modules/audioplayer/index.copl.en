@@ -1,7 +1,8 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=Audioplayer=
+TITLE=EVI Audioplayer
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() Audioplayer=
 
 There seems to be a nice <!url http://www.javazoom.net/javalayer/javalayer.html MP3 library> out there. Check it out. Audio player would be very very great.

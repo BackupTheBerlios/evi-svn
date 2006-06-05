@@ -1,8 +1,9 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=TicTacToe=
+TITLE=EVI TicTacToe
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() TicTacToe=
 
 TicTacToe is the simply game with a 3x3 board and two players both trying to get three fields in a row.
 

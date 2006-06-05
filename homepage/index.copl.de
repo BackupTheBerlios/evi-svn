@@ -4,11 +4,9 @@ HEADER=header.html.de
 FOOTER=footer.html
 
 =Was ist evi()?=
-evi() ist ein Framework. Es ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
+evi() ist ein Framework. Es  steht unter der GNU GPL, ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
 Es sollen Module für **Internet Kommunikation**, **Unterhaltung** und andere **Tools** geschrieben werden.
 Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
-
-evi() ist Freie Software und steht unter der GNU GPL. evi() ist in Java geschrieben und baut auf dem Swing Toolkit auf.
 
 Das ist im großen und ganzen nichts neues, es gibt ja schon ICQ- und IRC-Clients und so. Wir wollen diese Dinger alle unter ein Dach bringen. Das Ergebnis soll eine plattformunabhängige Basis-Anwendung sein, mit der man alltägliche und einfache Aufgaben erledigt.
 

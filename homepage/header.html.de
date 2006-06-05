@@ -2,16 +2,18 @@
 <html>
 <head>
 <title>EVI Framework</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="index.html.de" class="red">Was ist EVI?</a></li>
-		<li><a href="download.html.de" class="blue">Download</a></li>
-		<li><a href="development.html.de" class="yellow">Entwicklung</a></li>
+		<li><a href="/index.html.de" class="red">Was ist EVI?</a></li>
+		<li><a href="/download.html.de" class="blue">Download</a></li>
+		<li><a href="/development.html.de" class="yellow">Entwicklung</a></li>
 		</ul>
 	</div>
-	<div id="lang"><a href="index.html.en">English</a></div>
+	<div id="lang">
+		<a href="index.html.en" style="border: 0"><img src="/en.jpg" style="border: 0;" alt="English" /></a>
+	</div>
 	<div id="text">

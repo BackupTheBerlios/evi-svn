@@ -1,8 +1,10 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=IRC=
+TITLE=EVI IRC
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() IRC=
+
 
 The IRC module will depend on <!url http://moepii.sourceforge.net IRClib> and probably parts of the moepII code. However, I'm not gonna copy moepII because I'd like to improve things like support for colored text (these fucking mIRC colors) and ordered nick lists.
 

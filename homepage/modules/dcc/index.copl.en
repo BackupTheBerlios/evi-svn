@@ -1,7 +1,8 @@
-TITLE=EVI DCC Module
-MACROS=macros.copl
-=DCC=
+TITLE=EVI DCC
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() DCC=
 
 Well, DCC needs to be supported for file transfers via IRC. DCC will not be integrated into IRC directly but as "extending" module for the IRC module.

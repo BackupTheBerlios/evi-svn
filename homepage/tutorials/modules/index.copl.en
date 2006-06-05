@@ -1,9 +1,9 @@
 TITLE=EVI Module Development Tutorial
-MACROS=macros.copl
-STYLE=style.css
-=evi() Module Development Tutorial=
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> ]
+=evi() Module Development Tutorial=
 
 ==What Is evi()?==
 evi() is a Framework. This means it can load modules. It does nothing more and nothing less.

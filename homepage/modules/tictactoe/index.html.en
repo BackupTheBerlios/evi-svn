@@ -1,10 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head><title>EVI Module Dummy Site</title></head><body>
-<a name="TicTacToe"></a>
-<h1>TicTacToe</h1>
-<p>
-[ <a href="index.html.en">English</a> | <a href="index.html.de">Deutsch</a> | <a href="../../"><b><font color="#ff0000">E</font><font color="#0000ff">V</font><font color="#ffff00">I</font></b></a> ]
-</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>EVI Framework</title>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<div id="main">
+	<div id="navi">
+		<ul>
+		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
+		<li><a href="/download.html.en" class="blue">Download</a></li>
+		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		</ul>
+	</div>
+	<div id="lang">
+		<a href="index.html.de" style="border: 0"><img src="/de.jpg" style="border: 0;" alt="Deutsch" /></a>
+	</div>
+	<div id="text">
+<a name="EVI_TicTacToe"></a>
+<h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> TicTacToe</h1>
 <p>
 TicTacToe is the simply game with a 3x3 board and two players both trying to get three fields in a row.
 </p>
@@ -23,4 +37,14 @@ I'm gonna rewrite it, however, because I want TicTacToe to support the following
 <p>
 For the multiplayer stuff we just need an interface and the respective implementations.
 </p>
-</body></html>
+	</div>
+</div>
+<br style="clear: both;" />
+
+
+<div style="text-align: center;">
+	<a style="padding-right: 50px;" href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
+	<a style="padding-left: 50px;" href="http://copl.sourceforge.net">Written in COPL.</a>
+</div>
+</body>
+</html>

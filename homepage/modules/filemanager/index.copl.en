@@ -1,11 +1,8 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=evi() Module Dummy Site=
+TITLE=EVI Filemanager
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=evi() Filemanager=
 
-Hi,
-
-this will be the homepage of an evi() module.
-
-Bye
+I dislike the Linux filemanagers.
