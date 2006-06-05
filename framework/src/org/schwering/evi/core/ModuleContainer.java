@@ -424,14 +424,14 @@ public final class ModuleContainer {
 	
 	/**
 	 * Returns <code>true</code> if the ModuleInfoClass implements 
-	 * <code>IURLHandler</code>.
+	 * <code>IURIHandler</code>.
 	 * @return <code>true</code> if the ModuleInfoClass implements 
-	 * <code>IURLHandler</code>.
-	 * @see IURLHandler
-	 * @see #handlesURL(String)
+	 * <code>IURIHandler</code>.
+	 * @see IURIHandler
+	 * @see #handlesURI(String)
 	 */
-	public boolean isURLHandler() {
-		return info != null && info instanceof IURLHandler;
+	public boolean isURIHandler() {
+		return info != null && info instanceof IURIHandler;
 	}
 	
 	/**
@@ -439,14 +439,14 @@ public final class ModuleContainer {
 	 * @param protocol The protocol which is to check.
 	 * @return <code>true</code> if <code>protocol</code> is a registered 
 	 * protocol for this module.
-	 * @see IURLHandler#getProtocols()
-	 * @see #isURLHandler()
+	 * @see IURIHandler#getProtocols()
+	 * @see #isURIHandler()
 	 */
-	public boolean handlesURL(String protocol) {
-		if (!isURLHandler()) {
+	public boolean handlesURI(String protocol) {
+		if (!isURIHandler()) {
 			return false;
 		}
-		String[] protocols = ((IURLHandler)info).getProtocols();
+		String[] protocols = ((IURIHandler)info).getProtocols();
 		if (protocol == null || protocols == null) {
 			return false;
 		}

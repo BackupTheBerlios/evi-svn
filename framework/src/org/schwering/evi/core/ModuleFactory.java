@@ -1,7 +1,7 @@
 package org.schwering.evi.core;
 
 import java.lang.reflect.Constructor;
-import java.net.URL;
+import java.net.URI;
 
 /**
  * Provides methods to instantiate and dispose a module.<br>
@@ -75,9 +75,9 @@ public final class ModuleFactory {
 	 * be instantiated without arguments using 
 	 * {@link IModuleInfo#newInstance()}. </li>
 	 * <li> If <code>args</code> has just one element and if this element is an 
-	 * instance of <code>java.net.URL</code> and if the module is a URL 
+	 * instance of <code>java.net.URI</code> and if the module is a URI 
 	 * handler, the instance is created using the method 
-	 * {@link IURLHandler#newInstance(URL)}. </li>
+	 * {@link IURIHandler#newInstance(URI)}. </li>
 	 * <li> Otherwise, if the module is parameterizable, the <code>args</code> 
 	 * are passed to the module using the 
 	 * {@link IParameterizable#newInstance(Object[])} method. </li>
@@ -113,10 +113,10 @@ public final class ModuleFactory {
 				if (args == null) {
 					object = info.newInstance();
 				} else if (args.length == 1 
-						&& args[0] instanceof URL
-						&& module.isURLHandler()) {
-					URL url = (URL)args[0];
-					object = ((IURLHandler)info).newInstance(url);
+						&& args[0] instanceof URI
+						&& module.isURIHandler()) {
+					URI uri = (URI)args[0];
+					object = ((IURIHandler)info).newInstance(uri);
 				} else if (module.isParameterizable()) {
 					object = ((IParameterizable)info).newInstance(args);
 				} else {
@@ -135,8 +135,8 @@ public final class ModuleFactory {
 						}
 					}
 					msg.append("Module information:\n");
-					msg.append("\tURLHandler: ");
-					msg.append((module.isURLHandler()) ? "yes" : "no");
+					msg.append("\tURIHandler: ");
+					msg.append((module.isURIHandler()) ? "yes" : "no");
 					msg.append("\n");
 					msg.append("\tParameterizable: ");
 					msg.append((module.isParameterizable()) ? "yes" : "no");

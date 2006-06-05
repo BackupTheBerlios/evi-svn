@@ -1,15 +1,15 @@
 package org.schwering.evi.core;
 
-import java.net.URL;
+import java.net.URI;
 
 /**
- * ModuleInfoClass interface for URL-handling-capable modules.<br>
+ * ModuleInfoClass interface for URI-handling-capable modules.<br>
  * <br>
- * Modules that know how to handle specific URLs should implement this 
+ * Modules that know how to handle specific URIs should implement this 
  * interface.<br>
  * <br>
  * For example, it makes sense that a webbrowser-module identifies 
- * itself as URL handler for the "http" protocol. This enables EVI to start 
+ * itself as URI handler for the "http" protocol. This enables EVI to start 
  * the webbrowser-module when it finds http-URLs in the command line 
  * arguments.
  * @see ModuleLoader
@@ -18,7 +18,7 @@ import java.net.URL;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public interface IURLHandler extends IModuleInfo {
+public interface IURIHandler extends IModuleInfo {
 	/**
 	 * Must create a new instance of the ModuleClass.<br>
 	 * <br>
@@ -35,16 +35,14 @@ public interface IURLHandler extends IModuleInfo {
 	 * @param url The URL that should be handled.
 	 * @return The newly created module instance as <code>IModule</code>.
 	 */
-	public IModule newInstance(URL url);
+	public IModule newInstance(URI url);
 	
 	/**
-	 * Should return an array of protocols. For example, a webbrowser-mdoule 
-	 * might return <code>new String[] { "http", https" }</code> to notify 
-	 * EVI that it is able to deal with the HTTP and HTTPS protocols.<br>
-	 * <br>
-	 * The returned protocol-identifiers need to be the same like the 
-	 * protocol-part in a URL (the part before the "://").
-	 * @return An array containing the URLs this method can handle.
+	 * Should return an array of protocols or schemes. For example, a 
+	 * webbrowser-mdoule might return 
+	 * <code>new String[] { "http", https" }</code> to notify EVI that it is 
+	 * able to deal with the HTTP and HTTPS protocols.<br>
+	 * @return An array containing the schemes this method can handle.
 	 */
 	public String[] getProtocols();
 }
