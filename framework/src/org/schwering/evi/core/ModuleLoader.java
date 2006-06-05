@@ -178,22 +178,25 @@ public final class ModuleLoader extends URLClassLoader {
 	}
 	
 	/**
-	 * Loads a one-class-module. The module has plain settings, this means 
-	 * it cannot be buttonable nor menuable nor configurable. However, 
-	 * of course it can implement <code>IApplet</code> and/or 
-	 * <code>IPanel</code>.<br>
+	 * Loads a module directly from the classpath. It does not have to be 
+	 * in a seperate JAR but it must be accessible in the classpath.<br>
 	 * The method also fires the 	 
 	 * {@link IModuleLoaderListener#loaded(ModuleContainer)} event.
-	 * @param moduleClassName The classname: <code>my.package.Class</code>
+	 * @param moduleInfoClassName The classname modules 
+	 * {@link IModuleInfo} class
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
 	 */
-	public static ModuleContainer load(String moduleClassName) 
+	public static ModuleContainer load(String moduleInfoClassName) 
 	throws ModuleLoaderException {
 		try {
-			Class moduleClass = Class.forName(moduleClassName);
-			ModuleContainer container = new ModuleContainer(moduleClass);
-			container.setSource(moduleClassName);
+			Class moduleInfoClass = Class.forName(moduleInfoClassName);
+			Object object = moduleInfoClass.newInstance();
+			IModuleInfo moduleInfo = (IModuleInfo)object;
+			
+			ModuleContainer container = new ModuleContainer(moduleInfo);
+			container.setSource(moduleInfoClassName);
+			
 			String id = container.getId();
 			if (!isLoaded(id)) {
 				table.put(id, container);
