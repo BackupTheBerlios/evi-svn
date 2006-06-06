@@ -1,5 +1,11 @@
+schwering@gmail.com 2006-06-06
+	EVI 1.0, release candidate 1. Some things are still missing, like an 
+	icon and nice error pages in HTMLPane, but the functionality should 
+	be complete. Currently, no additions are planned.
+	It's time to write modules.
+
 schwering@gmail.com 2006-05-26
-    Completed framework with a major revision of org.schwering.evi.core.
+	Completed framework with a major revision of org.schwering.evi.core.
 
 schwering@gmail.com 2006-05-07
 	Mike's Pong just ran for the first time. It's the first real running 

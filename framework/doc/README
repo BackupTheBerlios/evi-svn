@@ -1,3 +1,9 @@
+Version
+-------
+This is EVI 1.0 release candidate 1. Some minor things are not yet done.
+This is not such a "huge" release as the 1.0 might suggest, remember the "rc1".
+So there probably follow some other release candidates.
+
 Description
 -----------
 EVI is a modular everything-capable Java application. The focus is supporting 

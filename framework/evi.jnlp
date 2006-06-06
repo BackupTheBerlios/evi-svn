@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<jnlp spec="1.0+" codebase="file:/home/chs/java/evi/framework/" href="evi.jnlp">
+<jnlp spec="1.0+" codebase="file:./" href="evi.jnlp">
   <information>
     <title>EVI</title>
     <vendor>Christoph Schwering</vendor>
