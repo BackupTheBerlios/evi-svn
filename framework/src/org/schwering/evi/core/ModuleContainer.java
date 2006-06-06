@@ -236,6 +236,16 @@ public final class ModuleContainer {
 	}
 	
 	/**
+	 * Sets a new module priority which has the effect that the position 
+	 * of the module in <code>ModuleLoader.getLoadedModules</code> 
+	 * changes.
+	 * @param priority The new priority.
+	 */
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	
+	/**
 	 * Returns the module's priority in the module hierarchy.
 	 * The first loaded module has the priority 0, the second 1 etc.<br>
 	 * <br>

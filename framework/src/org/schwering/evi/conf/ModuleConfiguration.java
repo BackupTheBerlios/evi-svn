@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
+import org.schwering.evi.core.ModuleContainer;
+import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
 
 /**
@@ -115,13 +117,9 @@ public abstract class ModuleConfiguration {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new FileWriter(MODULES_CONFIG_FILE));
-			URL[] urls = getURLs();
-			for (int i = 0; i < urls.length; i++) {
-				pw.println(urls[i].toString());
-			}
-			String[] classNames = getClassNames();
-			for (int i = 0; i < classNames.length; i++) {
-				pw.println(classNames[i].toString());
+			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
+			for (int i = 0; i < containers.length; i++) {
+				pw.println(containers[i].getSource().toString());
 			}
 		} catch (Exception exc) {
 			ExceptionDialog.show("Saving modules-config failed", exc);

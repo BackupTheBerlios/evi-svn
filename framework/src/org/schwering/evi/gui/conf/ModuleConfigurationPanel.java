@@ -32,7 +32,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.table.AbstractTableModel;
 
 import org.schwering.evi.conf.MainConfiguration;
-import org.schwering.evi.conf.ModuleConfiguration;
 import org.schwering.evi.core.IModuleLoaderListener;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
@@ -97,6 +96,53 @@ implements IPanel {
 		super(new BorderLayout());
 		add(inputPanel, BorderLayout.NORTH);
 		add(tablePanel, BorderLayout.CENTER);
+		add(getButtonPanel(), BorderLayout.SOUTH);
+	}
+	
+	public JPanel getButtonPanel() {
+		JPanel p = new JPanel(new GridLayout(0, 3));
+		JButton remove = new JButton(Messages.getString("ModuleConfigurationPanel.REMOVE")); //$NON-NLS-1$
+		remove.setToolTipText(Messages.getString("ModuleConfigurationPanel.REMOVE_TOOLTIP")); //$NON-NLS-1$
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTable table = tablePanel.getTable();
+				int[] selected = table.getSelectedRows();
+				for (int i = selected.length - 1; i >= 0; i--) {
+					String id = (String)table.getModel().getValueAt(selected[i], 1);
+					ModuleLoader.unload(id);
+				}
+			}
+		});
+		JButton shiftUp = new JButton(Messages.getString("ModuleConfigurationPanel.UP")); //$NON-NLS-1$
+		shiftUp.setToolTipText(Messages.getString("ModuleConfigurationPanel.UP_TOOLTIP")); //$NON-NLS-1$
+		shiftUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTable table = tablePanel.getTable();
+				int[] selected = table.getSelectedRows();
+				for (int i = 0; i < selected.length; i++) {
+					tablePanel.getModel().swap(selected[i]-1, selected[i]);
+				}
+				table.setRowSelectionInterval(selected[0] - 1, 
+						selected[selected.length-1] - 1);
+			}
+		});
+		JButton shiftDown = new JButton(Messages.getString("ModuleConfigurationPanel.DOWN")); //$NON-NLS-1$
+		shiftDown.setToolTipText(Messages.getString("ModuleConfigurationPanel.DOWN_TOOLTIP")); //$NON-NLS-1$
+		shiftDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTable table = tablePanel.getTable();
+				int[] selected = table.getSelectedRows();
+				for (int i = selected.length - 1; i >= 0; i--) {
+					tablePanel.getModel().swap(selected[i], selected[i]+1);
+				}
+				table.setRowSelectionInterval(selected[0] + 1, 
+						selected[selected.length-1] + 1);
+			}
+		});
+		p.add(remove);
+		p.add(shiftUp);
+		p.add(shiftDown);
+		return p;
 	}
 	
 	/* (non-Javadoc)
@@ -127,7 +173,7 @@ implements IPanel {
 		instanceCount--;
 		if (instanceCount == 0) {
 			instance = null;
-			IModuleLoaderListener l = (IModuleLoaderListener)tablePanel.model;
+			IModuleLoaderListener l = (IModuleLoaderListener)tablePanel.getModel();
 			ModuleLoader.removeListener(l);
 		}
 	}
@@ -224,7 +270,6 @@ implements IPanel {
 								urlAddButton.setEnabled(false);
 								enableProgressBar();
 								ModuleLoader.load(url);
-								ModuleConfiguration.addURL(url);
 							} catch (Exception exc) {
 								ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.COULD_NOT_LOAD_MODULE"),  //$NON-NLS-1$
 										exc);
@@ -300,7 +345,6 @@ implements IPanel {
 							try {
 								String className = classNameTextField.getText();
 								ModuleLoader.load(className);
-								ModuleConfiguration.addClassName(className);
 							} catch (Exception exc) {
 								ExceptionDialog.show(Messages.getString("ModuleConfigurationPanel.COULD_NOT_LOAD_MODULE"),  //$NON-NLS-1$
 										exc);
@@ -395,6 +439,7 @@ implements IPanel {
 	class TablePanel extends JPanel {
 		private static final long serialVersionUID = 6389410631669650830L;
 		private TableModel model = new TableModel();
+		private JTable table = new JTable(model);
 
 		/**
 		 * Draws a table with all modules, their version and their requirements.
@@ -402,7 +447,6 @@ implements IPanel {
 		 */
 		public TablePanel() {
 			super(new GridLayout(1, 0));
-			final JTable table = new JTable(model);
 			table.getColumnModel().getColumn(0).setPreferredWidth(150);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
 			table.getColumnModel().getColumn(2).setPreferredWidth(10);
@@ -412,13 +456,11 @@ implements IPanel {
 
 			final JPopupMenu rightClickMenu = new JPopupMenu();
 			JMenuItem removeItem = new JMenuItem(Messages.getString("ModuleConfigurationPanel.REMOVE")); //$NON-NLS-1$
-			removeItem.addActionListener(new java.awt.event.ActionListener() {
+			removeItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
 					for (int i = selected.length - 1; i >= 0; i--) {
-						Object source = table.getModel().getValueAt(selected[i], 0);
 						String id = (String)table.getModel().getValueAt(selected[i], 1);
-						ModuleConfiguration.remove(source);
 						ModuleLoader.unload(id);
 					}
 				}
@@ -444,6 +486,14 @@ implements IPanel {
 			});
 			JScrollPane scrollPane = new JScrollPane(table);
 			add(scrollPane);
+		}
+		
+		public JTable getTable() {
+			return table;
+		}
+		
+		public TableModel getModel() {
+			return model;
 		}
 	}	
 	
@@ -501,6 +551,22 @@ implements IPanel {
 			int i = modules.indexOf(unloadedModule);
 			modules.remove(unloadedModule);
 			fireTableRowsDeleted(i, i);
+		}
+		
+		
+		public void swap(int i, int j) {
+			if (i < 0 || j < 0 || i >= modules.size() || j >= modules.size()) {
+				return;
+			}
+			ModuleContainer m1 = (ModuleContainer)modules.get(i);
+			ModuleContainer m2 = (ModuleContainer)modules.get(j);
+			int priority1 = m1.getPriority();
+			int priority2 = m2.getPriority();
+			m1.setPriority(priority2);
+			m2.setPriority(priority1);
+			modules.set(i, m2);
+			modules.set(j, m1);
+			fireTableRowsUpdated(i, j);
 		}
 
 		/* (non-Javadoc)
