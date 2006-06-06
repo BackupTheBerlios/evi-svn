@@ -25,9 +25,9 @@ public class HelloWorld extends JPanel implements IModule, IPanel {
 	public HelloWorld(String s) {
 		JLabel label = new JLabel(s);
 		label.setForeground(Color.YELLOW);
-		label.setBackground(MainConfiguration.getColor("color.secondary"));
-		label.setFont(MainConfiguration.getFont("font.primary"));
-		setBackground(MainConfiguration.getColor("color.secondary"));
+		label.setBackground(MainConfiguration.PROPS.getColor("color.secondary"));
+		label.setFont(MainConfiguration.PROPS.getFont("font.primary"));
+		setBackground(MainConfiguration.PROPS.getColor("color.secondary"));
 		add(label);
 	}
 	
