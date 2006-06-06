@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Locale;
 
+import org.schwering.evi.util.Base64;
 import org.schwering.evi.util.Util;
 
 /**
@@ -183,6 +184,45 @@ public class Properties extends java.util.Properties {
 	 */
 	public void setString(String key, String value) {
 		setProperty(key, value);
+	}
+	
+	/**
+	 * Grabs a <code>String</code> out of the configuration and decodes it with 
+	 * Base64.<br>
+	 * Default value is <code>""</code>.
+	 * @param key The key.
+	 * @return The String.
+	 */
+	public String getBase64String(String key) {
+		return getBase64String(key, "");
+	}
+	
+	/**
+	 * Grabs a <code>String</code> out of the configuration and decodes it with 
+	 * Base64.<br>
+	 * If the requested value does not exist, a new property with the key and 
+	 * the default value is set.
+	 * @param key The key.
+	 * @param def The default value.
+	 * @return The String.
+	 */
+	public String getBase64String(String key, String def) {
+		String ret = getProperty(key, null);
+		if (ret != null) {
+			return Base64.decode(ret);
+		} else {
+			setBase64String(key, def);
+			return def;
+		}
+	}
+	
+	/**
+	 * Sets a new property after encoding it with Base64.
+	 * @param key The key.
+	 * @param value The value.
+	 */
+	public void setBase64String(String key, String value) {
+		setProperty(key, Base64.encode(value));
 	}
 	
 	/**

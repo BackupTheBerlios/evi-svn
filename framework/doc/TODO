@@ -1,6 +1,2 @@
-2006-06-06:
-    Implement Base64 and offer setPassword/getPassword options in 
-    configuration.
-
 2006-06-01:
     Fix HTMLPane error pages. Document.getElement does not work?!
