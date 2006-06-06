@@ -71,6 +71,7 @@ public abstract class MainConfiguration {
 					"This will result in many other errors :-(", exc);
 		}
 		PROPS = tmp;
+		PROPS.setShutdownHook(true);
 	}
 	
 	/**
