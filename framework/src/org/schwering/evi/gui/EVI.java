@@ -98,7 +98,7 @@ public class EVI {
 		
 		progress.update(5, "Configuration: Loading..."); //$NON-NLS-1$
 		try {
-			MainConfiguration.load();
+			MainConfiguration.PROPS.load();
 		} catch (Exception exc) {
 			ExceptionDialog.show("Unexcepted exception caught while loading",  //$NON-NLS-1$
 					exc);
@@ -356,8 +356,8 @@ public class EVI {
 	 */
 	private void initMainFrame() {
 		frame = MainFrame.getInstance();
-		if (MainConfiguration.getBoolean("app.sayhello")) { //$NON-NLS-1$
-			MainConfiguration.setBoolean("app.sayhello", false); //$NON-NLS-1$
+		if (MainConfiguration.PROPS.getBoolean("app.sayhello")) { //$NON-NLS-1$
+			MainConfiguration.PROPS.setBoolean("app.sayhello", false); //$NON-NLS-1$
 			frame.getMainTabBar().addTab(HelloWorldPanel.getInstance());
 		}
 		setSize();
@@ -383,7 +383,7 @@ public class EVI {
 	 */
 	private void setLookAndFeel() {
 		try {
-			String laf = MainConfiguration.getString("gui.lookandfeel",  //$NON-NLS-1$
+			String laf = MainConfiguration.PROPS.getString("gui.lookandfeel",  //$NON-NLS-1$
 					Util.getLookAndFeel());
 			Util.setLookAndFeel(laf);
 		} catch (Exception exc) {
@@ -398,8 +398,8 @@ public class EVI {
 	 * Sets the size specified in the configuration.
 	 */
 	private void setSize() {
-		Point topleft = MainConfiguration.getPoint("gui.topleft", null); //$NON-NLS-1$
-		Dimension size = MainConfiguration.getDimension("gui.size", null); //$NON-NLS-1$
+		Point topleft = MainConfiguration.PROPS.getPoint("gui.topleft", null); //$NON-NLS-1$
+		Dimension size = MainConfiguration.PROPS.getDimension("gui.size", null); //$NON-NLS-1$
 		
 		if (size != null) {
 			frame.setSize(size);

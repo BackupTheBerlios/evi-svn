@@ -61,7 +61,7 @@ public class LanguageAdministrator {
 	 * @param c The <code>Messages</code>-class.
 	 */
 	private static void load(Class c) {
-		Locale locale = MainConfiguration.getLocale("app.lang");
+		Locale locale = MainConfiguration.PROPS.getLocale("app.lang");
 		Class[] argType = new Class[] { Locale.class };
 		Object[] argObject = new Object[] { locale };
 		try {

@@ -371,7 +371,7 @@ implements IPanel {
 			new Thread() {
 				public void run() {
 					try {
-						String strurl = MainConfiguration.getString("app.modulelist",  //$NON-NLS-1$
+						String strurl = MainConfiguration.PROPS.getString("app.modulelist",  //$NON-NLS-1$
 								MODULE_LIST_URL);
 						URL url = new URL(strurl);
 						InputStream is = url.openStream();

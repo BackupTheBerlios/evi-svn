@@ -86,11 +86,11 @@ public class MainFrame extends JFrame {
 			}
 			public void componentMoved(ComponentEvent arg0) {
 				Point p = new Point(getX(), getY()); 
-				MainConfiguration.setPoint("gui.topleft", p);
+				MainConfiguration.PROPS.setPoint("gui.topleft", p);
 			}
 			public void componentResized(ComponentEvent arg0) {
 				Dimension d = getSize();
-				MainConfiguration.setDimension("gui.size", d);
+				MainConfiguration.PROPS.setDimension("gui.size", d);
 			}
 			public void componentShown(ComponentEvent arg0) {
 			}

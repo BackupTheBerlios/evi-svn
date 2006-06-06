@@ -157,7 +157,7 @@ public class ExceptionDialog extends JFrame {
 	 * @return A panel which contains a scrollable table with the configuration.
 	 */
 	private JPanel getConfigurationPanel() {
-		String[] confKeys = MainConfiguration.getKeys();
+		String[] confKeys = MainConfiguration.PROPS.getKeys();
 		Arrays.sort(confKeys);
 		ModuleContainer[] modules = ModuleLoader.getLoadedModules(); 
 		String[] autoloadIds = ModuleAutoStartConfiguration.getIds();
@@ -168,7 +168,7 @@ public class ExceptionDialog extends JFrame {
 		for (int i = 0; i < confKeys.length; i++) {
 			String key = confKeys[i];
 			vars[i][0] = key;
-			vars[i][1] = MainConfiguration.getString(key);
+			vars[i][1] = MainConfiguration.PROPS.getString(key);
 		}
 		
 		int j = confKeys.length;

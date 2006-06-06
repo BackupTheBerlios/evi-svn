@@ -55,7 +55,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 * Creates a new tabbar.
 	 */
 	public TabBar() {
-		setTabPlacement(MainConfiguration.getInt("gui.tabs.placement", TOP)); //$NON-NLS-1$
+		setTabPlacement(MainConfiguration.PROPS.getInt("gui.tabs.placement", TOP)); //$NON-NLS-1$
 		
 		addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
