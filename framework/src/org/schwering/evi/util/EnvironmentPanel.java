@@ -55,7 +55,7 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 		vars[0][0] = "Program name";
 		vars[0][1] = EVI.TITLE;
 		vars[1][0] = "Program version";
-		vars[1][1] = String.valueOf(EVI.VERSION);
+		vars[1][1] = EVI.EXACT_VERSION;
 		for (int i = 0; i < sysLen; i++) {
 			vars[i+2][0] = keys[i];
 			vars[i+2][1] = sysProps.getProperty(keys[i]);

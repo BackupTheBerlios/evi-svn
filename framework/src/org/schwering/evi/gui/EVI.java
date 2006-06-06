@@ -33,9 +33,14 @@ public class EVI {
 	public static final String TITLE = "EVI"; //$NON-NLS-1$
 	
 	/**
+	 * The program's exact version number with all details.
+	 */
+	public static final String EXACT_VERSION = "1.0-rc1";
+	
+	/**
 	 * The program's version.
 	 */
-	public static final float VERSION = 0.1f;
+	public static final float VERSION = 1.0f;
 	
 	/**
 	 * The protocol name which makes EVI load a module.
