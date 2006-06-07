@@ -5,6 +5,9 @@ FOOTER=../../footer.html
 
 =evi() Module Development Tutorial=
 
+//Since org.schwering.evi.core.* was revised, this tutorial is totally out of date.//
+//__To put it in a nutshell:__ All information is now stored using the interface org.schwering.evi.core.IModuleInfo which stores meta-information and the interface org.schwering.evi.core.IModule which must be implemented by the class whose instance represents a module instance.//
+
 ==What Is evi()?==
 evi() is a Framework. This means it can load modules. It does nothing more and nothing less.
 evi() is written in Java using the Swing Toolkit. This means it is platform-independent.

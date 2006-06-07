@@ -3,12 +3,13 @@ MACROS=macros.copl
 HEADER=header.html.en
 FOOTER=footer.html
 
-=Resources=
-Here are some developer information. If you'd like to write an evi() module, you're very welcome :-).
+=Development=
+Here are some developer information. 
+If you'd like to write an evi() module, you're very welcome :-).
 
 ==SVN Repository==
-The main module is named "framework".
-	o <!url http://svn.berlios.de/viewcvs/evi Browse SVN via Webbrowser>
+The base directory "framework" contains the evi() framework. Each evi() module resides in an own base directory with an appropriate name.
+	o <!url http://svn.berlios.de/wsvn/evi Browse SVN with Webbrowser>
 	o Anonymous: svn checkout svn:\//svn.berlios.de/evi
 	o Anonymous: svn checkout http:\//svn.berlios.de/evi
 	o Developer: svn checkout svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
@@ -18,5 +19,5 @@ The main module is named "framework".
 	o <!url tutorials/modules/ Module Development Tutorial>
 	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
 	o <!url javadoc/ Javadocs>
-	o <!url modulelifecycle.png Module Lifecycle>
+	o <!url modulelifecycle.png Module Lifecycle> (PNG image)
 

@@ -4,14 +4,17 @@ HEADER=../../header.html.en
 FOOTER=../../footer.html
 
 =evi() IRC=
-
-
-The IRC module will depend on <!url http://moepii.sourceforge.net IRClib> and probably parts of the moepII code. However, I'm not gonna copy moepII because I'd like to improve things like support for colored text (these fucking mIRC colors) and ordered nick lists.
-
-The module also needs a very good configuration. For example, I'd like to have different "profiles". The user then could add "org.schwering.evi.modules.irc.IRC <profilename>" to his autostart so that the evi() would automatically connect to a specific IRC network at startup.
-
-
-The module needs to offer a good API for other modules like DCC and games. 
-
-It is important that modules like DCC can prevent the IRC module to display special kinds of messages as normal messages. I mean, the DCC module should check an incoming message for being a DCC command and, in this case, it should prevent IRC from displaying it.
-This can be realized with a listener system where priorities can be assigned by listeners.
+Brainstorming:
+	- based on <!url http://moepii.sourceforge.net IRClib>
+	- do it similar to <!url http://moepii.sourceforge.net moepII>, but better in details
+	- support mIRC color codes (JTextPane, DefaultStyledDocumet, StyleConstants)
+	- ordered nick list (sorting algorithm plus sorted-inserting)
+	- not just display nicknames but really recognize them as users (make use of IRCUser object, might be enough)
+	- provide good API for other modules such as
+		o games (provide a "play with..." option) (-> interfaces)
+		o file transfer (provide "send..." option) (-> interfaces)
+			* write simple PRIVMSG sender
+			* implement DCC file transfer (moepII DCC modules are buggy?)
+	- the API must provide a listener system which comes with "listener-priorities" so that an active DCC module can prevent the IRC module from printing a line
+	- display bunch of IRC networks where each consists of a number of servers (like mIRC and so on)
+	- let user create several profiles which can be selected for autostart

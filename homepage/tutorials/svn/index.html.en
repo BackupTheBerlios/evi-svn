@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -19,34 +19,36 @@
 	<div id="text">
 <a name="Eclipse_+_SVN_Tutorial"></a>
 <h1>Eclipse + SVN Tutorial</h1>
-<a name="What_Is_Eclipse?"></a>
-<h2>What Is Eclipse?</h2>
+<a name="What_is_Eclipse?"></a>
+<h2>What is Eclipse?</h2>
 <p>
 Eclipse is a great integrated development environment (IDE), especially for Java.<br />
 You can download it from <a href="http://www.eclipse.org">http://www.eclipse.org</a>.
 </p>
-<a name="What_Is_SVN?"></a>
-<h2>What Is SVN?</h2>
+<a name="What_is_SVN?"></a>
+<h2>What is SVN?</h2>
 <p>
-SVN is a version control system. Its homepage is located at <a href="http://subversion.tigris.org">http://subversion.tigris.org</a>.<br />
-There's a great SVN plugin for Eclipse, Subclipse. You visit Subclipse at <a href="http://subclipse.tigris.org">http://subclipse.tigris.org</a>.
+SVN, or Subversion, is a version control system. Its homepage is located at <a href="http://subversion.tigris.org">http://subversion.tigris.org</a>.<br />
+There's a great SVN plugin for Eclipse, its name is Subclipse. You can visit Subclipse at <a href="http://subclipse.tigris.org">http://subclipse.tigris.org</a>.
 </p>
-<a name="Install_Eclipse_And_Subclipse"></a>
-<h2>Install Eclipse And Subclipse</h2>
+<a name="Install_Eclipse_and_Subclipse"></a>
+<h2>Install Eclipse and Subclipse</h2>
 <p>
-Well, installing Eclipse is not that difficult. Otherwise, refer to the <a href="http://www.eclipse.org">Eclipse homepage</a> if you experience difficulties.
-</p>
-<p>
-After you installed Eclipse, you should create a new workspace for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>. This means that a folder is created which will create all <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> stuff. At the first startup, Eclipse asks you for a workspace. Otherwise click File -&gt; Switch workspace and choose a new one.
+Most Linux distributions should come with an Eclipse package. Windows users simply need to extract the ZIP file and double click the eclipse.exe.<br />
+If you experience difficulties, refer to the <a href="http://www.eclipse.org">Eclipse homepage</a>.
 </p>
 <p>
-Now you should install the Subclipse SVN plugin for Eclipse. Just follow the installation instructions at <a href="http://subclipse.tigris.org/install.html">http://subclipse.tigris.org/install.html</a>.
+After you've installed Eclipse, you should create a new workspace for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>. This means that a folder is created which will create all <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> stuff. At the first startup, Eclipse asks you for a workspace. Otherwise click File -&gt; Switch workspace and choose a new one (e.g. &quot;evi&quot;).
+</p>
+<p>
+Now you want to install the Subclipse SVN plugin for Eclipse. Just follow the installation instructions at <a href="http://subclipse.tigris.org/install.html">http://subclipse.tigris.org/install.html</a>.
 </p>
 <a name="Checkout_EVI"></a>
 <h2>Checkout <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b></h2>
 <p>
+Now it's almost done. The only thing you need to be happy is the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> source code. We're going to check it out from <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>'s SVN repository:<br />
 Click File -&gt; Import... -&gt; Project from SVN.<br />
-Then you will be prompted for the SVN access data. This depends on whether you are developer or not (anonymous). Choose the right SVN URL from the following ones:
+Then you will be prompted for the SVN access data. This depends on whether you are an <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> developer or not (yet). In the latter case you make use of the anonymous access. Choose the appropriate SVN URL from the following ones:
 </p>
 <ul style="list-style-type: circle;">
 <li>Anonymous: svn://svn.berlios.de/evi</li>
@@ -55,10 +57,11 @@ Then you will be prompted for the SVN access data. This depends on whether you a
 <li>Developer (HTTPS): https://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
 </ul>
 <p>
-When Subclipse asks you which folders it should checkout, you definitely should choose the &quot;framework&quot; folder which contains the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> framework source code.
+When Subclipse asks you which folders it should checkout, you definitely should choose the &quot;framework&quot; folder which contains the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> framework source code. <br />
+However, if you'd like to have a look at some <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> modules, you can select them, too. Each selected SVN folder will be registered as one Eclipse project in the workspace.
 </p>
-<a name="Create_An_Eclipse_Project"></a>
-<h2>Create An Eclipse Project</h2>
+<a name="Create_an_Eclipse_Project"></a>
+<h2>Create an Eclipse Project</h2>
 <p>
 If you want to create a new module, create a new project for it: File -&gt; New -&gt; Project -&gt; Java Project.
 </p>
@@ -66,14 +69,19 @@ If you want to create a new module, create a new project for it: File -&gt; New 
 Your <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> module will require the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> framework anywhere. 
 </p>
 <ul style="list-style-type: circle;">
-<li>I recommend that you checked out the framework via SVN before. Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Projects -&gt; Add... -&gt; select &quot;framework&quot;.</li>
-<li>If you don't have a working copy of the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> framework, you need the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> JAR. Then create your module project in Eclipse. Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Libraries -&gt; Add External JARs... -&gt; select your copy of the &quot;evi.jar&quot;.</li>
+<li>I recommend that you checked out the framework via SVN before (as discussed above). Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Projects -&gt; Add... -&gt; select &quot;framework&quot;.</li>
+<li>Otherwise, if you don't have a working copy of the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> framework, you need the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> JAR. Then create your module project in Eclipse. Then right click on the newly created project -&gt; Properties -&gt; Java Build Path -&gt; Libraries -&gt; Add External JARs... -&gt; select your copy of the &quot;evi.jar&quot;.</li>
 </ul>
-<a name="Where_Are_Update_And_Commit?"></a>
-<h2>Where Are Update And Commit?</h2>
+<a name="Where_are_Update_and_Commit?"></a>
+<h2>Where are Update and Commit?</h2>
 <p>
-You can find the SVN options under right click on the project -&gt; Team.
+You can find the SVN options under right click on the project -&gt; Team.<br />
+The core options:
 </p>
+<ul style="list-style-type: circle;">
+<li>&quot;Update&quot; reloads files that have been changed on the server by other developers in the meantime.</li>
+<li>&quot;Commit&quot; makes your changes of the code public.</li>
+</ul>
 	</div>
 </div>
 <br style="clear: both;" />

@@ -8,27 +8,28 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.de" class="red">Was ist EVI?</a></li>
-		<li><a href="/download.html.de" class="blue">Download</a></li>
-		<li><a href="/development.html.de" class="yellow">Entwicklung</a></li>
+		<li><a href="/index.html.de" class="red">Was ist EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.de" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.de" class="yellow">Entwicklung <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
 		<a href="index.html.en" style="border: 0"><img src="/en.jpg" style="border: 0;" alt="English" /></a>
 	</div>
 	<div id="text">
-<a name="Resourcen"></a>
-<h1>Resourcen</h1>
+<a name="Entwicklung"></a>
+<h1>Entwicklung</h1>
 <p>
-Hier ein paar Entwickler-Informationen. Wenn jemand ein <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> Modul schreiben will, w&auml;r das nat&uuml;rlich ne dolle Sache.
+Hier ein paar Entwickler-Informationen. <br />
+Wenn jemand ein <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> Modul schreiben will, w&auml;r das nat&uuml;rlich ne dolle Sache.
 </p>
 <a name="SVN_Repository"></a>
 <h2>SVN Repository</h2>
 <p>
-Das Modul des <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> Frameworks hei&szlig;t &quot;framework&quot;.
+Im Basisverzeichnis &quot;framework&quot; liegt das <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>-Framework; jedes <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>-Modul ist in einem weiteren, eigenen Basisverzeichnis.
 </p>
 <ul style="list-style-type: circle;">
-<li><a href="http://svn.berlios.de/viewcvs/evi">Browse SVN via Webbrowser</a></li>
+<li><a href="http://svn.berlios.de/wsvn/evi">Repository mit Webbrowser angucken</a></li>
 <li>Anonym: svn checkout svn://svn.berlios.de/evi</li>
 <li>Anonym: svn checkout http://svn.berlios.de/evi</li>
 <li>Entwickler: svn checkout svn+ssh://&lt;developername&gt;@svn.berlios.de/svnroot/repos/evi</li>
@@ -40,7 +41,7 @@ Das Modul des <b><span style="color: #ff0000;">E</span><span style="color: #0000
 <li><a href="tutorials/modules/">Module-Entwicklungs-Tutorial</a></li>
 <li><a href="tutorials/svn/">Eclipse+SVN-Tutorial</a></li>
 <li><a href="javadoc/">Javadocs</a></li>
-<li><a href="modulelifecycle.png">Module Lebenszyklus</a></li>
+<li><a href="modulelifecycle.png">Modul-Lebenszyklus</a> (PNG-Grafik)</li>
 </ul>
 	</div>
 </div>

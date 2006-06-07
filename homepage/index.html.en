@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -30,10 +30,13 @@ The list of planned modules includes IRC and ICQ modules, games like Pong and to
 <p>
 You might notice that all components are no new inventions. What makes the difference is that we want to bring them all under one umbrella. The result should be a platform independent workbench for many simple but daily tasks.
 </p>
-<br />
+<a name="The_Name"></a>
+<h2>The Name</h2>
 <p>
 <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> is an acronym and means <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 </p>
+<a name="Contact"></a>
+<h2>Contact</h2>
 <p>
 And I'm Christoph Schwering (<a href="mailto:schwering@gmail.com">mailto:schwering@gmail.com</a>).
 </p>

@@ -5,36 +5,42 @@ FOOTER=../../footer.html
 
 =Eclipse + SVN Tutorial=
 
-==What Is Eclipse?==
+==What is Eclipse?==
 Eclipse is a great integrated development environment (IDE), especially for Java.
 You can download it from <!url http://www.eclipse.org>.
 
-==What Is SVN?==
-SVN is a version control system. Its homepage is located at <!url http://subversion.tigris.org>.
-There's a great SVN plugin for Eclipse, Subclipse. You visit Subclipse at <!url http://subclipse.tigris.org>.
+==What is SVN?==
+SVN, or Subversion, is a version control system. Its homepage is located at <!url http://subversion.tigris.org>.
+There's a great SVN plugin for Eclipse, its name is Subclipse. You can visit Subclipse at <!url http://subclipse.tigris.org>.
 
-==Install Eclipse And Subclipse==
-Well, installing Eclipse is not that difficult. Otherwise, refer to the <!url http://www.eclipse.org Eclipse homepage> if you experience difficulties.
+==Install Eclipse and Subclipse==
+Most Linux distributions should come with an Eclipse package. Windows users simply need to extract the ZIP file and double click the eclipse.exe.
+If you experience difficulties, refer to the <!url http://www.eclipse.org Eclipse homepage>.
 
-After you installed Eclipse, you should create a new workspace for evi(). This means that a folder is created which will create all evi() stuff. At the first startup, Eclipse asks you for a workspace. Otherwise click File -> Switch workspace and choose a new one.
+After you've installed Eclipse, you should create a new workspace for evi(). This means that a folder is created which will create all evi() stuff. At the first startup, Eclipse asks you for a workspace. Otherwise click File -> Switch workspace and choose a new one (e.g. "evi").
 
-Now you should install the Subclipse SVN plugin for Eclipse. Just follow the installation instructions at <!url http://subclipse.tigris.org/install.html>.
+Now you want to install the Subclipse SVN plugin for Eclipse. Just follow the installation instructions at <!url http://subclipse.tigris.org/install.html>.
 
 ==Checkout evi()==
+Now it's almost done. The only thing you need to be happy is the evi() source code. We're going to check it out from evi()'s SVN repository:
 Click File -> Import... -> Project from SVN.
-Then you will be prompted for the SVN access data. This depends on whether you are developer or not (anonymous). Choose the right SVN URL from the following ones:
+Then you will be prompted for the SVN access data. This depends on whether you are an evi() developer or not (yet). In the latter case you make use of the anonymous access. Choose the appropriate SVN URL from the following ones:
 	o Anonymous: svn:\//svn.berlios.de/evi
 	o Anonymous (HTTP): http:\//svn.berlios.de/evi
 	o Developer: svn+ssh:\//<developername>@svn.berlios.de/svnroot/repos/evi
 	o Developer (HTTPS): https:\//<developername>@svn.berlios.de/svnroot/repos/evi
-When Subclipse asks you which folders it should checkout, you definitely should choose the "framework" folder which contains the evi() framework source code.
+When Subclipse asks you which folders it should checkout, you definitely should choose the "framework" folder which contains the evi() framework source code. 
+However, if you'd like to have a look at some evi() modules, you can select them, too. Each selected SVN folder will be registered as one Eclipse project in the workspace.
 
-==Create An Eclipse Project==
+==Create an Eclipse Project==
 If you want to create a new module, create a new project for it: File -> New -> Project -> Java Project.
 
 Your evi() module will require the evi() framework anywhere. 
-	o I recommend that you checked out the framework via SVN before. Then right click on the newly created project -> Properties -> Java Build Path -> Projects -> Add... -> select "framework".
-	o If you don't have a working copy of the evi() framework, you need the evi() JAR. Then create your module project in Eclipse. Then right click on the newly created project -> Properties -> Java Build Path -> Libraries -> Add External JARs... -> select your copy of the "evi.jar".
+	o I recommend that you checked out the framework via SVN before (as discussed above). Then right click on the newly created project -> Properties -> Java Build Path -> Projects -> Add... -> select "framework".
+	o Otherwise, if you don't have a working copy of the evi() framework, you need the evi() JAR. Then create your module project in Eclipse. Then right click on the newly created project -> Properties -> Java Build Path -> Libraries -> Add External JARs... -> select your copy of the "evi.jar".
 
-==Where Are Update And Commit?==
+==Where are Update and Commit?==
 You can find the SVN options under right click on the project -> Team.
+The core options:
+	o "Update" reloads files that have been changed on the server by other developers in the meantime.
+	o "Commit" makes your changes of the code public.

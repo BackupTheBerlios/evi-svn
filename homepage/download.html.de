@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.de" class="red">Was ist EVI?</a></li>
-		<li><a href="/download.html.de" class="blue">Download</a></li>
-		<li><a href="/development.html.de" class="yellow">Entwicklung</a></li>
+		<li><a href="/index.html.de" class="red">Was ist EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.de" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.de" class="yellow">Entwicklung <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -20,8 +20,16 @@
 <a name="Download"></a>
 <h1>Download</h1>
 <p>
-<b>Nichts runterladbares bis jetzt!</b> Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> 1.0 release candidate 1 ist drau&szlig;en. Es gibt aber noch &uuml;berhaupt keine Module (au&szlig;er ein paar Testdinger)! <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> 1.0-rc1 ist also eher zum testen und anschauen :-).
 </p>
+<ul style="list-style-type: square;">
+<li><a href="evi.jnlp"><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> via Java Web Start starten</a> (ist ne sch&ouml;ne Sache)</li>
+<li>Ausf&uuml;hrbare Datei: <a href="http://prdownload.berlios.de/evi/evi-1.0.jar">evi-1.0-rc1.jar</a></li>
+<li>Quellcode: <a href="http://prdownload.berlios.de/evi/evi-1.0-rc1-src.tar.gz">evi-1.0-rc1-src.tar.gz</a> </li>
+<li>Quellcode: <a href="http://prdownload.berlios.de/evi/evi-1.0-rc1-src.zip">evi-1.0-rc1-src.zip</a></li>
+</ul>
+<a name="Geplante_Module"></a>
+<h2>Geplante Module</h2>
 <p>
 Die folgenden Module sind <b>geplant</b>. Hinter jedem Modul steht die Priorit&auml;t (1 = niedrig, 10 = hoch).
 </p>

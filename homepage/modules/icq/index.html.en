@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">

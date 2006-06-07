@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -19,21 +19,30 @@
 	<div id="text">
 <a name="EVI_IRC"></a>
 <h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> IRC</h1>
-<br />
 <p>
-The IRC module will depend on <a href="http://moepii.sourceforge.net">IRClib</a> and probably parts of the moepII code. However, I'm not gonna copy moepII because I'd like to improve things like support for colored text (these fucking mIRC colors) and ordered nick lists.
+Brainstorming:
 </p>
-<p>
-The module also needs a very good configuration. For example, I'd like to have different &quot;profiles&quot;. The user then could add &quot;org.schwering.evi.modules.irc.IRC &lt;profilename&gt;&quot; to his autostart so that the <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> would automatically connect to a specific IRC network at startup.
-</p>
-<br />
-<p>
-The module needs to offer a good API for other modules like DCC and games. 
-</p>
-<p>
-It is important that modules like DCC can prevent the IRC module to display special kinds of messages as normal messages. I mean, the DCC module should check an incoming message for being a DCC command and, in this case, it should prevent IRC from displaying it.<br />
-This can be realized with a listener system where priorities can be assigned by listeners.
-</p>
+<ul style="list-style-type: square;">
+<li>based on <a href="http://moepii.sourceforge.net">IRClib</a></li>
+<li>do it similar to <a href="http://moepii.sourceforge.net">moepII</a>, but better in details</li>
+<li>support mIRC color codes (JTextPane, DefaultStyledDocumet, StyleConstants)</li>
+<li>ordered nick list (sorting algorithm plus sorted-inserting)</li>
+<li>not just display nicknames but really recognize them as users (make use of IRCUser object, might be enough)</li>
+<li>provide good API for other modules such as<ul style="list-style-type: circle;">
+<li>games (provide a &quot;play with...&quot; option) (-&gt; interfaces)</li>
+<li>file transfer (provide &quot;send...&quot; option) (-&gt; interfaces)<ul style="list-style-type: disc;">
+<li>write simple PRIVMSG sender</li>
+<li>implement DCC file transfer (moepII DCC modules are buggy?)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul style="list-style-type: square;">
+<li>the API must provide a listener system which comes with &quot;listener-priorities&quot; so that an active DCC module can prevent the IRC module from printing a line</li>
+<li>display bunch of IRC networks where each consists of a number of servers (like mIRC and so on)</li>
+<li>let user create several profiles which can be selected for autostart</li>
+</ul>
 	</div>
 </div>
 <br style="clear: both;" />

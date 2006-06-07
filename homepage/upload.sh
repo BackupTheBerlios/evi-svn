@@ -1,24 +1,44 @@
 compile() 
 {
-	iconv --from=utf-8 --to=iso-8859-1 index.copl.de | ./copli --nohttp >index.html.de \
+	echo -n "."\
+	&& iconv --from=utf-8 --to=iso-8859-1 index.copl.de | ./copli --nohttp >index.html.de \
+	&& echo -n "." \
 	&& iconv --from=utf-8 --to=iso-8859-1 download.copl.de | ./copli --nohttp >download.html.de \
+	&& echo -n "."\
 	&& iconv --from=utf-8 --to=iso-8859-1 development.copl.de | ./copli --nohttp >development.html.de \
+	&& echo -n "."\
 	&& ./copli --nohttp index.copl.en index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp download.copl.en download.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp development.copl.en development.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp tutorials/modules/index.copl.en tutorials/modules/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp tutorials/svn/index.copl.en tutorials/svn/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/audioplayer/index.copl.en modules/audioplayer/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/calculator/index.copl.en modules/calculator/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/calendar/index.copl.en modules/calendar/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/dcc/index.copl.en modules/dcc/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/filemanager/index.copl.en modules/filemanager/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/icq/index.copl.en modules/icq/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/irc/index.copl.en modules/irc/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/mailbox/index.copl.en modules/mailbox/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/pong/index.copl.en modules/pong/index.html.en \
+	&& echo -n "."\
 	&& ./copli --nohttp modules/tictactoe/index.copl.en modules/tictactoe/index.html.en \
-	&& ./copli --nohttp modules/timetable/index.copl.en modules/timetable/index.html.en
+	&& echo -n "."\
+	&& ./copli --nohttp modules/timetable/index.copl.en modules/timetable/index.html.en\
+	&& echo -n "."
 }
 
 archive() 
@@ -33,6 +53,6 @@ upload()
 	&& rm homepage.tar.bz2
 }
 
-echo "Compiling ... " && compile
-echo "Creating archive ..." && archive
-echo "Copying to server ... " && upload
+echo -n "Compiling " && compile && echo "" \
+&& echo "Creating archive ..." && archive\
+&& echo "Copying to server ... " && upload

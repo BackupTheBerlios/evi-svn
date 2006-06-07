@@ -4,8 +4,13 @@ HEADER=header.html.de
 FOOTER=footer.html
 
 =Download=
-**Nichts runterladbares bis jetzt!** Das Framework ist zwar in den letzten Tagen fertig geworden, aber es gibt noch keine Module.
+evi() 1.0 release candidate 1 ist draußen. Es gibt aber noch überhaupt keine Module (außer ein paar Testdinger)! evi() 1.0-rc1 ist also eher zum testen und anschauen :-).
+	- <!url evi.jnlp evi() via Java Web Start starten> (ist ne schöne Sache)
+	- Ausführbare Datei: <!url http://prdownload.berlios.de/evi/evi-1.0.jar evi-1.0-rc1.jar>
+	- Quellcode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.tar.gz evi-1.0-rc1-src.tar.gz> 
+	- Quellcode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.zip evi-1.0-rc1-src.zip>
 
+==Geplante Module==
 Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
 	- Kommunikation 
 		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]

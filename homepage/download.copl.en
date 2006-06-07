@@ -4,8 +4,13 @@ HEADER=header.html.en
 FOOTER=footer.html
 
 =Download=
-**Nothing downloadable yet.** While the framework has been finished these days, we don't have no modules yet. 
+evi() 1.0 release candidate 1 is available. However, since there is no module yet (except some testing modules), evi() 1.0-rc1 is rather for testing purposes and to just have a look at it :-).
+	- <!url evi.jnlp Launch evi() via Java Web Start> (quite nice)
+	- Executable File: <!url http://prdownload.berlios.de/evi/evi-1.0.jar evi-1.0-rc1.jar> 
+	- Sourcecode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.tar.gz evi-1.0-rc1-src.tar.gz> 
+	- Sourcecode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.zip evi-1.0-rc1-src.zip>
 
+==Planned Modules==
 These are the modules we **plan** to write. After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
 	- Communication 
 		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]

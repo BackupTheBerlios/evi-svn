@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -20,8 +20,16 @@
 <a name="Download"></a>
 <h1>Download</h1>
 <p>
-<b>Nothing downloadable yet.</b> While the framework has been finished these days, we don't have no modules yet. 
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> 1.0 release candidate 1 is available. However, since there is no module yet (except some testing modules), <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> 1.0-rc1 is rather for testing purposes and to just have a look at it :-).
 </p>
+<ul style="list-style-type: square;">
+<li><a href="evi.jnlp">Launch <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> via Java Web Start</a> (quite nice)</li>
+<li>Executable File: <a href="http://prdownload.berlios.de/evi/evi-1.0.jar">evi-1.0-rc1.jar</a> </li>
+<li>Sourcecode: <a href="http://prdownload.berlios.de/evi/evi-1.0-rc1-src.tar.gz">evi-1.0-rc1-src.tar.gz</a> </li>
+<li>Sourcecode: <a href="http://prdownload.berlios.de/evi/evi-1.0-rc1-src.zip">evi-1.0-rc1-src.zip</a></li>
+</ul>
+<a name="Planned_Modules"></a>
+<h2>Planned Modules</h2>
 <p>
 These are the modules we <b>plan</b> to write. After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
 </p>

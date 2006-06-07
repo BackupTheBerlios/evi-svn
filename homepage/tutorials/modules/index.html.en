@@ -8,9 +8,9 @@
 <div id="main">
 	<div id="navi">
 		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI?</a></li>
-		<li><a href="/download.html.en" class="blue">Download</a></li>
-		<li><a href="/development.html.en" class="yellow">Development</a></li>
+		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
+		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
 		</ul>
 	</div>
 	<div id="lang">
@@ -19,6 +19,10 @@
 	<div id="text">
 <a name="EVI_Module_Development_Tutorial"></a>
 <h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> Module Development Tutorial</h1>
+<p>
+<i>Since org.schwering.evi.core.* was revised, this tutorial is totally out of date.</i><br />
+<i><u>To put it in a nutshell:</u> All information is now stored using the interface org.schwering.evi.core.IModuleInfo which stores meta-information and the interface org.schwering.evi.core.IModule which must be implemented by the class whose instance represents a module instance.</i>
+</p>
 <a name="What_Is_EVI?"></a>
 <h2>What Is <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>?</h2>
 <p>
