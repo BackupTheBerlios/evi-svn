@@ -117,26 +117,14 @@ implements IPanel {
 		shiftUp.setToolTipText(Messages.getString("ModuleConfigurationPanel.UP_TOOLTIP")); //$NON-NLS-1$
 		shiftUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JTable table = tablePanel.getTable();
-				int[] selected = table.getSelectedRows();
-				for (int i = 0; i < selected.length; i++) {
-					tablePanel.getModel().swap(selected[i]-1, selected[i]);
-				}
-				table.setRowSelectionInterval(selected[0] - 1, 
-						selected[selected.length-1] - 1);
+				tablePanel.shiftSelectedUp();
 			}
 		});
 		JButton shiftDown = new JButton(Messages.getString("ModuleConfigurationPanel.DOWN")); //$NON-NLS-1$
 		shiftDown.setToolTipText(Messages.getString("ModuleConfigurationPanel.DOWN_TOOLTIP")); //$NON-NLS-1$
 		shiftDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JTable table = tablePanel.getTable();
-				int[] selected = table.getSelectedRows();
-				for (int i = selected.length - 1; i >= 0; i--) {
-					tablePanel.getModel().swap(selected[i], selected[i]+1);
-				}
-				table.setRowSelectionInterval(selected[0] + 1, 
-						selected[selected.length-1] + 1);
+				tablePanel.shiftSelectedDown();
 			}
 		});
 		p.add(remove);
@@ -443,7 +431,6 @@ implements IPanel {
 
 		/**
 		 * Draws a table with all modules, their version and their requirements.
-		 * @param o The owning moduleconfigurationpanel.
 		 */
 		public TablePanel() {
 			super(new GridLayout(1, 0));
@@ -465,7 +452,22 @@ implements IPanel {
 					}
 				}
 			});
+			JMenuItem shiftUp = new JMenuItem(Messages.getString("ModuleConfigurationPanel.UP")); //$NON-NLS-1$
+			shiftUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedUp();
+				}
+			});
+			JMenuItem shiftDown = new JMenuItem(Messages.getString("ModuleConfigurationPanel.DOWN")); //$NON-NLS-1$
+			shiftDown.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedDown();
+				}
+			});
 			rightClickMenu.add(removeItem);
+			rightClickMenu.addSeparator();
+			rightClickMenu.add(shiftUp);
+			rightClickMenu.add(shiftDown);
 			
 			table.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent e) {
@@ -488,12 +490,54 @@ implements IPanel {
 			add(scrollPane);
 		}
 		
+		/**
+		 * Returns the javax.swing.JTable.
+		 * @return The JTable.
+		 */
 		public JTable getTable() {
 			return table;
 		}
 		
+		/**
+		 * Returns the table model.
+		 * @return The table model.
+		 */
 		public TableModel getModel() {
 			return model;
+		}
+		
+		/**
+		 * Shifts all selected elements up by one.
+		 */
+		public void shiftSelectedUp() {
+			JTable table = tablePanel.getTable();
+			int[] selected = table.getSelectedRows();
+			for (int i = 0; i < selected.length; i++) {
+				tablePanel.getModel().swap(selected[i]-1, selected[i]);
+			}
+			int first = selected[0] - 1;
+			int last = selected[selected.length - 1] - 1;
+			try {
+				table.setRowSelectionInterval(first, last);
+			} catch (Exception exc) {
+			}
+		}
+		
+		/**
+		 * Shifts all selected elements down by one.
+		 */
+		public void shiftSelectedDown() {
+			JTable table = tablePanel.getTable();
+			int[] selected = table.getSelectedRows();
+			for (int i = selected.length - 1; i >= 0; i--) {
+				tablePanel.getModel().swap(selected[i], selected[i]+1);
+			}
+			int first = selected[0] + 1;
+			int last = selected[selected.length - 1] + 1;
+			try {
+				table.setRowSelectionInterval(first, last);
+			} catch (Exception exc) {
+			}
 		}
 	}	
 	
