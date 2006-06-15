@@ -434,11 +434,12 @@ implements IPanel {
 		 */
 		public TablePanel() {
 			super(new GridLayout(1, 0));
-			table.getColumnModel().getColumn(0).setPreferredWidth(150);
+			table.getColumnModel().getColumn(0).setPreferredWidth(10);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
-			table.getColumnModel().getColumn(2).setPreferredWidth(10);
-			table.getColumnModel().getColumn(3).setPreferredWidth(150);
-			table.getColumnModel().getColumn(4).setPreferredWidth(50);
+			table.getColumnModel().getColumn(2).setPreferredWidth(150);
+			table.getColumnModel().getColumn(3).setPreferredWidth(10);
+			table.getColumnModel().getColumn(4).setPreferredWidth(150);
+			table.getColumnModel().getColumn(5).setPreferredWidth(50);
 			table.sizeColumnsToFit(-1);
 
 			final JPopupMenu rightClickMenu = new JPopupMenu();
@@ -559,6 +560,7 @@ implements IPanel {
 		 * The column names.
 		 */
 		private String[] colNames = new String[] { 
+				"#", //$NON-NLS-1$ 
 				Messages.getString("ModuleConfigurationPanel.SOURCE"), //$NON-NLS-1$ 
 				Messages.getString("ModuleConfigurationPanel.MODULE"), //$NON-NLS-1$
 				Messages.getString("ModuleConfigurationPanel.VERSION"), //$NON-NLS-1$
@@ -617,7 +619,7 @@ implements IPanel {
 		 * @see javax.swing.table.TableModel#getColumnCount()
 		 */
 		public int getColumnCount() {
-			return 5;
+			return colNames.length;
 		}
 
 		/* (non-Javadoc)
@@ -640,12 +642,14 @@ implements IPanel {
 		public Object getValueAt(int row, int col) {
 			ModuleContainer m = (ModuleContainer)modules.get(row);
 			if (col == 0) {
-				return m.getSource();
+				return new Integer(row+1);
 			} else if (col == 1) {
-				return m.getId();
+				return m.getSource();
 			} else if (col == 2) {
-				return new Float(m.getVersion());
+				return m.getId();
 			} else if (col == 3) {
+				return new Float(m.getVersion());
+			} else if (col == 4) {
 				return m.getName();
 			} else {
 				Requirement[] reqs = m.getRequirements();
