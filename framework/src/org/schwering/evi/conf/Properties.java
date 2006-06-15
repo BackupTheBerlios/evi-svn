@@ -415,7 +415,7 @@ public class Properties extends java.util.Properties {
 	 * @return A new font.
 	 */
 	public Font getFont(String key) {
-		return getFont(key, new Font("SansSerif", 12, Font.PLAIN));
+		return getFont(key, new Font("SansSerif", Font.PLAIN, 12));
 	}
 	
 	/**
