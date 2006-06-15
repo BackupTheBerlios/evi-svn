@@ -35,7 +35,7 @@ public class EVI {
 	/**
 	 * The program's exact version number with all details.
 	 */
-	public static final String EXACT_VERSION = "1.0-rc1";
+	public static final String EXACT_VERSION = "1.0-rc2";
 	
 	/**
 	 * The program's version.
