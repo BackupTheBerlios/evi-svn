@@ -112,13 +112,15 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 		});
 		nextButton.setEnabled(false);
 		
+		JPanel prevnextPanel = new JPanel();
+		prevnextPanel.add(prevButton);
+		prevnextPanel.add(nextButton);
+		JPanel homePanel = new JPanel();
+		homePanel.add(home);
 		JPanel top = new JPanel(new BorderLayout());
-		top.add(home, BorderLayout.EAST);
+		top.add(prevnextPanel, BorderLayout.WEST);
 		top.add(addrField, BorderLayout.CENTER);
-		JPanel prevnext = new JPanel();
-		prevnext.add(prevButton);
-		prevnext.add(nextButton);
-		top.add(prevnext, BorderLayout.WEST);
+		top.add(homePanel, BorderLayout.EAST);
 		add(top, BorderLayout.NORTH);
 		add(new JScrollPane(htmlPane), BorderLayout.CENTER);
 		add(statusPanel, BorderLayout.SOUTH);
