@@ -22,7 +22,7 @@ public interface IURIHandler extends IModuleInfo {
 	/**
 	 * Must create a new instance of the ModuleClass.<br>
 	 * <br>
-	 * This constructor will be invoked when EVI finds a URL with a protocol 
+	 * This constructor will be invoked when EVI finds a URI with a scheme
 	 * listed in <code>getProtocols</code> in its command line arguments. EVI 
 	 * will pass the respective URL to this module using this 
 	 * <code>newInstance</code> method.
@@ -32,10 +32,10 @@ public interface IURIHandler extends IModuleInfo {
 	 * <i>highly</i> recommended to use the {@link ModuleFactory} class to 
 	 * <b>create and dispose module instances</b>.<br>
 	 * @see ModuleFactory#newInstance(ModuleContainer)
-	 * @param url The URL that should be handled.
+	 * @param uri The URL that should be handled.
 	 * @return The newly created module instance as <code>IModule</code>.
 	 */
-	public IModule newInstance(URI url);
+	public IModule newInstance(URI uri);
 	
 	/**
 	 * Should return an array of protocols or schemes. For example, a 
