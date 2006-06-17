@@ -139,7 +139,7 @@ implements IModuleListener, IModuleLoaderListener {
 			IApplet applet = (IApplet)disposedInstance;
 			removeApplet(applet);
 		} catch (Exception exc) {
-			ExceptionDialog.show(Messages.getString("TabBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
+			ExceptionDialog.show(Messages.getString("ToolBar.UNEXPECTED_ERROR"), exc); //$NON-NLS-1$
 		}
 	}
 
@@ -192,7 +192,7 @@ implements IModuleListener, IModuleLoaderListener {
 					ModuleFactory.newInstance(module);
 				} catch (Exception exc) {
 					ExceptionDialog.show(
-							Messages.getString("MODULE_INSTANTIATION_EXCEPTION_NOTICE") //$NON-NLS-1$ 
+							Messages.getString("ToolBar.MODULE_INSTANTIATION_EXCEPTION_NOTICE") //$NON-NLS-1$ 
 							+":\n"+  //$NON-NLS-1$ 
 							module.getId(),
 							exc);
