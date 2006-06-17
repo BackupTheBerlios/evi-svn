@@ -108,7 +108,7 @@ implements IPanel {
 				JTable table = tablePanel.getTable();
 				int[] selected = table.getSelectedRows();
 				for (int i = selected.length - 1; i >= 0; i--) {
-					String id = (String)table.getModel().getValueAt(selected[i], 1);
+					String id = (String)table.getModel().getValueAt(selected[i], 2);
 					ModuleLoader.unload(id);
 				}
 			}
@@ -448,7 +448,7 @@ implements IPanel {
 				public void actionPerformed(ActionEvent e) {
 					int[] selected = table.getSelectedRows();
 					for (int i = selected.length - 1; i >= 0; i--) {
-						String id = (String)table.getModel().getValueAt(selected[i], 1);
+						String id = (String)table.getModel().getValueAt(selected[i], 2);
 						ModuleLoader.unload(id);
 					}
 				}
