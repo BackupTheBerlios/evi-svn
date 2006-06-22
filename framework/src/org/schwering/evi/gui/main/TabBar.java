@@ -245,11 +245,37 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	/**
-	 * Sets the color of the tab of the given component.
+	 * Highlights a tab with the color stored in color.primary.
+	 * @param tab The panel whose tabs should be changed.
+	 */
+	public void highlightTab(IPanel tab) {
+		highlightTab(tab.getPanelInstance());
+	}
+	
+	/**
+	 * Highlights a tab with the color stored in color.primary.
+	 * @param tab The component whose tabs should be changed.
+	 */
+	public void highlightTab(Component tab) {
+		Color color = MainConfiguration.PROPS.getColor("color.primary"); //$NON-NLS-1$
+		highlightTab(tab, color);
+	}
+	
+	/**
+	 * Highlights a tab with a color.
+	 * @param tab The panel whose tabs should be changed.
+	 * @param color The new color.
+	 */
+	public void highlightTab(IPanel tab, Color color) {
+		highlightTab(tab.getPanelInstance(), color);
+	}
+	
+	/**
+	 * Highlights a tab with a color.
 	 * @param tab The component whose tabs should be changed.
 	 * @param color The new color.
 	 */
-	public void hightlightTab(Component tab, Color color) {
+	public void highlightTab(Component tab, Color color) {
 		if (tab == null) {
 			return;
 		}
