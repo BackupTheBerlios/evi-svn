@@ -89,7 +89,9 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addNewInstanceItem() {
 		if (module.isPanel() || module.isApplet()) {
-			JMenuItem i = new JMenuItem(getNewInstanceTitle());
+			String title = getNewInstanceTitle();
+			JMenuItem i = new JMenuItem(title);
+			i.setMnemonic(title.charAt(0));
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -110,7 +112,9 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addConfigurationItem() {
 		if (module.isConfigurable()) {
-			JMenuItem i = new JMenuItem(getConfigureTitle());
+			String title = getConfigureTitle();
+			JMenuItem i = new JMenuItem(title);
+			i.setMnemonic(title.charAt(0));
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -131,7 +135,9 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addInfoItem() {
 		if (module.getInfoURL() != null) {
-			JMenuItem i = new JMenuItem(getInfoTitle());
+			String title = getInfoTitle();
+			JMenuItem i = new JMenuItem(title);
+			i.setMnemonic(title.charAt(0));
 			i.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -139,7 +145,7 @@ public class DefaultModuleMenu extends JMenu {
 						HTMLBrowser browser = new HTMLBrowser(url) {
 							private static final long serialVersionUID = 1;
 							public String getTitle() {
-								return module.getName() +" "+ getInfoTitle();
+								return getInfoTitle() +" "+ module.getName();
 							}
 						};
 						addTab(browser);
