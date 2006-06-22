@@ -245,45 +245,69 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	/**
-	 * Highlights a tab with the color stored in color.primary.
+	 * Resets a tab with the default color.
 	 * @param tab The panel whose tabs should be changed.
 	 */
-	public void highlightTab(IPanel tab) {
-		highlightTab(tab.getPanelInstance());
+	public void setDefaultBackground(IPanel tab) {
+		setBackground(tab, null);
 	}
 	
 	/**
-	 * Highlights a tab with the color stored in color.primary.
-	 * @param tab The component whose tabs should be changed.
-	 */
-	public void highlightTab(Component tab) {
-		Color color = MainConfiguration.PROPS.getColor("color.primary"); //$NON-NLS-1$
-		highlightTab(tab, color);
-	}
-	
-	/**
-	 * Highlights a tab with a color.
+	 * Highlights a tab with the color stored in color.secondary.
 	 * @param tab The panel whose tabs should be changed.
-	 * @param color The new color.
 	 */
-	public void highlightTab(IPanel tab, Color color) {
-		highlightTab(tab.getPanelInstance(), color);
+	public void setHighlightBackground(IPanel tab) {
+		Color color = MainConfiguration.PROPS.getColor("color.secondary"); //$NON-NLS-1$
+		setBackground(tab, color);
 	}
 	
 	/**
-	 * Highlights a tab with a color.
-	 * @param tab The component whose tabs should be changed.
+	 * Changes a tab's background color.
+	 * @param tab The tab whose tabs should be changed.
 	 * @param color The new color.
 	 */
-	public void highlightTab(Component tab, Color color) {
+	public void setBackground(IPanel tab, Color color) {
 		if (tab == null) {
 			return;
 		}
-		int index = indexOfComponent(tab);
+		int index = indexOfComponent(tab.getPanelInstance());
 		if (index < 0 || index >= getTabCount()) {
 			return;
 		}
 		setBackgroundAt(index, color);
+	}
+	
+	/**
+	 * Resets a tab with the default color.
+	 * @param tab The panel whose tabs should be changed.
+	 */
+	public void setDefaultForeground(IPanel tab) {
+		setForeground(tab, null);
+	}
+	
+	/**
+	 * Highlights a tab with the foreground color stored in color.primary.
+	 * @param tab The panel whose tabs should be changed.
+	 */
+	public void setHighlightForeground(IPanel tab) {
+		Color color = MainConfiguration.PROPS.getColor("color.primary"); //$NON-NLS-1$
+		setForeground(tab, color);
+	}
+	
+	/**
+	 * Changes a tab's foreground color.
+	 * @param tab The tab whose tabs should be changed.
+	 * @param color The new color.
+	 */
+	public void setForeground(IPanel tab, Color color) {
+		if (tab == null) {
+			return;
+		}
+		int index = indexOfComponent(tab.getPanelInstance());
+		if (index < 0 || index >= getTabCount()) {
+			return;
+		}
+		setForegroundAt(index, color);
 	}
 	
 	/**
