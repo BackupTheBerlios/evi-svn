@@ -311,6 +311,17 @@ implements IModuleListener, IModuleLoaderListener {
 	}
 	
 	/**
+	 * Indicates whether the given tab is currently selected.
+	 * @param tab The tab which might be selected or not.
+	 * @return <code>true</code> if the tab is selected at the moment.
+	 */
+	public boolean isSelected(IPanel tab) {
+		Component sel = getSelectedComponent();
+		Component tabComp = tab.getPanelInstance();
+		return sel != null && tabComp != null && sel == tabComp;
+	}
+	
+	/**
 	 * Tries to catch the focus and passes it on to the selected panel.
 	 * @return <code>false</code> if it definitely failed. <code>true</code> 
 	 * does not guarantee anything.<br>
