@@ -135,7 +135,7 @@ public class DefaultModuleMenu extends JMenu {
 	 */
 	protected void addInfoItem() {
 		if (module.getInfoURL() != null) {
-			String title = getInfoTitle();
+			final String title = getInfoTitle() +" "+ module.getName();
 			JMenuItem i = new JMenuItem(title);
 			i.setMnemonic(title.charAt(0));
 			i.addActionListener(new ActionListener() {
@@ -145,7 +145,7 @@ public class DefaultModuleMenu extends JMenu {
 						HTMLBrowser browser = new HTMLBrowser(url) {
 							private static final long serialVersionUID = 1;
 							public String getTitle() {
-								return getInfoTitle() +" "+ module.getName();
+								return title;
 							}
 						};
 						addTab(browser);
