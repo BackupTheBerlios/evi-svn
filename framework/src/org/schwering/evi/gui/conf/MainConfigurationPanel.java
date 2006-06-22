@@ -529,8 +529,6 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 * @see java.awt.Component#requestFocusInWindow()
 	 */
 	public boolean requestFocusInWindow() {
-		boolean b1 = super.requestFocusInWindow();
-		boolean b2 = saveButton.requestFocusInWindow();
-		return b1 && b2;
+		return super.requestFocusInWindow();
 	}
 }
