@@ -63,6 +63,7 @@ public class MainFrame extends JFrame {
 	private MainFrame() {
 		super(EVI.TITLE);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		pane.setLayout(new BorderLayout());
 		addWindowListener(new WindowListener() {
 			public void windowActivated(WindowEvent arg0) {
 			}
@@ -80,7 +81,6 @@ public class MainFrame extends JFrame {
 			public void windowOpened(WindowEvent arg0) {
 			}
 		});
-		pane.setLayout(new BorderLayout());
 		addComponentListener(new ComponentListener() {
 			public void componentHidden(ComponentEvent arg0) {
 			}

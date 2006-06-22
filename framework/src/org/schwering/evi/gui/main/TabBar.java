@@ -56,7 +56,6 @@ implements IModuleListener, IModuleLoaderListener {
 	 */
 	public TabBar() {
 		setTabPlacement(MainConfiguration.PROPS.getInt("gui.tabs.placement", TOP)); //$NON-NLS-1$
-		
 		addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 			}
@@ -168,7 +167,8 @@ implements IModuleListener, IModuleLoaderListener {
 		// pair from the table if it already was contained
 		table.put(component, panel);
 		setSelectedComponent(component);
-		forwardFocusInWindow();
+		requestFocusInWindow();
+		component.requestFocusInWindow();
 	}
 	
 	/**
