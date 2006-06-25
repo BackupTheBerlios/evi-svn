@@ -12,7 +12,7 @@ import java.net.URI;
  * to instantiate and dispose a module</b> to keep the internal mechanisms 
  * faultless!<br>
  * <br>
- * Zhis class adds a shutdownhook that invokes <code>disposeInstance</code> 
+ * This class adds a shutdownhook that invokes <code>disposeInstance</code> 
  * for each module instance when the client is shut down. (This shutdownhook 
  * is added in a <code>static</code> block; this means it is added 
  * automatically when this class is loaded.)
@@ -111,15 +111,19 @@ public final class ModuleFactory {
 			if (info != null) {
 				Object object = null;
 				if (args == null) {
+					// create default instance
 					object = info.newInstance();
 				} else if (args.length == 1 
 						&& args[0] instanceof URI
 						&& module.isURIHandler()) {
+					// create instance with URI argument
 					URI uri = (URI)args[0];
 					object = ((IURIHandler)info).newInstance(uri);
 				} else if (module.isParameterizable()) {
+					// create instance with variable arguments
 					object = ((IParameterizable)info).newInstance(args);
 				} else {
+					// generate exception
 					StringBuffer msg = new StringBuffer();
 					msg.append("The method failed:\n");
 					msg.append("\tnewInstance("+ module +", args)\n");
