@@ -194,7 +194,7 @@ public class EVI {
 		}
 		
 		/* just for fun: (from incl. 85% to incl. 90%) */
-		try {
+		/*try {
 			String[] murks = new String[] {
 					"Eva Valder", //$NON-NLS-1$
 					"ohne dich", //$NON-NLS-1$
@@ -208,7 +208,7 @@ public class EVI {
 				}
 			}
 		} catch (Exception exc) {
-		}
+		}*/
 		
 		progress.update(91, Messages.getString("EVI.20")); //$NON-NLS-1$
 		try {
