@@ -76,11 +76,11 @@ implements IModuleListener, IModuleLoaderListener {
 			}
 
 			public void mouseEntered(MouseEvent e) {
-				closeButton.setForeground(java.awt.Color.red);
+				closeButton.setForeground(Color.red);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				closeButton.setForeground(java.awt.Color.black);
+				closeButton.setForeground(Color.black);
 			}
 
 			public void mousePressed(MouseEvent e) {
