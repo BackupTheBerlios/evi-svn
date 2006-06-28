@@ -1,10 +1,13 @@
 package org.schwering.evi.gui.main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
@@ -58,15 +61,34 @@ implements IModuleListener, IModuleLoaderListener {
 	 */
 	public ToolBar() {
 		setFloatable(false);
-		setRollover(true);
-		setLayout(new java.awt.BorderLayout());
+		setLayout(new BorderLayout());
 		
-		JButton closeButton = new JButton("X"); //$NON-NLS-1$
+		final JButton closeButton = new JButton("X"); //$NON-NLS-1$
 		Font f = closeButton.getFont();
 		f = new Font(f.getName(), Font.BOLD, f.getSize());
 		closeButton.setFont(f);
+		closeButton.setForeground(Color.black);
 		closeButton.setToolTipText(Messages.getString("ToolBar.CLOSE_TAB")); //$NON-NLS-1$
 		closeButton.setFocusPainted(false);
+		closeButton.setBorderPainted(false);
+		closeButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				closeButton.setForeground(java.awt.Color.red);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				closeButton.setForeground(java.awt.Color.black);
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainFrame mf = MainFrame.getInstance();
