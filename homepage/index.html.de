@@ -2,49 +2,77 @@
 <html>
 <head>
 <title>EVI Framework</title>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<style type="text/css">
+body { margin: 0px 0px 0px 0px; background-color: #eeeeee; font-family: Verdana,Tahoma, sans-serif; }
+#header { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; width: 100%; border-bottom: 1px #e0ad12 dashed; font-variant: small-caps; }
+#title { padding: 20px 10px 15px 60px; font-size: 300%; font-weight: bold; color: #f5e39e; background-color: #de7008; border-bottom: 1px #e0ad12 solid; }
+#description { padding: 10px 10px 10px 60px; font-size: 90%; font-weight: bold; color: #de7008; background-color: #f5e39e; }
+#container { }
+#navi { float: left; border-right: 1px #e0ad12 dashed;border-bottom: 1px #e0ad12 dashed;padding-right: 20px; }
+#text { float: right; width: 70%; padding: 0px 7% 10px 3%; font-size: 80%; }
+h1 { color: #9e5205; }
+h2 { color: #e0ad12; }
+h3 { color: #555555; }
+a:link, a:visited { font-weight: bold; text-decoration: none; color: #de7008; }
+a:hover, a:active { font-weight: bold; text-decoration: none; color: #e0ad12; }
+#text p { text-align: justify; }
+</style>
 </head>
 <body>
-<div id="main">
-	<div id="navi">
-		<ul>
-		<li><a href="/index.html.de" class="red">Was ist EVI? <span class="hoverbit">&raquo;</span></a></li>
-		<li><a href="/download.html.de" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
-		<li><a href="/development.html.de" class="yellow">Entwicklung <span class="hoverbit">&raquo;</span></a></li>
-		</ul>
+<div id="header">
+	<div id="title">Extensible Verena Interface</div>
+	<div id="description">EVI a is Java Application Framework for Internet Communication, Entertainment and Tools.<br />
+	EVI stands for Extensible Verena Interface.
 	</div>
-	<div id="lang">
-		<a href="index.html.en" style="border: 0"><img src="/en.jpg" style="border: 0;" alt="English" /></a>
+</div>
+
+
+<div id="navi">
+	<ul>
+	<li> <a href="/index.html.de">Was ist <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>?</a> </li>
+	<li> <a href="/download/index.html.de">Download</a> </li>
+	<li> <a href="/modules/index.html.de">Module</a> </li>
+	<li> <a href="/development/index.html.de">Entwicklung</a> </li>
+	<li> <a href="http://evidev.blogspot.com">Weblog</a> </li>
+	</ul>
+
+	<br />
+	<div style="text-align: center; font-size: 80%;">
+	<a href="index.html.en" style="border: 0"><img src="/en.jpg" style="border: 0;" alt="English" /></a>
+	<a href="index.html.de" style="border: 0"><img src="/de.jpg" style="border: 0;" alt="Deutsch" /></a>
 	</div>
-	<div id="text">
+
+	<br />
+	<div style="text-align: center;">
+	<a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
+	</div>
+	<br />
+</div>
+<div id="text">
 <a name="Was_ist_EVI?"></a>
-<h1>Was ist <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>?</h1>
+<h1>Was ist <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>?</h1>
 <p>
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist ein Framework. Es  steht unter der GNU GPL, ist in Java geschrieben und baut auf dem Swing Toolkit auf. <br />
-Es sollen Module f&uuml;r <b>Internet Kommunikation</b>, <b>Unterhaltung</b> und andere <b>Tools</b> geschrieben werden.<br />
-Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> ist ein Framework, das hei&szlig;t ein modulares Programm f&uuml;r <b>Internet Kommunikation</b>, <b>Unterhaltung</b> (Spiele) und andere <b>Tools</b>. <br />
+Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.<br />
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> steht unter der GNU GPL, ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
 </p>
 <p>
-Die einzelnen Module sind keine neue Erfindung. Mit <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will ich den ganzen Kram unter ein Dach bringen. Das Ergebnis soll eine plattformunabh&auml;ngige Basis-Anwendung sein, mit der man allt&auml;gliche und einfache Aufgaben erledigt.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> soll einige jener Programme, die st&auml;ndig laufen, die man aber nur zwischendurch mal benutzt (z.B. Kommunikationsprogramme), unter ein Dach bringen.
+</p>
+<p>
+F&uuml;r einen niemals abrei&szlig;enden Informationsfluss haben wir auch einen <a href="http://evidev.blogspot.com"><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>-Blog</a> :-)
 </p>
 <a name="Der_Name"></a>
 <h2>Der Name</h2>
 <p>
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> ist ein Akronym und hei&szlig;t <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Dieser wahnsinnig sinnvolle Name erh&auml;lt seinen Sinn nur dadurch, dass Evi bzw. Verena f&uuml;r Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> ist ein Akronym und hei&szlig;t <b>E</b>xtensible <b>V</b>erena <b>I</b>nterface. Dieser wahnsinnig sinnvolle Name erh&auml;lt seinen Sinn nur dadurch, dass Evi bzw. Verena f&uuml;r Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
 </p>
 <a name="Kontakt"></a>
 <h2>Kontakt</h2>
 <p>
-Und der Knallidiot von dem ganzen bin ich: Christoph Schwering (<a href="mailto:schwering@gmail.com">mailto:schwering@gmail.com</a>).
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering &lt;<a href="mailto:schwering@gmail.com">mailto:schwering@gmail.com</a>&gt;
 </p>
-	</div>
 </div>
-<br style="clear: both;" />
 
-
-<div style="text-align: center;">
-	<a style="padding-right: 50px;" href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
-	<a style="padding-left: 50px;" href="http://copl.sourceforge.net">Written in COPL.</a>
-</div>
 </body>
 </html>

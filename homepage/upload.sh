@@ -1,44 +1,30 @@
+compile_de() {
+	iconv --from=utf-8 --to=iso-8859-1 index.copl.de | copli --nohttp >index.html.de 
+}
+
 compile() 
 {
-	echo -n "."\
-	&& iconv --from=utf-8 --to=iso-8859-1 index.copl.de | ./copli --nohttp >index.html.de \
-	&& echo -n "." \
-	&& iconv --from=utf-8 --to=iso-8859-1 download.copl.de | ./copli --nohttp >download.html.de \
-	&& echo -n "."\
-	&& iconv --from=utf-8 --to=iso-8859-1 development.copl.de | ./copli --nohttp >development.html.de \
-	&& echo -n "."\
-	&& ./copli --nohttp index.copl.en index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp download.copl.en download.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp development.copl.en development.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp tutorials/modules/index.copl.en tutorials/modules/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp tutorials/svn/index.copl.en tutorials/svn/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/audioplayer/index.copl.en modules/audioplayer/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/calculator/index.copl.en modules/calculator/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/calendar/index.copl.en modules/calendar/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/dcc/index.copl.en modules/dcc/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/filemanager/index.copl.en modules/filemanager/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/icq/index.copl.en modules/icq/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/irc/index.copl.en modules/irc/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/mailbox/index.copl.en modules/mailbox/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/pong/index.copl.en modules/pong/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/tictactoe/index.copl.en modules/tictactoe/index.html.en \
-	&& echo -n "."\
-	&& ./copli --nohttp modules/timetable/index.copl.en modules/timetable/index.html.en\
-	&& echo -n "."
+	echo -n "." && compile_de \
+	&& echo -n "." && cd development && compile_de && cd .. \
+	&& echo -n "." && cd download && compile_de && cd .. \
+	&& echo -n "." && cd modules && compile_de && cd .. \
+	&& echo -n "." && ./copli --nohttp index.copl.en index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/index.copl.en modules/index.html.en \
+	&& echo -n "." && ./copli --nohttp download/index.copl.en download/index.html.en \
+	&& echo -n "." && ./copli --nohttp development/index.copl.en development/index.html.en \
+	&& echo -n "." && ./copli --nohttp tutorials/modules/index.copl.en tutorials/modules/index.html.en \
+	&& echo -n "." && ./copli --nohttp tutorials/svn/index.copl.en tutorials/svn/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/audioplayer/index.copl.en modules/audioplayer/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/calculator/index.copl.en modules/calculator/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/calendar/index.copl.en modules/calendar/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/dcc/index.copl.en modules/dcc/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/filemanager/index.copl.en modules/filemanager/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/icq/index.copl.en modules/icq/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/irc/index.copl.en modules/irc/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/mailbox/index.copl.en modules/mailbox/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/pong/index.copl.en modules/pong/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/tictactoe/index.copl.en modules/tictactoe/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/timetable/index.copl.en modules/timetable/index.html.en
 }
 
 archive() 

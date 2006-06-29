@@ -2,33 +2,65 @@
 <html>
 <head>
 <title>EVI Framework</title>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<style type="text/css">
+body { margin: 0px 0px 0px 0px; background-color: #eeeeee; font-family: Verdana,Tahoma, sans-serif; }
+#header { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; width: 100%; border-bottom: 1px #e0ad12 dashed; font-variant: small-caps; }
+#title { padding: 20px 10px 15px 60px; font-size: 300%; font-weight: bold; color: #f5e39e; background-color: #de7008; border-bottom: 1px #e0ad12 solid; }
+#description { padding: 10px 10px 10px 60px; font-size: 90%; font-weight: bold; color: #de7008; background-color: #f5e39e; }
+#container { }
+#navi { float: left; border-right: 1px #e0ad12 dashed;border-bottom: 1px #e0ad12 dashed;padding-right: 20px; }
+#text { float: right; width: 70%; padding: 0px 7% 10px 3%; font-size: 80%; }
+h1 { color: #9e5205; }
+h2 { color: #e0ad12; }
+h3 { color: #555555; }
+a:link, a:visited { font-weight: bold; text-decoration: none; color: #de7008; }
+a:hover, a:active { font-weight: bold; text-decoration: none; color: #e0ad12; }
+#text p { text-align: justify; }
+</style>
 </head>
 <body>
-<div id="main">
-	<div id="navi">
-		<ul>
-		<li><a href="/index.html.en" class="red">What's EVI? <span class="hoverbit">&raquo;</span></a></li>
-		<li><a href="/download.html.en" class="blue">Download <span class="hoverbit">&raquo;</span></a></li>
-		<li><a href="/development.html.en" class="yellow">Development <span class="hoverbit">&raquo;</span></a></li>
-		</ul>
+<div id="header">
+	<div id="title">Extensible Verena Interface</div>
+	<div id="description">EVI a is Java Application Framework for Internet Communication, Entertainment and Tools.<br />
+	EVI stands for Extensible Verena Interface.
 	</div>
-	<div id="lang">
-		<a href="index.html.de" style="border: 0"><img src="/de.jpg" style="border: 0;" alt="Deutsch" /></a>
+</div>
+
+
+<div id="navi">
+	<ul>
+	<li> <a href="/index.html.en">What's <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>?</a> </li>
+	<li> <a href="/download/index.html.en">Download</a> </li>
+	<li> <a href="/modules/index.html.en">Modules</a> </li>
+	<li> <a href="/development/index.html.en">Development</a> </li>
+	<li> <a href="http://evidev.blogspot.com">Weblog</a> </li>
+	</ul>
+
+	<br />
+	<div style="text-align: center; font-size: 80%;">
+	<a href="index.html.en" style="border: 0"><img src="/en.jpg" style="border: 0;" alt="English" /></a>
+	<a href="index.html.de" style="border: 0"><img src="/de.jpg" style="border: 0;" alt="Deutsch" /></a>
 	</div>
-	<div id="text">
+
+	<br />
+	<div style="text-align: center;">
+	<a href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
+	</div>
+	<br />
+</div>
+<div id="text">
 <a name="EVI_Module_Development_Tutorial"></a>
-<h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> Module Development Tutorial</h1>
+<h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> Module Development Tutorial</h1>
 <p>
 <i>Since org.schwering.evi.core.* was revised, this tutorial is totally out of date.</i><br />
 <i><u>To put it in a nutshell:</u> All information is now stored using the interface org.schwering.evi.core.IModuleInfo which stores meta-information and the interface org.schwering.evi.core.IModule which must be implemented by the class whose instance represents a module instance.</i>
 </p>
 <a name="What_Is_EVI?"></a>
-<h2>What Is <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>?</h2>
+<h2>What Is <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>?</h2>
 <p>
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> is a Framework. This means it can load modules. It does nothing more and nothing less.<br />
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> is written in Java using the Swing Toolkit. This means it is platform-independent.<br />
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>'s focus is internet communication. However, the focus totally depends on the modules.
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> is a Framework. This means it can load modules. It does nothing more and nothing less.<br />
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> is written in Java using the Swing Toolkit. This means it is platform-independent.<br />
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>'s focus is internet communication. However, the focus totally depends on the modules.
 </p>
 <a name="What_Can_A_Module_Do?"></a>
 <h2>What Can A Module Do?</h2>
@@ -55,7 +87,7 @@ Writing a graphical module is probably easier. Daemon modules are mainly usable 
 <h2>How Is A Module Distributed?</h2>
 <p>
 Each module should be packed into one *.JAR file (Java Archive). This JAR must contain the binary classes, optionally some resources like images and sounds and a manifest. <br />
-The manifest is of great importance for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> modules. See the next chapter.
+The manifest is of great importance for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> modules. See the next chapter.
 </p>
 <a name="A_Module's_Manifest"></a>
 <h2>A Module's Manifest</h2>
@@ -66,7 +98,7 @@ A JAR's manifest is located at META-INF/MANIFEST.MF. A well-known manifest-entry
 There's one important point: It seems that a manifest file must end with a new-line-character (i.e. '\n'). This means that the last entry in the manifest must be terminated with a '\n'. Don't know why.
 </p>
 <p>
-There's a number of manifest-entries for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> modules:
+There's a number of manifest-entries for <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> modules:
 </p>
 <ul style="list-style-type: square;">
 <li>Module-Class</li>
@@ -92,8 +124,8 @@ The &quot;Module-Name&quot; manifest-entry specifies under which (short) name th
 <p>
 <u>Module-Protocols</u><br />
 The &quot;Module-Protocols&quot; entry is optional. <br />
-Let's think about the following scenario: You've written a small webbrowser module. Now you want <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> to automatically start your webbrowser module if the user transmits a WWW-URL as command line argument.<br />
-<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will do so if you enter &quot;http&quot; and &quot;https&quot; as &quot;Module-Protocols&quot;. If a command line argument like &quot;http://www.test.com&quot; is given, <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will check it and see that is a URL, <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will see that the URL's protocol is &quot;http&quot; and <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will see that your webbrowser module wants to handle all &quot;http&quot;-URLs and therefore <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> will start the webbrowser module.
+Let's think about the following scenario: You've written a small webbrowser module. Now you want <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> to automatically start your webbrowser module if the user transmits a WWW-URL as command line argument.<br />
+<b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> will do so if you enter &quot;http&quot; and &quot;https&quot; as &quot;Module-Protocols&quot;. If a command line argument like &quot;http://www.test.com&quot; is given, <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> will check it and see that is a URL, <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> will see that the URL's protocol is &quot;http&quot; and <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> will see that your webbrowser module wants to handle all &quot;http&quot;-URLs and therefore <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> will start the webbrowser module.
 </p>
 <p>
 <u>Module-Requirements</u><br />
@@ -101,7 +133,7 @@ Let's think about the following scenario: You've written a small webbrowser modu
 </p>
 <p>
 <u>Module-Information</u><br />
-With &quot;Module-Information&quot;, you can make <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> add a menuitem &quot;Info&quot; to your module's menu in the menubar. Write a HTML file, let's name it &quot;about.html&quot;, put it into your module's JAR and add the a &quot;Module-Information: about.html&quot; entry to your manifest.
+With &quot;Module-Information&quot;, you can make <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> add a menuitem &quot;Info&quot; to your module's menu in the menubar. Write a HTML file, let's name it &quot;about.html&quot;, put it into your module's JAR and add the a &quot;Module-Information: about.html&quot; entry to your manifest.
 </p>
 <a name="&quot;Hello_World&quot;_Module"></a>
 <h2>&quot;Hello World&quot; Module</h2>
@@ -191,7 +223,7 @@ Compile the HelloWorld.java. Remember that the EVI classes must be in the classp
 Now create a JAR from the generated HelloWorld.class with the manifest: <code>jar cvfm helloworld.jar MANIFEST.MF HelloWorld.class</code>.
 </p>
 <p>
-Now fire up <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b>, click File -&gt; Modules, choose the helloworld.jar and add it. You should see that a new item &quot;Hello&quot; in the menubar and a new button &quot;Hello&quot; should appear.<br />
+Now fire up <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b>, click File -&gt; Modules, choose the helloworld.jar and add it. You should see that a new item &quot;Hello&quot; in the menubar and a new button &quot;Hello&quot; should appear.<br />
 When you click the button or when you click Hello -&gt; New instance a new tab should open and show the string &quot;Hello World!&quot;.<br />
 When you close the application, press Ctrl+W or rightclick -&gt; close on the tab, the tab will be closed and &quot;Bye!&quot; is printed to the console, because <code>HelloWorld.dispose</code> is invoked.
 </p>
@@ -225,7 +257,7 @@ Furthermore, <code>IPanel</code> requires implementing classes to define a <code
 <a name="Have_A_Break_:-)"></a>
 <h2>Have A Break :-)</h2>
 <p>
-So far so good. This should give you a quite solid base to write an <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> module.<br />
+So far so good. This should give you a quite solid base to write an <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> module.<br />
 There are just two essential things missing:
 </p>
 <ul style="list-style-type: disc;">
@@ -244,8 +276,8 @@ After a break, we're going to deal with the first point:
 <h2>The API: IConfigurable And IMenuable</h2>
 <p>
 Above, you learned about the interfaces IModule and IPanel. IModule is the very basic core interface which every interface implements. IPanel is not <i>that</i> essential, but very important too, because every graphical module implements it.<br />
-However, you might want more. You might want <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> display a &quot;Config&quot; menu entry in the module's menu in the menubar. Have a look at the <code>IConfigurable</code> interface. <br />
-You even might hate the menu <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ffff00;">I</span></b> generates for you. If you want to replace it completely, check out the <code>IMenuable</code>.
+However, you might want more. You might want <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> display a &quot;Config&quot; menu entry in the module's menu in the menubar. Have a look at the <code>IConfigurable</code> interface. <br />
+You even might hate the menu <b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> generates for you. If you want to replace it completely, check out the <code>IMenuable</code>.
 </p>
 <a name="IConfigurable"></a>
 <h3>IConfigurable</h3>
@@ -257,14 +289,7 @@ You even might hate the menu <b><span style="color: #ff0000;">E</span><span styl
 <p>
 <i>(Describe IMenuable.)</i>
 </p>
-	</div>
 </div>
-<br style="clear: both;" />
 
-
-<div style="text-align: center;">
-	<a style="padding-right: 50px;" href="http://developer.berlios.de/projects/evi" title="BerliOS Developer"><img src="http://developer.berlios.de/bslogo.php?group_id=6513" width="124px" height="32px" border="0" alt="BerliOS Developer Logo" /></a>
-	<a style="padding-left: 50px;" href="http://copl.sourceforge.net">Written in COPL.</a>
-</div>
 </body>
 </html>

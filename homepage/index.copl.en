@@ -4,16 +4,14 @@ HEADER=header.html.en
 FOOTER=footer.html
 
 =What's evi()?=
-evi() is a Framework written in Java and based on the Swing Toolkit. 
-The goal is to develop a bunch of modules for **internet communication**, **entertainment** and some **tools**.
+evi() is an Application Framework with the goal to bring **Internet communication**, **entertainment** (games) and other useful **tools** under one umbrella.
 The list of planned modules includes IRC and ICQ modules, games like Pong and tools like a calculator.
+evi() is free software (GNU GPL), written in Java and based on the Swing Toolkit.
 
-evi() is free software and licensed under the GNU GPL.
-
-You might notice that all components are no new inventions. What makes the difference is that we want to bring them all under one umbrella. The result should be a platform independent workbench for many simple but daily tasks.
+For a never-ending information stream, we've made the <!url http://evidev.blogspot.com evi() blog> :-)
 
 ==The Name==
 evi() is an acronym and means **E**xtensible **V**erena **I**nterface. The names Verena and Evi are allusions to Verena Baumeister respectively Eva Valder from Euskirchen respectively Palmersheim, Germany.
 
 ==Contact==
-And I'm Christoph Schwering (<!url mailto:schwering@gmail.com>).
+And I'm Christoph Schwering <<!url mailto:schwering@gmail.com>>.

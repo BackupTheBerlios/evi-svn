@@ -1,11 +1,31 @@
-TITLE=EVI Module Dummy Site
-MACROS=macros.copl
-=evi() Module Dummy Site=
+MACROS=../macros.copl
+HEADER=../header.html.en
+FOOTER=../footer.html
 
-[ <!url index.html.en English> | <!url index.html.de Deutsch> | <!url ../../ evi()> ]
+=Modules=
+No modules are written yet. But we have a lot of plans: 
 
-Hi,
+==Planned Modules==
+These are the modules we **plan** to write. After each point in brackets its priority (1 = low, 10 = high). We'll develop the modules in this order.
+	- Communication 
+		* <!url irc/ IRC> (Internet Relay Chat) [10]
+		* <!url icq/ ICQ> (Instant Messenging) (I hope) [5]
+		* maybe also other IM protocols [3]
+	- Entertainment
+		* <!url pong/ Pong> single/multiplayer [10]
+		* <!url tictactoe/ TicTacToe> single/multiplayer [7]
+		* Skat multiplayer (possibly) [4]
+		* Rock-Paper-Scissors [4]
+	- Tools
+		* <!url dcc/ DCC> for IRC [9]
+		* IRC log streamer [8]
+		* <!url calendar/ Calendar> [5]
+		* <!url timetable/ Timetable> [5]
+		* <!url mailbox/ Mailbox Supvervisor> [7]
+		* <!url filemanager/ Filemanager> [7]
+		* Imageviewer [4]
+		* small Webbrowser :-) [5]
+		* <!url audioplayer/ Audio-Player> would be great [6]
+		* <!url calculator/ Calculator> [7]
+		* IDv3-Tag Administrator [2]
 
-this will be the homepage of an evi() module.
-
-Bye

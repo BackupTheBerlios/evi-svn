@@ -4,6 +4,11 @@ HEADER=../../header.html.en
 FOOTER=../../footer.html
 
 =evi() IRC=
+
+An IRC client module for EVI. Based on <!url http://moepii.sourceforge.net IRClib>.
+
+SVN: <!url http://svn.berlios.de/wsvn/evi/pong/>
+
 Brainstorming:
 	- based on <!url http://moepii.sourceforge.net IRClib>
 	- do it similar to <!url http://moepii.sourceforge.net moepII>, but better in details
