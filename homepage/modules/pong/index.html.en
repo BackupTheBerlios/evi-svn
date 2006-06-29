@@ -52,7 +52,12 @@ a:hover, a:active { font-weight: bold; text-decoration: none; color: #e0ad12; }
 <a name="EVI_Pong"></a>
 <h1><b><span style="color: #ff0000;">E</span><span style="color: #0000ff;">V</span><span style="color: #ccff00;">I</span></b> Pong</h1>
 <p>
-Mike Kremer (mikelsoft at gmail dot com) has written Pong. His implementation requires JOGL (OpenGL library) and JOAL/OpenAL (sound library). <br />
+Mike Kremer (mikelsoft at gmail dot com) has written Pong. His implementation requires JOGL (OpenGL library) and JOAL/OpenAL (sound library). 
+</p>
+<p>
+SVN: <a href="http://svn.berlios.de/wsvn/evi/pong/">http://svn.berlios.de/wsvn/evi/pong/</a>
+</p>
+<p>
 Can we replace JOAL (and therefore eliminate OpenAL) with standard libraries?
 </p>
 <p>
