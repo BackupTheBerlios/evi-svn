@@ -1,1 +1,1 @@
-jar mcvf0 src/META-INF/MANIFEST.MF pong.jar -C bin .
+cd bin && jar cvfm /Users/chs/Desktop/pong.jar ../src/META-INF/MANIFEST.MF . && cd ..

@@ -1,3 +1,1 @@
-rm -Rf bin/.svn bin/*/.svn bin/*/*/.svn bin/*/*/*/.svn bin/*/*/*/*/.svn bin/*/*/*/*/*/.svn
-jar mcvf0 src/META-INF/MANIFEST.MF evi.jar -C bin .
-./sign
+cd bin && jar cvfm /Users/chs/Desktop/evi.jar ../src/META-INF/MANIFEST.MF . && cd ..

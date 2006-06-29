@@ -1,0 +1,1 @@
+cd bin && jar cvfm /Users/chs/Desktop/irc.jar ../src/META-INF/MANIFEST.MF . && cd ..
