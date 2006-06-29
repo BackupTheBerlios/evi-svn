@@ -7,7 +7,7 @@ FOOTER=../../footer.html
 
 An IRC client module for EVI. Based on <!url http://moepii.sourceforge.net IRClib>.
 
-SVN: <!url http://svn.berlios.de/wsvn/evi/pong/>
+SVN: <!url http://svn.berlios.de/wsvn/evi/irc/>
 
 Brainstorming:
 	- based on <!url http://moepii.sourceforge.net IRClib>
