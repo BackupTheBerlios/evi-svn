@@ -1,0 +1,2 @@
+rm -Rf bin/.svn bin/*/.svn bin/*/*/.svn bin/*/*/*/.svn bin/*/*/*/*/.svn bin/*/*/*/*/*/.svn 2>/dev/null
+jar mcvf0 src/META-INF/MANIFEST.MF irc.jar -C bin .
