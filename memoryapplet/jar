@@ -1,0 +1,1 @@
+jar mcvf0 src/META-INF/MANIFEST.MF memory.jar -C bin . 
