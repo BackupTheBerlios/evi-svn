@@ -513,6 +513,9 @@ implements IPanel {
 		public void shiftSelectedUp() {
 			JTable table = tablePanel.getTable();
 			int[] selected = table.getSelectedRows();
+			if (selected == null || selected.length == 0) {
+				return;
+			}
 			for (int i = 0; i < selected.length; i++) {
 				tablePanel.getModel().swap(selected[i]-1, selected[i]);
 			}
@@ -530,6 +533,9 @@ implements IPanel {
 		public void shiftSelectedDown() {
 			JTable table = tablePanel.getTable();
 			int[] selected = table.getSelectedRows();
+			if (selected == null || selected.length == 0) {
+				return;
+			}
 			for (int i = selected.length - 1; i >= 0; i--) {
 				tablePanel.getModel().swap(selected[i], selected[i]+1);
 			}
