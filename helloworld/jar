@@ -1,1 +1,1 @@
-cd bin && jar cvfm /Users/chs/Desktop/helloworld.jar ../src/META-INF/MANIFEST.MF . && cd ..
+cd bin && jar cvfm ../helloworld.jar ../src/META-INF/MANIFEST.MF . && cd ..
