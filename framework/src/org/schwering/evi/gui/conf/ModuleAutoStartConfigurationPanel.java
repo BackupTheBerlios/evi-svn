@@ -1,5 +1,6 @@
 package org.schwering.evi.gui.conf;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.util.Vector;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -134,6 +136,7 @@ implements IPanel {
 		private static final long serialVersionUID = 7788432414929181492L;
 
 		private LoadTableModel model = new LoadTableModel();
+		private JTable table = new JTable(model);
 		
 		/**
 		 * Draws a table with all modules, their version and their requirements.
@@ -143,7 +146,6 @@ implements IPanel {
 			super(new GridLayout(1, 0));
 			setBorder(new TitledBorder(Messages.getString("ModuleAutoStartConfigurationPanel.START_AUTOMATICALLY") +":")); //$NON-NLS-1$ //$NON-NLS-2$
 			
-			final JTable table = new JTable(model);
 			DefaultCellEditor dce = new DefaultCellEditor(new JTextField());
 			dce.addCellEditorListener(new CellEditorListener() {
 				public void editingCanceled(ChangeEvent arg0) {
@@ -169,7 +171,6 @@ implements IPanel {
 					}
 				}
 			});
-			rightClickMenu.add(editArgsItem);
 			JMenuItem removeItem = new JMenuItem(Messages.getString("ModuleAutoStartConfigurationPanel.REMOVE")); //$NON-NLS-1$
 			removeItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -179,7 +180,23 @@ implements IPanel {
 					}
 				}
 			});
+			JMenuItem shiftUp = new JMenuItem(Messages.getString("ModuleConfigurationPanel.UP")); //$NON-NLS-1$
+			shiftUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedUp();
+				}
+			});
+			JMenuItem shiftDown = new JMenuItem(Messages.getString("ModuleConfigurationPanel.DOWN")); //$NON-NLS-1$
+			shiftDown.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedDown();
+				}
+			});
+			rightClickMenu.add(editArgsItem);
 			rightClickMenu.add(removeItem);
+			rightClickMenu.addSeparator();
+			rightClickMenu.add(shiftUp);
+			rightClickMenu.add(shiftDown);
 			
 			table.addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent e) {
@@ -215,7 +232,75 @@ implements IPanel {
 				}
 			});
 			JScrollPane scrollPane = new JScrollPane(table);
-			add(scrollPane);
+			
+			JPanel p = new JPanel(new BorderLayout());
+			p.add(scrollPane, BorderLayout.CENTER);
+			p.add(getButtonPanel(), BorderLayout.SOUTH);
+			add(p);
+		}
+		
+		public JPanel getButtonPanel() {
+			JPanel p = new JPanel(new GridLayout(0, 3));
+			JButton remove = new JButton(Messages.getString("ModuleConfigurationPanel.REMOVE")); //$NON-NLS-1$
+			remove.setToolTipText(Messages.getString("ModuleConfigurationPanel.REMOVE_TOOLTIP")); //$NON-NLS-1$
+			remove.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int[] selected = table.getSelectedRows();
+					for (int i = selected.length - 1; i >= 0; i--) {
+						model.remove(selected[i]);
+					}
+				}
+			});
+			JButton shiftUp = new JButton(Messages.getString("ModuleConfigurationPanel.UP")); //$NON-NLS-1$
+			shiftUp.setToolTipText(Messages.getString("ModuleConfigurationPanel.UP_TOOLTIP")); //$NON-NLS-1$
+			shiftUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedUp();
+				}
+			});
+			JButton shiftDown = new JButton(Messages.getString("ModuleConfigurationPanel.DOWN")); //$NON-NLS-1$
+			shiftDown.setToolTipText(Messages.getString("ModuleConfigurationPanel.DOWN_TOOLTIP")); //$NON-NLS-1$
+			shiftDown.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					shiftSelectedDown();
+				}
+			});
+			p.add(remove);
+			p.add(shiftUp);
+			p.add(shiftDown);
+			return p;
+		}
+		
+		/**
+		 * Shifts all selected elements up by one.
+		 */
+		public void shiftSelectedUp() {
+			int[] selected = table.getSelectedRows();
+			for (int i = 0; i < selected.length; i++) {
+				model.swap(selected[i]-1, selected[i]);
+			}
+			int first = selected[0] - 1;
+			int last = selected[selected.length - 1] - 1;
+			try {
+				table.setRowSelectionInterval(first, last);
+			} catch (Exception exc) {
+			}
+		}
+		
+		/**
+		 * Shifts all selected elements down by one.
+		 */
+		public void shiftSelectedDown() {
+			int[] selected = table.getSelectedRows();
+			for (int i = selected.length - 1; i >= 0; i--) {
+				model.swap(selected[i], selected[i]+1);
+			}
+			int first = selected[0] + 1;
+			int last = selected[selected.length - 1] + 1;
+			try {
+				table.setRowSelectionInterval(first, last);
+			} catch (Exception exc) {
+			}
 		}
 	}
 	
@@ -279,6 +364,21 @@ implements IPanel {
 			String arg = (String)args.remove(i);
 			ModuleAutoStartConfiguration.remove(id, arg);
 			fireTableRowsDeleted(i, i);
+		}
+
+		public void swap(int i, int j) {
+			if (i < 0 || j < 0 || i >= ids.size() || j >= args.size()) {
+				return;
+			}
+			String id1 = (String)ids.get(i);
+			String arg1 = (String)args.get(i);
+			String id2 = (String)ids.get(j);
+			String arg2 = (String)args.get(j);
+			ids.set(i, id2);
+			ids.set(j, id1);
+			args.set(i, arg2);
+			args.set(j, arg1);
+			fireTableRowsUpdated(i, j);
 		}
 
 		/* (non-Javadoc)
