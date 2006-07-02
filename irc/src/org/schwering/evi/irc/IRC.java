@@ -47,7 +47,7 @@ public class IRC implements IModule, IPanel {
 		});
 		test.add(reset);
 		
-		tabs.add(test, "Begr√º√üung");
+		tabs.add(test, "Begrüßung");
 	}
 	
 	public IRC(Object[] args) {
