@@ -230,7 +230,9 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox primFontStyle;
 	
 	private void addPrimaryFontSelector(JPanel p) {
-		Font current = MainConfiguration.PROPS.getFont("font.primary"); //$NON-NLS-1$
+		Font defaultFont = new Font("SansSerif", Font.PLAIN, 12);
+		System.out.println(defaultFont);
+		Font current = MainConfiguration.PROPS.getFont("font.primary", defaultFont); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
 		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
@@ -274,7 +276,9 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	private JComboBox secFontStyle;
 	
 	private void addSecondaryFontSelector(JPanel p) {
-		Font current = MainConfiguration.PROPS.getFont("font.secondary"); //$NON-NLS-1$
+		Font defaultFont = new Font("Monospaced", Font.PLAIN, 12);
+		System.out.println(defaultFont);
+		Font current = MainConfiguration.PROPS.getFont("font.secondary", defaultFont); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
 		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
