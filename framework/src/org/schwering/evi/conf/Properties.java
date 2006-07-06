@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -223,6 +225,121 @@ public class Properties extends java.util.Properties {
 	 */
 	public void setBase64String(String key, String value) {
 		setProperty(key, Base64.encode(value));
+	}
+	
+	/**
+	 * Stores the MD5 hash of <code>value</code> under <code>key</code>.
+	 * @param key The key of the property.
+	 * @param value The string that is to be hashed.
+	 */
+	public void setMd5Digest(String key, String value) {
+		setMd5Digest(key, value.getBytes());
+	}
+	
+	/**
+	 * Stores the MD5 hash of <code>value</code> under <code>key</code>.
+	 * @param key The key of the property.
+	 * @param value The bytes that are to be hashed.
+	 */
+	public void setMd5Digest(String key, byte[] value) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(value);
+			byte[] digest = md.digest();
+			StringBuffer buf = new StringBuffer(32);
+			for (int i = 0; i < digest.length; i++) {
+				String s = "00"+ Integer.toHexString((int)digest[i]);
+				s = s.substring(s.length() - 2);
+				buf.append(s);
+			}
+			setProperty(key, buf.toString());
+		} catch (Exception exc) {
+			throw new RuntimeException(exc);
+		}
+	}
+
+	/**
+	 * Returns the MD5 digest stored behind <code>key</code> as 
+	 * <code>byte[]</code> array.<br />
+	 * To get the MD5 digest as human-readable string (of hexadecimal integers),
+	 * use the <code>getString(key)</code> method.<br />
+	 * Note that this method can only be applied to a key that really leads to 
+	 * a MD5 checksum. If the value of key is not valid, <code>null</code> 
+	 * will be returned.
+	 * @param key The key.
+	 * @return The MD5 checksum as <code>byte[]</code> or <code>null</code>.
+	 */
+	public byte[] getMd5Digest(String key) {
+		String ret = getProperty(key, null);
+		if (ret != null) {
+			try {
+				byte[] digest = new byte[16];
+				for (int i = 0; i < 16; i++) {
+					String sub = String.valueOf(ret.charAt(2*i)) 
+								+ String.valueOf(ret.charAt(2*i+1));
+					int j = Integer.parseInt(sub, 16);
+					digest[i] = (byte)j;
+				}
+				return digest;
+			} catch (Exception exc) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Checks whether the MD5 hash stored behind <code>key</code> matches 
+	 * the result of applying the MD5 algorithm to <code>value</code>.<br />
+	 * Note that <code>value</code> is not another MD5 checksum as string; 
+	 * but it is a string (e.g. a password). This method hashes this string 
+	 * with the MD5 algorithm and compares the stored MD5 checksum with the 
+	 * newly generated one.
+	 * @param key The key of the stored MD5 sum.
+	 * @param value The string, whose MD5 hash is compared to the MD5 sum 
+	 * stored behind key,
+	 * @return <code>true</code> if <code>md5(value)</code> results in the 
+	 * same MD5 digest that is stored behind <code>key</code>. 
+	 */
+	public boolean equalsMd5Digest(String key, String value) {
+		return equalsMd5Digest(key, value.getBytes());
+	}
+	
+	/**
+	 * Checks whether the MD5 hash stored behind <code>key</code> matches 
+	 * the result of applying the MD5 algorithm to <code>value</code>.<br />
+	 * Note that <code>value</code> is not another MD5 checksum; but it is any 
+	 * data (e.g. the content of a file). This method hashes this string 
+	 * with the MD5 algorithm and compares the stored MD5 checksum with the 
+	 * newly generated one.
+	 * @param key The key of the stored MD5 sum.
+	 * @param value The data, whose MD5 hash is compared to the MD5 sum 
+	 * stored behind key,
+	 * @return <code>true</code> if <code>md5(value)</code> results in the 
+	 * same MD5 digest that is stored behind <code>key</code>. 
+	 */
+	public boolean equalsMd5Digest(String key, byte[] value) {
+		try {
+			byte[] digest1 = getMd5Digest(key);
+			
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(value);
+			byte[] digest2 = md.digest();
+			
+			if (digest1 == null || digest2 == null) {
+				return false;
+			}
+			int i;
+			for (i = 0; i < digest1.length && i < digest2.length; i++) {
+				if (digest1[i] != digest2[i]) {
+					break;
+				}
+			}
+			return i == 16;
+		} catch (Exception exc) {
+			throw new RuntimeException(exc);
+		}
 	}
 	
 	/**
