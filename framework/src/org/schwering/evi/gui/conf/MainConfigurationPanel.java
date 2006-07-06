@@ -231,7 +231,6 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	
 	private void addPrimaryFontSelector(JPanel p) {
 		Font defaultFont = new Font("SansSerif", Font.PLAIN, 12);
-		System.out.println(defaultFont);
 		Font current = MainConfiguration.PROPS.getFont("font.primary", defaultFont); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
@@ -277,7 +276,6 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	
 	private void addSecondaryFontSelector(JPanel p) {
 		Font defaultFont = new Font("Monospaced", Font.PLAIN, 12);
-		System.out.println(defaultFont);
 		Font current = MainConfiguration.PROPS.getFont("font.secondary", defaultFont); //$NON-NLS-1$
 		String currentFontName = current.getFamily();
 		int currentFontSize = current.getSize();
