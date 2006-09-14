@@ -1,1 +1,0 @@
-Module-Info-Class: org.schwering.evi.console.ConsoleInfo
