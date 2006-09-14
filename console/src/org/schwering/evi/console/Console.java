@@ -23,6 +23,10 @@ import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.util.RightClickMenu;
 
+/**
+ * The IModule class for the console module.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ */
 public class Console extends JPanel implements IModule, IPanel {
 	
 	public Console() {
