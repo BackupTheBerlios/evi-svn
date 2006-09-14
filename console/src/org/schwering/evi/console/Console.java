@@ -34,6 +34,7 @@ public class Console extends JPanel implements IModule, IPanel {
 		final PrintStream oldErr = System.err;
 		final SimpleAttributeSet attr = new SimpleAttributeSet();
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
+		final JTextPane pane = new JTextPane(doc);
 		StyleConstants.setFontFamily(attr, "Monospaced");
 		
 		PrintStream newOut = new PrintStream(new OutputStream() {
@@ -43,6 +44,7 @@ public class Console extends JPanel implements IModule, IPanel {
 					StyleConstants.setForeground(attr, Color.BLACK);
 					doc.insertString(doc.getLength(), 
 							Character.toString((char)i), attr);
+					pane.setCaretPosition(doc.getLength());
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
@@ -57,6 +59,7 @@ public class Console extends JPanel implements IModule, IPanel {
 					StyleConstants.setForeground(attr, Color.RED);
 					doc.insertString(doc.getLength(), 
 							Character.toString((char)i), attr);
+					pane.setCaretPosition(doc.getLength());
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
@@ -64,7 +67,6 @@ public class Console extends JPanel implements IModule, IPanel {
 		});
 		System.setErr(newErr);
 		
-		JTextPane pane = new JTextPane(doc);
 		pane.setEditable(false);
 		RightClickMenu.addRightClickMenu(pane);
 		
