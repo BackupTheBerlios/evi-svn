@@ -1,6 +1,6 @@
-MACROS=../macros.copl
-HEADER=../header.html.de
-FOOTER=../footer.html
+MACROS=macros.copl
+HEADER=header.html.de
+FOOTER=footer.html
 
 =Download=
 Das Framework ist in Version 1.0-rc1 verfügbar. Es macht aber nicht viel Sinn, weil es noch keine Module gibt.

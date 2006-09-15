@@ -1,7 +1,7 @@
 TITLE=Eclipse + SVN Tutorial
-MACROS=../../macros.copl
-HEADER=../../header.html.en
-FOOTER=../../footer.html
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
 
 =Eclipse + SVN Tutorial=
 

@@ -1,6 +1,6 @@
-MACROS=../macros.copl
-HEADER=../header.html.de
-FOOTER=../footer.html
+MACROS=macros.copl
+HEADER=header.html.de
+FOOTER=footer.html
 
 =Entwicklung=
 Hier ein paar Entwickler-Informationen. 

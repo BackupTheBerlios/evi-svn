@@ -1,7 +1,7 @@
 TITLE=EVI TicTacToe
-MACROS=../../macros.copl
-HEADER=../../header.html.en
-FOOTER=../../footer.html
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
 
 =evi() TicTacToe=
 

@@ -1,6 +1,6 @@
-MACROS=../macros.copl
-HEADER=../header.html.en
-FOOTER=../footer.html
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
 
 =Modules=
 No modules are written yet. But we have a lot of plans: 

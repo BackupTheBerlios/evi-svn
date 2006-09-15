@@ -1,7 +1,7 @@
 TITLE=EVI ICQ
-MACROS=../../macros.copl
-HEADER=../../header.html.en
-FOOTER=../../footer.html
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
 
 =evi() ICQ=
 
