@@ -17,6 +17,7 @@ compile()
 	&& echo -n "." && ./copli --nohttp modules/audioplayer/index.copl.en modules/audioplayer/index.html.en \
 	&& echo -n "." && ./copli --nohttp modules/calculator/index.copl.en modules/calculator/index.html.en \
 	&& echo -n "." && ./copli --nohttp modules/calendar/index.copl.en modules/calendar/index.html.en \
+	&& echo -n "." && ./copli --nohttp modules/console/index.copl.en modules/console/index.html.en \
 	&& echo -n "." && ./copli --nohttp modules/dcc/index.copl.en modules/dcc/index.html.en \
 	&& echo -n "." && ./copli --nohttp modules/filemanager/index.copl.en modules/filemanager/index.html.en \
 	&& echo -n "." && ./copli --nohttp modules/icq/index.copl.en modules/icq/index.html.en \
