@@ -71,7 +71,7 @@ public class Console extends JPanel implements IModule, IPanel {
 		RightClickMenu.addRightClickMenu(pane);
 		
 		setLayout(new BorderLayout());
-		setBorder(new TitledBorder("Console"));
+		setBorder(new TitledBorder(Messages.getString("Console.Console.CONSOLE_BORDER_TITLE"))); //$NON-NLS-1$
 		add(new JScrollPane(pane));
 	}
 
@@ -84,7 +84,7 @@ public class Console extends JPanel implements IModule, IPanel {
 	}
 
 	public String getTitle() {
-		return "Console";
+		return Messages.getString("Console.CONSOLE_TITLE"); //$NON-NLS-1$
 	}
 
 	public void dispose() {

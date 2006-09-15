@@ -19,7 +19,7 @@ public class ConsoleInfo implements IModuleInfo, IMenuable {
 	}
 
 	public String getName() {
-		return "Console";
+		return Messages.getString("ConsoleInfo.CONSOLE_NAME"); //$NON-NLS-1$
 	}
 
 	public float getVersion() {
