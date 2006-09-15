@@ -1,8 +1,0 @@
-TITLE=EVI Calendar
-MACROS=../../macros.copl
-HEADER=../../header.html.en
-FOOTER=../../footer.html
-
-=evi() Calendar=
-
-A nice simply useless calendar.

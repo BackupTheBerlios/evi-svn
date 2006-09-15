@@ -1,8 +1,0 @@
-TITLE=EVI Audioplayer
-MACROS=../../macros.copl
-HEADER=../../header.html.en
-FOOTER=../../footer.html
-
-=evi() Audioplayer=
-
-There seems to be a nice <!url http://www.javazoom.net/javalayer/javalayer.html MP3 library> out there. Check it out. Audio player would be very very great.
