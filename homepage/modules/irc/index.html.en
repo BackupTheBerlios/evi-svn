@@ -55,7 +55,7 @@ a:hover, a:active { font-weight: bold; text-decoration: none; color: #e0ad12; }
 An IRC client module for EVI. Based on <a href="http://moepii.sourceforge.net">IRClib</a>.
 </p>
 <p>
-SVN: <a href="http://svn.berlios.de/wsvn/evi/pong/">http://svn.berlios.de/wsvn/evi/pong/</a>
+SVN: <a href="http://svn.berlios.de/wsvn/evi/irc/">http://svn.berlios.de/wsvn/evi/irc/</a>
 </p>
 <p>
 Brainstorming:
