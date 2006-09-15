@@ -1,0 +1,10 @@
+TITLE=EVI ICQ
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
+
+=evi() ICQ=
+
+This is the most important module besides the IRC module.
+
+There's number of ICQ libraries and clients written in Java. Think about it well.

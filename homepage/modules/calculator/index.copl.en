@@ -1,0 +1,11 @@
+TITLE=EVI Calculator
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
+
+=evi() Calculator=
+
+I'd really like to write a calculator. 
+
+The user should put in his mathematical term. When he clicks '=', the term string should be parsed and the result be calculated.
+This would make it easy to allow the user to define functions f(x).

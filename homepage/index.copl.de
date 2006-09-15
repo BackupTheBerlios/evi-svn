@@ -1,0 +1,19 @@
+TITLE=EVI Framework
+MACROS=macros.copl
+HEADER=header.html.de
+FOOTER=footer.html
+
+=Was ist evi()?=
+evi() ist ein Framework, das heißt ein modulares Programm für **Internet Kommunikation**, **Unterhaltung** (Spiele) und andere **Tools**. 
+Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
+evi() steht unter der GNU GPL, ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
+
+evi() soll einige jener Programme, die ständig laufen, die man aber nur zwischendurch mal benutzt (z.B. Kommunikationsprogramme), unter ein Dach bringen.
+
+Für einen niemals abreißenden Informationsfluss haben wir auch einen <!url http://evidev.blogspot.com evi()-Blog> :-)
+
+==Der Name==
+evi() ist ein Akronym und heißt **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erhält seinen Sinn nur dadurch, dass Evi bzw. Verena für Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
+
+==Kontakt==
+Und der Knallidiot von dem ganzen bin ich: Christoph Schwering <<!url mailto:schwering@gmail.com>>

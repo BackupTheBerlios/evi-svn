@@ -1,0 +1,8 @@
+TITLE=EVI Timetable
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
+
+=evi() Timetable=
+
+A timetable might be useful. Maybe the calendar can do this, too.

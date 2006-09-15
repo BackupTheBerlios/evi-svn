@@ -1,0 +1,30 @@
+MACROS=../macros.copl
+HEADER=../header.html.de
+FOOTER=../footer.html
+
+=Module=
+Bisher ist noch kein einziges Modul fertig. Deswegen gibt es nur:
+
+==Geplante Module==
+Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
+	- Kommunikation 
+		* <!url irc/ IRC> (Internet Relay Chat) [10]
+		* <!url icq/ ICQ> (Instant Messenging) (hoff ich) [5]
+		* vielleicht auch andere IM Protokolle [3]
+	- Unterhaltung
+		* <!url pong/ Pong> single/multiplayer [10]
+		* <!url tictactoe/ TicTacToe> single/multiplayer [7]
+		* Skat multiplayer (vielleicht) [4]
+		* Schere-Stein-Papier [4]
+	- Tools
+		* <!url console/ Konsole>
+		* <!url dcc/ DCC> für IRC [9]
+		* IRC Log Streamer [8]
+		* <!url calendar/ Kalender> [5]
+		* <!url timetable/ Stundenplan> [5]
+		* <!url mailbox/ Mailbox überwacher> [7]
+		* <!url filemanager/ Dateimanager> [7]
+		* Bildbetrachter [4]
+		* <!url audioplayer/ Audio-Player> wär super [6]
+		* <!url calculator/ Taschenrechner> [7]
+		* IDv3-Tag Administrator [2]

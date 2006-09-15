@@ -1,0 +1,34 @@
+TITLE=EVI Framework
+MACROS=macros.copl
+HEADER=header.html.de
+FOOTER=footer.html
+
+=Download=
+evi() 1.0 release candidate 1 ist draußen. Es gibt aber noch überhaupt keine Module (außer ein paar Testdinger)! evi() 1.0-rc1 ist also eher zum testen und anschauen :-).
+	- <!url evi.jnlp evi() via Java Web Start starten> (ist ne schöne Sache)
+	- Ausführbare Datei: <!url http://prdownload.berlios.de/evi/evi-1.0.jar evi-1.0-rc1.jar>
+	- Quellcode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.tar.gz evi-1.0-rc1-src.tar.gz> 
+	- Quellcode: <!url http://prdownload.berlios.de/evi/evi-1.0-rc1-src.zip evi-1.0-rc1-src.zip>
+
+==Geplante Module==
+Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
+	- Kommunikation 
+		* <!url modules/irc/ IRC> (Internet Relay Chat) [10]
+		* <!url modules/icq/ ICQ> (Instant Messenging) (hoff ich) [5]
+		* vielleicht auch andere IM Protokolle [3]
+	- Unterhaltung
+		* <!url modules/pong/ Pong> single/multiplayer [10]
+		* <!url modules/tictactoe/ TicTacToe> single/multiplayer [7]
+		* Skat multiplayer (vielleicht) [4]
+		* Schere-Stein-Papier [4]
+	- Tools
+		* <!url modules/dcc/ DCC> für IRC [9]
+		* IRC Log Streamer [8]
+		* <!url modules/calendar/ Kalender> [5]
+		* <!url modules/timetable/ Stundenplan> [5]
+		* <!url modules/mailbox/ Mailbox Überwacher> [7]
+		* <!url modules/filemanager/ Dateimanager> [7]
+		* Bildbetrachter [4]
+		* <!url modules/audioplayer/ Audio-Player> wär super [6]
+		* <!url modules/calculator/ Taschenrechner> [7]
+		* IDv3-Tag Administrator [2]

@@ -1,0 +1,21 @@
+TITLE=EVI Pong
+MACROS=../../macros.copl
+HEADER=../../header.html.en
+FOOTER=../../footer.html
+
+=evi() Pong=
+
+Mike Kremer (mikelsoft at gmail dot com) has written Pong. His implementation requires JOGL (OpenGL library) and JOAL/OpenAL (sound library). 
+
+SVN: <!url http://svn.berlios.de/wsvn/evi/pong/>
+
+Can we replace JOAL (and therefore eliminate OpenAL) with standard libraries?
+
+Pong has bugs:
+	- the ball goes through the pad at high speed
+	- control over the pad is lost if the mouse focus gets out of the window (--> keyboard?)
+
+Needed features:
+	- keyboard controls in addition to mouse
+	- configuration (sound on/off, keys)
+	- multiplayer would be great but difficult due to connection speed problem -- just try it out?
