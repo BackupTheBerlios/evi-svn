@@ -6,7 +6,7 @@ FOOTER=../footer.html
 Bisher ist noch kein einziges Modul fertig. Deswegen gibt es nur:
 
 ==Geplante Module==
-Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorit√§t (1 = niedrig, 10 = hoch).
+Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
 	- Kommunikation 
 		* <!url irc/ IRC> (Internet Relay Chat) [10]
 		* <!url icq/ ICQ> (Instant Messenging) (hoff ich) [5]
@@ -17,13 +17,14 @@ Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorit√§t (
 		* Skat multiplayer (vielleicht) [4]
 		* Schere-Stein-Papier [4]
 	- Tools
-		* <!url dcc/ DCC> f√ºr IRC [9]
+		* <!url console/ Konsole>
+		* <!url dcc/ DCC> für IRC [9]
 		* IRC Log Streamer [8]
 		* <!url calendar/ Kalender> [5]
 		* <!url timetable/ Stundenplan> [5]
-		* <!url mailbox/ Mailbox √úberwacher> [7]
+		* <!url mailbox/ Mailbox überwacher> [7]
 		* <!url filemanager/ Dateimanager> [7]
 		* Bildbetrachter [4]
-		* <!url audioplayer/ Audio-Player> w√§r super [6]
+		* <!url audioplayer/ Audio-Player> wär super [6]
 		* <!url calculator/ Taschenrechner> [7]
 		* IDv3-Tag Administrator [2]
