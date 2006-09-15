@@ -1,6 +1,16 @@
 compile()
 {
-	for f in `find . -iname \*.copl.\?\?`
+	for f in `find . -iname \*.copl.de`
+	do
+		if [ -f $f ]
+		then
+			g=`echo $f | cut -d . -f -2`.html.de
+			echo -n "Compiling $f to $g ... "
+			iconv --from=utf-8 --to=iso-8859-1 $f | ./copli --nohttp >$g\
+			&& echo "done" || echo "failed"
+		fi
+	done
+	for f in `find . -iname \*.copl.en`
 	do
 		if [ -f $f ]
 		then
@@ -14,7 +24,17 @@ compile()
 
 clean()
 {
-	for f in `find . -iname \*.copl.\?\?`
+	for f in `find . -iname \*.copl.de`
+	do
+		if [ -f $f ]
+		then
+			g=`echo $f | cut -d . -f -2`.html.de
+			echo -n "Removing $g ... "
+			rm $g\
+			&& echo "done" || echo "failed"
+		fi
+	done
+for f in `find . -iname \*.copl.en`
 	do
 		if [ -f $f ]
 		then
