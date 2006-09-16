@@ -35,13 +35,15 @@ public class Console extends JPanel implements IModule, IPanel {
 		final SimpleAttributeSet attr = new SimpleAttributeSet();
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
 		final JTextPane pane = new JTextPane(doc);
+		final Color outColor = ConsoleConfiguration.getOutColor();
+		final Color errColor = ConsoleConfiguration.getErrColor();
 		StyleConstants.setFontFamily(attr, "Monospaced");
 		
 		PrintStream newOut = new PrintStream(new OutputStream() {
 			public void write(int i) throws IOException {
 				oldOut.write(i);
 				try {
-					StyleConstants.setForeground(attr, Color.BLACK);
+					StyleConstants.setForeground(attr, outColor);
 					doc.insertString(doc.getLength(), 
 							Character.toString((char)i), attr);
 					pane.setCaretPosition(doc.getLength());
@@ -56,7 +58,7 @@ public class Console extends JPanel implements IModule, IPanel {
 			public void write(int i) throws IOException {
 				oldErr.write(i);
 				try {
-					StyleConstants.setForeground(attr, Color.RED);
+					StyleConstants.setForeground(attr, errColor);
 					doc.insertString(doc.getLength(), 
 							Character.toString((char)i), attr);
 					pane.setCaretPosition(doc.getLength());
