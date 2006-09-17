@@ -13,7 +13,7 @@ import org.schwering.evi.core.IPanel;
 public class ConsoleInfo implements IModuleInfo, IMenuable, IConfigurable {
 
 	public String getInfoURL() {
-		return null;
+		return Messages.getString("ConsoleInfo.INFO_HTML"); //$NON-NLS-1$
 	}
 
 	public Class getModuleClass() {
