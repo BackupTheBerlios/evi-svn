@@ -6,7 +6,7 @@ compile()
 		then
 			g=`echo $f | cut -d . -f -2`.html.de
 			echo -n "Compiling $f to $g ... "
-			iconv --from=utf-8 --to=iso-8859-1 $f | ./copli --nohttp >$g\
+			iconv -f utf-8 -t iso-8859-1 $f | ./copli --nohttp >$g\
 			&& echo "done" || echo "failed"
 		fi
 	done
@@ -16,7 +16,7 @@ compile()
 		then
 			g=`echo $f | cut -d . -f -2`.html.en
 			echo -n "Compiling $f to $g ... "
-			iconv --from=utf-8 --to=iso-8859-1 $f | ./copli --nohttp >$g\
+			iconv -f utf-8 -t iso-8859-1 $f | ./copli --nohttp >$g\
 			&& echo "done" || echo "failed"
 		fi
 	done
