@@ -1,0 +1,10 @@
+<html>
+<head>
+<title>Console Module</title>
+</head>
+<body>
+<h1>EVI Console Module</h1>
+<p>The EVI Console Module directs the standard output and standard error streams to a textfield.</p>
+<p>Contact: Christoph Schwering (schwering@gmail.com)</p>
+</body>
+</html>
