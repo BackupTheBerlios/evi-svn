@@ -8,6 +8,6 @@ FOOTER=footer.html
 A simple module that displays the output of System.out and System.err. The "module" is complete.
 
 JAR: <!url http://prdownload.berlios.de/evi/console-1.0.jar>
-TAR GZ: <!url http://prdownload.berlios.de/evi/console-1.0.tar.gz>
-ZIP: <!url http://prdownload.berlios.de/evi/console-1.0.zip>
-SVN: <!url http://svn.berlios.de/wsvn/evi/console/>
+Source (TAR GZ): <!url http://prdownload.berlios.de/evi/console-1.0.tar.gz>
+Source (ZIP): <!url http://prdownload.berlios.de/evi/console-1.0.zip>
+Source (SVN): <!url http://svn.berlios.de/wsvn/evi/console/>
