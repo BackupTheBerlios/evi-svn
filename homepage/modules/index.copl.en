@@ -19,6 +19,7 @@ These are the modules we **plan** to write. The number in brackets mean the  mod
 	- Tools
 		* <!url console/ Console>
 		* <!url dcc/ DCC> for IRC [9]
+		* <!url dashboard/ Dashboard> [7]
 		* IRC log streamer [8]
 		* <!url calendar/ Calendar> [5]
 		* <!url timetable/ Timetable> [5]

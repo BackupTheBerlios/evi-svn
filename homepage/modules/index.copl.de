@@ -19,6 +19,7 @@ Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (
 	- Tools
 		* <!url console/ Konsole>
 		* <!url dcc/ DCC> für IRC [9]
+		* <!url dashboard/ Dashboard> [7]
 		* IRC Log Streamer [8]
 		* <!url calendar/ Kalender> [5]
 		* <!url timetable/ Stundenplan> [5]

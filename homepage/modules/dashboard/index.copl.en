@@ -1,0 +1,8 @@
+TITLE=EVI Dashboard
+MACROS=macros.copl
+HEADER=header.html.en
+FOOTER=footer.html
+
+=evi() Dashboard=
+
+Allow user to display IApplets similar to Apple OS X's dashboard.
