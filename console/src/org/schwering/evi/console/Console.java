@@ -32,20 +32,23 @@ public class Console extends JPanel implements IModule, IPanel {
 	public Console() {
 		final PrintStream oldOut = System.out;
 		final PrintStream oldErr = System.err;
-		final SimpleAttributeSet attr = new SimpleAttributeSet();
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
 		final JTextPane pane = new JTextPane(doc);
 		final Color outColor = ConsoleConfiguration.getOutColor();
 		final Color errColor = ConsoleConfiguration.getErrColor();
-		StyleConstants.setFontFamily(attr, "Monospaced");
+		final SimpleAttributeSet attrOut = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(attrOut, "Monospaced");
+		StyleConstants.setForeground(attrOut, outColor);
+		final SimpleAttributeSet attrErr = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(attrErr, "Monospaced");
+		StyleConstants.setForeground(attrErr, errColor);
 		
 		PrintStream newOut = new PrintStream(new OutputStream() {
 			public void write(int i) throws IOException {
 				oldOut.write(i);
 				try {
-					StyleConstants.setForeground(attr, outColor);
 					doc.insertString(doc.getLength(), 
-							Character.toString((char)i), attr);
+							Character.toString((char)i), attrOut);
 					pane.setCaretPosition(doc.getLength());
 				} catch (Exception exc) {
 					exc.printStackTrace();
@@ -58,9 +61,8 @@ public class Console extends JPanel implements IModule, IPanel {
 			public void write(int i) throws IOException {
 				oldErr.write(i);
 				try {
-					StyleConstants.setForeground(attr, errColor);
 					doc.insertString(doc.getLength(), 
-							Character.toString((char)i), attr);
+							Character.toString((char)i), attrErr);
 					pane.setCaretPosition(doc.getLength());
 				} catch (Exception exc) {
 					exc.printStackTrace();
