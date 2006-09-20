@@ -3,18 +3,62 @@ package org.schwering.evi.irc.conf;
 import java.awt.Font;
 import java.awt.Color;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.irc.IRC;
+import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.conf.Properties;
 
 public class Profile {
+	private static final String PROFILE_PREFIX = ModuleContainer.getIdByClass(IRC.class) +"_profile_";
 	private Properties props;
+	private String name;
+	
+	public static Profile[] getProfiles() {
+		FilenameFilter filter = new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				return name.startsWith(PROFILE_PREFIX);
+			}
+		};
+		File[] files = MainConfiguration.CONFIG_DIR.listFiles(filter);
+		Profile[] profiles = new Profile[files.length];
+		for (int i = 0; i < files.length; i++) {
+			String name = files[i].getName();
+			name = name.substring(PROFILE_PREFIX.length());
+			try {
+				profiles[i] = new Profile(name);
+			} catch (Exception exc) {
+				profiles[i] = null;
+				exc.printStackTrace();
+			}
+		}
+		return profiles;
+	}
 	
 	public Profile(String name) throws IOException {
-		props = new Properties(ModuleContainer.getIdByClass(IRC.class) +"_"+ name);
+		props = new Properties(PROFILE_PREFIX + name);
 		props.setShutdownHook(true);
+		this.name = name;
+	}
+	
+	public void delete() {
+		props.setShutdownHook(false);
+		props.getFile().delete();
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return name;
+	}
+	
+	public File getFile() {
+		return props.getFile();
 	}
 	
 	public void setServer(String s) {

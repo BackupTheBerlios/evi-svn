@@ -93,6 +93,6 @@ IParameterizable, IURIHandler {
 	 * @see org.schwering.evi.core.IConfigurable#getConfigPanel()
 	 */
 	public IPanel getConfigPanel() {
-		return new Configuration();
+		return Configuration.getInstance();
 	}
 }
