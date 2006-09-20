@@ -26,7 +26,9 @@ public class ProfileChooser extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String name = JOptionPane.showInputDialog("Enter the name of the new profile:");
-					addProfile(new Profile(name));
+					if (name != null) {
+						addProfile(new Profile(name));
+					}
 				} catch (Exception exc) {
 					ExceptionDialog.show("Could not create new profile", exc);
 				}
