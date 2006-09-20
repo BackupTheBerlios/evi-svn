@@ -84,9 +84,19 @@ public class Properties extends java.util.Properties {
 		Runtime r = Runtime.getRuntime();
 		if (!shutdownHookSet && set) {
 			r.addShutdownHook(shutdownHook);
+			shutdownHookSet = true;
 		} else if (shutdownHookSet && !set) {
 			r.removeShutdownHook(shutdownHook);
+			shutdownHookSet = false;
 		}
+	}
+	
+	/**
+	 * Returns the properties file.
+	 * @return The properties file.
+	 */
+	public File getFile() {
+		return propsFile;
 	}
 	
 	/**
