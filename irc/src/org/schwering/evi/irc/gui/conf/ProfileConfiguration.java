@@ -15,8 +15,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-import org.schwering.evi.conf.MainConfiguration;
-import org.schwering.evi.gui.conf.Messages;
 import org.schwering.evi.irc.conf.Profile;
 
 public class ProfileConfiguration extends JPanel {
