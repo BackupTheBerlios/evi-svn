@@ -19,8 +19,10 @@ import org.schwering.evi.irc.conf.Profile;
 public class ProfileChooser extends JPanel {
 	private JButton delProfile = new JButton("Delete Profile");
 	private JComboBox box = new JComboBox();
+	private Configuration owner;
 	
 	public ProfileChooser(final Configuration owner) {
+		this.owner = owner;
 		final JButton newProfile = new JButton("New Profile");
 		newProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -63,7 +65,11 @@ public class ProfileChooser extends JPanel {
 				}
 			}
 		});
+		
 		delProfile.setEnabled(box.getItemCount() != 0);
+		if (box.getItemCount() == 0) {
+			owner.setProfile(null);
+		}
 		
 		add(newProfile);
 		add(box);
@@ -78,5 +84,8 @@ public class ProfileChooser extends JPanel {
 	private void removeProfile(Profile p) {
 		box.removeItem(p);
 		delProfile.setEnabled(box.getItemCount() > 0);
+		if (box.getItemCount() == 0) {
+			owner.setProfile(null);
+		}
 	}
 }

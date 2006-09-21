@@ -12,11 +12,13 @@ import org.schwering.evi.irc.conf.Profile;
 public class Configuration extends JPanel implements IPanel {
 	
 	private static Configuration instance = null;
+	private static int instanceCount = 0;
 	
 	public static Configuration getInstance() {
 		if (instance == null) {
 			instance = new Configuration();
 		}
+		instanceCount++;
 		return instance;
 	}
 	
@@ -29,10 +31,22 @@ public class Configuration extends JPanel implements IPanel {
 	}
 	
 	public void setProfile(Profile p) {
+		System.out.println("setProfile "+ p);
+		if (p != null) {
+			if (!configPanel.isVisible()) {
+				configPanel.setVisible(true);
+			}
+			configPanel.setProfile(p);
+		} else {
+			configPanel.setVisible(false);
+		}
 	}
 
 	public void dispose() {
-		instance = null;
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 
 	public Icon getIcon() {
