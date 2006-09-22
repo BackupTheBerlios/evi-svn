@@ -194,7 +194,9 @@ public class Properties extends java.util.Properties {
 	 * @param value The value.
 	 */
 	public void setString(String key, String value) {
-		setProperty(key, value);
+		if (value != null) {
+			setProperty(key, value);
+		}
 	}
 	
 	/**
