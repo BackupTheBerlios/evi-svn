@@ -27,6 +27,7 @@ import org.schwering.evi.conf.LanguageAdministrator;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.EVI;
+import org.schwering.evi.util.FontSelector;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.Util;
 
@@ -225,93 +226,33 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		p.add(row);
 	}
 
-	private JComboBox primFontName;
-	private JTextField primFontSize;
-	private JComboBox primFontStyle;
+	private FontSelector primaryFont;
 	
 	private void addPrimaryFontSelector(JPanel p) {
 		Font defaultFont = new Font("SansSerif", Font.PLAIN, 12);
 		Font current = MainConfiguration.PROPS.getFont("font.primary", defaultFont); //$NON-NLS-1$
-		String currentFontName = current.getFamily();
-		int currentFontSize = current.getSize();
-		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
 		
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		String[] fonts = ge.getAvailableFontFamilyNames();
-		primFontName = new JComboBox(fonts);
-		primFontName.setSelectedItem(currentFontName);
-		
-		primFontSize = new JTextField(3);
-		primFontSize.setText(String.valueOf(currentFontSize));
-		RightClickMenu.addRightClickMenu(primFontSize);
-		
-		Wrapper[] objs = new Wrapper[4];
-		objs[0] = new Wrapper(Messages.getString("MainConfigurationPanel.PLAIN"), "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[1] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD"), "BOLD"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[2] = new Wrapper(Messages.getString("MainConfigurationPanel.ITALIC"), "ITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[3] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD_AND_ITALIC"), "BOLDITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
-		primFontStyle = new JComboBox(objs);
-		primFontStyle.setSelectedIndex(find(currentFontStyle, objs));
-		
-		JPanel sub1 = new JPanel(new BorderLayout());
-		sub1.add(primFontName);
-		JPanel sub2 = new JPanel(new BorderLayout());
-		sub2.add(primFontSize, BorderLayout.WEST);
-		sub2.add(new JLabel("pt  "), BorderLayout.CENTER); //$NON-NLS-1$
-		sub2.add(primFontStyle, BorderLayout.EAST);
-		
-		JPanel sub = new JPanel(new GridLayout(2, 0));
-		sub.add(sub1);
-		sub.add(sub2);
+		primaryFont = new FontSelector();
+		primaryFont.setSelectedFont(current);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel(Messages.getString("MainConfigurationPanel.PRIMARY_FONT"))); //$NON-NLS-1$
-		row.add(sub);
+		row.add(primaryFont);
 		p.add(row);
 	}
 	
-	private JComboBox secFontName;
-	private JTextField secFontSize;
-	private JComboBox secFontStyle;
+	private FontSelector secondaryFont;
 	
 	private void addSecondaryFontSelector(JPanel p) {
 		Font defaultFont = new Font("Monospaced", Font.PLAIN, 12);
 		Font current = MainConfiguration.PROPS.getFont("font.secondary", defaultFont); //$NON-NLS-1$
-		String currentFontName = current.getFamily();
-		int currentFontSize = current.getSize();
-		String currentFontStyle = Util.encodeFontStyle(current.getStyle());
 		
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		String[] fonts = ge.getAvailableFontFamilyNames();
-		secFontName = new JComboBox(fonts);
-		secFontName.setSelectedItem(currentFontName);
-		
-		secFontSize = new JTextField(3);
-		secFontSize.setText(String.valueOf(currentFontSize));
-		RightClickMenu.addRightClickMenu(secFontSize);
-		
-		Wrapper[] objs = new Wrapper[4];
-		objs[0] = new Wrapper(Messages.getString("MainConfigurationPanel.PLAIN"), "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[1] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD"), "BOLD"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[2] = new Wrapper(Messages.getString("MainConfigurationPanel.ITALIC"), "ITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
-		objs[3] = new Wrapper(Messages.getString("MainConfigurationPanel.BOLD_AND_ITALIC"), "BOLDITALIC"); //$NON-NLS-1$ //$NON-NLS-2$
-		secFontStyle = new JComboBox(objs);
-		secFontStyle.setSelectedIndex(find(currentFontStyle, objs));
-		
-		JPanel sub1 = new JPanel(new BorderLayout());
-		sub1.add(secFontName);
-		JPanel sub2 = new JPanel(new BorderLayout());
-		sub2.add(secFontSize, BorderLayout.WEST);
-		sub2.add(new JLabel("pt  "), BorderLayout.CENTER); //$NON-NLS-1$
-		sub2.add(secFontStyle, BorderLayout.EAST);
-		
-		JPanel sub = new JPanel(new GridLayout(2, 0));
-		sub.add(sub1);
-		sub.add(sub2);
+		secondaryFont = new FontSelector();
+		secondaryFont.setSelectedFont(current);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel(Messages.getString("MainConfigurationPanel.SECONDARY_FONT"))); //$NON-NLS-1$
-		row.add(sub);
+		row.add(secondaryFont);
 		p.add(row);
 	}
 	
@@ -471,21 +412,8 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		
 		MainConfiguration.PROPS.setBoolean("gui.asktoexit", askToExit.isSelected()); //$NON-NLS-1$
 		
-		String primaryFontName = (String)primFontName.getSelectedItem();
-		String primaryFontSize = primFontSize.getText().trim();
-		w = (Wrapper)primFontStyle.getSelectedItem();
-		String primaryFontStyle = (String)w.getObject();
-		Font primaryFont = Util.decodeFont(primaryFontName, primaryFontSize, 
-				primaryFontStyle);
-		MainConfiguration.PROPS.setFont("font.primary", primaryFont); //$NON-NLS-1$
-		
-		String secondaryFontName = (String)secFontName.getSelectedItem();
-		String secondaryFontSize = secFontSize.getText().trim();
-		w = (Wrapper)secFontStyle.getSelectedItem();
-		String secondaryFontStyle = (String)w.getObject();
-		Font secondaryFont = Util.decodeFont(secondaryFontName, secondaryFontSize, 
-				secondaryFontStyle);
-		MainConfiguration.PROPS.setFont("font.secondary", secondaryFont); //$NON-NLS-1$
+		MainConfiguration.PROPS.setFont("font.primary", primaryFont.getSelectedFont()); //$NON-NLS-1$
+		MainConfiguration.PROPS.setFont("font.secondary", secondaryFont.getSelectedFont()); //$NON-NLS-1$
 		
 		MainConfiguration.PROPS.setColor("color.primary", primaryColor); //$NON-NLS-1$
 
