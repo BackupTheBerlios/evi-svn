@@ -10,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.schwering.evi.gui.conf.Messages;
-
 /**
  * GUI component that allows to select a font. The JPanel has a GridLayout with two
  * rows. The first row contains a JComboBox with all fontnames, the second row 
@@ -21,16 +19,19 @@ import org.schwering.evi.gui.conf.Messages;
  */
 public class FontSelector extends JPanel {
 	private Wrapper[] FONT_STYLES = new Wrapper[] {
-			new Wrapper(Messages.getString("MainConfigurationPanel.PLAIN"), "PLAIN"), //$NON-NLS-1$ //$NON-NLS-2$
-			new Wrapper(Messages.getString("MainConfigurationPanel.BOLD"), "BOLD"), //$NON-NLS-1$ //$NON-NLS-2$
-			new Wrapper(Messages.getString("MainConfigurationPanel.ITALIC"), "ITALIC"), //$NON-NLS-1$ //$NON-NLS-2$
-			new Wrapper(Messages.getString("MainConfigurationPanel.BOLD_AND_ITALIC"), "BOLDITALIC") //$NON-NLS-1$ //$NON-NLS-2$
+			new Wrapper(Messages.getString("FontSelector.PLAIN"), "PLAIN"), //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontSelector.BOLD"), "BOLD"),  //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontSelector.ITALIC"), "ITALIC"), //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontSelector.BOLDITALIC"), "BOLDITALIC") //$NON-NLS-1$
 	};
 	
 	private JComboBox fontName;
 	private JTextField fontSize;
 	private JComboBox fontStyle;
 	
+	/**
+	 * Creates a new font selector panel.
+	 */
 	public FontSelector() {
 		super(new GridLayout(2, 0));
 		
@@ -55,6 +56,10 @@ public class FontSelector extends JPanel {
 		add(sub2);
 	}
 	
+	/**
+	 * Sets the currently selected font.
+	 * @param f The font which should be selected.
+	 */
 	public void setSelectedFont(Font f) {
 		String name = f.getFamily();
 		int size = f.getSize();
@@ -65,6 +70,10 @@ public class FontSelector extends JPanel {
 		fontStyle.setSelectedIndex(find(style, FONT_STYLES));
 	}
 	
+	/**
+	 * Returns the selected font.
+	 * @return The selected font.
+	 */
 	public Font getSelectedFont() {
 		String name = (String)fontName.getSelectedItem();
 		String size = fontSize.getText().trim();
