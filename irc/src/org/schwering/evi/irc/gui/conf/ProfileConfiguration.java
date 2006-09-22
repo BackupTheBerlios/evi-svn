@@ -54,6 +54,13 @@ public class ProfileConfiguration extends JPanel {
 		addQueryFontSelector(appearancePanel);
 		
 		JPanel miscPanel = new JPanel(new GridLayout(7, 1));
+		addRejoinOnKick(miscPanel);
+		addBeepOnMention(miscPanel);
+		addBeepOnQuery(miscPanel);
+		addEnableLogging(miscPanel);
+		addLoggingDir(miscPanel);
+		addBrowser(miscPanel);
+		addAcceptCerts(miscPanel);
 		
 		JPanel performPanel = new JPanel(new GridLayout(1, 1));
 		addPerform(performPanel);
@@ -90,7 +97,7 @@ public class ProfileConfiguration extends JPanel {
 					} catch (Exception exc) {
 						ExceptionDialog.show(exc);
 					}
-					profile.setSSL(ssl.isEnabled());
+					profile.setSSL(ssl.isSelected());
 					profile.setPassword(password.getText());
 					profile.setNickname(nickname.getText());
 					profile.setUsername(username.getText());
@@ -108,6 +115,13 @@ public class ProfileConfiguration extends JPanel {
 					profile.setConsoleFont(consoleFont.getSelectedFont());
 					profile.setChannelFont(channelFont.getSelectedFont());
 					profile.setQueryFont(queryFont.getSelectedFont());
+					profile.setRejoinOnKick(rejoinOnKick.isSelected());
+					profile.setBeepOnMention(beepOnMention.isSelected());
+					profile.setBeepOnQuery(beepOnQuery.isSelected());
+					profile.setEnableLogging(enableLogging.isSelected());
+					profile.setLoggingDir(loggingDir.getText());
+					profile.setAcceptCerts(acceptCerts.isSelected());
+					profile.setBrowser(browser.getText());
 					profile.setPerform(perform.getText());
 				}
 			}
@@ -148,9 +162,10 @@ public class ProfileConfiguration extends JPanel {
 		JRadioButton yes = new JRadioButton("yes", false);
 		JRadioButton no = new JRadioButton("no", true);
 		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
 		group.add(no);
 		
-		ssl = no;
+		ssl = yes;
 
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
@@ -422,12 +437,150 @@ public class ProfileConfiguration extends JPanel {
 		p.add(scrollPane);
 	}
 	
+	private JRadioButton rejoinOnKick;
+	
+	private void addRejoinOnKick(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		rejoinOnKick = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Rejoin after kick:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JRadioButton beepOnMention;
+	
+	private void addBeepOnMention(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		beepOnMention = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Beep when nick mentioned:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JRadioButton beepOnQuery;
+	
+	private void addBeepOnQuery(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		beepOnQuery = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Beep on incoming query:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JRadioButton enableLogging;
+	
+	private void addEnableLogging(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		enableLogging = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Enable Logging:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JTextField loggingDir = new JTextField();
+	
+	private void addLoggingDir(JPanel p) {
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Logging Directory:"));
+		row.add(loggingDir);
+		p.add(row);
+	}
+	
+	private JRadioButton acceptCerts;
+	
+	private void addAcceptCerts(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		acceptCerts = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Accept X509 Certificates:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JTextField browser = new JTextField();
+	
+	private void addBrowser(JPanel p) {
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Browser:"));
+		row.add(browser);
+		p.add(row);
+	}
+	
 	public void setProfile(Profile p) {
 		profile = p;
 		setBorder(new TitledBorder("Profile "+ p));
 		server.setText(p.getServer());
 		port.setText(new Integer(p.getPort()).toString());
-		ssl.setEnabled(p.getSSL());
+		ssl.setSelected(p.getSSL());
 		password.setText(p.getPassword());
 		nickname.setText(p.getNickname());
 		username.setText(p.getUsername());
@@ -444,6 +597,13 @@ public class ProfileConfiguration extends JPanel {
 		consoleFont.setSelectedFont(p.getConsoleFont());
 		channelFont.setSelectedFont(p.getChannelFont());
 		queryFont.setSelectedFont(p.getQueryFont());
+		rejoinOnKick.setSelected(p.getRejoinOnKick());
+		beepOnMention.setSelected(p.getBeepOnMention());
+		beepOnQuery.setSelected(p.getBeepOnQuery());
+		enableLogging.setSelected(p.getEnableLogging());
+		loggingDir.setText(p.getLoggingDir());
+		acceptCerts.setSelected(p.getAcceptCerts());
+		browser.setText(p.getBrowser());
 		perform.setText(p.getPerform());
 	}
 }
