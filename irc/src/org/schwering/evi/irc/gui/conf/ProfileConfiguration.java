@@ -20,10 +20,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
+import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
+import org.schwering.evi.util.FontSelector;
 
 public class ProfileConfiguration extends JPanel {
 	private Profile profile;
@@ -47,6 +49,9 @@ public class ProfileConfiguration extends JPanel {
 		addOtherColorChooser(appearancePanel);
 		addNeutralColorChooser(appearancePanel);
 		addPaletteColorChooser(appearancePanel);
+		addConsoleFontSelector(appearancePanel);
+		addChannelFontSelector(appearancePanel);
+		addQueryFontSelector(appearancePanel);
 		
 		JPanel miscPanel = new JPanel(new GridLayout(7, 1));
 		
@@ -100,6 +105,9 @@ public class ProfileConfiguration extends JPanel {
 						palette[i] = colorPalette[i].getBackground();
 					}
 					profile.setColorPalette(palette);
+					profile.setConsoleFont(consoleFont.getSelectedFont());
+					profile.setChannelFont(channelFont.getSelectedFont());
+					profile.setQueryFont(queryFont.getSelectedFont());
 					profile.setPerform(perform.getText());
 				}
 			}
@@ -371,6 +379,36 @@ public class ProfileConfiguration extends JPanel {
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Color Palette:"));
 		row.add(sub);
+		p.add(row);
+	}
+	
+	private FontSelector consoleFont = new FontSelector();
+	
+	private void addConsoleFontSelector(JPanel p) {
+		consoleFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.secondary"));
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Console Font:"));
+		row.add(consoleFont);
+		p.add(row);
+	}
+	
+	private FontSelector channelFont = new FontSelector();
+	
+	private void addChannelFontSelector(JPanel p) {
+		channelFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.primary"));
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Channel Font:"));
+		row.add(channelFont);
+		p.add(row);
+	}
+	
+	private FontSelector queryFont = new FontSelector();
+	
+	private void addQueryFontSelector(JPanel p) {
+		queryFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.primary"));
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Query Font:"));
+		row.add(queryFont);
 		p.add(row);
 	}
 	
