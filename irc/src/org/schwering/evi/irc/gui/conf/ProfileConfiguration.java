@@ -441,6 +441,9 @@ public class ProfileConfiguration extends JPanel {
 		for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
 			colorPalette[i].setBackground(palette[i]);
 		}
+		consoleFont.setSelectedFont(p.getConsoleFont());
+		channelFont.setSelectedFont(p.getChannelFont());
+		queryFont.setSelectedFont(p.getQueryFont());
 		perform.setText(p.getPerform());
 	}
 }
