@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.RightClickMenu;
 
 public class ProfileConfiguration extends JPanel {
 	private Profile profile;
@@ -31,7 +32,7 @@ public class ProfileConfiguration extends JPanel {
 		super(new BorderLayout());
 		setBorder(new TitledBorder("Profile"));
 		
-		JPanel connectionPanel = new JPanel(new GridLayout(8, 0));
+		JPanel connectionPanel = new JPanel(new GridLayout(8, 1));
 		addServerAndPort(connectionPanel);
 		addSSL(connectionPanel);
 		addPassword(connectionPanel);
@@ -41,22 +42,34 @@ public class ProfileConfiguration extends JPanel {
 		addPartMsg(connectionPanel);
 		addQuitMsg(connectionPanel);
 
-		JPanel appearancePanel = new JPanel(new GridLayout(11, 0));
+		JPanel appearancePanel = new JPanel(new GridLayout(7, 1));
 		addOwnColorChooser(appearancePanel);
 		addOtherColorChooser(appearancePanel);
 		addNeutralColorChooser(appearancePanel);
 		addPaletteColorChooser(appearancePanel);
 		
-		JPanel miscPanel = new JPanel(new GridLayout(7, 0));
+		JPanel miscPanel = new JPanel(new GridLayout(7, 1));
 		
-		JPanel performPanel = new JPanel(new GridLayout(1, 0));
+		JPanel performPanel = new JPanel(new GridLayout(1, 1));
 		addPerform(performPanel);
-		
+
 		JTabbedPane tabs = new JTabbedPane();
-		tabs.add("Connection", connectionPanel);
-		tabs.add("Appearance", appearancePanel);
-		tabs.add("Miscellauneous", miscPanel);
+		JPanel tmp;
+		
+		tmp = new JPanel(new BorderLayout()); 
+		tmp.add(connectionPanel, BorderLayout.WEST); 
+		tabs.add("Connection", tmp);
+		
+		tmp = new JPanel(new BorderLayout()); 
+		tmp.add(appearancePanel, BorderLayout.WEST); 
+		tabs.add("Appearance", tmp);
+		
+		tmp = new JPanel(new BorderLayout()); 
+		tmp.add(miscPanel, BorderLayout.WEST); 
+		tabs.add("Miscellauneous", tmp);
+		
 		tabs.add("Perform", performPanel);
+		
 		JPanel p = new JPanel();
 		p.add(tabs);
 		
@@ -105,6 +118,9 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField port = new JTextField(4);
 	
 	private void addServerAndPort(JPanel p) {
+		RightClickMenu.addRightClickMenu(server);
+		RightClickMenu.addRightClickMenu(port);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.SOUTH);
@@ -144,6 +160,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField password = new JTextField(10);
 	
 	private void addPassword(JPanel p) {
+		RightClickMenu.addRightClickMenu(password);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -159,6 +177,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField nickname = new JTextField(10);
 	
 	private void addNickname(JPanel p) {
+		RightClickMenu.addRightClickMenu(nickname);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -174,6 +194,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField username = new JTextField(10);
 
 	private void addUsername(JPanel p) {
+		RightClickMenu.addRightClickMenu(username);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -189,6 +211,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField realname = new JTextField(10);
 	
 	private void addRealname(JPanel p) {
+		RightClickMenu.addRightClickMenu(realname);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -204,6 +228,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField quitMsg = new JTextField(10);
 	
 	private void addQuitMsg(JPanel p) {
+		RightClickMenu.addRightClickMenu(quitMsg);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -219,6 +245,8 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField partMsg = new JTextField(10);
 	
 	private void addPartMsg(JPanel p) {
+		RightClickMenu.addRightClickMenu(partMsg);
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.EAST);
@@ -319,9 +347,9 @@ public class ProfileConfiguration extends JPanel {
 	
 	private void addPaletteColorChooser(JPanel p) {
 		for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
-			colorPalette[i] = new JButton("f");
+			colorPalette[i] = new JButton("");
 			colorPalette[i].setBorderPainted(false);
-			colorPalette[i].setPreferredSize(new Dimension(5, 5));
+			colorPalette[i].setPreferredSize(new Dimension(25, 5));
 			colorPalette[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JButton b = (JButton)e.getSource();
@@ -351,7 +379,9 @@ public class ProfileConfiguration extends JPanel {
 	private void addPerform(JPanel p) {
 		Font font = Font.decode("Monospaced");
 		perform.setFont(font);
-		p.add(perform);
+		RightClickMenu.addRightClickMenu(perform);
+		JScrollPane scrollPane = new JScrollPane(perform);
+		p.add(scrollPane);
 	}
 	
 	public void setProfile(Profile p) {
