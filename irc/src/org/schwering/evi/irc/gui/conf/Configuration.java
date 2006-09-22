@@ -31,7 +31,6 @@ public class Configuration extends JPanel implements IPanel {
 	}
 	
 	public void setProfile(Profile p) {
-		System.out.println("setProfile "+ p);
 		if (p != null) {
 			if (!configPanel.isVisible()) {
 				configPanel.setVisible(true);

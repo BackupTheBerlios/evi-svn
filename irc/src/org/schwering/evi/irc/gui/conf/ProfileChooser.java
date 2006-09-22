@@ -67,9 +67,7 @@ public class ProfileChooser extends JPanel {
 		});
 		
 		delProfile.setEnabled(box.getItemCount() != 0);
-		if (box.getItemCount() == 0) {
-			owner.setProfile(null);
-		}
+		owner.setProfile((box.getItemCount() > 0) ? (Profile)box.getSelectedItem() : null);
 		
 		add(newProfile);
 		add(box);

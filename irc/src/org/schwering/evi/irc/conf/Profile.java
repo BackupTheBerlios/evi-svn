@@ -41,6 +41,7 @@ public class Profile {
 	public Profile(String name) throws IOException {
 		props = new Properties(PROFILE_PREFIX + name);
 		props.setShutdownHook(true);
+		props.load();
 		this.name = name;
 	}
 	
@@ -66,7 +67,7 @@ public class Profile {
 	}
 	
 	public String getServer() {
-		return props.getString("conn.server", null);
+		return props.getString("conn.server", "");
 	}
 	
 	public void setPort(int port) {
@@ -74,7 +75,7 @@ public class Profile {
 	}
 	
 	public int getPort() {
-		return props.getInt("conn.port", -1);
+		return props.getInt("conn.port", DefaultValues.DEFAULT_PORT);
 	}
 	
 	public void setSSL(boolean useSSL) {
@@ -85,12 +86,20 @@ public class Profile {
 		return props.getBoolean("conn.ssl", false);
 	}
 	
+	public void setPassword(String s) {
+		props.setBase64String("conn.pswd", s);
+	}
+	
+	public String getPassword() {
+		return props.getBase64String("conn.pswd", "");
+	}
+	
 	public void setNickname(String s) {
 		props.setString("conn.nick", s);
 	}
 	
 	public String getNickname() {
-		return props.getString("conn.nick", null);
+		return props.getString("conn.nick", "");
 	}
 	
 	public void setUsername(String s) {
@@ -98,7 +107,7 @@ public class Profile {
 	}
 	
 	public String getUsername() {
-		return props.getString("conn.user", null);
+		return props.getString("conn.user", "");
 	}
 	
 	public void setRealname(String s) {
@@ -106,7 +115,7 @@ public class Profile {
 	}
 	
 	public String getRealname() {
-		return props.getString("conn.real");
+		return props.getString("conn.real", "");
 	}
 	
 	public void setQuitMessage(String s) {
@@ -114,7 +123,7 @@ public class Profile {
 	}
 	
 	public String getQuitMessage() {
-		return props.getString("conn.quitmsg", null);
+		return props.getString("conn.quitmsg", "");
 	}
 	
 	public void setPartMessage(String s) {
@@ -122,7 +131,7 @@ public class Profile {
 	}
 	
 	public String getPartMessage() {
-		return props.getString("conn.partmsg", null);
+		return props.getString("conn.partmsg", "");
 	}
 	
 	public void setConsoleFont(Font f) {
@@ -255,5 +264,13 @@ public class Profile {
 	
 	public String getBrowser() {
 		return props.getString("misc.browser", null);
+	}
+	
+	public void setPerform(String s) {
+		props.setString("perform", s);
+	}
+	
+	public String getPerform() {
+		return props.getString("perform");
 	}
 }
