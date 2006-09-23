@@ -3,8 +3,7 @@ package org.schwering.evi.irc.gui;
 import javax.swing.JTabbedPane;
 
 import org.schwering.evi.conf.Properties;
-import org.schwering.evi.core.ModuleContainer;
-import org.schwering.evi.irc.IRC;
+import org.schwering.evi.irc.conf.Configuration;
 
 /**
  * The IRC tabbar.
@@ -14,15 +13,6 @@ public class TabBar extends JTabbedPane {
 	private Properties props;
 
 	public TabBar() {
-		int placement;
-		try {
-			props = new Properties(ModuleContainer.getIdByClass(IRC.class));
-			placement = props.getInt("gui.tabs.placement", JTabbedPane.LEFT);
-		} catch (Exception exc) {
-			placement = JTabbedPane.LEFT;
-			exc.printStackTrace();
-		}
-		
-		setTabPlacement(placement);
+		setTabPlacement(Configuration.getTabPlacement());
 	}
 }
