@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Hashtable;
 
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.irc.IRC;
@@ -17,6 +19,8 @@ public class Profile {
 	private Properties props;
 	private String name;
 	
+	private static Hashtable profileTable = new Hashtable();
+	
 	public static Profile[] getProfiles() {
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File dir, String name) {
@@ -24,17 +28,21 @@ public class Profile {
 			}
 		};
 		File[] files = MainConfiguration.CONFIG_DIR.listFiles(filter);
-		Profile[] profiles = new Profile[files.length];
 		for (int i = 0; i < files.length; i++) {
 			String name = files[i].getName();
 			name = name.substring(PROFILE_PREFIX.length());
-			try {
-				profiles[i] = new Profile(name);
-			} catch (Exception exc) {
-				profiles[i] = null;
-				exc.printStackTrace();
+			if (!profileTable.containsKey(name)) {
+				try {
+					Profile profile = new Profile(name);
+					profileTable.put(name, profile);
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
 			}
 		}
+		Collection profileCollection = profileTable.values();
+		Profile[] profiles = new Profile[profileCollection.size()];
+		profileCollection.toArray(profiles);
 		return profiles;
 	}
 	
