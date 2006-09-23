@@ -92,6 +92,8 @@ public class ConnectPanel extends JPanel {
 		
 		RightClickMenu.addRightClickMenu(uriTF);
 		sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(uriTF, BorderLayout.CENTER);
 		row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("URI:"));
@@ -101,6 +103,8 @@ public class ConnectPanel extends JPanel {
 		RightClickMenu.addRightClickMenu(serverTF);
 		RightClickMenu.addRightClickMenu(portTF);
 		sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(serverTF, BorderLayout.WEST);
 		sub.add(new JLabel(":"), BorderLayout.CENTER);
 		sub.add(portTF, BorderLayout.EAST);
@@ -111,7 +115,6 @@ public class ConnectPanel extends JPanel {
 		
 		sub = new JPanel(new BorderLayout());
 		sub.add(sslCB, BorderLayout.WEST);
-		sslCB.setSelected(false);
 		sslCB.setText("Enable SSL");
 		row = new JPanel(new GridLayout(0, 1));
 		row.add(sslCB);
@@ -119,6 +122,8 @@ public class ConnectPanel extends JPanel {
 		
 		RightClickMenu.addRightClickMenu(nickTF);
 		sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(nickTF, BorderLayout.CENTER);
 		row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Nickname:"));
@@ -127,6 +132,8 @@ public class ConnectPanel extends JPanel {
 		
 		RightClickMenu.addRightClickMenu(channelTF);
 		sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(channelTF, BorderLayout.CENTER);
 		row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Channel:"));
