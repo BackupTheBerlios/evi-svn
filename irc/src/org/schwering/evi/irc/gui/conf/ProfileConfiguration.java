@@ -44,16 +44,18 @@ public class ProfileConfiguration extends JPanel {
 		addPartMsg(connectionPanel);
 		addQuitMsg(connectionPanel);
 
-		JPanel appearancePanel = new JPanel(new GridLayout(7, 1));
+		JPanel appearancePanel = new JPanel(new GridLayout(8, 1));
 		addOwnColorChooser(appearancePanel);
 		addOtherColorChooser(appearancePanel);
 		addNeutralColorChooser(appearancePanel);
+		addEnableColors(appearancePanel);
 		addPaletteColorChooser(appearancePanel);
 		addConsoleFontSelector(appearancePanel);
 		addChannelFontSelector(appearancePanel);
 		addQueryFontSelector(appearancePanel);
 		
-		JPanel miscPanel = new JPanel(new GridLayout(7, 1));
+		JPanel miscPanel = new JPanel(new GridLayout(8, 1));
+		addReconnect(miscPanel);
 		addRejoinOnKick(miscPanel);
 		addBeepOnMention(miscPanel);
 		addBeepOnQuery(miscPanel);
@@ -107,6 +109,7 @@ public class ProfileConfiguration extends JPanel {
 					profile.setOwnColor(ownColor.getBackground());
 					profile.setOtherColor(otherColor.getBackground());
 					profile.setNeutralColor(neutralColor.getBackground());
+					profile.setEnableColors(enableColors.isSelected());
 					Color[] palette = new Color[DefaultValues.PALETTE_SIZE];
 					for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
 						palette[i] = colorPalette[i].getBackground();
@@ -115,6 +118,7 @@ public class ProfileConfiguration extends JPanel {
 					profile.setConsoleFont(consoleFont.getSelectedFont());
 					profile.setChannelFont(channelFont.getSelectedFont());
 					profile.setQueryFont(queryFont.getSelectedFont());
+					profile.setReconnect(reconnect.isSelected());
 					profile.setRejoinOnKick(rejoinOnKick.isSelected());
 					profile.setBeepOnMention(beepOnMention.isSelected());
 					profile.setBeepOnQuery(beepOnQuery.isSelected());
@@ -151,7 +155,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(port, BorderLayout.EAST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Server & Port:"));
+		row.add(new JLabel("Server / port:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -175,7 +179,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(no, BorderLayout.CENTER);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("SSL-Connection:"));
+		row.add(new JLabel("SSL connection:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -260,7 +264,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(quitMsg, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Quit-Message:"));
+		row.add(new JLabel("Quit message:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -277,7 +281,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(partMsg, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Part-Message:"));
+		row.add(new JLabel("Part message:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -305,7 +309,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(ownColor, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Own Color:"));
+		row.add(new JLabel("Own color:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -333,7 +337,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(otherColor, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Other's Color:"));
+		row.add(new JLabel("Other's color:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -361,7 +365,31 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(neutralColor, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Neutral Color:"));
+		row.add(new JLabel("Neutral color:"));
+		row.add(sub);
+		p.add(row);
+	}
+	
+	private JRadioButton enableColors;
+	
+	private void addEnableColors(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		enableColors = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Enable colors:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -392,7 +420,7 @@ public class ProfileConfiguration extends JPanel {
 		}
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Color Palette:"));
+		row.add(new JLabel("Color palette:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -402,7 +430,7 @@ public class ProfileConfiguration extends JPanel {
 	private void addConsoleFontSelector(JPanel p) {
 		consoleFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.secondary"));
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Console Font:"));
+		row.add(new JLabel("Console font:"));
 		row.add(consoleFont);
 		p.add(row);
 	}
@@ -412,7 +440,7 @@ public class ProfileConfiguration extends JPanel {
 	private void addChannelFontSelector(JPanel p) {
 		channelFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.primary"));
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Channel Font:"));
+		row.add(new JLabel("Channel font:"));
 		row.add(channelFont);
 		p.add(row);
 	}
@@ -422,7 +450,7 @@ public class ProfileConfiguration extends JPanel {
 	private void addQueryFontSelector(JPanel p) {
 		queryFont.setSelectedFont(MainConfiguration.PROPS.getFont("font.primary"));
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Query Font:"));
+		row.add(new JLabel("Query font:"));
 		row.add(queryFont);
 		p.add(row);
 	}
@@ -437,6 +465,30 @@ public class ProfileConfiguration extends JPanel {
 		p.add(scrollPane);
 	}
 	
+	private JRadioButton reconnect;
+	
+	private void addReconnect(JPanel p) {
+		JRadioButton yes = new JRadioButton("yes", false);
+		JRadioButton no = new JRadioButton("no", true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes);
+		group.add(no);
+		
+		reconnect = yes;
+
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(yes, BorderLayout.WEST);
+		sub.add(no, BorderLayout.CENTER);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Automatically reconnect:"));
+		row.add(sub);
+		p.add(row);
+	}
+
 	private JRadioButton rejoinOnKick;
 	
 	private void addRejoinOnKick(JPanel p) {
@@ -528,7 +580,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(no, BorderLayout.CENTER);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Enable Logging:"));
+		row.add(new JLabel("Enable logging:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -543,7 +595,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(loggingDir, BorderLayout.WEST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Logging Directory:"));
+		row.add(new JLabel("Logging directory:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -567,7 +619,7 @@ public class ProfileConfiguration extends JPanel {
 		sub.add(no, BorderLayout.CENTER);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
-		row.add(new JLabel("Accept X509 Certificates:"));
+		row.add(new JLabel("Accept X509 certificates:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -602,6 +654,7 @@ public class ProfileConfiguration extends JPanel {
 		ownColor.setBackground(p.getOwnColor());
 		otherColor.setBackground(p.getOtherColor());
 		neutralColor.setBackground(p.getNeutralColor());
+		enableColors.setSelected(p.getEnableColors());
 		Color[] palette = p.getColorPalette();
 		for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
 			colorPalette[i].setBackground(palette[i]);
@@ -609,6 +662,7 @@ public class ProfileConfiguration extends JPanel {
 		consoleFont.setSelectedFont(p.getConsoleFont());
 		channelFont.setSelectedFont(p.getChannelFont());
 		queryFont.setSelectedFont(p.getQueryFont());
+		reconnect.setSelected(p.getReconnect());
 		rejoinOnKick.setSelected(p.getRejoinOnKick());
 		beepOnMention.setSelected(p.getBeepOnMention());
 		beepOnQuery.setSelected(p.getBeepOnQuery());

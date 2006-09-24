@@ -218,6 +218,14 @@ public class Profile {
 		return arr;
 	}
 	
+	public void setReconnect(boolean b) {
+		props.setBoolean("misc.reconnect", b);
+	}
+	
+	public boolean getReconnect() {
+		return props.getBoolean("misc.reconnect", true);
+	}
+	
 	public void setRejoinOnKick(boolean b) {
 		props.setBoolean("misc.rejoin", b);
 	}
