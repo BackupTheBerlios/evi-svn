@@ -533,12 +533,18 @@ public class ProfileConfiguration extends JPanel {
 		p.add(row);
 	}
 	
-	private JTextField loggingDir = new JTextField();
+	private JTextField loggingDir = new JTextField(10);
 	
 	private void addLoggingDir(JPanel p) {
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(loggingDir, BorderLayout.WEST);
+		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Logging Directory:"));
-		row.add(loggingDir);
+		row.add(sub);
 		p.add(row);
 	}
 	
@@ -566,12 +572,18 @@ public class ProfileConfiguration extends JPanel {
 		p.add(row);
 	}
 	
-	private JTextField browser = new JTextField();
+	private JTextField browser = new JTextField(10);
 	
 	private void addBrowser(JPanel p) {
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(browser, BorderLayout.WEST);
+
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Browser:"));
-		row.add(browser);
+		row.add(sub);
 		p.add(row);
 	}
 	
