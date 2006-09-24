@@ -201,7 +201,9 @@ public class Util {
 				return;
 			}
 		}
-		MainFrame.getInstance().dispose();
+		if (MainFrame.getInstance() != null) {
+			MainFrame.getInstance().dispose();
+		}
 		System.exit(0);
 	}
 }
