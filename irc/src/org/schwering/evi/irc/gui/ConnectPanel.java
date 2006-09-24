@@ -228,7 +228,9 @@ public class ConnectPanel extends JPanel {
 		JPanel row, sub;
 		
 		sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(profileBox, BorderLayout.CENTER);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
 		row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Profile:"));
 		row.add(sub);
