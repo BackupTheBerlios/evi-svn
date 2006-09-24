@@ -31,7 +31,7 @@ public class ProfileConfiguration extends JPanel {
 	private Profile profile;
 	
 	public ProfileConfiguration() {
-		super(new BorderLayout());
+		super(new GridLayout(1, 1));
 		setBorder(new TitledBorder("Profile"));
 		
 		JPanel connectionPanel = new JPanel(new GridLayout(8, 1));
