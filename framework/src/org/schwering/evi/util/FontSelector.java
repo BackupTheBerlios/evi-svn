@@ -1,14 +1,17 @@
 package org.schwering.evi.util;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 
 /**
  * GUI component that allows to select a font. The JPanel has a GridLayout with two
@@ -36,15 +39,48 @@ public class FontSelector extends JPanel {
 		super(new GridLayout(2, 0));
 		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		String[] fonts = ge.getAvailableFontFamilyNames();
-		fontName = new JComboBox(fonts);
+		final String[] fontNames = ge.getAvailableFontFamilyNames();
+		fontName = new JComboBox(fontNames);
+		ListCellRenderer renderer = new ListCellRenderer() {
+			public Component getListCellRendererComponent(JList list, Object value, 
+					int index, boolean isSelected, boolean cellHasFocus) {
+				int selectedIndex = -1;
+				for (int i = 0; i < fontNames.length; i++) {
+					if (fontNames[i].equals(value)) {
+						selectedIndex = i;
+						break;
+					}
+				}
+				if (selectedIndex == -1) {
+					return null;
+				}
+				JTextField tf = new JTextField() {
+					public String toString() {
+						return getText();
+					}
+				};
+				tf.setText(fontNames[selectedIndex]);
+				tf.setEditable(false);
+				tf.setBorder(null);
+				tf.setFont(new Font(fontNames[selectedIndex], Font.PLAIN, 12));
+				
+				if (isSelected) {
+					tf.setBackground(list.getSelectionBackground());
+					tf.setForeground(list.getSelectionForeground());
+				} else {
+					tf.setBackground(list.getBackground());
+					tf.setForeground(list.getForeground());
+				}
+				return tf;
+			}
+		};
+		fontName.setRenderer(renderer);
 		
 		fontSize = new JTextField(3);
 		fontSize.setText(String.valueOf(fontSize));
 		RightClickMenu.addRightClickMenu(fontSize);
 		
 		fontStyle = new JComboBox(FONT_STYLES);
-		
 		JPanel sub1 = new JPanel(new BorderLayout());
 		sub1.add(fontName);
 		JPanel sub2 = new JPanel(new BorderLayout());
@@ -65,7 +101,13 @@ public class FontSelector extends JPanel {
 		int size = f.getSize();
 		String style = Util.encodeFontStyle(f.getStyle());
 		
-		fontName.setSelectedItem(name);
+		int fontNameCount = fontName.getItemCount();
+		for (int i = 0; i < fontNameCount; i++) {
+			if (name.equals(fontName.getItemAt(i).toString())) {
+				fontName.setSelectedIndex(i);
+				break;
+			}
+		}
 		fontSize.setText(String.valueOf(size));
 		fontStyle.setSelectedIndex(find(style, FONT_STYLES));
 	}
@@ -75,7 +117,7 @@ public class FontSelector extends JPanel {
 	 * @return The selected font.
 	 */
 	public Font getSelectedFont() {
-		String name = (String)fontName.getSelectedItem();
+		String name = fontName.getSelectedItem().toString();
 		String size = fontSize.getText().trim();
 		Wrapper w = (Wrapper)fontStyle.getSelectedItem();
 		String style = (String)w.getObject();
