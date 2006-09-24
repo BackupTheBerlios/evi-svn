@@ -205,7 +205,7 @@ public class ConnectPanel extends JPanel {
 		
 		Profile[] profiles = Profile.getProfiles();
 		String lastProfile = Configuration.getLastProfile();
-		int selected = 0;
+		int selected = -1;
 		for (int i = 0; i < profiles.length; i++) {
 			if (profiles[i].toString().equals(lastProfile)) {
 				selected = i;
@@ -214,7 +214,9 @@ public class ConnectPanel extends JPanel {
 		}
 		
 		final JComboBox profileBox = new JComboBox(profiles);
-		profileBox.setSelectedIndex(selected);
+		if (selected != -1) {
+			profileBox.setSelectedIndex(selected);
+		}
 		final JButton connectButton = new JButton("Connect");
 		
 		connectButton.addActionListener(new ActionListener() {
