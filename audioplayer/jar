@@ -1,0 +1,1 @@
+cd bin && jar uvfm ../audioplayer.jar ../src/META-INF/MANIFEST.MF . && cd ..
