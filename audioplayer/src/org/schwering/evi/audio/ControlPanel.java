@@ -20,7 +20,7 @@ public class ControlPanel extends JPanel {
 	public ControlPanel(final AudioPlayer owner) {
 		super(new GridLayout(0, 3));
 		this.owner = owner;
-		
+
 		prev.setBorderPainted(false);
 		prev.setFocusPainted(false);
 		play.setBorderPainted(false);
