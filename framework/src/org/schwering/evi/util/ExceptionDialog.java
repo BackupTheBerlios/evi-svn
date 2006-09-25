@@ -108,7 +108,7 @@ public class ExceptionDialog extends JFrame {
 		main.add(buttons, BorderLayout.SOUTH);
 		
 		getContentPane().add(main);
-	    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle(Messages.getString("ExceptionDialog.8")); //$NON-NLS-1$
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		Util.centerComponent(this);
