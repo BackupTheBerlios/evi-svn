@@ -20,6 +20,7 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 	 * @see org.schwering.evi.core.IApplet#dispose()
 	 */
 	public void dispose() {
+		mainPanel.dispose();
 	}
 	
 	/* (non-Javadoc)
@@ -40,13 +41,13 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 	 * @see org.schwering.evi.core.IPanel#getTitle()
 	 */
 	public String getTitle() {
-		return "AudioPlayer";
+		return "Audio";
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IApplet#getAppletInstance()
 	 */
 	public Component getAppletInstance() {
-		return null;//ctrlPanel;
+		return ctrlPanel;
 	}
 }

@@ -1,6 +1,7 @@
 package org.schwering.evi.audio;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,11 +11,15 @@ import java.io.InputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
 
+import org.schwering.evi.conf.Properties;
+import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.util.ExceptionDialog;
 
 import javazoom.jl.player.AudioDevice;
@@ -22,6 +27,7 @@ import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.Player;
 
 /**
+ * The playlist panel.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class MainPanel extends JPanel {
@@ -44,6 +50,28 @@ public class MainPanel extends JPanel {
 		
 		playList = new DefaultListModel();
 		final JList list = new JList(playList);
+		list.setCellRenderer(new ListCellRenderer() {
+			public Component getListCellRendererComponent(JList list, Object value, 
+					int index, boolean isSelected, boolean cellHasFocus) {
+				return new JLabel(value.toString());
+			}
+		});
+		
+		try {
+			Properties props = new Properties(ModuleContainer.getIdByClass(AudioPlayer.class));
+			props.load();
+			String s;
+			for (int i = 0; (s = props.getString("entry"+i, null)) != null; i++) {
+				try {
+					add(new File(s));
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		
 		
 		JButton add = new JButton("Add File");
 		add.addActionListener(new ActionListener() {
@@ -88,26 +116,30 @@ public class MainPanel extends JPanel {
 		add(ctrlPanel, BorderLayout.SOUTH);
 	}
 	
-	public void next() {
-		pause();
-		playingIndex--;
-		play();
-	}
-	
-	public void prev() {
+	public synchronized void next() {
 		pause();
 		playingIndex++;
 		play();
 	}
 	
-	public void play() {
+	public synchronized void prev() {
+		pause();
+		playingIndex--;
+		play();
+	}
+	
+	public synchronized boolean isPlaying() {
+		return player != null;
+	}
+	
+	public synchronized void play() {
 		try {
 			int playListSize = playList.size();
 			if (playListSize == 0) {
 				return;
 			}
 			
-			if (playingIndex == -1) {
+			if (playingIndex < 0) {
 				playingIndex = 0;
 			}
 			if (playingIndex >= playListSize) {
@@ -116,21 +148,69 @@ public class MainPanel extends JPanel {
 			File file = (File)playList.get(playingIndex);
 			stream = new FileInputStream(file);
 			player = new Player(stream);
-			player.play();
+			Thread t = new Thread() {
+				public void run() {
+					try {
+						player.play();
+						if (player.isComplete()) {
+							next();
+						}
+					} catch (Exception exc) {
+						exc.printStackTrace();
+						ExceptionDialog.show(exc);
+					}
+				}
+			};
+			t.setDaemon(true);
+			t.start();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			ExceptionDialog.show(exc);
 		}
 	}
 	
-	public void pause() {
+	public synchronized void pause() {
 		if (player != null) {
 			player.close();
-			try {
-				stream.close();
-			} catch (Exception exc) {
-				exc.printStackTrace();
-			}
+			stream = null;
+			player = null;
 		}
+	}
+	
+	/**
+	 * Save the playlist.
+	 */
+	public void dispose() {
+		try {
+			Properties props = new Properties(ModuleContainer.getIdByClass(AudioPlayer.class));
+			File[] files = getList();
+			for (int i = 0; i < files.length; i++) {
+				props.setString("entry"+ i, files[i].toString());
+			}
+			props.store();
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+	}
+	
+	/** 
+	 * Adds a file to the playlist.
+	 * @param f The new file.
+	 */
+	public void add(File f) {
+		playList.addElement(f);
+	}
+	
+	/**
+	 * Returns the files in the playlist.
+	 * @return An array of java.io.File objects.
+	 */
+	public File[] getList() {
+		int size = playList.size();
+		File[] arr = new File[size];
+		for (int i = 0; i < size; i++) {
+			arr[i] = (File)playList.get(i);
+		}
+		return arr;
 	}
 }

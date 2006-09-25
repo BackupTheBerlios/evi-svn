@@ -14,18 +14,19 @@ public class ControlPanel extends JPanel {
 	private AudioPlayer owner;
 	
 	private JButton prev = new JButton("<<");
-	private JButton pause = new JButton("||");
 	private JButton play = new JButton(">");
 	private JButton next = new JButton(">>");
 	
 	public ControlPanel(final AudioPlayer owner) {
-		super(new GridLayout(0, 4));
+		super(new GridLayout(0, 3));
 		this.owner = owner;
 		
 		prev.setBorderPainted(false);
-		pause.setBorderPainted(false);
+		prev.setFocusPainted(false);
 		play.setBorderPainted(false);
+		play.setFocusPainted(false);
 		next.setBorderPainted(false);
+		next.setFocusPainted(false);
 		
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -33,16 +34,14 @@ public class ControlPanel extends JPanel {
 				mainPanel.prev();
 			}
 		});
-		pause.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-				mainPanel.pause();
-			}
-		});
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-				mainPanel.play();
+				if (mainPanel.isPlaying()) {
+					mainPanel.pause();
+				} else {
+					mainPanel.play();
+				}
 			}
 		});
 		next.addActionListener(new ActionListener() {
@@ -52,7 +51,6 @@ public class ControlPanel extends JPanel {
 			}
 		});
 		add(prev);
-		add(pause);
 		add(play);
 		add(next);
 	}
