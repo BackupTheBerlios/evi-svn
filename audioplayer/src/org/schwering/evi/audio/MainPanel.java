@@ -165,7 +165,7 @@ public class MainPanel extends JPanel {
 	 * Save the playlist.
 	 */
 	public void dispose() {
-		playlist.stop();
+		playlist.setPlayAll(false);
 		playlist.save();
 	}
 	

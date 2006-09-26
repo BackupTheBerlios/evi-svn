@@ -16,6 +16,7 @@ public abstract class Playlist {
 	protected int playingIndex = -1;
 	protected Player player;
 	protected Vector listeners = new Vector();
+	protected boolean playAll = true;
 	protected boolean random = false;
 	
 	/**
@@ -147,7 +148,28 @@ public abstract class Playlist {
 	}
 	
 	/**
-	 * Sets whether the next played songs are choosen randomly.
+	 * Sets whether the next song should be played or not.<br />
+	 * <code>true</code> by default.
+	 * @param playAll If <code>true</code>, not just song will be played but 
+	 * also the subsequent ones.
+	 */
+	public void setPlayAll(boolean playAll) {
+		this.playAll = playAll;
+	}
+	
+	/**
+	 * Indicates whether the next song will be played or not.<br />
+	 * <code>true</code> by default.
+	 * @return <code>true</code> if the next songs will be played automagically,
+	 * <code>false</code> if just the current song will be played.
+	 */
+	public boolean isPlayAll() {
+		return playAll;
+	}
+	
+	/**
+	 * Sets whether the next played songs are choosen randomly.<br />
+	 * <code>false</code> by default.
 	 * @param random <code>true</code> enables random mode.
 	 */
 	public void setRandom(boolean random) {
@@ -155,7 +177,8 @@ public abstract class Playlist {
 	}
 	
 	/**
-	 * Indicates whether random mode is enabled.
+	 * Indicates whether random mode is enabled.<br />
+	 * <code>false</code> by default.
 	 * @return <code>true</code> if random mode is enabled.
 	 */
 	public boolean isRandom() {
@@ -289,10 +312,12 @@ public abstract class Playlist {
 			public void playbackStopped() {
 			}
 			public void playbackCompleted() {
-				if (!random) {
-					playNext();
-				} else {
-					playRandom();
+				if (isPlayAll()) {
+					if (!isRandom()) {
+						playNext();
+					} else {
+						playRandom();
+					}
 				}
 			}
 		};
@@ -303,8 +328,10 @@ public abstract class Playlist {
 	 * Immediately stops playing.
 	 */
 	public synchronized void stop() {
-		player.stop();
-		player = null;
+		if (player != null) {
+			player.stop();
+			player = null;
+		}
 	}
 	
 	protected void firePlaybackStarted(Player player) {

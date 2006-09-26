@@ -29,7 +29,7 @@ public class MP3Player extends Player {
 			stream = new FileInputStream(file);
 			player = new AdvancedPlayer(stream) {
 				public void close() {
-					System.out.print("AdvancedPlayer.close()");
+					System.out.println("AdvancedPlayer.close()");
 					super.close();
 					System.out.println(" done");
 				}
@@ -91,7 +91,6 @@ public class MP3Player extends Player {
 	public synchronized void stop() {
 		stopped = true;
 		if (player != null) {
-			System.out.println("stop()");
 			player.close();
 			player = null;
 		}
