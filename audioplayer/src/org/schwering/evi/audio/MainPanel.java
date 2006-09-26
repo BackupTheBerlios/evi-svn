@@ -201,7 +201,10 @@ public class MainPanel extends JPanel {
 		}
 		
 		public void update(File file, boolean playing) {
-			String s = "*** "+ file.toString() + ((playing) ? Messages.getString("MainPanel.PLAYING") : ""); //$NON-NLS-1$ //$NON-NLS-2$
+			String s = file.toString();
+			if (playing) {
+				s = "***"+ s + Messages.getString("MainPanel.PLAYING"); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 			setText(s);
 			
 			DefaultListModel listModel = playlist.getListModel();
