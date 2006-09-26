@@ -1,0 +1,6 @@
+jl1.0.jar contains the JLayer API 1.0
+
+JLayer homepage: http://www.javazoom.net/javalayer/about.html
+
+JLayer is licensed under the terms of the GNU Lesser General Public License.
+See the JLayer homepage for details.
