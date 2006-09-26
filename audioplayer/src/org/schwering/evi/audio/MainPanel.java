@@ -1,12 +1,14 @@
 package org.schwering.evi.audio;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -16,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.DefaultListModel;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListDataEvent;
 
 /**
  * The playlist panel.
@@ -23,6 +28,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class MainPanel extends JPanel {
 	private Playlist playlist = new DefaultPlaylist();
+	private Hashtable labeltable = new Hashtable();
 	
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
@@ -32,7 +38,17 @@ public class MainPanel extends JPanel {
 			public Component getListCellRendererComponent(JList list, Object value, 
 					int index, boolean isSelected, boolean cellHasFocus) {
 				File file = (File)value;
-				return new JLabel(file.toString());
+				if (!labeltable.containsKey(file)) {
+					ListComponent label = new ListComponent(file.toString());
+					labeltable.put(file, label);
+				}
+				ListComponent comp = (ListComponent)labeltable.get(file);
+				if (isSelected) {
+					comp.setForeground(Color.BLUE);
+				} else {
+					comp.setForeground(list.getForeground());
+				}
+				return comp;
 			}
 		});
 		list.addMouseListener(new MouseListener() {
@@ -55,6 +71,23 @@ public class MainPanel extends JPanel {
 			}
 			
 			public void mouseReleased(MouseEvent e) {
+			}
+		});
+		playlist.addListener(new PlaylistListener() {
+			public void playbackStarted(Player player) {
+				File file = player.getFile();
+				ListComponent comp = (ListComponent)labeltable.get(file);
+				comp.update(file, true);
+			}
+			public void playbackStopped(Player player) {
+				File file = player.getFile();
+				ListComponent comp = (ListComponent)labeltable.get(file);
+				comp.update(file, false);
+			}
+			public void playbackCompleted(Player player) {
+				File file = player.getFile();
+				ListComponent comp = (ListComponent)labeltable.get(file);
+				comp.update(file, false);
 			}
 		});
 		
@@ -83,10 +116,10 @@ public class MainPanel extends JPanel {
 		JButton del = new JButton("Delete File");
 		del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object[] arr = list.getSelectedValues();
+				int[] arr = list.getSelectedIndices();
 				if (arr != null) {
-					for (int i = 0; i < arr.length; i++) {
-						playlist.remove((File)arr[i]);
+					for (int i = arr.length - 1; i >= 0; i--) {
+						playlist.remove(arr[i]);
 					}
 				}
 			}
@@ -112,5 +145,24 @@ public class MainPanel extends JPanel {
 	 */
 	public void dispose() {
 		playlist.save();
+	}
+	
+	class ListComponent extends JLabel {
+		public ListComponent(String s) {
+			super(s);
+		}
+		
+		public void update(File file, boolean playing) {
+			String s = file.toString() + ((playing) ? " (playing!)" : "");
+			setText(s);
+			
+			DefaultListModel listModel = playlist.getListModel();
+			int index = listModel.indexOf(file);
+			ListDataListener[] listeners = listModel.getListDataListeners();
+			ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, index, index);
+			for (int i = 0; i < listeners.length; i++) {
+				listeners[i].contentsChanged(e);
+			}
+		}
 	}
 }
