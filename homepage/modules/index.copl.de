@@ -3,22 +3,19 @@ HEADER=header.html.de
 FOOTER=footer.html
 
 =Module=
-Bisher ist noch kein einziges Modul fertig. Deswegen gibt es nur:
-
-==Geplante Module==
-Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (1 = niedrig, 10 = hoch).
+Die meisten der folgenden Module sind noch nicht geschrieben. Hinter jedem geplanten Modul steht die Priorität (1 = niedrig, 10 = hoch). Wenn ein Modul gerade aktiv entwickelt wird, steht ein //[D]// dahinter, und wenn es so weit fertig ist ein //[C]//.
 	- Kommunikation 
-		* <!url irc/ IRC> (Internet Relay Chat) [10]
+		* <!url irc/ IRC> (Internet Relay Chat) [D]
 		* <!url icq/ ICQ> (Instant Messenging) (hoff ich) [5]
 		* vielleicht auch andere IM Protokolle [3]
 	- Unterhaltung
-		* <!url pong/ Pong> single/multiplayer [10]
+		* <!url pong/ Pong> single/multiplayer [D]
 		* <!url tictactoe/ TicTacToe> single/multiplayer [7]
 		* Skat multiplayer (vielleicht) [4]
 		* Schere-Stein-Papier [4]
 	- Tools
-		* <!url console/ Konsole>
-		* <!url dcc/ DCC> für IRC [9]
+		* <!url console/ Konsole> [C]
+		* <!url dcc/ DCC> für IRC [6]
 		* <!url dashboard/ Dashboard> [7]
 		* IRC Log Streamer [8]
 		* <!url calendar/ Kalender> [5]
@@ -26,6 +23,6 @@ Die folgenden Module sind **geplant**. Hinter jedem Modul steht die Priorität (
 		* <!url mailbox/ Mailbox überwacher> [7]
 		* <!url filemanager/ Dateimanager> [7]
 		* Bildbetrachter [4]
-		* <!url audioplayer/ Audio-Player> wär super [6]
+		* <!url audioplayer/ Audio-Player> [D]
 		* <!url calculator/ Taschenrechner> [7]
 		* IDv3-Tag Administrator [2]

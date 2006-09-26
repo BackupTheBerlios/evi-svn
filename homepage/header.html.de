@@ -21,8 +21,8 @@ a:hover, a:active { font-weight: bold; text-decoration: none; color: #e0ad12; }
 <body>
 <div id="header">
 	<div id="title">Extensible Verena Interface</div>
-	<div id="description">EVI a is Java Application Framework for Internet Communication, Entertainment and Tools.<br />
-	EVI stands for Extensible Verena Interface.
+	<div id="description">EVI ist ein Java Application Framework f&uuml;r Internet Kommunikation, Unterhaltung und Tools.<br />
+	EVI steht f&uuml;r Extensible Verena Interface. Na und?
 	</div>
 </div>
 
