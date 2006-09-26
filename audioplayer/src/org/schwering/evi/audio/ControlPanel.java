@@ -16,6 +16,11 @@ public class ControlPanel extends JPanel {
 	private JButton play = new JButton(">");
 	private JButton next = new JButton(">>");
 	
+	/**
+	 * Creates a new control panel.
+	 * @param owner The owning AudioPlayer object which is controlled by this 
+	 * panel.
+	 */
 	public ControlPanel(final AudioPlayer owner) {
 		super(new GridLayout(0, 3));
 

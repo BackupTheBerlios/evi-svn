@@ -35,9 +35,16 @@ public abstract class Playlist {
 		}
 	};
 	
+	/**
+	 * Creates a new empty playlist.
+	 */
 	public Playlist() {
 	}
 	
+	/**
+	 * Creates a new playlist with given files.
+	 * @param files The entries of the playlist.
+	 */
 	public Playlist(File[] files) {
 		if (files != null) {
 			for (int i = 0; i < files.length; i++) {
@@ -46,14 +53,24 @@ public abstract class Playlist {
 		}
 	}
 	
+	/**
+	 * Loads the playlist (e.g. from a file).
+	 */
 	public abstract void load();
 	
+	/**
+	 * Saves the playlist (e.g. to a file).
+	 */
 	public abstract void save();
 	
 	public DefaultListModel getListModel() {
 		return list;
 	}
 	
+	/**
+	 * Adds a list of new files.
+	 * @param f The files that are to be added to the playlist.
+	 */
 	public void add(File[] f) {
 		if (f != null) {
 			for (int i = 0; i < f.length; i++) {
@@ -62,14 +79,27 @@ public abstract class Playlist {
 		}
 	}
 	
+	/**
+	 * Adds a new file.
+	 * @param f The file that is to be added to the playlist.
+	 */
 	public void add(File f) {
 		list.addElement(f);
 	}
 	
+	/**
+	 * Adds a file at a given position.
+	 * @param index The position in the list.
+	 * @param f The file that is to be added to the playlist.
+	 */
 	public void add(int index, File f) {
 		list.add(index, f);
 	}
 	
+	/**
+	 * Returns all entries of the playlist.
+	 * @return An array of File objects that represent the playlist's entries.
+	 */
 	public File[] get() {
 		File[] arr = new File[list.size()];
 		for (int i = 0; i < arr.length; i++) {
@@ -78,26 +108,50 @@ public abstract class Playlist {
 		return arr;
 	}
 	
+	/**
+	 * Returns a specific entry of the playlist.
+	 * @param index The position of the wanted entry.
+	 * @return
+	 */
 	public File get(int index) {
 		return (File)list.get(index);
 	}
 	
+	/**
+	 * Removes a specific entry from the playlist.
+	 * @param index The position of the entry.
+	 */
 	public void remove(int index) {
 		list.remove(index);
 	}
 	
-	public void remove(File f) {
-		list.removeElement(f);
+	/**
+	 * Removes a specific file from the playlist.
+	 * @param f The file that is to be removed from the playlist.
+	 * @return <code>true</code> if the file was removed successfully.
+	 */
+	public boolean remove(File f) {
+		return list.removeElement(f);
 	}
 	
+	/**
+	 * Removes all entries of the playlist.
+	 */
 	public void removeAll() {
 		list.removeAllElements();
 	}
 	
+	/**
+	 * Indicates whether any song is being played of the playlist at the moment.
+	 * @return
+	 */
 	public synchronized boolean isPlaying() {
 		return player != null && player.isPlaying();
 	}
 
+	/**
+	 * Plays the subsequent song.
+	 */
 	public synchronized void playNext() {
 		synchronized (this) {
 			playingIndex++;
@@ -108,6 +162,9 @@ public abstract class Playlist {
 		play(playingIndex);
 	}
 	
+	/**
+	 * Plays the previous song.
+	 */
 	public void playPrevious() {
 		synchronized (this) {
 			playingIndex--;
@@ -118,6 +175,9 @@ public abstract class Playlist {
 		play(playingIndex);
 	}
 	
+	/**
+	 * Plays the current (or the first) song.
+	 */
 	public void play() {
 		if (playingIndex < 0) {
 			playingIndex = 0;
@@ -125,6 +185,10 @@ public abstract class Playlist {
 		play(playingIndex);
 	}
 	
+	/**
+	 * Plays a given song.
+	 * @param index The position of the song.
+	 */
 	public void play(int index) {
 		if (index > list.size()) {
 			throw new RuntimeException("index = "+ index +" > list.size() = "+ list.size());
@@ -154,6 +218,9 @@ public abstract class Playlist {
 		}
 	}
 	
+	/**
+	 * Immediately stops playing.
+	 */
 	public synchronized void stop() {
 		player.stop();
 		player = null;

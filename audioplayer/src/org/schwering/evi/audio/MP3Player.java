@@ -17,6 +17,11 @@ public class MP3Player extends Player {
 	protected boolean completed = false;
 	protected boolean stopped = false;
 	
+	/**
+	 * Plays a given MP3 file.
+	 * @param f The file.
+	 * @throws PlayerException If anything fails.
+	 */
 	public MP3Player(File f) throws PlayerException {
 		try {
 			file = f;
@@ -27,14 +32,23 @@ public class MP3Player extends Player {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#getFile()
+	 */
 	public File getFile() {
 		return file;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#play()
+	 */
 	public void play() throws PlayerException {
 		play(0, Integer.MAX_VALUE);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#play(int, int)
+	 */
 	public void play(int from, int to) throws PlayerException {
 		try {
 			completed = false;
@@ -60,10 +74,16 @@ public class MP3Player extends Player {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#pause()
+	 */
 	public void pause() {
 		System.err.println("Not yet implemented");
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#stop()
+	 */
 	public synchronized void stop() {
 		stopped = true;
 		if (player != null) {
@@ -72,10 +92,16 @@ public class MP3Player extends Player {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#isPlaying()
+	 */
 	public synchronized boolean isPlaying() {
 		return player != null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.audio.Player#isCompleted()
+	 */
 	public synchronized boolean isCompleted() {
 		return completed;
 	}

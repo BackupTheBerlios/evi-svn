@@ -12,10 +12,16 @@ import org.schwering.evi.core.ModuleContainer;
 public class DefaultPlaylist extends Playlist {
 	protected Properties props;
 
+	/**
+	 * Creates and loads the default playlist.
+	 */
 	public DefaultPlaylist() {
 		load();
 	}
 	
+	/**
+	 * Loads the playlist from a org.schwering.evi.conf.Properties file.
+	 */
 	public void load() {
 		try {
 			props = new Properties(ModuleContainer.getIdByClass(AudioPlayer.class));
@@ -33,6 +39,9 @@ public class DefaultPlaylist extends Playlist {
 		}
 	}
 	
+	/**
+	 * Saves the playlist to a org.schwering.evi.conf.Properties file.
+	 */
 	public void save() {
 		try {
 			File[] files = get();
