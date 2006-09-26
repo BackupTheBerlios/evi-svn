@@ -282,4 +282,20 @@ public abstract class Playlist {
 			((PlaylistListener)listeners.get(i)).playbackStopped(player);
 		}
 	}
+	
+	/**
+	 * Adds a new PlaylistListener.
+	 * @param listener The new listener.
+	 */
+	public void addListener(PlaylistListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes a PlaylistListener.
+	 * @param listener The listener that's to be removed.
+	 */
+	public void removeListener(PlaylistListener listener) {
+		listeners.remove(listener);
+	}
 }
