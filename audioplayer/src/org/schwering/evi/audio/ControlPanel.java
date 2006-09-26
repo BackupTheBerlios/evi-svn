@@ -52,7 +52,7 @@ public class ControlPanel extends JPanel {
 		setLayout(new GridLayout(0, buttonCount));
 
 		if ((buttons & PREV) != 0) {
-			prev = new JButton("Ç"); //$NON-NLS-1$
+			prev = new JButton(String.valueOf((char)171)); //$NON-NLS-1$
 			prev.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
@@ -78,7 +78,7 @@ public class ControlPanel extends JPanel {
 		}
 			
 		if ((buttons & NEXT) != 0) {
-			next = new JButton("È"); //$NON-NLS-1$
+			next = new JButton(String.valueOf((char)187)); //$NON-NLS-1$
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
