@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/framework"/>
-	<classpathentry kind="lib" path="/home/chs/java/evi/audioplayer/lib/jl1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/chs/Documents/java/evi/audioplayer/lib/jl1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

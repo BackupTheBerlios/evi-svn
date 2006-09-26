@@ -22,12 +22,10 @@ import javax.swing.filechooser.FileFilter;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class MainPanel extends JPanel {
-	private AudioPlayer owner;
 	private Playlist playlist = new DefaultPlaylist();
 	
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
-		this.owner = owner;
 		
 		final JList list = new JList(playlist.getListModel());
 		list.setCellRenderer(new ListCellRenderer() {

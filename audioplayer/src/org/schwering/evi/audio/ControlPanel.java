@@ -12,15 +12,12 @@ import javax.swing.JPanel;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ControlPanel extends JPanel {
-	private AudioPlayer owner;
-	
 	private JButton prev = new JButton("<<");
 	private JButton play = new JButton(">");
 	private JButton next = new JButton(">>");
 	
 	public ControlPanel(final AudioPlayer owner) {
 		super(new GridLayout(0, 3));
-		this.owner = owner;
 
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

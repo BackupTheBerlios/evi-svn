@@ -13,7 +13,6 @@ import org.schwering.evi.core.IPanel;
  */
 public class AudioPlayer implements IModule, IPanel {
 	private MainPanel mainPanel = new MainPanel(this);
-	private ControlPanel ctrlPanel = new ControlPanel(this);
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IApplet#dispose()
