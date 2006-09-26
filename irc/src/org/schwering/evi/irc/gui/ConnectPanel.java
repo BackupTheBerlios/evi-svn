@@ -27,10 +27,7 @@ import org.schwering.evi.util.RightClickMenu;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ConnectPanel extends JPanel {
-	private TabBar owner;
-	
-	public ConnectPanel(TabBar owner) {
-		this.owner = owner;
+	public ConnectPanel() {
 		setLayout(new GridLayout(1, 1));
 		
 		JPanel tmp = new JPanel();
