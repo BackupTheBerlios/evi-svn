@@ -25,13 +25,18 @@ public abstract class Playlist {
 			firePlaybackCompleted(player);
 		}
 	};
+	protected boolean random = false;
 	protected PlayerListener configPlayerListener = new PlayerListener() {
 		public void playbackStarted() {
 		}
 		public void playbackStopped() {
 		}
 		public void playbackCompleted() {
-			playNext();
+			if (!random) {
+				playNext();
+			} else {
+				playRandom();
+			}
 		}
 	};
 	
@@ -142,11 +147,45 @@ public abstract class Playlist {
 	}
 	
 	/**
+	 * Sets whether the next played songs are choosen randomly.
+	 * @param random <code>true</code> enables random mode.
+	 */
+	public void setRandom(boolean random) {
+		this.random = random;
+	}
+	
+	/**
+	 * Indicates whether random mode is enabled.
+	 * @return <code>true</code> if random mode is enabled.
+	 */
+	public boolean isRandom() {
+		return random;
+	}
+	
+	/**
 	 * Indicates whether any song is being played of the playlist at the moment.
 	 * @return
 	 */
 	public synchronized boolean isPlaying() {
 		return player != null && player.isPlaying();
+	}
+	
+	/**
+	 * Plays a random song.
+	 */
+	public synchronized void playRandom() {
+		synchronized (this) {
+			if (list.size() == 0) {
+				return;
+			} else if (list.size() > 1) {
+				int newIndex;
+				do {
+					newIndex = ((int)(Math.random() * list.size())) % list.size();
+				} while (newIndex == playingIndex);
+				playingIndex = newIndex;
+			}
+			play(playingIndex);
+		}
 	}
 
 	/**
