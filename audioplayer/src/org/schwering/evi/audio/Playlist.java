@@ -126,7 +126,6 @@ public abstract class Playlist {
 	}
 	
 	public void play(int index) {
-		System.out.println("play("+index+")");
 		if (index > list.size()) {
 			throw new RuntimeException("index = "+ index +" > list.size() = "+ list.size());
 		}
