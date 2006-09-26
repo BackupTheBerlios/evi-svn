@@ -33,7 +33,7 @@ class Renderer implements GLEventListener {
     private float fade = -12;
     
     private float delta_x = 1.0f;
-    private float delta_y = 1.0f;
+//    private float delta_y = 1.0f;
     
     private boolean p1_hit, p2_hit;
     
@@ -321,6 +321,6 @@ class Renderer implements GLEventListener {
     }
     
     public void setDeltaY(int y){
-    	delta_y = y;
+//    	delta_y = y;
     }
 }
