@@ -8,6 +8,7 @@ import org.schwering.evi.core.ModuleContainer;
 /**
  * The default playlist which reads from a Properties config file.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class DefaultPlaylist extends Playlist {
 	protected Properties props;

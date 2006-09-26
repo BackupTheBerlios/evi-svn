@@ -11,6 +11,7 @@ import org.schwering.evi.core.IPanel;
 /**
  * Audio player module based on JLayer MP3 library.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class AudioPlayer implements IModule, IPanel, IApplet {
 	private MainPanel mainPanel;
@@ -48,7 +49,7 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 	 * @see org.schwering.evi.core.IPanel#getTitle()
 	 */
 	public String getTitle() {
-		return "Audio";
+		return Messages.getString("AudioPlayer.MODULE_TITLE"); //$NON-NLS-1$
 	}
 	
 	/* (non-Javadoc)

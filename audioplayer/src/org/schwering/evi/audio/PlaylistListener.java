@@ -3,6 +3,7 @@ package org.schwering.evi.audio;
 /**
  * Listens to playlist actions.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public interface PlaylistListener {
 	/**

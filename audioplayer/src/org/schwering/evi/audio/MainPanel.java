@@ -25,6 +25,7 @@ import javax.swing.event.ListDataEvent;
 /**
  * The playlist panel.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class MainPanel extends JPanel {
 	private Playlist playlist = new DefaultPlaylist();
@@ -93,17 +94,17 @@ public class MainPanel extends JPanel {
 		
 		
 		
-		JButton add = new JButton("Add File");
+		JButton add = new JButton(Messages.getString("MainPanel.ADD_FILE")); //$NON-NLS-1$
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
 						return f.isDirectory() 
-							|| f.toString().toLowerCase().endsWith(".mp3");
+							|| f.toString().toLowerCase().endsWith(Messages.getString("MainPanel.DOT_MP3")); //$NON-NLS-1$
 					}
 					public String getDescription() {
-						return "*.mp3 files";
+						return Messages.getString("MainPanel.DOT_MP3_FILES"); //$NON-NLS-1$
 					}
 				});
 				int ret = fileChooser.showOpenDialog(owner.getPanelInstance());
@@ -113,7 +114,7 @@ public class MainPanel extends JPanel {
 				}
 			}
 		});
-		JButton del = new JButton("Delete File");
+		JButton del = new JButton(Messages.getString("MainPanel.DELETE_FILE")); //$NON-NLS-1$
 		del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] arr = list.getSelectedIndices();
@@ -153,7 +154,7 @@ public class MainPanel extends JPanel {
 		}
 		
 		public void update(File file, boolean playing) {
-			String s = file.toString() + ((playing) ? " (playing!)" : "");
+			String s = file.toString() + ((playing) ? Messages.getString("MainPanel.PLAYING") : ""); //$NON-NLS-1$ //$NON-NLS-2$
 			setText(s);
 			
 			DefaultListModel listModel = playlist.getListModel();

@@ -11,6 +11,7 @@ import javax.swing.JToggleButton;
 /**
  * A very simple panel with control buttons.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class ControlPanel extends JPanel {
 	public static final int PREV = 1;
@@ -51,7 +52,7 @@ public class ControlPanel extends JPanel {
 		setLayout(new GridLayout(0, buttonCount));
 
 		if ((buttons & PREV) != 0) {
-			prev = new JButton("Ç");
+			prev = new JButton("Ç"); //$NON-NLS-1$
 			prev.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
@@ -62,7 +63,7 @@ public class ControlPanel extends JPanel {
 		}
 		
 		if ((buttons & PLAY) != 0) {
-			play = new JButton(">");
+			play = new JButton(">"); //$NON-NLS-1$
 			play.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
@@ -77,7 +78,7 @@ public class ControlPanel extends JPanel {
 		}
 			
 		if ((buttons & NEXT) != 0) {
-			next = new JButton("È");
+			next = new JButton("È"); //$NON-NLS-1$
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
@@ -92,7 +93,7 @@ public class ControlPanel extends JPanel {
 		}
 			
 		if ((buttons & RANDOM) != 0) {
-			random = new JToggleButton("R", false);
+			random = new JToggleButton(Messages.getString("ControlPanel.RANDOM"), false); //$NON-NLS-1$
 			random.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();

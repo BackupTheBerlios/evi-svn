@@ -8,6 +8,7 @@ import org.schwering.evi.core.IModuleInfo;
 /**
  * Audio player module based on JLayer MP3 library.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable {
 
@@ -15,7 +16,7 @@ public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable {
 	 * @see org.schwering.evi.core.IModuleInfo#getInfoURL()
 	 */
 	public String getInfoURL() {
-		return "info.html";
+		return Messages.getString("AudioPlayerInfo.INFO_HTML"); //$NON-NLS-1$
 	}
 	
 	/* (non-Javadoc)
@@ -29,14 +30,14 @@ public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable {
 	 * @see org.schwering.evi.core.IModuleInfo#getName()
 	 */
 	public String getName() {
-		return "AudioPlayer";
+		return Messages.getString("AudioPlayerInfo.MODULE_NAME"); //$NON-NLS-1$
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleInfo#getVersion()
 	 */
 	public float getVersion() {
-		return 0.1f;
+		return 1.0f;
 	}
 	
 	/* (non-Javadoc)

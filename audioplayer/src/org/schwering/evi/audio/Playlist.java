@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 /**
  * The abstract base class for a playlist. This class provides navigation mechanisms.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public abstract class Playlist {
 	protected DefaultListModel list = new DefaultListModel();

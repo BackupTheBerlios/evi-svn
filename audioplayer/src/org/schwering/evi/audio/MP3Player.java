@@ -9,6 +9,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /**
  * Implements an MP3 player using the JLayer API.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class MP3Player extends Player {
 	protected File file;

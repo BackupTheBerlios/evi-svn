@@ -6,6 +6,7 @@ import java.util.Vector;
 /**
  * Basic player interface.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public abstract class Player {
 	protected Vector listeners = new Vector();
