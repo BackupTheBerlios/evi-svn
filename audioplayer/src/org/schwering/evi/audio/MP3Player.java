@@ -27,13 +27,7 @@ public class MP3Player extends Player {
 		try {
 			file = f;
 			stream = new FileInputStream(file);
-			player = new AdvancedPlayer(stream) {
-				public void close() {
-					System.out.println("AdvancedPlayer.close()");
-					super.close();
-					System.out.println(" done");
-				}
-			};
+			player = new AdvancedPlayer(stream);
 		} catch (Exception exc) {
 			throw new PlayerException(exc);
 		}

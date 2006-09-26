@@ -155,6 +155,7 @@ public abstract class Playlist {
 	 */
 	public void setPlayAll(boolean playAll) {
 		this.playAll = playAll;
+		System.out.println("now: isPlayAll() = "+ isPlayAll());
 	}
 	
 	/**

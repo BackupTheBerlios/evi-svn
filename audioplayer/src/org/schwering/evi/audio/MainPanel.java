@@ -144,10 +144,18 @@ public class MainPanel extends JPanel {
 				}
 			}
 		});
+		JButton delAll = new JButton(Messages.getString("MainPanel.DELETE_ALL")); //$NON-NLS-1$
+		delAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playlist.removeAll();
+			}
+		});
+		
 		JPanel p = new JPanel();
 		p.add(add);
 		p.add(addDir);
 		p.add(del);
+		p.add(delAll);
 		add(p, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane(list);

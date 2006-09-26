@@ -17,11 +17,13 @@ public class ControlPanel extends JPanel {
 	public static final int PREV = 1;
 	public static final int PLAY = 2;
 	public static final int NEXT = 4;
-	public static final int RANDOM = 8;
+	public static final int PLAYALL = 8;
+	public static final int RANDOM = 16;
 	
 	private JButton prev;
 	private JButton play;
 	private JButton next;
+	private JToggleButton playAll;
 	private JToggleButton random;
 	
 	/**
@@ -30,7 +32,7 @@ public class ControlPanel extends JPanel {
 	 * panel.
 	 */
 	public ControlPanel(final AudioPlayer owner) {
-		this(owner, PREV | PLAY | NEXT | RANDOM);
+		this(owner, PREV | PLAY | NEXT | PLAYALL | RANDOM);
 	}
 	
 	/**
@@ -47,6 +49,7 @@ public class ControlPanel extends JPanel {
 		if ((buttons & PREV) != 0) buttonCount++;
 		if ((buttons & PLAY) != 0) buttonCount++;
 		if ((buttons & NEXT) != 0) buttonCount++;
+		if ((buttons & PLAYALL) != 0) buttonCount++;
 		if ((buttons & RANDOM) != 0) buttonCount++;
 		
 		setLayout(new GridLayout(0, buttonCount));
@@ -91,7 +94,18 @@ public class ControlPanel extends JPanel {
 			});
 			add(next);
 		}
-			
+		
+		if ((buttons & PLAYALL) != 0) {
+			playAll = new JToggleButton(Messages.getString("ControlPanel.PLAYALL"), true); //$NON-NLS-1$
+			playAll.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
+					mainPanel.getPlaylist().setPlayAll(playAll.isSelected());
+				}
+			});
+			add(playAll);
+		}
+		
 		if ((buttons & RANDOM) != 0) {
 			random = new JToggleButton(Messages.getString("ControlPanel.RANDOM"), false); //$NON-NLS-1$
 			random.addActionListener(new ActionListener() {
