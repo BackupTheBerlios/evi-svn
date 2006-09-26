@@ -15,31 +15,7 @@ public abstract class Playlist {
 	protected int playingIndex = -1;
 	protected Player player;
 	protected Vector listeners = new Vector();
-	protected PlayerListener passthroughPlayerListener = new PlayerListener() {
-		public void playbackStarted() {
-			firePlaybackStarted(player);
-		}
-		public void playbackStopped() {
-			firePlaybackStopped(player);
-		}
-		public void playbackCompleted() {
-			firePlaybackCompleted(player);
-		}
-	};
 	protected boolean random = false;
-	protected PlayerListener configPlayerListener = new PlayerListener() {
-		public void playbackStarted() {
-		}
-		public void playbackStopped() {
-		}
-		public void playbackCompleted() {
-			if (!random) {
-				playNext();
-			} else {
-				playRandom();
-			}
-		}
-	};
 	
 	/**
 	 * Creates a new empty playlist.
@@ -239,13 +215,24 @@ public abstract class Playlist {
 		}
 		try {
 			final File file = (File)list.get(index);
-			player = new MP3Player(file);
-			player.addListener(passthroughPlayerListener);
-			player.addListener(configPlayerListener);
+			/* 
+			 * To avoid very much synchronizing, we do not directly manipulate the 
+			 * class field "player". Instead, we firstly create a object "p" and set 
+			 * "player" to this value. 
+			 * Otherwise, later listener events would refer to the class field "player"
+			 * whose value might have changed already. (Then the events do not refer to 
+			 * the correct Player object.)
+			 * Another way to work around this would be synchronizing, but this should 
+			 * be faster, I think.
+			 */
+			final Player p = new MP3Player(file);
+			this.player = p;
+			p.addListener(getPassthroughPlayerListener(player));
+			p.addListener(getConfigPlayerListener());
 			Thread thread = new Thread() {
 				public void run() {
 					try {
-						player.play();
+						p.play();
 					} catch (Exception exc) {
 						exc.printStackTrace();
 					}
@@ -257,6 +244,37 @@ public abstract class Playlist {
 			exc.printStackTrace();
 		}
 	}
+	
+	protected PlayerListener getPassthroughPlayerListener(final Player player) {
+		return new PlayerListener() {
+			public void playbackStarted() {
+				firePlaybackStarted(player);
+			}
+			public void playbackStopped() {
+				firePlaybackStopped(player);
+			}
+			public void playbackCompleted() {
+				firePlaybackCompleted(player);
+			}
+		};
+	}
+	
+	protected PlayerListener getConfigPlayerListener() {
+		return new PlayerListener() {
+			public void playbackStarted() {
+			}
+			public void playbackStopped() {
+			}
+			public void playbackCompleted() {
+				if (!random) {
+					playNext();
+				} else {
+					playRandom();
+				}
+			}
+		};
+	}
+
 	
 	/**
 	 * Immediately stops playing.
