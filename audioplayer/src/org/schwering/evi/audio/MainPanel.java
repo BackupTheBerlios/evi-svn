@@ -100,8 +100,7 @@ public class MainPanel extends JPanel {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
-						return f.isDirectory() 
-							|| f.toString().toLowerCase().endsWith(Messages.getString("MainPanel.DOT_MP3")); //$NON-NLS-1$
+						return f.isDirectory() || Util.isAudioFile(f);
 					}
 					public String getDescription() {
 						return Messages.getString("MainPanel.DOT_MP3_FILES"); //$NON-NLS-1$
@@ -111,6 +110,26 @@ public class MainPanel extends JPanel {
 				if (ret == JFileChooser.APPROVE_OPTION) {
 					File f = fileChooser.getSelectedFile();
 					playlist.add(f);
+				}
+			}
+		});
+		JButton addDir = new JButton(Messages.getString("MainPanel.ADD_DIR")); //$NON-NLS-1$
+		addDir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				fileChooser.setFileFilter(new FileFilter() {
+					public boolean accept(File f) {
+						return f.isDirectory();
+					}
+					public String getDescription() {
+						return Messages.getString("MainPanel.DIRECTORIES"); //$NON-NLS-1$
+					}
+				});
+				int ret = fileChooser.showOpenDialog(owner.getPanelInstance());
+				if (ret == JFileChooser.APPROVE_OPTION) {
+					File f = fileChooser.getSelectedFile();
+					playlist.addDirectory(f);
 				}
 			}
 		});
@@ -127,6 +146,7 @@ public class MainPanel extends JPanel {
 		});
 		JPanel p = new JPanel();
 		p.add(add);
+		p.add(addDir);
 		p.add(del);
 		add(p, BorderLayout.NORTH);
 		
@@ -145,6 +165,7 @@ public class MainPanel extends JPanel {
 	 * Save the playlist.
 	 */
 	public void dispose() {
+		playlist.stop();
 		playlist.save();
 	}
 	

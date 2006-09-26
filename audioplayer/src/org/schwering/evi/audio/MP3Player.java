@@ -27,7 +27,13 @@ public class MP3Player extends Player {
 		try {
 			file = f;
 			stream = new FileInputStream(file);
-			player = new AdvancedPlayer(stream);
+			player = new AdvancedPlayer(stream) {
+				public void close() {
+					System.out.print("AdvancedPlayer.close()");
+					super.close();
+					System.out.println(" done");
+				}
+			};
 		} catch (Exception exc) {
 			throw new PlayerException(exc);
 		}
@@ -68,17 +74,14 @@ public class MP3Player extends Player {
 			firePlaybackStopped();
 			throw new PlayerException(exc);
 		} finally {
-			if (player != null) {
-				player.close();
-				player = null;
-			}
+			stop();
 		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.audio.Player#pause()
 	 */
-	public void pause() {
+	public synchronized void pause() {
 		System.err.println("Not yet implemented");
 	}
 	
@@ -88,6 +91,7 @@ public class MP3Player extends Player {
 	public synchronized void stop() {
 		stopped = true;
 		if (player != null) {
+			System.out.println("stop()");
 			player.close();
 			player = null;
 		}
@@ -96,14 +100,14 @@ public class MP3Player extends Player {
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.audio.Player#isPlaying()
 	 */
-	public synchronized boolean isPlaying() {
+	public boolean isPlaying() {
 		return player != null;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.audio.Player#isCompleted()
 	 */
-	public synchronized boolean isCompleted() {
+	public boolean isCompleted() {
 		return completed;
 	}
 }

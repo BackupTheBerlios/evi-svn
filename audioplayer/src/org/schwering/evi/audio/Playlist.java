@@ -1,6 +1,7 @@
 package org.schwering.evi.audio;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
@@ -45,8 +46,30 @@ public abstract class Playlist {
 	 */
 	public abstract void save();
 	
+	/**
+	 * Returns the ListModel.
+	 * @return The ListModel which is in fact a DefaultListModel.
+	 */
 	public DefaultListModel getListModel() {
 		return list;
+	}
+	
+	public void addDirectory(File f) {
+		if (!f.isDirectory()) {
+			throw new IllegalArgumentException("f is no directory");
+		}
+		File[] files = f.listFiles(new FileFilter() {
+			public boolean accept(File f) {
+				return f.isDirectory() || Util.isAudioFile(f);
+			}
+		});
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isDirectory()) {
+				addDirectory(files[i]);
+			} else {
+				add(files[i]);
+			}
+		}
 	}
 	
 	/**
@@ -150,7 +173,7 @@ public abstract class Playlist {
 	/**
 	 * Plays a random song.
 	 */
-	public synchronized void playRandom() {
+	public void playRandom() {
 		synchronized (this) {
 			if (list.size() == 0) {
 				return;
@@ -161,14 +184,14 @@ public abstract class Playlist {
 				} while (newIndex == playingIndex);
 				playingIndex = newIndex;
 			}
-			play(playingIndex);
 		}
+		play(playingIndex);
 	}
 
 	/**
 	 * Plays the subsequent song.
 	 */
-	public synchronized void playNext() {
+	public void playNext() {
 		synchronized (this) {
 			playingIndex++;
 			if (playingIndex >= list.size()) {
