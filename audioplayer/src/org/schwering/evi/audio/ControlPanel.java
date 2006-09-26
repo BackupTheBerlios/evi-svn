@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel {
 	private JToggleButton random;
 	
 	/**
-	 * Creates a new control panel.
+	 * Creates a new control panel that displays all buttons.
 	 * @param owner The owning AudioPlayer object which is controlled by this 
 	 * panel.
 	 */
@@ -36,6 +36,8 @@ public class ControlPanel extends JPanel {
 	 * Creates a new control panel.
 	 * @param owner The owning AudioPlayer object which is controlled by this 
 	 * panel.
+	 * @param buttons A binary OR sum of buttons (PREV, PLAY, NEXT, RANDOM) 
+	 * that should be displayed. For example <code>PREV | PLAY | NEXT</code>.
 	 */
 	public ControlPanel(final AudioPlayer owner, int buttons) {
 		super();
@@ -101,6 +103,11 @@ public class ControlPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Enables or disables the borders of the buttons.
+	 * @param b If <code>true</code>, the buttons have borders; 
+	 * if <code>false</code> the buttons don't.
+	 */
 	public void setBordersPainted(boolean b) {
 		if (prev != null) {
 			prev.setBorderPainted(b);
