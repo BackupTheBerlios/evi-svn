@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
+ * A very simple panel with control buttons.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ControlPanel extends JPanel {
@@ -21,33 +22,26 @@ public class ControlPanel extends JPanel {
 		super(new GridLayout(0, 3));
 		this.owner = owner;
 
-		prev.setBorderPainted(false);
-		prev.setFocusPainted(false);
-		play.setBorderPainted(false);
-		play.setFocusPainted(false);
-		next.setBorderPainted(false);
-		next.setFocusPainted(false);
-		
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-				mainPanel.prev();
+				mainPanel.getPlaylist().playPrevious();
 			}
 		});
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-				if (mainPanel.isPlaying()) {
-					mainPanel.pause();
+				if (mainPanel.getPlaylist().isPlaying()) {
+					mainPanel.getPlaylist().stop();
 				} else {
-					mainPanel.play();
+					mainPanel.getPlaylist().play();
 				}
 			}
 		});
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-				mainPanel.next();
+				mainPanel.getPlaylist().playNext();
 			}
 		});
 		add(prev);
