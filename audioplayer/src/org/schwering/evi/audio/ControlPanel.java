@@ -96,22 +96,26 @@ public class ControlPanel extends JPanel {
 		}
 		
 		if ((buttons & PLAYALL) != 0) {
-			playAll = new JToggleButton(Messages.getString("ControlPanel.PLAYALL"), true); //$NON-NLS-1$
+			playAll = new JToggleButton(Messages.getString("ControlPanel.PLAYALL"), //$NON-NLS-1$
+					Configuration.isPlayAll());
 			playAll.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
 					mainPanel.getPlaylist().setPlayAll(playAll.isSelected());
+					Configuration.setPlayAll(playAll.isSelected());
 				}
 			});
 			add(playAll);
 		}
 		
 		if ((buttons & RANDOM) != 0) {
-			random = new JToggleButton(Messages.getString("ControlPanel.RANDOM"), false); //$NON-NLS-1$
+			random = new JToggleButton(Messages.getString("ControlPanel.RANDOM"),  //$NON-NLS-1$
+					Configuration.isRandom());
 			random.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
 					mainPanel.getPlaylist().setRandom(random.isSelected());
+					Configuration.setRandom(random.isSelected());
 				}
 			});
 			add(random);

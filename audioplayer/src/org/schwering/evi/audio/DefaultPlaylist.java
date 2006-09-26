@@ -11,6 +11,7 @@ import org.schwering.evi.core.ModuleContainer;
  * @version $Id$
  */
 public class DefaultPlaylist extends Playlist {
+	private static final String DEFAULT_PLAYLIST_APPENDIX = "_default_playlist";
 	protected Properties props;
 
 	/**
@@ -25,7 +26,7 @@ public class DefaultPlaylist extends Playlist {
 	 */
 	public void load() {
 		try {
-			props = new Properties(ModuleContainer.getIdByClass(AudioPlayer.class));
+			props = new Properties(ModuleContainer.getIdByClass(AudioPlayer.class) + DEFAULT_PLAYLIST_APPENDIX);
 			props.load();
 			String s;
 			for (int i = 0; (s = props.getString("entry"+i, null)) != null; i++) {

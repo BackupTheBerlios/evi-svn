@@ -34,6 +34,9 @@ public class MainPanel extends JPanel {
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
 		
+		playlist.setPlayAll(Configuration.isPlayAll());
+		playlist.setRandom(Configuration.isRandom());
+		
 		final JList list = new JList(playlist.getListModel());
 		list.setCellRenderer(new ListCellRenderer() {
 			public Component getListCellRendererComponent(JList list, Object value, 
@@ -98,6 +101,8 @@ public class MainPanel extends JPanel {
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setMultiSelectionEnabled(true);
+				fileChooser.setSelectedFile(Configuration.getLastFile());
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
 						return f.isDirectory() || Util.isAudioFile(f);
@@ -108,8 +113,13 @@ public class MainPanel extends JPanel {
 				});
 				int ret = fileChooser.showOpenDialog(owner.getPanelInstance());
 				if (ret == JFileChooser.APPROVE_OPTION) {
-					File f = fileChooser.getSelectedFile();
-					playlist.add(f);
+					File[] f = fileChooser.getSelectedFiles();
+					for (int i = 0; i < f.length; i++) {
+						playlist.add(f[i]);
+					}
+					if (f.length > 0) {
+						Configuration.setLastFile(f[0]);
+					}
 				}
 			}
 		});
@@ -117,6 +127,8 @@ public class MainPanel extends JPanel {
 		addDir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setMultiSelectionEnabled(true);
+				fileChooser.setSelectedFile(Configuration.getLastDirectory());
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
@@ -128,8 +140,13 @@ public class MainPanel extends JPanel {
 				});
 				int ret = fileChooser.showOpenDialog(owner.getPanelInstance());
 				if (ret == JFileChooser.APPROVE_OPTION) {
-					File f = fileChooser.getSelectedFile();
-					playlist.addDirectory(f);
+					File[] f = fileChooser.getSelectedFiles();
+					for (int i = 0; i < f.length; i++) {
+						playlist.addDirectory(f[i]);
+					}
+					if (f.length > 0) {
+						Configuration.setLastDirectory(f[0]);
+					}
 				}
 			}
 		});
@@ -175,6 +192,7 @@ public class MainPanel extends JPanel {
 	public void dispose() {
 		playlist.setPlayAll(false);
 		playlist.save();
+		Configuration.store();
 	}
 	
 	class ListComponent extends JLabel {
@@ -183,7 +201,7 @@ public class MainPanel extends JPanel {
 		}
 		
 		public void update(File file, boolean playing) {
-			String s = file.toString() + ((playing) ? Messages.getString("MainPanel.PLAYING") : ""); //$NON-NLS-1$ //$NON-NLS-2$
+			String s = "*** "+ file.toString() + ((playing) ? Messages.getString("MainPanel.PLAYING") : ""); //$NON-NLS-1$ //$NON-NLS-2$
 			setText(s);
 			
 			DefaultListModel listModel = playlist.getListModel();
