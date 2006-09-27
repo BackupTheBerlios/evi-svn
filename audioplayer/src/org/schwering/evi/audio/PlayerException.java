@@ -7,6 +7,8 @@ package org.schwering.evi.audio;
  * @version $Id$
  */
 public class PlayerException extends Exception {
+	private static final long serialVersionUID = 1L;
+
 	public PlayerException() {
 	}
 	

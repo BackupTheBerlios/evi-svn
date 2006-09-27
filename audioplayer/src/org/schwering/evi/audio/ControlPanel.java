@@ -15,6 +15,8 @@ import javax.swing.JToggleButton;
  * @version $Id$
  */
 public class ControlPanel extends JPanel {
+	private static final long serialVersionUID = 8290543586842163071L;
+	
 	public static final int PREV = 1;
 	public static final int PLAY = 2;
 	public static final int NEXT = 4;

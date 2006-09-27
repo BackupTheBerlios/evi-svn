@@ -33,6 +33,8 @@ import javax.swing.DefaultListModel;
  * @version $Id$
  */
 public class MainPanel extends JPanel {
+	private static final long serialVersionUID = -3610628136517888050L;
+	
 	private Playlist playlist = new DefaultPlaylist();
 	private Hashtable labeltable = new Hashtable();
 	private JLabel playingLabel = new JLabel();
@@ -374,6 +376,8 @@ public class MainPanel extends JPanel {
 	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
 	class ListComponent extends JTextField {
+		private static final long serialVersionUID = -6566828953377453228L;
+
 		public ListComponent(String s) {
 			super(s);
 			setEditable(false);
