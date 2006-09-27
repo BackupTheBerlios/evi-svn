@@ -19,6 +19,8 @@ import org.schwering.evi.core.IPanel;
  * It implements IPanel because it is a graphical module.
  */
 public class HelloWorld extends JPanel implements IModule, IPanel {
+	private static final long serialVersionUID = -6534025009528050898L;
+
 	public HelloWorld() {
 		this("Hello World!!");
 	}
