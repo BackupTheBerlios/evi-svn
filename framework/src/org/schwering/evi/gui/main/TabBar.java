@@ -340,19 +340,40 @@ implements IModuleListener, IModuleLoaderListener {
 	class RightClickMenu extends JPopupMenu {
 		private static final long serialVersionUID = -7757128381876335202L;
 
+		/** The X coordinate where the mouse was clicked. */
+		private int x = -1;
+		
+		/** The Y coordinates where the mouse was clicked. */
+		private int y = -1;
+		
 		/**
 		 * Creates a new menu with "close".
 		 */
 		public RightClickMenu() {
-			String title = Messages.getString("TabBar.CLOSE");
-			JMenuItem close = new JMenuItem(title); //$NON-NLS-1$
+			String title = Messages.getString("TabBar.CLOSE"); //$NON-NLS-1$
+			JMenuItem close = new JMenuItem(title);
 			close.setMnemonic(title.charAt(0));
 			close.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					removeSelectedTab();
+					if (x != -1 || y != -1) {
+						int index = indexAtLocation(x, y);
+						if (index != -1) {
+							removeTabAt(index);
+						} else {
+							removeSelectedTab();
+						}
+					} else {
+						removeSelectedTab();
+					}
 				}
 			});
 			add(close);
+		}
+		
+		public void show(Component invoker, int x, int y) {
+			this.x = x;
+			this.y = y;
+			super.show(invoker, x, y);
 		}
 	}
 }
