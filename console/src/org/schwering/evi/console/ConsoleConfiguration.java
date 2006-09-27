@@ -25,6 +25,8 @@ import org.schwering.evi.util.ExceptionDialog;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ConsoleConfiguration extends JPanel implements IPanel {
+	private static final long serialVersionUID = -9125520462899226085L;
+
 	public static Properties PROPS;
 	
 	static {

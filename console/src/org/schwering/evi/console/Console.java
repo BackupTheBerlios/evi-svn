@@ -29,7 +29,8 @@ import org.schwering.evi.util.RightClickMenu;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class Console extends JPanel implements IModule, IPanel {
-	
+	private static final long serialVersionUID = 2735909201802891383L;
+
 	public Console() {
 		final PrintStream oldOut = System.out;
 		final PrintStream oldErr = System.err;
