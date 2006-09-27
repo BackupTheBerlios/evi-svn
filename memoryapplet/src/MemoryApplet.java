@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

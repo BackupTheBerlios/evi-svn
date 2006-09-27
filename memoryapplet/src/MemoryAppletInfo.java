@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleInfo;
 
