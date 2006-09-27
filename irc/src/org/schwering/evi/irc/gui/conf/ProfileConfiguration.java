@@ -8,10 +8,12 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -21,6 +23,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
+import org.schwering.evi.gui.EVI;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.irc.conf.DefaultValues;
@@ -126,7 +129,7 @@ public class ProfileConfiguration extends JPanel {
 					profile.setBeepOnMention(beepOnMention.isSelected());
 					profile.setBeepOnQuery(beepOnQuery.isSelected());
 					profile.setEnableLogging(enableLogging.isSelected());
-					profile.setLoggingDir(loggingDir.getText());
+					profile.setLoggingDir(loggingDir.toString());
 					profile.setAcceptCerts(acceptCerts.isSelected());
 					profile.setBrowser(browser.getText());
 					profile.setPerform(perform.getText());
@@ -298,7 +301,8 @@ public class ProfileConfiguration extends JPanel {
 		final JButton choose = new JButton("Choose");
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(choose, "Own Color", ownColor.getBackground());
+				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
+						"Own Color", ownColor.getBackground());
 				if (c != null) {
 					ownColor.setBackground(c);
 				}
@@ -326,7 +330,8 @@ public class ProfileConfiguration extends JPanel {
 		final JButton choose = new JButton("Choose");
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(choose, "Other's Color", otherColor.getBackground());
+				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
+						"Other's Color", otherColor.getBackground());
 				if (c != null) {
 					otherColor.setBackground(c);
 				}
@@ -354,7 +359,8 @@ public class ProfileConfiguration extends JPanel {
 		final JButton choose = new JButton("Choose");
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(choose, "Neutral Color", neutralColor.getBackground());
+				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
+						"Neutral Color", neutralColor.getBackground());
 				if (c != null) {
 					neutralColor.setBackground(c);
 				}
@@ -408,7 +414,8 @@ public class ProfileConfiguration extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					JButton b = (JButton)e.getSource();
 					Color oldColor = b.getBackground();
-					Color newColor = JColorChooser.showDialog(b, "Color", oldColor);
+					Color newColor = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
+							"Color", oldColor);
 					if (newColor != null) {
 						b.setBackground(newColor);
 					}
@@ -591,11 +598,30 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField loggingDir = new JTextField(10);
 	
 	private void addLoggingDir(JPanel p) {
+		final JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		final JButton button = new JButton("Choose");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s = browser.getText();
+				if (s != null) {
+					fileChooser.setSelectedFile(new File(s));
+				}
+				int ret = fileChooser.showOpenDialog(EVI.getInstance().getMainFrame());
+				if (ret == JFileChooser.APPROVE_OPTION) {
+					File f = fileChooser.getSelectedFile();
+					if (f != null) {
+						loggingDir.setText(f.toString());
+					}
+				}
+			}
+		});
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(new JPanel(), BorderLayout.EAST);
 		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(loggingDir, BorderLayout.WEST);
+		sub.add(button, BorderLayout.EAST);
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Logging directory:"));
@@ -630,11 +656,30 @@ public class ProfileConfiguration extends JPanel {
 	private JTextField browser = new JTextField(10);
 	
 	private void addBrowser(JPanel p) {
+		final JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		final JButton button = new JButton("Choose");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s = browser.getText();
+				if (s != null) {
+					fileChooser.setSelectedFile(new File(s));
+				}
+				int ret = fileChooser.showOpenDialog(EVI.getInstance().getMainFrame());
+				if (ret == JFileChooser.APPROVE_OPTION) {
+					File f = fileChooser.getSelectedFile();
+					if (f != null) {
+						browser.setText(f.toString());
+					}
+				}
+			}
+		});
+		
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(new JPanel(), BorderLayout.EAST);
 		sub.add(new JPanel(), BorderLayout.SOUTH);
 		sub.add(browser, BorderLayout.WEST);
+		sub.add(button, BorderLayout.EAST);
 
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Browser:"));
