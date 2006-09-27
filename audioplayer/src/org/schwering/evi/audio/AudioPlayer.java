@@ -18,10 +18,22 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 	private ControlPanel ctrlPanel;
 	
 	public AudioPlayer() {
+		this(null);
+	}
+	
+	public AudioPlayer(Object[] args) {
 		mainPanel = new MainPanel(this);
 		ctrlPanel = new ControlPanel(this, 
 				ControlPanel.PREV | ControlPanel.PLAY | ControlPanel.NEXT);
 		ctrlPanel.setBordersPainted(false);
+		
+		if (args != null) {
+			for (int i = 0; i < args.length; i++) {
+				if (args[i].equals("play")) {
+					mainPanel.getPlaylist().play();
+				}
+			}
+		}
 	}
 	
 	/* (non-Javadoc)

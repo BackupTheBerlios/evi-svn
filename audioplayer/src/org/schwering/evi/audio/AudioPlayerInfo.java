@@ -4,13 +4,14 @@ import org.schwering.evi.core.IButtonable;
 import org.schwering.evi.core.IMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleInfo;
+import org.schwering.evi.core.IParameterizable;
 
 /**
  * Audio player module based on JLayer MP3 library.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable {
+public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable, IParameterizable {
 
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleInfo#getInfoURL()
@@ -45,6 +46,13 @@ public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable {
 	 */
 	public IModule newInstance() {
 		return new AudioPlayer();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IParameterizable#newInstance(java.lang.Object[])
+	 */
+	public IModule newInstance(Object[] args) {
+		return new AudioPlayer(args);
 	}
 	
 	/* (non-Javadoc)
