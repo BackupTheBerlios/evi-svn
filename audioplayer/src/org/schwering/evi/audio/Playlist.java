@@ -55,6 +55,26 @@ public abstract class Playlist {
 		return list;
 	}
 	
+	/**
+	 * Returns the current player or <code>null</code>.
+	 * @return the current player or <code>null</code>.
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+	
+	/**
+	 * Returns the currently played file or <code>null</code>.
+	 * @return the currently played file or <code>null</code>.
+	 */
+	public File getPlayingFile() {
+		return (player != null) ? player.getFile() : null;
+	}
+	
+	/**
+	 * Adds a directory including its subdirectories.
+	 * @param f The base path.
+	 */
 	public void addDirectory(File f) {
 		if (!f.isDirectory()) {
 			throw new IllegalArgumentException("f is no directory");

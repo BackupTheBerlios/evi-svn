@@ -3,6 +3,7 @@ package org.schwering.evi.audio;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,7 @@ import java.util.Hashtable;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +32,8 @@ import javax.swing.event.ListDataEvent;
 public class MainPanel extends JPanel {
 	private Playlist playlist = new DefaultPlaylist();
 	private Hashtable labeltable = new Hashtable();
+	private JLabel playingLabel = new JLabel();
+	private JList list;
 	
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
@@ -37,7 +41,7 @@ public class MainPanel extends JPanel {
 		playlist.setPlayAll(Configuration.isPlayAll());
 		playlist.setRandom(Configuration.isRandom());
 		
-		final JList list = new JList(playlist.getListModel());
+		list = new JList(playlist.getListModel());
 		list.setCellRenderer(new ListCellRenderer() {
 			public Component getListCellRendererComponent(JList list, Object value, 
 					int index, boolean isSelected, boolean cellHasFocus) {
@@ -80,16 +84,19 @@ public class MainPanel extends JPanel {
 		playlist.addListener(new PlaylistListener() {
 			public void playbackStarted(Player player) {
 				File file = player.getFile();
+				updatePlayingLabel(file);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				comp.update(file, true);
 			}
 			public void playbackStopped(Player player) {
 				File file = player.getFile();
+				updatePlayingLabel(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				comp.update(file, false);
 			}
 			public void playbackCompleted(Player player) {
 				File file = player.getFile();
+				updatePlayingLabel(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				comp.update(file, false);
 			}
@@ -168,11 +175,15 @@ public class MainPanel extends JPanel {
 			}
 		});
 		
-		JPanel p = new JPanel();
-		p.add(add);
-		p.add(addDir);
-		p.add(del);
-		p.add(delAll);
+		JPanel p = new JPanel(new GridLayout(2, 0));
+		JPanel sub = new JPanel();
+		sub.add(add);
+		sub.add(addDir);
+		sub.add(del);
+		sub.add(delAll);
+		p.add(sub);
+		updatePlayingLabel(null);
+		p.add(playingLabel);
 		add(p, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane(list);
@@ -180,6 +191,16 @@ public class MainPanel extends JPanel {
 		
 		ControlPanel ctrlPanel = new ControlPanel(owner);
 		add(ctrlPanel, BorderLayout.SOUTH);
+	}
+	
+	public void updatePlayingLabel(File file) {
+		String s;
+		if (file != null) {
+			s = file.getName();
+		} else {
+			s = Messages.getString("MainPanel.NOTHING"); //$NON-NLS-1
+		}
+		playingLabel.setText(Messages.getString("MainPanel.PLAYING") +": "+ s); //$NON-NLS-1
 	}
 	
 	public Playlist getPlaylist() {
@@ -195,17 +216,29 @@ public class MainPanel extends JPanel {
 		Configuration.store();
 	}
 	
-	class ListComponent extends JLabel {
+	class ListComponent extends JTextField {
 		public ListComponent(String s) {
 			super(s);
+			setEditable(false);
+			setColors(false);
+			setBorder(null);
+		}
+		
+		private void setColors(boolean playing) {
+			if (playing) {
+				setBackground(list.getBackground().darker());
+			} else {
+				setBackground(list.getBackground());
+			}
 		}
 		
 		public void update(File file, boolean playing) {
-			String s = file.toString();
+			/*String s = file.toString();
 			if (playing) {
-				s = "***"+ s + Messages.getString("MainPanel.PLAYING"); //$NON-NLS-1$ //$NON-NLS-2$
+				s = "*** "+ s + Messages.getString("MainPanel.PLAYING"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
-			setText(s);
+			setText(s);*/
+			setColors(playing);
 			
 			DefaultListModel listModel = playlist.getListModel();
 			int index = listModel.indexOf(file);
