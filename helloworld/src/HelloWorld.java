@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 import java.awt.Color;
 import java.awt.Component;
 import java.net.URL;
