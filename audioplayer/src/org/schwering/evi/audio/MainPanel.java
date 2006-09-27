@@ -69,20 +69,40 @@ public class MainPanel extends JPanel {
 			}
 		});
 		final JPopupMenu popup = new JPopupMenu();
-		JMenuItem playItem = new JMenuItem(Messages.getString("MainPanel.PLAY")); //$NON-NLS-1$
+		final JMenuItem playItem = new JMenuItem(Messages.getString("MainPanel.PLAY")); //$NON-NLS-1$
 		playItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSelected();
 			}
 		});
-		JMenuItem removeItem = new JMenuItem(Messages.getString("MainPanel.REMOVE")); //$NON-NLS-1$
+		final JMenuItem removeItem = new JMenuItem(Messages.getString("MainPanel.REMOVE")); //$NON-NLS-1$
 		removeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeSelected();
 			}
 		});
+		final JMenuItem addToQueueItem = new JMenuItem(Messages.getString("MainPanel.ADD_TO_QUEUE")); // $NON-NLS-1$
+		addToQueueItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] indices = list.getSelectedIndices();
+				for (int i = 0; i < indices.length; i++) {
+					playlist.addToQueue(indices[i]);
+				}
+			}
+		});
+		final JMenuItem removeFromQueueItem = new JMenuItem(Messages.getString("MainPanel.REMOVE_FROM_QUEUE")); // $NON-NLS-1$
+		removeFromQueueItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] indices = list.getSelectedIndices();
+				for (int i = 0; i < indices.length; i++) {
+					playlist.removeFromQueue(indices[i]);
+				}
+			}
+		});
 		popup.add(playItem);
 		popup.add(removeItem);
+		popup.add(addToQueueItem);
+		popup.add(removeFromQueueItem);
 		list.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
@@ -99,6 +119,12 @@ public class MainPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 1 
 						&& e.getButton() == MouseEvent.BUTTON3) {
+					int index = list.getSelectedIndex();
+					boolean enable = index != -1;
+					playItem.setEnabled(enable);
+					removeItem.setEnabled(enable);
+					addToQueueItem.setEnabled(enable && !playlist.isInQueue(index));
+					removeFromQueueItem.setEnabled(enable && playlist.isInQueue(index));
 					popup.show(list, e.getX(), e.getY());
 				}
 			}
@@ -240,33 +266,37 @@ public class MainPanel extends JPanel {
 	 * TODO: Sometimes it scroll to the middle. Java Bug?
 	 */
 	private void scrollToPlayingFile() {
-		File file = playlist.getPlayingFile();
-		DefaultListModel listModel = playlist.getListModel();
-		if (file == null || listModel == null) {
-			return;
-		}
-		int index = listModel.indexOf(file);
-		if (index != -1) {
-			int max = list.getLastVisibleIndex() - list.getFirstVisibleIndex();
-			int index0 = index - max / 3;
-			int index1 = index + max / 3;
-			while (index0 < 0) {
-				index0++;
+		try {
+			File file = playlist.getPlayingFile();
+			DefaultListModel listModel = playlist.getListModel();
+			if (file == null || listModel == null) {
+				return;
 			}
-			while (index1 >= playlist.size()) {
-				index1--;
+			int index = listModel.indexOf(file);
+			if (index != -1) {
+				int max = list.getLastVisibleIndex() - list.getFirstVisibleIndex();
+				int index0 = index - max / 3;
+				int index1 = index + max / 3;
+				while (index0 < 0) {
+					index0++;
+				}
+				while (index1 >= playlist.size()) {
+					index1--;
+				}
+				
+				Point p0 = indexToLocation(index0);
+				Point p1 = indexToLocation(index1);
+				
+				int x = p0.x;
+				int y = p0.y;
+				int width = p1.x - x;
+				int height = p1.y - y;
+				Rectangle r = new Rectangle(x, y, width, height);
+				list.scrollRectToVisible(r);
+				list.repaint();
 			}
-			
-			Point p0 = indexToLocation(index0);
-			Point p1 = indexToLocation(index1);
-			
-			int x = p0.x;
-			int y = p0.y;
-			int width = p1.x - x;
-			int height = p1.y - y;
-			Rectangle r = new Rectangle(x, y, width, height);
-			list.scrollRectToVisible(r);
-			list.repaint();
+		} catch (Exception exc) {
+			exc.printStackTrace();
 		}
 	}
 	

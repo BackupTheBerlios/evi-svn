@@ -60,7 +60,7 @@ public class ControlPanel extends JPanel {
 			prev.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-					mainPanel.getPlaylist().playPrevious();
+					mainPanel.getPlaylist().previous();
 				}
 			});
 			add(prev);
@@ -86,11 +86,7 @@ public class ControlPanel extends JPanel {
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-					if (mainPanel.getPlaylist().isRandom()) {
-						mainPanel.getPlaylist().playRandom();
-					} else {
-						mainPanel.getPlaylist().playNext();
-					}
+					mainPanel.getPlaylist().next();
 				}
 			});
 			add(next);

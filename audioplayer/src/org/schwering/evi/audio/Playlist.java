@@ -21,6 +21,7 @@ public abstract class Playlist {
 	protected Vector listeners = new Vector();
 	protected boolean playAll = true;
 	protected boolean random = false;
+	protected Vector queue = new Vector();
 	
 	/**
 	 * Creates a new empty playlist.
@@ -217,6 +218,56 @@ public abstract class Playlist {
 	}
 	
 	/**
+	 * Enqueues a file.
+	 * @param index THe index of the file which should be played.
+	 */
+	public void addToQueue(int index) {
+		addToQueue((File)list.get(index));
+	}
+	
+	/**
+	 * Enqueues a file.
+	 * @param file The file which should be played.
+	 */
+	public void addToQueue(File file) {
+		queue.add(file);
+	}
+	
+	/**
+	 * Checks whether a file is in the queue.
+	 * @param file The index of the file which might be in the queue or not.
+	 * @return <code>true</code> if the file is enqueued.
+	 */
+	public boolean isInQueue(int index) {
+		return isInQueue((File)list.get(index));
+	}
+	
+	/**
+	 * Checks whether a file is in the queue.
+	 * @param file The file which might be in the queue or not.
+	 * @return <code>true</code> if the file is enqueued.
+	 */
+	public boolean isInQueue(File file) {
+		return queue.contains(file);
+	}
+	
+	/**
+	 * Removes a file from the queue.
+	 * @param index The index of the file which should be removed.
+	 */
+	public void removeFromQueue(int index) {
+		removeFromQueue((File)list.get(index));
+	}
+	
+	/**
+	 * Removes a file from the queue.
+	 * @param file The file which should be removed.
+	 */
+	public void removeFromQueue(File file) {
+		queue.remove(file);
+	}
+	
+	/**
 	 * Indicates whether any song is being played of the playlist at the moment.
 	 * @return
 	 */
@@ -225,9 +276,33 @@ public abstract class Playlist {
 	}
 	
 	/**
+	 * Decides which song to play depending on the playlist settings.
+	 */
+	public void next() {
+		if (queue.size() > 0) {
+			File file = (File)queue.remove(0);
+			int index = list.indexOf(file);
+			play(index);
+		} else if (isPlayAll()) {
+			if (!isRandom()) {
+				playNext();
+			} else {
+				playRandom();
+			}
+		}
+	}
+	
+	/**
+	 * Decides which song to play depending on the playlist settings.
+	 */
+	public void previous() {
+		playPrevious();
+	}
+	
+	/**
 	 * Plays a random song.
 	 */
-	public void playRandom() {
+	private void playRandom() {
 		synchronized (this) {
 			if (list.size() == 0) {
 				return;
@@ -245,27 +320,29 @@ public abstract class Playlist {
 	/**
 	 * Plays the subsequent song.
 	 */
-	public void playNext() {
+	private void playNext() {
+		int index;
 		synchronized (this) {
-			playingIndex++;
-			if (playingIndex >= list.size()) {
-				playingIndex %= list.size();
+			index = playingIndex + 1;
+			if (index >= list.size()) {
+				index %= list.size();
 			}
 		}
-		play(playingIndex);
+		play(index);
 	}
 	
 	/**
 	 * Plays the previous song.
 	 */
-	public void playPrevious() {
+	private void playPrevious() {
+		int index;
 		synchronized (this) {
-			playingIndex--;
-			if (playingIndex < 0) {
-				playingIndex = list.size() + playingIndex;
+			index = playingIndex - 1;
+			if (index < 0) {
+				index = list.size() + index;
 			}
 		}
-		play(playingIndex);
+		play(index);
 	}
 	
 	/**
@@ -305,7 +382,7 @@ public abstract class Playlist {
 			final Player p = new MP3Player(file);
 			this.player = p;
 			p.addListener(getPassthroughPlayerListener(player));
-			p.addListener(getConfigPlayerListener());
+			p.addListener(getConfigPlayerListener(player));
 			Thread thread = new Thread() {
 				public void run() {
 					try {
@@ -336,20 +413,14 @@ public abstract class Playlist {
 		};
 	}
 	
-	protected PlayerListener getConfigPlayerListener() {
+	protected PlayerListener getConfigPlayerListener(final Player player) {
 		return new PlayerListener() {
 			public void playbackStarted() {
 			}
 			public void playbackStopped() {
 			}
 			public void playbackCompleted() {
-				if (isPlayAll()) {
-					if (!isRandom()) {
-						playNext();
-					} else {
-						playRandom();
-					}
-				}
+				next();
 			}
 		};
 	}
