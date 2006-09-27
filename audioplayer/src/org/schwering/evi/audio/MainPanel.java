@@ -86,19 +86,25 @@ public class MainPanel extends JPanel {
 				File file = player.getFile();
 				updatePlayingLabel(file);
 				ListComponent comp = (ListComponent)labeltable.get(file);
-				comp.update(file, true);
+				if (comp != null) {
+					comp.update(file, true);
+				}
 			}
 			public void playbackStopped(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
-				comp.update(file, false);
+				if (comp != null) {
+					comp.update(file, false);
+				}
 			}
 			public void playbackCompleted(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
-				comp.update(file, false);
+				if (comp != null) {
+					comp.update(file, false);
+				}
 			}
 		});
 		
