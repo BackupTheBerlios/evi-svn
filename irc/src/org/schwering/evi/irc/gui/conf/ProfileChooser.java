@@ -18,6 +18,8 @@ import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.irc.conf.Profile;
 
 public class ProfileChooser extends JPanel {
+	private static final long serialVersionUID = 8018487724029132222L;
+	
 	private JButton delProfile = new JButton("Delete Profile");
 	private JComboBox box = new JComboBox();
 	private Configuration owner;

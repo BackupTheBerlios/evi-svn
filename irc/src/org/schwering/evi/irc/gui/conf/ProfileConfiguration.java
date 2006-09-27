@@ -29,6 +29,8 @@ import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.FontSelector;
 
 public class ProfileConfiguration extends JPanel {
+	private static final long serialVersionUID = -2004581161964697319L;
+
 	private Profile profile;
 	
 	public ProfileConfiguration() {

@@ -11,6 +11,7 @@ import org.schwering.evi.core.IPanel;
 import org.schwering.evi.irc.conf.Profile;
 
 public class Configuration extends JPanel implements IPanel {
+	private static final long serialVersionUID = -812108760596619774L;
 	
 	private static Configuration instance = null;
 	private static int instanceCount = 0;

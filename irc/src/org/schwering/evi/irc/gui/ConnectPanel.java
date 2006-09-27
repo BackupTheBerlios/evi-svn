@@ -28,6 +28,8 @@ import org.schwering.evi.util.RightClickMenu;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ConnectPanel extends JPanel {
+	private static final long serialVersionUID = -7702412608748071796L;
+
 	public ConnectPanel() {
 		setLayout(new GridLayout(1, 1));
 		
