@@ -22,6 +22,8 @@ import javax.swing.ListCellRenderer;
  * @version $Id$
  */
 public class FontSelector extends JPanel {
+	private static final long serialVersionUID = 7921314592883676271L;
+
 	private Wrapper[] FONT_STYLES = new Wrapper[] {
 			new Wrapper(Messages.getString("FontSelector.PLAIN"), "PLAIN"), //$NON-NLS-1$
 			new Wrapper(Messages.getString("FontSelector.BOLD"), "BOLD"),  //$NON-NLS-1$
@@ -56,6 +58,8 @@ public class FontSelector extends JPanel {
 					return null;
 				}
 				JTextField tf = new JTextField() {
+					private static final long serialVersionUID = -2242934440988161668L;
+
 					public String toString() {
 						return getText();
 					}
