@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -246,18 +247,43 @@ public class MainPanel extends JPanel {
 		}
 		int index = listModel.indexOf(file);
 		if (index != -1) {
-			int index0 = index - 5;
-			int index1 = index + 5;
+			int max = list.getLastVisibleIndex() - list.getFirstVisibleIndex();
+			int index0 = index - max / 3;
+			int index1 = index + max / 3;
 			while (index0 < 0) {
 				index0++;
 			}
 			while (index1 >= playlist.size()) {
 				index1--;
 			}
-			Rectangle r = list.getCellBounds(index0, index1);
+			
+			Point p0 = indexToLocation(index0);
+			Point p1 = indexToLocation(index1);
+			
+			int x = p0.x;
+			int y = p0.y;
+			int width = p1.x - x;
+			int height = p1.y - y;
+			Rectangle r = new Rectangle(x, y, width, height);
 			list.scrollRectToVisible(r);
 			list.repaint();
 		}
+	}
+	
+	/**
+	 * Wraps JList.indexToLocation. Because JList.indexToLocation seems to 
+	 * be buggy, it tries up to 6 times to calculate the point. Each result 
+	 * of JList.indexToLocation is compared with the result of 
+	 * JList.locationToIndex.
+	 * @param index The index of the line.
+	 * @return The point.
+	 */
+	private Point indexToLocation(int index) {
+		Point p = list.indexToLocation(index);
+		for (int i = 0; i < 5 && list.locationToIndex(p) != index; i++) {
+			p = list.indexToLocation(index);
+		}
+		return p;
 	}
 	
 	/**
