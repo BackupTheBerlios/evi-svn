@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio;
 
 import java.awt.GridLayout;
