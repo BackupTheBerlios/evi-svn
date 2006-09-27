@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.gui.conf;
 
 import java.util.Locale;
