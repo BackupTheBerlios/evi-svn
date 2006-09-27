@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,7 +18,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
@@ -35,6 +38,10 @@ public class MainPanel extends JPanel {
 	private JList list;
 	private JTextField searchField = new JTextField("");
 	
+	/**
+	 * Creates the main panel.
+	 * @param owner The owning AudioPlayer object.
+	 */
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
 		
@@ -60,13 +67,25 @@ public class MainPanel extends JPanel {
 				return comp;
 			}
 		});
+		final JPopupMenu popup = new JPopupMenu();
+		JMenuItem playItem = new JMenuItem(Messages.getString("MainPanel.PLAY")); //$NON-NLS-1$
+		playItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playSelected();
+			}
+		});
+		JMenuItem removeItem = new JMenuItem(Messages.getString("MainPanel.REMOVE")); //$NON-NLS-1$
+		removeItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeSelected();
+			}
+		});
+		popup.add(playItem);
+		popup.add(removeItem);
 		list.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-					int index = list.getSelectedIndex();
-					if (index != -1) {
-						playlist.play(index);
-					}
+					playSelected();
 				}
 			}
 			
@@ -77,6 +96,10 @@ public class MainPanel extends JPanel {
 			}
 			
 			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 1 
+						&& e.getButton() == MouseEvent.BUTTON3) {
+					popup.show(list, e.getX(), e.getY());
+				}
 			}
 			
 			public void mouseReleased(MouseEvent e) {
@@ -90,6 +113,7 @@ public class MainPanel extends JPanel {
 				if (comp != null) {
 					comp.update(file, true);
 				}
+				scrollToPlayingFile();
 			}
 			public void playbackStopped(Player player) {
 				File file = player.getFile();
@@ -167,12 +191,7 @@ public class MainPanel extends JPanel {
 		JButton del = new JButton(Messages.getString("MainPanel.DELETE_FILE")); //$NON-NLS-1$
 		del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int[] arr = list.getSelectedIndices();
-				if (arr != null) {
-					for (int i = arr.length - 1; i >= 0; i--) {
-						playlist.remove(arr[i]);
-					}
-				}
+				removeSelected();
 			}
 		});
 		JButton delAll = new JButton(Messages.getString("MainPanel.DELETE_ALL")); //$NON-NLS-1$
@@ -214,7 +233,60 @@ public class MainPanel extends JPanel {
 		add(p, BorderLayout.SOUTH);
 	}
 	
-	public void updatePlayingLabel(File file) {
+	/**
+	 * Scrolls to the currently played file. In fact, it tries to scroll to 
+	 * an area +/- 5 songs around the current file.<br />
+	 * TODO: Sometimes it scroll to the middle. Java Bug?
+	 */
+	private void scrollToPlayingFile() {
+		File file = playlist.getPlayingFile();
+		DefaultListModel listModel = playlist.getListModel();
+		if (file == null || listModel == null) {
+			return;
+		}
+		int index = listModel.indexOf(file);
+		if (index != -1) {
+			int index0 = index - 5;
+			int index1 = index + 5;
+			while (index0 < 0) {
+				index0++;
+			}
+			while (index1 >= playlist.size()) {
+				index1--;
+			}
+			Rectangle r = list.getCellBounds(index0, index1);
+			list.scrollRectToVisible(r);
+			list.repaint();
+		}
+	}
+	
+	/**
+	 * Plays a single selected file.
+	 */
+	private void playSelected() {
+		int index = list.getSelectedIndex();
+		if (index != -1) {
+			playlist.play(index);
+		}
+	}
+	
+	/**
+	 * Removes all selected files from the list.
+	 */
+	private void removeSelected() {
+		int[] arr = list.getSelectedIndices();
+		if (arr != null) {
+			for (int i = arr.length - 1; i >= 0; i--) {
+				playlist.remove(arr[i]);
+			}
+		}
+	}
+	
+	/**
+	 * Updates the label that displays the name of the current song.
+	 * @param file The current song.
+	 */
+	private void updatePlayingLabel(File file) {
 		String s;
 		if (file != null) {
 			s = file.getName();
@@ -224,6 +296,10 @@ public class MainPanel extends JPanel {
 		playingLabel.setText(Messages.getString("MainPanel.PLAYING") +": "+ s); //$NON-NLS-1
 	}
 	
+	/**
+	 * The playlist object.
+	 * @return The current playlist.
+	 */
 	public Playlist getPlaylist() {
 		return playlist;
 	}
@@ -237,6 +313,10 @@ public class MainPanel extends JPanel {
 		Configuration.store();
 	}
 	
+	/**
+	 * A wrapper class for the components displayed in the JList.
+	 * @author Christoph Schwering (schwering@gmail.com)
+	 */
 	class ListComponent extends JTextField {
 		public ListComponent(String s) {
 			super(s);
@@ -254,11 +334,6 @@ public class MainPanel extends JPanel {
 		}
 		
 		public void update(File file, boolean playing) {
-			/*String s = file.toString();
-			if (playing) {
-				s = "*** "+ s + Messages.getString("MainPanel.PLAYING"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-			setText(s);*/
 			setColors(playing);
 			DefaultListModel listModel = playlist.getListModel();
 			int index = listModel.indexOf(file);
