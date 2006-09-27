@@ -5,6 +5,8 @@ import java.io.FileFilter;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 /**
  * The abstract base class for a playlist. This class provides navigation mechanisms.
@@ -69,6 +71,14 @@ public abstract class Playlist {
 	 */
 	public File getPlayingFile() {
 		return (player != null) ? player.getFile() : null;
+	}
+	
+	/**
+	 * Returns the size of the list.
+	 * @return The size.
+	 */
+	public int size() {
+		return (list != null) ? list.size() : -1;
 	}
 	
 	/**
@@ -343,7 +353,6 @@ public abstract class Playlist {
 		};
 	}
 
-	
 	/**
 	 * Immediately stops playing.
 	 */
@@ -351,6 +360,20 @@ public abstract class Playlist {
 		if (player != null) {
 			player.stop();
 			player = null;
+		}
+	}
+	
+	/**
+	 * Fires the <code>ListDataListener.contentsChanged</code> event of the 
+	 * ListModel.
+	 * @param from The beginning index.
+	 * @param to The last index (must be greater than or equal to <code>from</code>).
+	 */
+	public void fireListModelEvent(int from, int to) {
+		ListDataListener[] listeners = list.getListDataListeners();
+		ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, from, to);
+		for (int i = 0; i < listeners.length; i++) {
+			listeners[i].contentsChanged(e);
 		}
 	}
 	

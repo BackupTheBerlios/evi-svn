@@ -21,8 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.DefaultListModel;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListDataEvent;
 
 /**
  * The playlist panel.
@@ -34,6 +32,7 @@ public class MainPanel extends JPanel {
 	private Hashtable labeltable = new Hashtable();
 	private JLabel playingLabel = new JLabel();
 	private JList list;
+	private JTextField searchField = new JTextField("");
 	
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
@@ -46,6 +45,7 @@ public class MainPanel extends JPanel {
 			public Component getListCellRendererComponent(JList list, Object value, 
 					int index, boolean isSelected, boolean cellHasFocus) {
 				File file = (File)value;
+				
 				if (!labeltable.containsKey(file)) {
 					ListComponent label = new ListComponent(file.toString());
 					labeltable.put(file, label);
@@ -175,8 +175,10 @@ public class MainPanel extends JPanel {
 			}
 		});
 		
-		JPanel p = new JPanel(new GridLayout(2, 0));
-		JPanel sub = new JPanel();
+		JPanel p, sub;
+		
+		p = new JPanel(new GridLayout(2, 0));
+		sub = new JPanel();
 		sub.add(add);
 		sub.add(addDir);
 		sub.add(del);
@@ -189,8 +191,20 @@ public class MainPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(list);
 		add(scrollPane, BorderLayout.CENTER);
 		
-		ControlPanel ctrlPanel = new ControlPanel(owner);
-		add(ctrlPanel, BorderLayout.SOUTH);
+		p = new JPanel(new GridLayout(2, 0));
+		sub = new JPanel(new BorderLayout());
+		sub.add(new JLabel(Messages.getString("MainPanel.SEARCH") +":"), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
+		sub.add(searchField, BorderLayout.CENTER);
+		JButton searchButton = new JButton(Messages.getString("MainPanel.SEARCHBUTTON")); //$NON-NLS-1$
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playlist.fireListModelEvent(0, playlist.size() - 1);
+			}
+		});
+		sub.add(searchButton, BorderLayout.EAST);
+		p.add(sub);
+		p.add(new ControlPanel(owner));
+		add(p, BorderLayout.SOUTH);
 	}
 	
 	public void updatePlayingLabel(File file) {
@@ -239,14 +253,9 @@ public class MainPanel extends JPanel {
 			}
 			setText(s);*/
 			setColors(playing);
-			
 			DefaultListModel listModel = playlist.getListModel();
 			int index = listModel.indexOf(file);
-			ListDataListener[] listeners = listModel.getListDataListeners();
-			ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, index, index);
-			for (int i = 0; i < listeners.length; i++) {
-				listeners[i].contentsChanged(e);
-			}
+			playlist.fireListModelEvent(index, index);
 		}
 	}
 }
