@@ -5,10 +5,6 @@
 <body>
 <h1>EVI AudioPlayer Modul</h1>
 <p>Das EVI AudioPlayer Modul basiert auf der <a href="http://www.javazoom.net/javalayer/">JLayer API</a>.</p>
-<p>Obwohl dies Version 1.0 ist, werden definitiv weitere Versionen folgen. Zuerst will ich eine Konfiguration 
-hinzuf&uuml;gen und ein paar kleine &Auml;nderungen vornehmen, damit das ganze besser l&auml;uft. Sp&auml;ter wird es dann eine 
-Version 2.0 geben, die auch IDv3-Tags und so weiter unterst&uuml;tzt, also ein bi&szlig;chen professioneller aussieht 
-und die Bedienung einfacher macht. Noch viel sp&auml;ter soll der Player auch mal weitere Formate unterst&uuml;tzen (z.B. *.ogg).</p>
 <p>Kontakt: Christoph Schwering (schwering@gmail.com)</p>
 </body>
 </html>
