@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -118,6 +119,16 @@ public class ControlPanel extends JPanel {
 				}
 			});
 			add(random);
+		}
+	}
+	
+	public void setToolTipText(String s) {
+		super.setToolTipText(s);
+		JComponent[] arr = new JComponent[] { prev, play, next, playAll, random };
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != null) {
+				arr[i].setToolTipText(s);
+			}
 		}
 	}
 	

@@ -26,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
 
+import org.schwering.evi.util.RightClickMenu;
+
 /**
  * The playlist panel.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
@@ -34,6 +36,7 @@ import javax.swing.filechooser.FileFilter;
 public class MainPanel extends JPanel {
 	private static final long serialVersionUID = -3610628136517888050L;
 	
+	private AudioPlayer owner;
 	private Playlist playlist = new DefaultPlaylist();
 	private Hashtable labeltable = new Hashtable();
 	private JLabel playingLabel = new JLabel();
@@ -46,6 +49,7 @@ public class MainPanel extends JPanel {
 	 */
 	public MainPanel(final AudioPlayer owner) {
 		super(new BorderLayout());
+		this.owner = owner;
 		
 		playlist.setPlayAll(Configuration.isPlayAll());
 		playlist.setRandom(Configuration.isRandom());
@@ -137,6 +141,7 @@ public class MainPanel extends JPanel {
 			public void playbackStarted(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(file);
+				updateAppletTooltip(file);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				if (comp != null) {
 					comp.update(file, true);
@@ -146,6 +151,7 @@ public class MainPanel extends JPanel {
 			public void playbackStopped(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(null);
+				updateAppletTooltip(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				if (comp != null) {
 					comp.update(file, false);
@@ -154,6 +160,7 @@ public class MainPanel extends JPanel {
 			public void playbackCompleted(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(null);
+				updateAppletTooltip(null);
 				ListComponent comp = (ListComponent)labeltable.get(file);
 				if (comp != null) {
 					comp.update(file, false);
@@ -237,6 +244,7 @@ public class MainPanel extends JPanel {
 		sub.add(delAll);
 		p.add(sub);
 		updatePlayingLabel(null);
+		updateAppletTooltip(null);
 		p.add(playingLabel);
 		add(p, BorderLayout.NORTH);
 		
@@ -259,6 +267,7 @@ public class MainPanel extends JPanel {
 		};
 		searchField.addActionListener(searchActionListener);
 		searchButton.addActionListener(searchActionListener);
+		RightClickMenu.addRightClickMenu(searchField);
 		sub.add(searchButton, BorderLayout.EAST);
 		p.add(sub);
 		p.add(new ControlPanel(owner));
@@ -358,6 +367,16 @@ public class MainPanel extends JPanel {
 		}
 		playingLabel.setText(Messages.getString("MainPanel.PLAYING") +": "+ s); //$NON-NLS-1
 	}
+	
+	private void updateAppletTooltip(File file) {
+		if (file != null) {
+			ControlPanel p = (ControlPanel)owner.getAppletInstance();
+			if (p != null) {
+				p.setToolTipText(Messages.getString("MainPanel.PLAYING") +": "+ file.getName().toString()); //$NON-NLS-1
+			}
+		}
+	}
+
 	
 	/**
 	 * The playlist object.
