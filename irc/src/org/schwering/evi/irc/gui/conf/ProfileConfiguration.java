@@ -603,7 +603,7 @@ public class ProfileConfiguration extends JPanel {
 		final JButton button = new JButton("Choose");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s = browser.getText();
+				String s = loggingDir.getText();
 				if (s != null) {
 					fileChooser.setSelectedFile(new File(s));
 				}
