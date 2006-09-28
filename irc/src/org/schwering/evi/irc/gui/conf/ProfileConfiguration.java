@@ -129,7 +129,7 @@ public class ProfileConfiguration extends JPanel {
 					profile.setBeepOnMention(beepOnMention.isSelected());
 					profile.setBeepOnQuery(beepOnQuery.isSelected());
 					profile.setEnableLogging(enableLogging.isSelected());
-					profile.setLoggingDir(loggingDir.toString());
+					profile.setLoggingDir(loggingDir.getText().toString());
 					profile.setAcceptCerts(acceptCerts.isSelected());
 					profile.setBrowser(browser.getText());
 					profile.setPerform(perform.getText());
