@@ -39,7 +39,7 @@ public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable, IPa
 	 * @see org.schwering.evi.core.IModuleInfo#getVersion()
 	 */
 	public float getVersion() {
-		return 1.1f;
+		return 1.2f;
 	}
 	
 	/* (non-Javadoc)
