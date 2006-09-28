@@ -31,7 +31,7 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 		if (args != null) {
 			for (int i = 0; i < args.length; i++) {
 				if (args[i].equals("play")) {
-					mainPanel.getPlaylist().next();
+					mainPanel.getPlaylist().play();
 				}
 			}
 		}

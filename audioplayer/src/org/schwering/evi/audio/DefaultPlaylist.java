@@ -37,6 +37,7 @@ public class DefaultPlaylist extends Playlist {
 					exc.printStackTrace();
 				}
 			}
+			playingIndex = props.getInt("playingindex", -1);
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
@@ -52,6 +53,7 @@ public class DefaultPlaylist extends Playlist {
 			for (int i = 0; i < files.length; i++) {
 				props.setString("entry"+ i, files[i].toString());
 			}
+			props.setInt("playingindex", playingIndex);
 			props.store();
 		} catch (Exception exc) {
 			exc.printStackTrace();
