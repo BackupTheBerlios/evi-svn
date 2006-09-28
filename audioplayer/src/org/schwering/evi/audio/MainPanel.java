@@ -25,7 +25,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.DefaultListModel;
 
 /**
  * The playlist panel.
@@ -51,7 +50,7 @@ public class MainPanel extends JPanel {
 		playlist.setPlayAll(Configuration.isPlayAll());
 		playlist.setRandom(Configuration.isRandom());
 		
-		list = new JList(playlist.getListModel());
+		list = new JList(playlist);
 		list.setCellRenderer(new ListCellRenderer() {
 			public Component getListCellRendererComponent(JList list, Object value, 
 					int index, boolean isSelected, boolean cellHasFocus) {
@@ -181,10 +180,8 @@ public class MainPanel extends JPanel {
 				int ret = fileChooser.showOpenDialog(owner.getPanelInstance());
 				if (ret == JFileChooser.APPROVE_OPTION) {
 					File[] f = fileChooser.getSelectedFiles();
-					for (int i = 0; i < f.length; i++) {
-						playlist.add(f[i]);
-					}
-					if (f.length > 0) {
+					if (f != null && f.length > 0) {
+						playlist.addElements(f);
 						Configuration.setLastFile(f[0]);
 					}
 				}
@@ -251,11 +248,17 @@ public class MainPanel extends JPanel {
 		sub.add(new JLabel(Messages.getString("MainPanel.SEARCH") +":"), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
 		sub.add(searchField, BorderLayout.CENTER);
 		JButton searchButton = new JButton(Messages.getString("MainPanel.SEARCHBUTTON")); //$NON-NLS-1$
-		searchButton.addActionListener(new ActionListener() {
+		ActionListener searchActionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playlist.fireListModelEvent(0, playlist.size() - 1);
+				String query = searchField.getText();
+				if (query == null) {
+					query = "";
+				}
+				playlist.filter(query);
 			}
-		});
+		};
+		searchField.addActionListener(searchActionListener);
+		searchButton.addActionListener(searchActionListener);
 		sub.add(searchButton, BorderLayout.EAST);
 		p.add(sub);
 		p.add(new ControlPanel(owner));
@@ -270,11 +273,10 @@ public class MainPanel extends JPanel {
 	private void scrollToPlayingFile() {
 		try {
 			File file = playlist.getPlayingFile();
-			DefaultListModel listModel = playlist.getListModel();
-			if (file == null || listModel == null) {
+			if (playlist == null || file == null) {
 				return;
 			}
-			int index = listModel.indexOf(file);
+			int index = playlist.indexOf(file);
 			if (index != -1) {
 				int max = list.getLastVisibleIndex() - list.getFirstVisibleIndex();
 				int index0 = index - max / 3;
@@ -282,7 +284,7 @@ public class MainPanel extends JPanel {
 				while (index0 < 0) {
 					index0++;
 				}
-				while (index1 >= playlist.size()) {
+				while (index1 >= playlist.getSize()) {
 					index1--;
 				}
 				
@@ -306,13 +308,16 @@ public class MainPanel extends JPanel {
 	 * Wraps JList.indexToLocation. Because JList.indexToLocation seems to 
 	 * be buggy, it tries up to 6 times to calculate the point. Each result 
 	 * of JList.indexToLocation is compared with the result of 
-	 * JList.locationToIndex.
+	 * JList.locationToIndex.<br />
+	 * <b>Note:</b> Swing has bugs. <code>JList.indexToLocation</code> might 
+	 * do what it wants. Hence, encapsulate all calls of this method in 
+	 * try/catch blocks.
 	 * @param index The index of the line.
 	 * @return The point.
 	 */
 	private Point indexToLocation(int index) {
 		Point p = list.indexToLocation(index);
-		for (int i = 0; i < 5 && list.locationToIndex(p) != index; i++) {
+		for (int i = 0; i < 10 && list.locationToIndex(p) != index; i++) {
 			p = list.indexToLocation(index);
 		}
 		return p;
@@ -335,7 +340,7 @@ public class MainPanel extends JPanel {
 		int[] arr = list.getSelectedIndices();
 		if (arr != null) {
 			for (int i = arr.length - 1; i >= 0; i--) {
-				playlist.remove(arr[i]);
+				playlist.removeElementAt(arr[i]);
 			}
 		}
 	}
@@ -395,9 +400,6 @@ public class MainPanel extends JPanel {
 		
 		public void update(File file, boolean playing) {
 			setColors(playing);
-			DefaultListModel listModel = playlist.getListModel();
-			int index = listModel.indexOf(file);
-			playlist.fireListModelEvent(index, index);
 		}
 	}
 }

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Vector;
 
-import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -14,8 +14,9 @@ import javax.swing.event.ListDataListener;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public abstract class Playlist {
-	protected DefaultListModel list = new DefaultListModel();
+public abstract class Playlist implements ListModel {
+	protected Vector list = new Vector();
+	protected Vector listDataListeners = new Vector();
 	protected int playingIndex = -1;
 	protected Player player;
 	protected Vector listeners = new Vector();
@@ -36,7 +37,7 @@ public abstract class Playlist {
 	public Playlist(File[] files) {
 		if (files != null) {
 			for (int i = 0; i < files.length; i++) {
-				list.addElement(files[i]);
+				addElement(files[i]);
 			}
 		}
 	}
@@ -51,37 +52,142 @@ public abstract class Playlist {
 	 */
 	public abstract void save();
 	
-	/**
-	 * Returns the ListModel.
-	 * @return The ListModel which is in fact a DefaultListModel.
+	/* (non-Javadoc)
+	 * @see javax.swing.ListModel#addListDataListener(javax.swing.event.ListDataListener)
 	 */
-	public DefaultListModel getListModel() {
-		return list;
+	public void addListDataListener(ListDataListener listener) {
+		listDataListeners.add(listener);
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.swing.ListModel#removeListDataListener(javax.swing.event.ListDataListener)
+	 */
+	public void removeListDataListener(ListDataListener listener) {
+		listDataListeners.remove(listener);
+	}
+	
+	public synchronized void filter(String query) {
+		int complete = list.size();
+		int oldSize = getSize();
+		for (int i = 0; i < complete; i++) {
+			FileWrapper fw = (FileWrapper)list.get(i);
+			fw.matches(query);
+		}
+		int newSize = getSize();
+		if (oldSize > 0) {
+			fireIntervalRemoved(0, oldSize - 1);
+		}
+		if (newSize > 0) {
+			fireIntervalAdded(0, newSize - 1);
+		}
+	}
+	
+	/* Iindex conversion methods */
+
+	/**
+	 * Converts an index that refers to the Vector list object (that means to 
+	 * the total playlist) to an index that refers to the visible list (which 
+	 * might be smaller than the playlist due to a search!).
+	 * @param largeIndex The index that refers to Vector list.
+	 * @return An index that refers to the visible list.
+	 */
+	private synchronized int largeToSmall(int largeIndex) {
+		int smallIndex = 0;
+		while (--largeIndex >= 0) {
+			if (((FileWrapper)list.get(largeIndex)).isVisible()) {
+				smallIndex++;
+			}
+		}
+		return smallIndex;
 	}
 	
 	/**
-	 * Returns the current player or <code>null</code>.
-	 * @return the current player or <code>null</code>.
+	 * Converts an index that refers to the visible list to an index that 
+	 * refers to the Vector list (which might be larger than the visible list
+	 * due to a search!).
+	 * @param smallIndex The index that refers to the visible list.
+	 * @return An index that refers to the Vector list.
 	 */
-	public Player getPlayer() {
-		return player;
+	private synchronized int smallToLarge(int smallIndex) {
+		int complete = list.size();
+		int largeIndex = -1;
+		for (int i = 0; i < complete && smallIndex >= 0; i++) {
+			FileWrapper fw = (FileWrapper)list.get(i);
+			if (fw.isVisible()) {
+				smallIndex--;
+			}
+			largeIndex++;
+		}
+		return largeIndex;
 	}
 	
-	/**
-	 * Returns the currently played file or <code>null</code>.
-	 * @return the currently played file or <code>null</code>.
-	 */
-	public File getPlayingFile() {
-		return (player != null) ? player.getFile() : null;
-	}
+	/* The following methods directly access the Vector list object */
 	
 	/**
 	 * Returns the size of the list.
 	 * @return The size.
 	 */
-	public int size() {
-		return (list != null) ? list.size() : -1;
+	public int getSize() {
+		int size = list.size();
+		return largeToSmall(size);
 	}
+	
+	/**
+	 * Returns the index of a file or -1.
+	 * @param file The searched file.
+	 */
+	public int indexOf(File file) {
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			FileWrapper fw = (FileWrapper)list.get(i);
+			if (fw.isVisible() && fw.getFile().equals(file)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Adds a file at a given position.
+	 * @param index The position in the list.
+	 * @param f The file that is to be added to the playlist.
+	 */
+	public void addElementAt(int index, File f) {
+		list.add(smallToLarge(index)+1, new FileWrapper(f));
+		fireIntervalAdded(index, index);
+	}
+	
+	/**
+	 * Returns a specific entry of the playlist. Though the return type is
+	 * <code>Object</code>, it is definetly an instance of <code>File</code>.
+	 * @param index The position of the wanted entry.
+	 * @return A File object.
+	 */
+	public Object getElementAt(int index) {
+		FileWrapper fw = (FileWrapper)list.get(smallToLarge(index));
+		Object o = fw.getFile();
+		return o;
+	}
+	
+	/**
+	 * Removes a specific entry from the playlist.
+	 * @param index The position of the entry.
+	 */
+	public void removeElementAt(int index) {
+		list.remove(smallToLarge(index));
+		fireIntervalRemoved(index, index);
+	}
+	
+	/**
+	 * Removes all entries of the playlist.
+	 */
+	public void removeAll() {
+		int end = getSize() - 1;
+		list.clear();
+		fireIntervalRemoved(0, end);
+	}
+	
+	/* The following methods indirectly access the Vector list object */
 	
 	/**
 	 * Adds a directory including its subdirectories.
@@ -100,7 +206,7 @@ public abstract class Playlist {
 			if (files[i].isDirectory()) {
 				addDirectory(files[i]);
 			} else {
-				add(files[i]);
+				addElement(files[i]);
 			}
 		}
 	}
@@ -109,10 +215,10 @@ public abstract class Playlist {
 	 * Adds a list of new files.
 	 * @param f The files that are to be added to the playlist.
 	 */
-	public void add(File[] f) {
+	public void addElements(File[] f) {
 		if (f != null) {
 			for (int i = 0; i < f.length; i++) {
-				add(f[i]);
+				addElement(f[i]);
 			}
 		}
 	}
@@ -121,46 +227,21 @@ public abstract class Playlist {
 	 * Adds a new file.
 	 * @param f The file that is to be added to the playlist.
 	 */
-	public void add(File f) {
-		list.addElement(f);
-	}
-	
-	/**
-	 * Adds a file at a given position.
-	 * @param index The position in the list.
-	 * @param f The file that is to be added to the playlist.
-	 */
-	public void add(int index, File f) {
-		list.add(index, f);
+	public void addElement(File f) {
+		int index = getSize();
+		addElementAt(index, f);
 	}
 	
 	/**
 	 * Returns all entries of the playlist.
 	 * @return An array of File objects that represent the playlist's entries.
 	 */
-	public File[] get() {
-		File[] arr = new File[list.size()];
+	public File[] getElements() {
+		File[] arr = new File[getSize()];
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = get(i);
+			arr[i] = (File)getElementAt(i);
 		}
 		return arr;
-	}
-	
-	/**
-	 * Returns a specific entry of the playlist.
-	 * @param index The position of the wanted entry.
-	 * @return
-	 */
-	public File get(int index) {
-		return (File)list.get(index);
-	}
-	
-	/**
-	 * Removes a specific entry from the playlist.
-	 * @param index The position of the entry.
-	 */
-	public void remove(int index) {
-		list.remove(index);
 	}
 	
 	/**
@@ -168,15 +249,27 @@ public abstract class Playlist {
 	 * @param f The file that is to be removed from the playlist.
 	 * @return <code>true</code> if the file was removed successfully.
 	 */
-	public boolean remove(File f) {
-		return list.removeElement(f);
+	public void removeElement(File f) {
+		int index = indexOf(f);
+		removeElementAt(index);
+	}
+	
+	/* The following methods are used for playlist navigation/settings */
+	
+	/**
+	 * Returns the current player or <code>null</code>.
+	 * @return the current player or <code>null</code>.
+	 */
+	public Player getPlayer() {
+		return player;
 	}
 	
 	/**
-	 * Removes all entries of the playlist.
+	 * Returns the currently played file or <code>null</code>.
+	 * @return the currently played file or <code>null</code>.
 	 */
-	public void removeAll() {
-		list.removeAllElements();
+	public File getPlayingFile() {
+		return (player != null) ? player.getFile() : null;
 	}
 	
 	/**
@@ -222,7 +315,7 @@ public abstract class Playlist {
 	 * @param index THe index of the file which should be played.
 	 */
 	public void addToQueue(int index) {
-		addToQueue((File)list.get(index));
+		addToQueue((File)getElementAt(index));
 	}
 	
 	/**
@@ -239,7 +332,7 @@ public abstract class Playlist {
 	 * @return <code>true</code> if the file is enqueued.
 	 */
 	public boolean isInQueue(int index) {
-		return isInQueue((File)list.get(index));
+		return isInQueue((File)getElementAt(index));
 	}
 	
 	/**
@@ -256,7 +349,7 @@ public abstract class Playlist {
 	 * @param index The index of the file which should be removed.
 	 */
 	public void removeFromQueue(int index) {
-		removeFromQueue((File)list.get(index));
+		removeFromQueue((File)getElementAt(index));
 	}
 	
 	/**
@@ -281,7 +374,7 @@ public abstract class Playlist {
 	public void next() {
 		if (queue.size() > 0) {
 			File file = (File)queue.remove(0);
-			int index = list.indexOf(file);
+			int index = indexOf(file);
 			play(index);
 		} else if (isPlayAll()) {
 			if (!isRandom()) {
@@ -304,12 +397,11 @@ public abstract class Playlist {
 	 */
 	private void playRandom() {
 		synchronized (this) {
-			if (list.size() == 0) {
-				return;
-			} else if (list.size() > 1) {
+			int size = getSize();
+			if (size > 1) {
 				int newIndex;
 				do {
-					newIndex = ((int)(Math.random() * list.size())) % list.size();
+					newIndex = ((int)(Math.random() * size)) % size;
 				} while (newIndex == playingIndex);
 				playingIndex = newIndex;
 			}
@@ -324,8 +416,9 @@ public abstract class Playlist {
 		int index;
 		synchronized (this) {
 			index = playingIndex + 1;
-			if (index >= list.size()) {
-				index %= list.size();
+			int size = getSize();
+			if (size > 0 && index >= size) {
+				index %= size;
 			}
 		}
 		play(index);
@@ -338,8 +431,9 @@ public abstract class Playlist {
 		int index;
 		synchronized (this) {
 			index = playingIndex - 1;
-			if (index < 0) {
-				index = list.size() + index;
+			int size = getSize();
+			if (size > 0 && index < 0) {
+				index = size + index;
 			}
 		}
 		play(index);
@@ -360,15 +454,20 @@ public abstract class Playlist {
 	 * @param index The position of the song.
 	 */
 	public void play(int index) {
-		if (index > list.size()) {
-			throw new RuntimeException("index = "+ index +" > list.size() = "+ list.size());
+		int size = getSize();
+		if (size == 0) {
+			return;
+		} else if (index < 0) {
+			index = 0;
+		} else if (index > size) {
+			index %= size;
 		}
 		playingIndex = index;
 		if (isPlaying()) {
 			player.stop();
 		}
 		try {
-			final File file = (File)list.get(index);
+			final File file = (File)getElementAt(index);
 			/* 
 			 * To avoid very much synchronizing, we do not directly manipulate the 
 			 * class field "player". Instead, we firstly create a object "p" and set 
@@ -435,17 +534,26 @@ public abstract class Playlist {
 		}
 	}
 	
-	/**
-	 * Fires the <code>ListDataListener.contentsChanged</code> event of the 
-	 * ListModel.
-	 * @param from The beginning index.
-	 * @param to The last index (must be greater than or equal to <code>from</code>).
-	 */
-	public void fireListModelEvent(int from, int to) {
-		ListDataListener[] listeners = list.getListDataListeners();
+	/* The following methods fire listener events */
+	
+	protected void fireIntervalAdded(int from, int to) {
+		ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, from, to);
+		for (int i = 0; i < listDataListeners.size(); i++) {
+			((ListDataListener)listDataListeners.get(i)).intervalAdded(e);
+		}
+	}
+	
+	protected void fireIntervalRemoved(int from, int to) {
+		ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, from, to);
+		for (int i = 0; i < listDataListeners.size(); i++) {
+			((ListDataListener)listDataListeners.get(i)).intervalRemoved(e);
+		}
+	}
+	
+	protected void fireContentsChanged(int from, int to) {
 		ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, from, to);
-		for (int i = 0; i < listeners.length; i++) {
-			listeners[i].contentsChanged(e);
+		for (int i = 0; i < listDataListeners.size(); i++) {
+			((ListDataListener)listDataListeners.get(i)).contentsChanged(e);
 		}
 	}
 	
@@ -481,5 +589,35 @@ public abstract class Playlist {
 	 */
 	public void removeListener(PlaylistListener listener) {
 		listeners.remove(listener);
+	}
+	
+	/**
+	 * Wraps a file which can be set visible or not using a query (for search).
+	 * @author Christoph Schwering (schwering@gmail.com)
+	 */
+	class FileWrapper {
+		private File file;
+		private boolean visible = true;
+		
+		public FileWrapper(File f) {
+			file = f;
+		}
+		
+		public File getFile() {
+			return file;
+		}
+		
+		public boolean matches(String query) {
+			visible = (file.toString().toLowerCase().indexOf(query) != -1);
+			return visible;
+		}
+		
+		public void setVisible(boolean b) {
+			visible = b;
+		}
+		
+		public boolean isVisible() {
+			return visible;
+		}
 	}
 }
