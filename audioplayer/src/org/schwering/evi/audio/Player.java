@@ -58,41 +58,41 @@ public abstract class Player {
 	
 	protected void firePlaybackStarted() {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlayerListener)listeners.get(i)).playbackStarted();
+			((IPlayerListener)listeners.get(i)).playbackStarted();
 		}
 	}
 	
 	protected void firePlaybackCompleted() {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlayerListener)listeners.get(i)).playbackCompleted();
+			((IPlayerListener)listeners.get(i)).playbackCompleted();
 		}
 	}
 	
 	protected void firePlaybackStopped() {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlayerListener)listeners.get(i)).playbackStopped();
+			((IPlayerListener)listeners.get(i)).playbackStopped();
 		}
 	}
 	
 	protected void firePlaybackFailed() {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlayerListener)listeners.get(i)).playbackFailed();
+			((IPlayerListener)listeners.get(i)).playbackFailed();
 		}
 	}
 	
 	/**
-	 * Adds a new PlayerListener.
+	 * Adds a new IPlayerListener.
 	 * @param listener The new listener.
 	 */
-	public void addListener(PlayerListener listener) {
+	public void addListener(IPlayerListener listener) {
 		listeners.add(listener);
 	}
 	
 	/**
-	 * Removes a PlayerListener.
+	 * Removes a IPlayerListener.
 	 * @param listener The listener that's to be removed.
 	 */
-	public void removeListener(PlayerListener listener) {
+	public void removeListener(IPlayerListener listener) {
 		listeners.remove(listener);
 	}
 }

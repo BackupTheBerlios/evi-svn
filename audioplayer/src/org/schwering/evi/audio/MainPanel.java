@@ -137,7 +137,7 @@ public class MainPanel extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 			}
 		});
-		playlist.addListener(new PlaylistListener() {
+		playlist.addListener(new IPlaylistListener() {
 			public void playbackStarted(Player player) {
 				File file = player.getFile();
 				updatePlayingLabel(file);

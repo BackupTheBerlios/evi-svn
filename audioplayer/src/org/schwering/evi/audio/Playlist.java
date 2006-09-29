@@ -509,8 +509,8 @@ public abstract class Playlist implements ListModel {
 		}
 	}
 	
-	protected PlayerListener getPassthroughPlayerListener(final Player player) {
-		return new PlayerListener() {
+	protected IPlayerListener getPassthroughPlayerListener(final Player player) {
+		return new IPlayerListener() {
 			public void playbackStarted() {
 				firePlaybackStarted(player);
 			}
@@ -526,8 +526,8 @@ public abstract class Playlist implements ListModel {
 		};
 	}
 	
-	protected PlayerListener getConfigPlayerListener(final Player player) {
-		return new PlayerListener() {
+	protected IPlayerListener getConfigPlayerListener(final Player player) {
+		return new IPlayerListener() {
 			public void playbackStarted() {
 			}
 			public void playbackStopped() {
@@ -576,41 +576,41 @@ public abstract class Playlist implements ListModel {
 	
 	protected void firePlaybackStarted(Player player) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlaylistListener)listeners.get(i)).playbackStarted(player);
+			((IPlaylistListener)listeners.get(i)).playbackStarted(player);
 		}
 	}
 	
 	protected void firePlaybackCompleted(Player player) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlaylistListener)listeners.get(i)).playbackCompleted(player);
+			((IPlaylistListener)listeners.get(i)).playbackCompleted(player);
 		}
 	}
 	
 	protected void firePlaybackStopped(Player player) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlaylistListener)listeners.get(i)).playbackStopped(player);
+			((IPlaylistListener)listeners.get(i)).playbackStopped(player);
 		}
 	}
 	
 	protected void firePlaybackFailed(Player player) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((PlaylistListener)listeners.get(i)).playbackFailed(player);
+			((IPlaylistListener)listeners.get(i)).playbackFailed(player);
 		}
 	}
 	
 	/**
-	 * Adds a new PlaylistListener.
+	 * Adds a new IPlaylistListener.
 	 * @param listener The new listener.
 	 */
-	public void addListener(PlaylistListener listener) {
+	public void addListener(IPlaylistListener listener) {
 		listeners.add(listener);
 	}
 	
 	/**
-	 * Removes a PlaylistListener.
+	 * Removes a IPlaylistListener.
 	 * @param listener The listener that's to be removed.
 	 */
-	public void removeListener(PlaylistListener listener) {
+	public void removeListener(IPlaylistListener listener) {
 		listeners.remove(listener);
 	}
 	

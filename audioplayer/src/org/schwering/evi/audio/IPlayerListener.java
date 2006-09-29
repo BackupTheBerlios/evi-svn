@@ -2,12 +2,12 @@
 package org.schwering.evi.audio;
 
 /**
- * Listens to a specific player. You rather might be interested in the PlaylistListener.
- * @see PlaylistListener
+ * Listens to a specific player. You rather might be interested in the IPlaylistListener.
+ * @see IPlaylistListener
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public interface PlayerListener {
+public interface IPlayerListener {
 	/**
 	 * Fired when a song is started to be played.
 	 */

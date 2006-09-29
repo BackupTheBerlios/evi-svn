@@ -6,7 +6,7 @@ package org.schwering.evi.audio;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public interface PlaylistListener {
+public interface IPlaylistListener {
 	/**
 	 * Fired when a song is started to be played.
 	 * @param player The player that plays the song.
