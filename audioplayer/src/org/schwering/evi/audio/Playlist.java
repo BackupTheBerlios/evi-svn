@@ -66,6 +66,16 @@ public abstract class Playlist implements ListModel {
 		listDataListeners.remove(listener);
 	}
 	
+	/**
+	 * Filters the playlist. The algorithm is defined in the 
+	 * <code>Playlist.FileWrapper.matches(String)</code> method. It's rather 
+	 * simple string operation.
+	 * @param query
+	 * @see #largeToSmall(int)
+	 * @see #smallToLarge(int)
+	 * @see FileWrapper
+	 * @see FileWrapper#matches(String)
+	 */
 	public synchronized void filter(String query) {
 		int complete = list.size();
 		int oldSize = getSize();
@@ -608,7 +618,17 @@ public abstract class Playlist implements ListModel {
 		}
 		
 		public boolean matches(String query) {
-			visible = (file.toString().toLowerCase().indexOf(query) != -1);
+			String filename = file.toString().toLowerCase();
+			query = query.toLowerCase();
+			String[] elements = query.split("\\s");
+			
+			visible = true;
+			for (int i = 0; i < elements.length; i++) {
+				if (filename.indexOf(elements[i]) == -1) {
+					visible = false;
+					break;
+				}
+			}
 			return visible;
 		}
 		
