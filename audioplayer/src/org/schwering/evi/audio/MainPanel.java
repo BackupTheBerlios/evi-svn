@@ -255,8 +255,7 @@ public class MainPanel extends JPanel {
 		sub = new JPanel(new BorderLayout());
 		sub.add(new JLabel(Messages.getString("MainPanel.SEARCH") +":"), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
 		sub.add(searchField, BorderLayout.CENTER);
-		JButton searchButton = new JButton(Messages.getString("MainPanel.SEARCHBUTTON")); //$NON-NLS-1$
-		ActionListener searchActionListener = new ActionListener() {
+		searchField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String query = searchField.getText();
 				if (query == null) {
@@ -264,11 +263,16 @@ public class MainPanel extends JPanel {
 				}
 				playlist.filter(query);
 			}
-		};
-		searchField.addActionListener(searchActionListener);
-		searchButton.addActionListener(searchActionListener);
+		});
+		JButton resetButton = new JButton(Messages.getString("MainPanel.RESETBUTTON")); //$NON-NLS-1$
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchField.setText("");
+				playlist.filter("");
+			}
+		});
 		RightClickMenu.addRightClickMenu(searchField);
-		sub.add(searchButton, BorderLayout.EAST);
+		sub.add(resetButton, BorderLayout.EAST);
 		p.add(sub);
 		p.add(new ControlPanel(owner));
 		add(p, BorderLayout.SOUTH);
