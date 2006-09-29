@@ -66,7 +66,7 @@ public class MP3Player extends Player {
 			}
 		} catch (Exception exc) {
 			completed = false;
-			firePlaybackStopped();
+			firePlaybackFailed();
 			throw new PlayerException(exc);
 		} finally {
 			stop();

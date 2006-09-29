@@ -22,4 +22,9 @@ public interface PlayerListener {
 	 * Fired when the process of playing a song is finished normally.
 	 */
 	public void playbackCompleted();
+	
+	/**
+	 * Fired when the process of playing failed unexpectedly.
+	 */
+	public void playbackFailed();
 }

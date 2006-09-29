@@ -24,4 +24,11 @@ public interface PlaylistListener {
 	 * @param player The player that plays the song.
 	 */
 	public void playbackCompleted(Player player);
+	
+	/**
+	 * Fired when the process of playing failed unexpectedly.
+	 * @param player The player that plays the song.
+	 */
+	public void playbackFailed(Player player);
+	
 }

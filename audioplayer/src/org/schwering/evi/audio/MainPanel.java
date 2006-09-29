@@ -149,21 +149,22 @@ public class MainPanel extends JPanel {
 				scrollToPlayingFile();
 			}
 			public void playbackStopped(Player player) {
-				File file = player.getFile();
-				updatePlayingLabel(null);
-				updateAppletTooltip(null);
-				ListComponent comp = (ListComponent)labeltable.get(file);
-				if (comp != null) {
-					comp.update(file, false);
-				}
+				playbackFailed(player);
 			}
 			public void playbackCompleted(Player player) {
-				File file = player.getFile();
+				playbackFailed(player);
+			}
+			public void playbackFailed(Player player) {
 				updatePlayingLabel(null);
 				updateAppletTooltip(null);
-				ListComponent comp = (ListComponent)labeltable.get(file);
-				if (comp != null) {
-					comp.update(file, false);
+				if (player != null) {
+					File file = player.getFile();
+					if (file != null) {
+						ListComponent comp = (ListComponent)labeltable.get(file);
+						if (comp != null) {
+							comp.update(file, false);
+						}
+					}
 				}
 			}
 		});

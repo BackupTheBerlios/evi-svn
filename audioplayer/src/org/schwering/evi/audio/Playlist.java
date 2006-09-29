@@ -505,6 +505,7 @@ public abstract class Playlist implements ListModel {
 			thread.start();
 		} catch (Exception exc) {
 			exc.printStackTrace();
+			firePlaybackFailed(player);
 		}
 	}
 	
@@ -519,6 +520,9 @@ public abstract class Playlist implements ListModel {
 			public void playbackCompleted() {
 				firePlaybackCompleted(player);
 			}
+			public void playbackFailed() {
+				firePlaybackCompleted(player);
+			}
 		};
 	}
 	
@@ -529,6 +533,9 @@ public abstract class Playlist implements ListModel {
 			public void playbackStopped() {
 			}
 			public void playbackCompleted() {
+				next();
+			}
+			public void playbackFailed() {
 				next();
 			}
 		};
@@ -582,6 +589,12 @@ public abstract class Playlist implements ListModel {
 	protected void firePlaybackStopped(Player player) {
 		for (int i = 0; i < listeners.size(); i++) {
 			((PlaylistListener)listeners.get(i)).playbackStopped(player);
+		}
+	}
+	
+	protected void firePlaybackFailed(Player player) {
+		for (int i = 0; i < listeners.size(); i++) {
+			((PlaylistListener)listeners.get(i)).playbackFailed(player);
 		}
 	}
 	

@@ -74,6 +74,12 @@ public abstract class Player {
 		}
 	}
 	
+	protected void firePlaybackFailed() {
+		for (int i = 0; i < listeners.size(); i++) {
+			((PlayerListener)listeners.get(i)).playbackFailed();
+		}
+	}
+	
 	/**
 	 * Adds a new PlayerListener.
 	 * @param listener The new listener.
