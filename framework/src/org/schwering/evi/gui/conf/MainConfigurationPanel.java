@@ -27,6 +27,7 @@ import org.schwering.evi.conf.LanguageAdministrator;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.EVI;
+import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.FontSelector;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.Util;
@@ -409,6 +410,11 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		w = (Wrapper)lookAndFeels.getSelectedItem();
 		String lookAndFeel = (String)w.getObject();
 		MainConfiguration.PROPS.setString("gui.lookandfeel", lookAndFeel); //$NON-NLS-1$
+		try {
+			Util.setLookAndFeel(lookAndFeel);
+		} catch (Exception exc) {
+			ExceptionDialog.show(exc);
+		}
 		
 		MainConfiguration.PROPS.setBoolean("gui.asktoexit", askToExit.isSelected()); //$NON-NLS-1$
 		

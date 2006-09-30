@@ -10,6 +10,7 @@ import java.io.StringWriter;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
 
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.gui.main.MainFrame;
@@ -58,6 +59,7 @@ public class Util {
 	public static void setLookAndFeel(String laf) throws LookAndFeelException {
 		try {
 		    UIManager.setLookAndFeel(laf);
+		    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance()); 
 		} catch (Exception exc) {
 			throw new LookAndFeelException(exc);
 		}
