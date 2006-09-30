@@ -4,6 +4,10 @@ Linux:
 	cp linux-i386/*.so* /opt/java-1.4.2.10/jre/lib/i386
 	cp *.jar /opt/sunjdk-1.4.2.10/jre/lib/ext
 
+Mac OS X:
+	cp macosx-universal/*.jnilib /System/Library/FORGOTTEN
+	cp *.jar /System/Library/FORGOTTEN
+
 Windows (not sure):
 	copy *.jar "C:\Program Files\Java 1.4\jre\lib\ext
 	copy win32/*.dll "C:\Program Files\Java 1.4\jre\bin
