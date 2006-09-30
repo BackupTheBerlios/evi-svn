@@ -68,8 +68,8 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Filters the playlist. The algorithm is defined in the 
-	 * <code>Playlist.FileWrapper.matches(String)</code> method. It's rather 
-	 * simple string operation.
+	 * <code>matches(FileWrapper, String)</code> method. This method should be overridden 
+	 * by subclasses to change the algorithm.
 	 * @param query
 	 * @see #largeToSmall(int)
 	 * @see #smallToLarge(int)
@@ -81,7 +81,7 @@ public abstract class Playlist implements ListModel {
 		int oldSize = getSize();
 		for (int i = 0; i < complete; i++) {
 			FileWrapper fw = (FileWrapper)list.get(i);
-			fw.matches(query);
+			fw.setVisible(matches(fw, query));
 		}
 		int newSize = getSize();
 		if (oldSize > 0) {
@@ -92,7 +92,30 @@ public abstract class Playlist implements ListModel {
 		}
 	}
 	
-	/* Iindex conversion methods */
+	/**
+	 * The algorithm that checks whether a playlist-file matches a query.
+	 * Override this method in subclasses to change the algorithm.<br />
+	 * The default algorithm splits the query at each whitespace and then searches for 
+	 * each element using in the file's path (using <code>String.indexOf</code>).
+	 * The method  is case-insensitive.
+	 * @param fw The filewrapper.
+	 * @param query The search query.
+	 * @return <code>true</code> if the file matches the query.
+	 */
+	protected boolean matches(FileWrapper fw, String query) {
+		String filename = fw.getFile().toString().toLowerCase();
+		query = query.toLowerCase();
+		String[] elements = query.split("\\s");
+		
+		for (int i = 0; i < elements.length; i++) {
+			if (filename.indexOf(elements[i]) == -1) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/* Index conversion methods */
 
 	/**
 	 * Converts an index that refers to the Vector list object (that means to 
@@ -628,21 +651,6 @@ public abstract class Playlist implements ListModel {
 		
 		public File getFile() {
 			return file;
-		}
-		
-		public boolean matches(String query) {
-			String filename = file.toString().toLowerCase();
-			query = query.toLowerCase();
-			String[] elements = query.split("\\s");
-			
-			visible = true;
-			for (int i = 0; i < elements.length; i++) {
-				if (filename.indexOf(elements[i]) == -1) {
-					visible = false;
-					break;
-				}
-			}
-			return visible;
 		}
 		
 		public void setVisible(boolean b) {
