@@ -17,6 +17,8 @@ import org.schwering.evi.core.IPanel;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class ConfigurationPanel extends JPanel implements IPanel {
+	private static final long serialVersionUID = 6730011417712875823L;
+	
 	private JCheckBox applet = new JCheckBox(Messages.getString("ConfigurationPanel.APPLET_DESC")); //$NON-NLS-1$
 	private JCheckBox searchDirectly = new JCheckBox(Messages.getString("ConfigurationPanel.SEARCHDIRECTLY_DESC")); //$NON-NLS-1$
 	
