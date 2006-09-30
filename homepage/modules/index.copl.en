@@ -3,28 +3,28 @@ HEADER=header.html.en
 FOOTER=footer.html
 
 =Modules=
-Most of the following modules are **not written yet**. A number in brackets after each point means he module's priority (1 = low, 10 = high). If the module is actively developed at the moment, this is determined by //[D]//. If the module is completed so far, there's a //[C]// behind the entry.
+A number in brackets after each point means he module's priority (1 = low, 10 = high).
+An "alpha" or "beta" means that the module is currently being developed. If it's "alpha", you won't be able to do anything useful with the module yet. If it's "beta", the core functionalities should work already.
+If the module is marked as "stable", the latest version should work quite well.
 	- Communication 
-		* <!url irc/ IRC> (Internet Relay Chat) [D]
+		* <!url irc/ IRC> (Internet Relay Chat) [alpha] 
 		* <!url icq/ ICQ> (Instant Messenging) (I hope) [5]
-		* maybe also other IM protocols [3]
+		* maybe some other IM protocols [3]
 	- Entertainment
-		* <!url pong/ Pong> single/multiplayer [D]
+		* <!url pong/ Pong> single/multiplayer  [beta]
 		* <!url tictactoe/ TicTacToe> single/multiplayer [7]
-		* Skat multiplayer (possibly) [4]
+		* Skat multiplayer (vielleicht) [4]
 		* Rock-Paper-Scissors [4]
 	- Tools
-		* <!url console/ Console> [C]
-		* <!url dcc/ DCC> for IRC [9]
-		* <!url dashboard/ Dashboard> [7]
-		* IRC log streamer [6]
-		* <!url calendar/ Calendar> [5]
-		* <!url timetable/ Timetable> [5]
-		* <!url mailbox/ Mailbox Supvervisor> [7]
-		* <!url filemanager/ Filemanager> [7]
-		* Imageviewer [4]
-		* small Webbrowser :-) [5]
-		* <!url audioplayer/ Audio-Player> [D]
+		* <!url audioplayer/ Audio-Player> [stable]
+		* <!url console/ Console> [stable]
+		* <!url mailbox/ Mailbox-Checker> [8]
+		* <!url dashboard/ Dashboard> [8]
+		* <!url dcc/ DCC> for IRC [7]
 		* <!url calculator/ Calculator> [7]
+		* <!url filemanager/ Filemanager> [6]
+		* IRC Log Streamer [5]
+		* <!url calendar/ Calender> [5]
+		* <!url timetable/ Timetable> [5]
+		* Image viewer [4]
 		* IDv3-Tag Administrator [2]
-

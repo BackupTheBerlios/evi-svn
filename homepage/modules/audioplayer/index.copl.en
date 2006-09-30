@@ -5,11 +5,15 @@ FOOTER=footer.html
 
 =evi() Audioplayer=
 
-An audioplayer for evi(). At the moment, the user interface is very ugly. But this will change ;-).
+An audioplayer for evi(). 
 
-The audioplayer is powered by the <!url http://www.javazoom.net/javalayer/javalayer.html JLayer API>.
+The only supported format is MP3 at the moment (powered by the <!url http://www.javazoom.net/javalayer/javalayer.html JLayer API>). One can add one or more files or directories recursively. The player knows shuffle mode and repeats the playlist. It even has a nice small search-functionality :-). And the player remembers the current playlist.
 
-JAR: <!url http://prdownload.berlios.de/evi/audioplayer-1.0.jar>
+The player does not recognize ID3 tags yet, instead just the filename is displayed. At the moment, the player cannot load or save any playlist formats like M3U or PLS.
+
+The module is the main subject of development at the moment. It should get better and better during the next weeks.
+
+JAR: <!url http://prdownload.berlios.de/evi/audioplayer-1.1.jar>
 Source (TAR GZ): <!url http://prdownload.berlios.de/evi/audioplayer-1.1.tar.gz>
 Source (ZIP): <!url http://prdownload.berlios.de/evi/audioplayer-1.1.zip>
 Source (SVN): <!url http://svn.berlios.de/wsvn/evi/audioplayer/>

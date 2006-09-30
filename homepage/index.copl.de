@@ -5,15 +5,19 @@ FOOTER=footer.html
 
 =Was ist evi()?=
 evi() ist ein Framework, das heißt ein modulares Programm für **Internet Kommunikation**, **Unterhaltung** (Spiele) und andere **Tools**. 
-Geplant sind unter anderem IRC und ICQ Module, Spiele wie beispielsweise Pong und Tools wie ein Taschenrechner.
-evi() steht unter der GNU GPL, ist in Java geschrieben und baut auf dem Swing Toolkit auf. 
+Geplant sind unter anderem IRC und ICQ Module, Spiele wie Pong und Tools wie ein Taschenrechner oder ein MP3-Spieler.
+evi() steht unter der GNU GPL, ist in Java geschrieben und benutzt das Swing Toolkit. 
 
-evi() soll einige jener Programme, die ständig laufen, die man aber nur zwischendurch mal benutzt (z.B. Kommunikationsprogramme), unter ein Dach bringen.
-
-Für einen niemals abreißenden Informationsfluss haben wir auch einen <!url http://evidev.blogspot.com evi()-Blog> :-)
+evi() soll einige jener Programme zusammenbringen, die ständig laufen, die man aber nur zwischendurch mal benutzt (z.B. Kommunikationsprogramme).
 
 ==Der Name==
-evi() ist ein Akronym und heißt **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erhält seinen Sinn nur dadurch, dass Evi bzw. Verena für Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen.
+evi() ist ein Akronym und heißt **E**xtensible **V**erena **I**nterface. Dieser wahnsinnig sinnvolle Name erhält seinen Sinn nur dadurch, dass Evi bzw. Verena für Eva Valder aus Palmersheim bzw. Verena Baumeister aus Euskirchen stehen. Damit bleibt das ganze immer noch ziemlich sinnlos. Ich wollte die eigentlich nur in Google bringen. Blöderweise zickt Google dabei rum. Ist jetzt aber auch egal im Moment.
+
+==Unterstützte Plattformen==
+evi() benötigt die **Java 2 Standard Edition 1.4** oder neuer. Getestet wird es unter den folgenden Betriebssystemen:
+	- Mac OS X
+	- Linux mit X-Window
+	- Windows XP
 
 ==Kontakt==
-Und der Knallidiot von dem ganzen bin ich: Christoph Schwering <<!url mailto:schwering@gmail.com>>
+eMail: <<!url mailto:schwering@gmail.com>>
