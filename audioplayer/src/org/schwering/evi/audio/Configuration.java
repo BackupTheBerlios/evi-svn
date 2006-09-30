@@ -90,4 +90,32 @@ public class Configuration {
 			props.setBoolean("playall", b);
 		}
 	}
+	
+	public static boolean isSearchDirectly() {
+		if (props != null) {
+			return props.getBoolean("searchdirectly", true);
+		} else {
+			return true;
+		}
+	}
+	
+	public static void setSearchDirectly(boolean b) {
+		if (props != null) {
+			props.setBoolean("searchdirectly", b);
+		}
+	}
+	
+	public static boolean isApplet() {
+		if (props != null) {
+			return props.getBoolean("applet", true);
+		} else {
+			return true;
+		}
+	}
+	
+	public static void setApplet(boolean b) {
+		if (props != null) {
+			props.setBoolean("applet", b);
+		}
+	}
 }

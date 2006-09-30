@@ -2,9 +2,11 @@
 package org.schwering.evi.audio;
 
 import org.schwering.evi.core.IButtonable;
+import org.schwering.evi.core.IConfigurable;
 import org.schwering.evi.core.IMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleInfo;
+import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.IParameterizable;
 
 /**
@@ -12,7 +14,8 @@ import org.schwering.evi.core.IParameterizable;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable, IParameterizable {
+public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable, 
+IParameterizable, IConfigurable {
 
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleInfo#getInfoURL()
@@ -68,5 +71,12 @@ public class AudioPlayerInfo implements IModuleInfo, IButtonable, IMenuable, IPa
 	 */
 	public boolean isMenuable() {
 		return true;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.core.IConfigurable#getConfigPanel()
+	 */
+	public IPanel getConfigPanel() {
+		return new ConfigurationPanel();
 	}
 }

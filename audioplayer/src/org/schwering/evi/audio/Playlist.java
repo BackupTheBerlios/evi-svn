@@ -65,6 +65,8 @@ public abstract class Playlist implements ListModel {
 	public void removeListDataListener(ListDataListener listener) {
 		listDataListeners.remove(listener);
 	}
+
+	/* Search methods */
 	
 	/**
 	 * Filters the playlist. The algorithm is defined in the 

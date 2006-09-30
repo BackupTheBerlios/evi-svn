@@ -9,6 +9,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -176,7 +178,7 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setMultiSelectionEnabled(true);
-				fileChooser.setSelectedFile(Configuration.getLastFile());
+				fileChooser.setCurrentDirectory(Configuration.getLastFile());
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
 						return f.isDirectory() || Util.isAudioFile(f);
@@ -200,7 +202,7 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setMultiSelectionEnabled(true);
-				fileChooser.setSelectedFile(Configuration.getLastDirectory());
+				fileChooser.setCurrentDirectory(Configuration.getLastDirectory());
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {
@@ -256,6 +258,21 @@ public class MainPanel extends JPanel {
 		sub = new JPanel(new BorderLayout());
 		sub.add(new JLabel(Messages.getString("MainPanel.SEARCH") +":"), BorderLayout.WEST); //$NON-NLS-1$ //$NON-NLS-2$
 		sub.add(searchField, BorderLayout.CENTER);
+		searchField.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+			}
+			public void keyTyped(KeyEvent e) {
+			}
+			public void keyReleased(KeyEvent e) {
+				if (Configuration.isSearchDirectly()) {
+					String query = searchField.getText();
+					if (query == null) {
+						query = "";
+					}
+					playlist.filter(query);
+				}
+			}
+		});
 		searchField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String query = searchField.getText();

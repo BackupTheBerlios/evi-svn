@@ -1,12 +1,13 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -122,9 +123,12 @@ public class ControlPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Sets a tooltip.
+	 */
 	public void setToolTipText(String s) {
 		super.setToolTipText(s);
-		JComponent[] arr = new JComponent[] { prev, play, next, playAll, random };
+		AbstractButton[] arr = new AbstractButton[] { prev, play, next, playAll, random };
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] != null) {
 				arr[i].setToolTipText(s);
@@ -137,18 +141,40 @@ public class ControlPanel extends JPanel {
 	 * @param b If <code>true</code>, the buttons have borders; 
 	 * if <code>false</code> the buttons don't.
 	 */
-	public void setBordersPainted(boolean b) {
-		if (prev != null) {
-			prev.setBorderPainted(b);
+	public void setBorderPainted(boolean b) {
+		AbstractButton[] arr = new AbstractButton[] { prev, play, next, playAll, random };
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != null) {
+				arr[i].setBorderPainted(b);
+			}
 		}
-		if (play != null) {
-			play.setBorderPainted(b);
+	}
+	
+	/**
+	 * Sets the backgrounds.
+	 * @param color The color.
+	 */
+	public void setBackground(Color color) {
+		super.setBackground(color);
+		AbstractButton[] arr = new AbstractButton[] { prev, play, next, playAll, random };
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != null) {
+				arr[i].setBackground(color);
+			}
 		}
-		if (next != null) {
-			next.setBorderPainted(b);
-		}
-		if (random != null) {
-			random.setBorderPainted(b);
+	}
+	
+	/**
+	 * Enables or disables focus.
+	 * @param b If <code>false</code>, the buttons will get no focus.
+	 */
+	public void setFocusable(boolean b) {
+		super.setFocusable(false);
+		AbstractButton[] arr = new AbstractButton[] { prev, play, next, playAll, random };
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != null) {
+				arr[i].setFocusable(b);
+			}
 		}
 	}
 }

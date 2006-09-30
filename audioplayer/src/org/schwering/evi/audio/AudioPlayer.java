@@ -1,6 +1,7 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.Icon;
@@ -8,6 +9,8 @@ import javax.swing.Icon;
 import org.schwering.evi.core.IApplet;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;
+import org.schwering.evi.gui.main.MainFrame;
+import org.schwering.evi.gui.main.ToolBar;
 
 /**
  * Audio player module based on JLayer MP3 library.
@@ -24,9 +27,19 @@ public class AudioPlayer implements IModule, IPanel, IApplet {
 	
 	public AudioPlayer(Object[] args) {
 		mainPanel = new MainPanel(this);
-		ctrlPanel = new ControlPanel(this, 
-				ControlPanel.PREV | ControlPanel.PLAY | ControlPanel.NEXT);
-		ctrlPanel.setBordersPainted(false);
+		if (Configuration.isApplet()) {
+			ctrlPanel = new ControlPanel(this, 
+					ControlPanel.PREV | ControlPanel.PLAY | ControlPanel.NEXT);
+			ctrlPanel.setBorderPainted(false);
+			MainFrame mainFrame = MainFrame.getInstance();
+			ToolBar toolBar = mainFrame.getMainToolBar();
+			Color bg = toolBar.getBackground();
+			bg = new Color(bg.getRed(), bg.getGreen(), bg.getBlue(), bg.getAlpha());
+			ctrlPanel.setBackground(bg);
+			ctrlPanel.setFocusable(false);
+		} else {
+			ctrlPanel = null;
+		}
 		
 		if (args != null) {
 			for (int i = 0; i < args.length; i++) {
