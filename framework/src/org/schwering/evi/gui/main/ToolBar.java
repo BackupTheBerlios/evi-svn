@@ -105,7 +105,9 @@ implements IModuleListener, IModuleLoaderListener {
 		});
 		
 		JPanel alignAppletPanel = new JPanel(new BorderLayout());
+		alignAppletPanel.add(new JPanel(), BorderLayout.CENTER);
 		alignAppletPanel.add(appletPanel, BorderLayout.EAST);
+		
 		add(buttonPanel, BorderLayout.WEST);
 		add(alignAppletPanel, BorderLayout.CENTER);
 		add(closeButton, BorderLayout.EAST);
