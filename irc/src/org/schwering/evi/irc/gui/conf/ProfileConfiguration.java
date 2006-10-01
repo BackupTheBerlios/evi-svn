@@ -38,9 +38,6 @@ public class ProfileConfiguration extends JPanel {
 	private Profile profile;
 	
 	public ProfileConfiguration() {
-		super(new GridLayout(1, 1));
-		setBorder(new TitledBorder("Profile"));
-		
 		JPanel connectionPanel = new JPanel(new GridLayout(8, 1));
 		addServerAndPort(connectionPanel);
 		addSSL(connectionPanel);
@@ -139,12 +136,13 @@ public class ProfileConfiguration extends JPanel {
 		});
 		buttons.add(saveButton);
 		
-		JPanel main = new JPanel(new BorderLayout());
-		main.add(p, BorderLayout.WEST);
+		JPanel main = new JPanel();
+		main.setLayout(new BorderLayout());
+		main.add(p, BorderLayout.CENTER);
 		main.add(buttons, BorderLayout.SOUTH);
-		JScrollPane scrollPane = new JScrollPane(main);
-		scrollPane.setBorder(null);
-		add(scrollPane);
+		
+		setLayout(new BorderLayout());
+		add(new JScrollPane(main), BorderLayout.WEST);
 	}
 	
 	private JTextField server = new JTextField(10);
