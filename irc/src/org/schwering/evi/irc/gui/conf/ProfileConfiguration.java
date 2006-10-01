@@ -27,6 +27,7 @@ import org.schwering.evi.gui.EVI;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.irc.conf.DefaultValues;
+import org.schwering.evi.util.ColorSelector;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.FontSelector;
@@ -112,9 +113,9 @@ public class ProfileConfiguration extends JPanel {
 					profile.setRealname(realname.getText());
 					profile.setPartMessage(partMsg.getText());
 					profile.setQuitMessage(quitMsg.getText());
-					profile.setOwnColor(ownColor.getBackground());
-					profile.setOtherColor(otherColor.getBackground());
-					profile.setNeutralColor(neutralColor.getBackground());
+					profile.setOwnColor(ownColor.getColor());
+					profile.setOtherColor(otherColor.getColor());
+					profile.setNeutralColor(neutralColor.getColor());
 					profile.setEnableColors(enableColors.isSelected());
 					Color[] palette = new Color[DefaultValues.PALETTE_SIZE];
 					for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
@@ -292,90 +293,30 @@ public class ProfileConfiguration extends JPanel {
 		p.add(row);
 	}
 	
-	private JButton ownColor = new JButton("     ");
+	private ColorSelector ownColor = new ColorSelector();
 	
 	private void addOwnColorChooser(JPanel p) {
-		ownColor.setBorderPainted(false);
-		ownColor.setEnabled(false);
-		
-		final JButton choose = new JButton("Choose");
-		choose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
-						"Own Color", ownColor.getBackground());
-				if (c != null) {
-					ownColor.setBackground(c);
-				}
-			}
-		});
-		
-		JPanel sub = new JPanel(new BorderLayout());
-		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(choose, BorderLayout.EAST);
-		sub.add(new JPanel(), BorderLayout.SOUTH);
-		sub.add(ownColor, BorderLayout.WEST);
-		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Own color:"));
-		row.add(sub);
+		row.add(ownColor);
 		p.add(row);
 	}
 	
-	private JButton otherColor = new JButton("     ");
+	private ColorSelector otherColor = new ColorSelector();
 	
 	private void addOtherColorChooser(JPanel p) {
-		otherColor.setBorderPainted(false);
-		otherColor.setEnabled(false);
-		
-		final JButton choose = new JButton("Choose");
-		choose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
-						"Other's Color", otherColor.getBackground());
-				if (c != null) {
-					otherColor.setBackground(c);
-				}
-			}
-		});
-		
-		JPanel sub = new JPanel(new BorderLayout());
-		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(choose, BorderLayout.EAST);
-		sub.add(new JPanel(), BorderLayout.SOUTH);
-		sub.add(otherColor, BorderLayout.WEST);
-		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Other's color:"));
-		row.add(sub);
+		row.add(otherColor);
 		p.add(row);
 	}
 	
-	private JButton neutralColor = new JButton("     ");
+	private ColorSelector neutralColor = new ColorSelector();
 	
 	private void addNeutralColorChooser(JPanel p) {
-		neutralColor.setBorderPainted(false);
-		neutralColor.setEnabled(false);
-		
-		final JButton choose = new JButton("Choose");
-		choose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(EVI.getInstance().getMainFrame(), 
-						"Neutral Color", neutralColor.getBackground());
-				if (c != null) {
-					neutralColor.setBackground(c);
-				}
-			}
-		});
-		
-		JPanel sub = new JPanel(new BorderLayout());
-		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(choose, BorderLayout.EAST);
-		sub.add(new JPanel(), BorderLayout.SOUTH);
-		sub.add(neutralColor, BorderLayout.WEST);
-		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Neutral color:"));
-		row.add(sub);
+		row.add(neutralColor);
 		p.add(row);
 	}
 	
@@ -699,9 +640,9 @@ public class ProfileConfiguration extends JPanel {
 		realname.setText(p.getRealname());
 		partMsg.setText(p.getPartMessage());
 		quitMsg.setText(p.getQuitMessage());
-		ownColor.setBackground(p.getOwnColor());
-		otherColor.setBackground(p.getOtherColor());
-		neutralColor.setBackground(p.getNeutralColor());
+		ownColor.setColor(p.getOwnColor());
+		otherColor.setColor(p.getOtherColor());
+		neutralColor.setColor(p.getNeutralColor());
 		enableColors.setSelected(p.getEnableColors());
 		Color[] palette = p.getColorPalette();
 		for (int i = 0; i < DefaultValues.PALETTE_SIZE; i++) {
