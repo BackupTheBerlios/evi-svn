@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
@@ -23,7 +24,7 @@ public class ColorSelector extends JPanel {
 	
 	private Color color;
 	private String title;
-	private JButton label = new JButton("    "); //$NON-NLS-1$
+	private JTextField label = new JTextField("              "); //$NON-NLS-1$
 	
 	/**
 	 * Initializes with default values. Use setColor and setTitle.
@@ -49,8 +50,9 @@ public class ColorSelector extends JPanel {
 		setColor(c);
 		setTitle(t);
 		
-		label.setBorderPainted(false);
+		label.setEditable(false);
 		label.setEnabled(false);
+		label.setFocusable(false);
 		
 		final JButton choose = new JButton(Messages.getString("ColorSelector.CHOOSE_COLOR")); //$NON-NLS-1$
 		choose.addActionListener(new ActionListener() {
@@ -65,8 +67,9 @@ public class ColorSelector extends JPanel {
 		
 		setLayout(new BorderLayout());
 		add(new JPanel(), BorderLayout.NORTH);
-		add(choose, BorderLayout.EAST);
 		add(new JPanel(), BorderLayout.SOUTH);
+		add(choose, BorderLayout.EAST);
+		add(new JPanel(), BorderLayout.CENTER);
 		add(label, BorderLayout.WEST);
 	}
 	
