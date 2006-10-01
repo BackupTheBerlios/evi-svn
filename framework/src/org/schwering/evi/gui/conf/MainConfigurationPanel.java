@@ -13,7 +13,6 @@ import java.util.Locale;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +26,7 @@ import org.schwering.evi.conf.LanguageAdministrator;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.gui.EVI;
+import org.schwering.evi.util.ColorSelector;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.FontSelector;
 import org.schwering.evi.util.RightClickMenu;
@@ -257,72 +257,31 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		p.add(row);
 	}
 	
-	private Color primaryColor;
+	private ColorSelector primaryColor = new ColorSelector();
 	
 	private void addPrimaryColorChooser(JPanel p) {
-		primaryColor = MainConfiguration.PROPS.getColor("color.primary", Color.RED); //$NON-NLS-1$
+		Color color = MainConfiguration.PROPS.getColor("color.primary", Color.RED); //$NON-NLS-1$
 		
-		final JButton label = new JButton("    "); //$NON-NLS-1$
-		label.setBorderPainted(false);
-		label.setEnabled(false);
-		label.setBackground(primaryColor);
-		
-		final JButton choose = new JButton(Messages.getString("MainConfigurationPanel.CHOOSE_COLOR")); //$NON-NLS-1$
-		choose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(choose, 
-						Messages.getString("MainConfigurationPanel.PRIMARY_COLOR"), primaryColor); //$NON-NLS-1$
-				if (c != null) {
-					primaryColor = c;
-					label.setBackground(primaryColor);
-				}
-			}
-		});
-		
-		JPanel sub = new JPanel(new BorderLayout());
-		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(choose, BorderLayout.EAST);
-		sub.add(new JPanel(), BorderLayout.SOUTH);
-		sub.add(label, BorderLayout.WEST);
+		primaryColor.setColor(color);
+		primaryColor.setTitle(Messages.getString("MainConfigurationPanel.PRIMARY_COLOR")); //$NON-NLS-1$
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel(Messages.getString("MainConfigurationPanel.PRIMARY_COLOR"))); //$NON-NLS-1$
-		row.add(sub);
+		row.add(primaryColor);
 		p.add(row);
 	}
 	
-	private Color secondaryColor;
+	private ColorSelector secondaryColor = new ColorSelector();
 	
 	private void addSecondaryColorChooser(JPanel p) {
-		secondaryColor = MainConfiguration.PROPS.getColor("color.secondary",  //$NON-NLS-1$
-				Color.BLUE);
+		Color color = MainConfiguration.PROPS.getColor("color.secondary", Color.RED); //$NON-NLS-1$
 		
-		final JButton label = new JButton("    "); //$NON-NLS-1$
-		label.setBorderPainted(false);
-		label.setEnabled(false);
-		label.setBackground(secondaryColor);
-		
-		final JButton choose = new JButton(Messages.getString("MainConfigurationPanel.CHOOSE_COLOR")); //$NON-NLS-1$
-		choose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color c = JColorChooser.showDialog(choose, 
-						Messages.getString("MainConfigurationPanel.SECONDARY_COLOR"), secondaryColor); //$NON-NLS-1$
-				if (c != null) {
-					secondaryColor = c;
-					label.setBackground(secondaryColor);
-				}
-			}
-		});
-		
-		JPanel sub = new JPanel(new BorderLayout());
-		sub.add(new JPanel(), BorderLayout.NORTH);
-		sub.add(choose, BorderLayout.EAST);
-		sub.add(new JPanel(), BorderLayout.SOUTH);
-		sub.add(label, BorderLayout.WEST);
+		secondaryColor.setColor(color);
+		secondaryColor.setTitle(Messages.getString("MainConfigurationPanel.SECONDARY_COLOR")); //$NON-NLS-1$
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel(Messages.getString("MainConfigurationPanel.SECONDARY_COLOR"))); //$NON-NLS-1$
-		row.add(sub);
+		row.add(secondaryColor);
 		p.add(row);
 	}
 	
@@ -421,9 +380,8 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		MainConfiguration.PROPS.setFont("font.primary", primaryFont.getSelectedFont()); //$NON-NLS-1$
 		MainConfiguration.PROPS.setFont("font.secondary", secondaryFont.getSelectedFont()); //$NON-NLS-1$
 		
-		MainConfiguration.PROPS.setColor("color.primary", primaryColor); //$NON-NLS-1$
-
-		MainConfiguration.PROPS.setColor("color.secondary", secondaryColor); //$NON-NLS-1$
+		MainConfiguration.PROPS.setColor("color.primary", primaryColor.getColor()); //$NON-NLS-1$
+		MainConfiguration.PROPS.setColor("color.secondary", secondaryColor.getColor()); //$NON-NLS-1$
 	
 		String moduleListURL = moduleList.getText();
 		MainConfiguration.PROPS.setString("app.modulelist", moduleListURL); //$NON-NLS-1$
