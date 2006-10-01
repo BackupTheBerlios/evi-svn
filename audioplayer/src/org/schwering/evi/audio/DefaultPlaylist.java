@@ -49,6 +49,7 @@ public class DefaultPlaylist extends Playlist {
 	public void save() {
 		try {
 			props.clear();
+			filter("");
 			File[] files = getElements();
 			for (int i = 0; i < files.length; i++) {
 				props.setString("entry"+ i, files[i].toString());
