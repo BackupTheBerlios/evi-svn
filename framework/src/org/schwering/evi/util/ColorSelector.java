@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
+import org.schwering.evi.gui.main.MainFrame;
+
 /**
  * A color selector that displays the color and a button that links to a 
  * JColorChooser.
@@ -54,7 +56,7 @@ public class ColorSelector extends JPanel {
 		choose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String t = (title != null) ? title : Messages.getString("ColorSelector.DEFAULT_TITLE"); //$NON-NLS-1$
-				Color c = JColorChooser.showDialog(choose, t, color);
+				Color c = JColorChooser.showDialog(MainFrame.getInstance(), t, color);
 				if (c != null) {
 					setColor(c);
 				}
