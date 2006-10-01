@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio;
 
 import java.awt.BorderLayout;
@@ -14,7 +15,9 @@ import javax.swing.JPanel;
 import org.schwering.evi.core.IPanel;
 
 /**
+ * The configuration panel.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class ConfigurationPanel extends JPanel implements IPanel {
 	private static final long serialVersionUID = 6730011417712875823L;
@@ -33,10 +36,13 @@ public class ConfigurationPanel extends JPanel implements IPanel {
 		});
 		
 		JPanel p = new JPanel(new GridLayout(3, 0));
-		add(p, BorderLayout.NORTH);
 		addLine(p, applet);
 		addLine(p, searchDirectly);
 		addCenter(p, save);
+		JPanel sub = new JPanel();
+		sub.add(p);
+		add(sub, BorderLayout.WEST);
+		
 		load();
 	}
 	
