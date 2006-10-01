@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -18,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import org.schwering.evi.conf.Properties;
 import org.schwering.evi.core.IPanel;
 import org.schwering.evi.core.ModuleContainer;
+import org.schwering.evi.util.ColorSelector;
 import org.schwering.evi.util.ExceptionDialog;
 
 /**
@@ -39,52 +39,27 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 		}
 	}
 	
-	private JButton outColButton;
-	private JButton errColButton;
+	private ColorSelector outCol = new ColorSelector();
+	private ColorSelector errCol = new ColorSelector();
 	
 	public ConsoleConfiguration() {
-		outColButton = new JButton("    ");
-		outColButton.setBackground(getOutColor());
-		outColButton.setBorderPainted(false);
-		outColButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color c = JColorChooser.showDialog(null, Messages.getString("ConsoleConfiguration.COLOR_OUT_TITLE"), outColButton.getBackground()); //$NON-NLS-1$
-				if (c == null) {
-					return;
-				}
-				outColButton.setBackground(c);
-				if (PROPS != null) {
-					PROPS.setColor("color.out", c); //$NON-NLS-1$
-				}
-			}
-		});
-
-		errColButton = new JButton("    ");
-		errColButton.setBackground(getErrColor());
-		errColButton.setBorderPainted(false);
-		errColButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color c = JColorChooser.showDialog(null, Messages.getString("ConsoleConfiguration.COLOR_ERR_TITLE"), errColButton.getBackground()); //$NON-NLS-1$
-				if (c == null) {
-					return;
-				}
-				errColButton.setBackground(c);
-				if (PROPS != null) {
-					PROPS.setColor("color.err", c); //$NON-NLS-1$
-				}
-			}
-		});
+		super(new BorderLayout());
 		
-		JPanel col = new JPanel(new GridLayout(2, 2));
-		col.add(new JLabel(Messages.getString("ConsoleConfiguration.COLOR_OUT_TITLE") +":")); //$NON-NLS-1$ //$NON-NLS-2$
-		col.add(outColButton);
-		col.add(new JLabel(Messages.getString("ConsoleConfiguration.COLOR_ERR_TITLE") +":")); //$NON-NLS-1$ //$NON-NLS-2$
-		col.add(errColButton);
+		String outTitle = Messages.getString("ConsoleConfiguration.COLOR_OUT_TITLE"); //$NON-NLS-1$
+		String errTitle = Messages.getString("ConsoleConfiguration.COLOR_ERR_TITLE"); //$NON-NLS-1$
+		
+		outCol.setTitle(outTitle);
+		errCol.setTitle(errTitle);
+		
+		outCol.setColor(getOutColor());
+		errCol.setColor(getErrColor());
 		
 		JButton saveButton = new JButton(Messages.getString("ConsoleConfiguration.SAVE")); //$NON-NLS-1$
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					PROPS.setColor("color.out", outCol.getColor());
+					PROPS.setColor("color.err", errCol.getColor());
 					PROPS.store();
 				} catch (Exception exc) {
 					ExceptionDialog.show(exc);
@@ -94,12 +69,19 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 		JPanel but = new JPanel();
 		but.add(saveButton);
 		
+		JPanel colorPanel = new JPanel(new GridLayout(2, 2));
+		colorPanel.add(new JLabel(Messages.getString("ConsoleConfiguration.COLOR_OUT_TITLE") +":")); //$NON-NLS-1$ //$NON-NLS-2$
+		colorPanel.add(outCol);
+		colorPanel.add(new JLabel(Messages.getString("ConsoleConfiguration.COLOR_ERR_TITLE") +":")); //$NON-NLS-1$ //$NON-NLS-2$
+		colorPanel.add(errCol);
+		
 		JPanel p = new JPanel(new BorderLayout());
-		p.setLayout(new BorderLayout());
 		p.setBorder(new TitledBorder(Messages.getString("ConsoleConfiguration.CONSOLE_CONF_TITLE"))); //$NON-NLS-1$
-		p.add(col, BorderLayout.CENTER);
+		p.add(colorPanel, BorderLayout.CENTER);
 		p.add(but, BorderLayout.SOUTH);
-		add(p);
+		JPanel sub = new JPanel();
+		sub.add(p);
+		add(sub, BorderLayout.WEST);
 	}
 	
 	public static Color getOutColor() {
