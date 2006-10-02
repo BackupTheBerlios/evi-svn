@@ -56,6 +56,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 * Creates a new tabbar.
 	 */
 	public TabBar() {
+		setModel(new TabBarSingleSelectionModel());
 		setTabPlacement(MainConfiguration.PROPS.getInt("gui.tabs.placement", TOP)); //$NON-NLS-1$
 		addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -77,6 +78,11 @@ implements IModuleListener, IModuleLoaderListener {
 		addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				forwardFocusInWindow();
+				int index = getSelectedIndex();
+				if (index != -1) {
+					setForegroundAt(index, null);
+					setBackgroundAt(index, null);
+				}
 			}
 		});
 		
