@@ -18,18 +18,20 @@ import org.schwering.evi.audio.core.Playlist;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class ListComponent extends JList implements ListCellRenderer, MouseListener {
+public class List extends JList implements ListCellRenderer, MouseListener {
 	private static final long serialVersionUID = -8109383024385420651L;
 	
 	private Hashtable elements = new Hashtable();
 	private Playlist playlist;
 	private Popup popup = new Popup(this);
 	
-	public ListComponent(Playlist playlist) {
+	public List(Playlist playlist) {
 		super(playlist);
 		this.playlist = playlist;
 		setCellRenderer(this);
 		addMouseListener(this);
+		setDragEnabled(true);
+		setTransferHandler(new ListTransferHandler());
 	}
 	
 	/**
@@ -146,7 +148,7 @@ public class ListComponent extends JList implements ListCellRenderer, MouseListe
 		File file = (File)value;
 		
 		if (!elements.containsKey(file)) {
-			ListElement e = new ListElement(this, file.toString());
+			ListElement e = new ListElement(this, file);
 			elements.put(file, e);
 		}
 		ListElement e = (ListElement)elements.get(file);

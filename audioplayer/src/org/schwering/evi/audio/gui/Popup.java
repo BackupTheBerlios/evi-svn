@@ -9,7 +9,7 @@ import javax.swing.JPopupMenu;
 import org.schwering.evi.audio.lang.Messages;
 
 /**
- * A JPopupMenu for the ListComponent list.
+ * A JPopupMenu for the List list.
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
@@ -21,7 +21,7 @@ public class Popup extends JPopupMenu {
 	private JMenuItem addToQueueItem = new JMenuItem(Messages.getString("MainPanel.ADD_TO_QUEUE")); // $NON-NLS-1$
 	private JMenuItem removeFromQueueItem = new JMenuItem(Messages.getString("MainPanel.REMOVE_FROM_QUEUE")); // $NON-NLS-1$
 	
-	public Popup(final ListComponent owner) {
+	public Popup(final List owner) {
 		playItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				owner.playSelected();

@@ -37,7 +37,7 @@ public class MainPanel extends JPanel {
 	
 	private AudioPlayer owner;
 	private Playlist playlist = new DefaultPlaylist();
-	private ListComponent list = new ListComponent(playlist);
+	private List list = new List(playlist);
 	private JLabel playingLabel = new JLabel();
 	private JTextField searchField = new JTextField("");
 	

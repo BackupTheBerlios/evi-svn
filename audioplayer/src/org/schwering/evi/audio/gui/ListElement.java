@@ -1,6 +1,8 @@
 package org.schwering.evi.audio.gui;
 
 import java.awt.Color;
+import java.io.File;
+
 import javax.swing.JTextField;
 
 /**
@@ -10,7 +12,8 @@ import javax.swing.JTextField;
 class ListElement extends JTextField {
 	private static final long serialVersionUID = -6566828953377453228L;
 	
-	private ListComponent owner;
+	private List owner;
+	private File file;
 	private boolean playing = false;
 
 	/**
@@ -18,12 +21,21 @@ class ListElement extends JTextField {
 	 * It is based on a not-editable and border-less JTextField.
 	 * @param s
 	 */
-	public ListElement(ListComponent owner, String s) {
-		super(s);
+	public ListElement(List owner, File file) {
+		super(file.toString());
 		this.owner = owner;
+		this.file = file;
 		setEditable(false);
 		setBorder(null);
 		update(false);
+	}
+	
+	/**
+	 * Returns the file represented by this component.
+	 * @return The file.
+	 */
+	public File getFile() {
+		return file;
 	}
 	
 	/**
