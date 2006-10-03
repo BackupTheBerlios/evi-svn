@@ -1,5 +1,5 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.lang;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ import org.schwering.evi.conf.LanguageAdministrator;
  * @version $Id$
  */
 public class Messages {
-	private static final String BUNDLE_NAME = "org.schwering.evi.audio.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.schwering.evi.audio.lang.messages"; //$NON-NLS-1$
 
 	private static ResourceBundle bundle;
 	

@@ -1,5 +1,5 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.core;
 
 /**
  * Listens to a specific player. You rather might be interested in the IPlaylistListener.

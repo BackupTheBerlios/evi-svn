@@ -1,6 +1,8 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio;
 
+import org.schwering.evi.audio.conf.ConfigurationPanel;
+import org.schwering.evi.audio.lang.Messages;
 import org.schwering.evi.core.IButtonable;
 import org.schwering.evi.core.IConfigurable;
 import org.schwering.evi.core.IMenuable;

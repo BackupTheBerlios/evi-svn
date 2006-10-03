@@ -1,5 +1,5 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.core;
 
 import java.io.File;
 

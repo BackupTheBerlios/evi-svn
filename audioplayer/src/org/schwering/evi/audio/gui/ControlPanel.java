@@ -1,5 +1,5 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -10,6 +10,10 @@ import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+
+import org.schwering.evi.audio.AudioPlayer;
+import org.schwering.evi.audio.conf.Configuration;
+import org.schwering.evi.audio.lang.Messages;
 
 /**
  * A very simple panel with control buttons.

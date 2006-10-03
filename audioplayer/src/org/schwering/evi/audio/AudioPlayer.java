@@ -6,6 +6,10 @@ import java.awt.Component;
 
 import javax.swing.Icon;
 
+import org.schwering.evi.audio.conf.Configuration;
+import org.schwering.evi.audio.gui.ControlPanel;
+import org.schwering.evi.audio.gui.MainPanel;
+import org.schwering.evi.audio.lang.Messages;
 import org.schwering.evi.core.IApplet;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IPanel;

@@ -1,5 +1,5 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.conf;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import org.schwering.evi.audio.lang.Messages;
 import org.schwering.evi.core.IPanel;
 
 /**

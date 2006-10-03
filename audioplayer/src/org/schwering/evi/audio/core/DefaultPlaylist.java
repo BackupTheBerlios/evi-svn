@@ -1,8 +1,9 @@
 /* Copyright (C) 2006 Christoph Schwering */
-package org.schwering.evi.audio;
+package org.schwering.evi.audio.core;
 
 import java.io.File;
 
+import org.schwering.evi.audio.AudioPlayer;
 import org.schwering.evi.conf.Properties;
 import org.schwering.evi.core.ModuleContainer;
 
