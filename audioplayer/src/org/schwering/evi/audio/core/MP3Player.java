@@ -3,6 +3,9 @@ package org.schwering.evi.audio.core;
 
 import java.io.FileInputStream;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.AudioDevice;
+import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /**
@@ -12,8 +15,33 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  */
 public class MP3Player extends Player {
 	protected AdvancedPlayer player;
+	protected AudioDevice device;
 	protected boolean completed = false;
 	protected boolean stopped = false;
+	
+	/**
+	 * Creates a new MP3 player, but does not. Invoke setFile() to set the file.
+	 */
+	public MP3Player() throws JavaLayerException {
+		FactoryRegistry r = FactoryRegistry.systemRegistry();
+		device = r.createAudioDevice();
+	}
+	
+	/**
+	 * Returns the AdvancedPlayer that decodes and plays the MP3 file.
+	 * @return The javazoom.jl.player.advanced.AdvancedPlayer object.
+	 */
+	public AdvancedPlayer getAdvancedPlayer() {
+		return player;
+	}
+	
+	/**
+	 * The AudioDevice that plays the file.
+	 * @return The javazoom.jl.player.AudioDevice object.
+	 */
+	public AudioDevice getAudioDevice() {
+		return device;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.audio.Player#play()
@@ -32,7 +60,7 @@ public class MP3Player extends Player {
 			throw new PlayerException("NPE: file == null. Invoke Player.setFile.");
 		}
 		try {
-			player = new AdvancedPlayer(new FileInputStream(file));
+			player = new AdvancedPlayer(new FileInputStream(file), device);
 			firePlaybackStarted();
 			player.play(from, to);
 			if (stopped) {
