@@ -3,6 +3,7 @@ package org.schwering.evi.audio.core;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.LinkedList;
 import java.util.Vector;
 
 import javax.swing.ListModel;
@@ -15,14 +16,35 @@ import javax.swing.event.ListDataListener;
  * @version $Id$
  */
 public abstract class Playlist implements ListModel {
+	/** Maximum count of elements in the history. Can be changed without causing erros. */
+	public static final int HISTORY_SIZE = 30;
+	
+	/** Contains java.io.File objects that build the list. */
 	protected Vector list = new Vector();
-	protected Vector listDataListeners = new Vector();
+	
+	/** Contains javax.swing.event.ListDataListeners as this is a javax.swing.ListModel. */
+	protected Vector listDataListeners = new Vector(3);
+	
+	/** The currently played index. */
 	protected int playingIndex = -1;
+	
+	/** The player used to play the current file. */
 	protected Player player;
-	protected Vector listeners = new Vector();
+	
+	/** Contains IPlaylistListeners. */
+	protected Vector listeners = new Vector(3);
+	
+	/** If true, the next song is played automatically. */
 	protected boolean playAll = true;
-	protected boolean random = false;
-	protected Vector queue = new Vector();
+	
+	/** If true and if playAll is true, the next song is chosen randomly. */
+	protected boolean shuffle = false;
+	
+	/** The first element is the next-to-play; new entries are added at the ending. */
+	protected LinkedList queue = new LinkedList();
+	
+	/** The last element is the last-played; the first element is the oldest in history. */
+	protected LinkedList history = new LinkedList();
 	
 	/**
 	 * Creates a new empty playlist.
@@ -52,6 +74,8 @@ public abstract class Playlist implements ListModel {
 	 */
 	public abstract void save();
 	
+	/* Listeners as requested by the javax.swing.ListModel interface */
+	
 	/* (non-Javadoc)
 	 * @see javax.swing.ListModel#addListDataListener(javax.swing.event.ListDataListener)
 	 */
@@ -64,57 +88,6 @@ public abstract class Playlist implements ListModel {
 	 */
 	public void removeListDataListener(ListDataListener listener) {
 		listDataListeners.remove(listener);
-	}
-
-	/* Search methods */
-	
-	/**
-	 * Filters the playlist. The algorithm is defined in the 
-	 * <code>matches(FileWrapper, String)</code> method. This method should be overridden 
-	 * by subclasses to change the algorithm.
-	 * @param query
-	 * @see #largeToSmall(int)
-	 * @see #smallToLarge(int)
-	 * @see FileWrapper
-	 * @see FileWrapper#matches(String)
-	 */
-	public synchronized void filter(String query) {
-		int complete = list.size();
-		int oldSize = getSize();
-		for (int i = 0; i < complete; i++) {
-			FileWrapper fw = (FileWrapper)list.get(i);
-			fw.setVisible(matches(fw, query));
-		}
-		int newSize = getSize();
-		if (oldSize > 0) {
-			fireIntervalRemoved(0, oldSize - 1);
-		}
-		if (newSize > 0) {
-			fireIntervalAdded(0, newSize - 1);
-		}
-	}
-	
-	/**
-	 * The algorithm that checks whether a playlist-file matches a query.
-	 * Override this method in subclasses to change the algorithm.<br />
-	 * The default algorithm splits the query at each whitespace and then searches for 
-	 * each element using in the file's path (using <code>String.indexOf</code>).
-	 * The method  is case-insensitive.
-	 * @param fw The filewrapper.
-	 * @param query The search query.
-	 * @return <code>true</code> if the file matches the query.
-	 */
-	protected boolean matches(FileWrapper fw, String query) {
-		String filename = fw.getFile().toString().toLowerCase();
-		query = query.toLowerCase();
-		String[] elements = query.split("\\s");
-		
-		for (int i = 0; i < elements.length; i++) {
-			if (filename.indexOf(elements[i]) == -1) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	/* Index conversion methods */
@@ -330,20 +303,73 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Sets whether the next played songs are choosen randomly.<br />
 	 * <code>false</code> by default.
-	 * @param random <code>true</code> enables random mode.
+	 * @param random <code>true</code> enables shuffle mode.
 	 */
-	public void setRandom(boolean random) {
-		this.random = random;
+	public void setShuffle(boolean random) {
+		this.shuffle = random;
 	}
 	
 	/**
-	 * Indicates whether random mode is enabled.<br />
+	 * Indicates whether shuffle mode is enabled.<br />
 	 * <code>false</code> by default.
-	 * @return <code>true</code> if random mode is enabled.
+	 * @return <code>true</code> if shuffle mode is enabled.
 	 */
-	public boolean isRandom() {
-		return random;
+	public boolean isShuffle() {
+		return shuffle;
 	}
+	
+	/* Search methods */
+	
+	/**
+	 * Filters the playlist. The algorithm is defined in the 
+	 * <code>matches(FileWrapper, String)</code> method. This method should be overridden 
+	 * by subclasses to change the algorithm.
+	 * @param query
+	 * @see #largeToSmall(int)
+	 * @see #smallToLarge(int)
+	 * @see FileWrapper
+	 * @see FileWrapper#matches(String)
+	 */
+	public synchronized void filter(String query) {
+		int complete = list.size();
+		int oldSize = getSize();
+		for (int i = 0; i < complete; i++) {
+			FileWrapper fw = (FileWrapper)list.get(i);
+			fw.setVisible(matches(fw, query));
+		}
+		int newSize = getSize();
+		if (oldSize > 0) {
+			fireIntervalRemoved(0, oldSize - 1);
+		}
+		if (newSize > 0) {
+			fireIntervalAdded(0, newSize - 1);
+		}
+	}
+	
+	/**
+	 * The algorithm that checks whether a playlist-file matches a query.
+	 * Override this method in subclasses to change the algorithm.<br />
+	 * The default algorithm splits the query at each whitespace and then searches for 
+	 * each element using in the file's path (using <code>String.indexOf</code>).
+	 * The method  is case-insensitive.
+	 * @param fw The filewrapper.
+	 * @param query The search query.
+	 * @return <code>true</code> if the file matches the query.
+	 */
+	protected boolean matches(FileWrapper fw, String query) {
+		String filename = fw.getFile().toString().toLowerCase();
+		query = query.toLowerCase();
+		String[] elements = query.split("\\s");
+		
+		for (int i = 0; i < elements.length; i++) {
+			if (filename.indexOf(elements[i]) == -1) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/* Queue methods */
 	
 	/**
 	 * Enqueues a file.
@@ -358,7 +384,7 @@ public abstract class Playlist implements ListModel {
 	 * @param file The file which should be played.
 	 */
 	public void addToQueue(File file) {
-		queue.add(file);
+		queue.addLast(file);
 	}
 	
 	/**
@@ -395,6 +421,8 @@ public abstract class Playlist implements ListModel {
 		queue.remove(file);
 	}
 	
+	/* Player controlling */
+	
 	/**
 	 * Indicates whether any song is being played of the playlist at the moment.
 	 * @return
@@ -408,11 +436,11 @@ public abstract class Playlist implements ListModel {
 	 */
 	public void next() {
 		if (queue.size() > 0) {
-			File file = (File)queue.remove(0);
+			File file = (File)queue.removeFirst();
 			int index = indexOf(file);
 			play(index);
 		} else if (isPlayAll()) {
-			if (!isRandom()) {
+			if (!isShuffle()) {
 				playNext();
 			} else {
 				playRandom();
@@ -463,15 +491,25 @@ public abstract class Playlist implements ListModel {
 	 * Plays the previous song.
 	 */
 	private void playPrevious() {
-		int index;
+		int index = -1;
 		synchronized (this) {
-			index = playingIndex - 1;
+			if (history.size() > 0) {
+				File previous = (File)history.removeLast();
+				index = indexOf(previous);
+			}
+			if (index == -1) {
+				index = playingIndex - 1;
+			}
 			int size = getSize();
 			if (size > 0 && index < 0) {
 				index = size + index;
 			}
 		}
 		play(index);
+		if (history.size() > 0) {
+			/* play() added the played file again, so we need to remove once more: */
+			history.removeLast(); 
+		}
 	}
 	
 	/**
@@ -503,6 +541,10 @@ public abstract class Playlist implements ListModel {
 		}
 		try {
 			final File file = (File)getElementAt(index);
+			if (history.size() > HISTORY_SIZE) {
+				history.removeFirst();
+			}
+			history.addLast(file);
 			/* 
 			 * To avoid very much synchronizing, we do not directly manipulate the 
 			 * class field "player". Instead, we firstly create a object "p" and set 
