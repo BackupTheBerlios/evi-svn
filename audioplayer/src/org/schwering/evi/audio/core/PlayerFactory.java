@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Hashtable;
 
 /**
- * 
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
