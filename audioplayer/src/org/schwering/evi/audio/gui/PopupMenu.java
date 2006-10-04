@@ -13,7 +13,7 @@ import org.schwering.evi.audio.lang.Messages;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class Popup extends JPopupMenu {
+public class PopupMenu extends JPopupMenu {
 	private static final long serialVersionUID = 963478455107252205L;
 	
 	private JMenuItem playItem = new JMenuItem(Messages.getString("MainPanel.PLAY")); //$NON-NLS-1$
@@ -21,7 +21,7 @@ public class Popup extends JPopupMenu {
 	private JMenuItem addToQueueItem = new JMenuItem(Messages.getString("MainPanel.ADD_TO_QUEUE")); // $NON-NLS-1$
 	private JMenuItem removeFromQueueItem = new JMenuItem(Messages.getString("MainPanel.REMOVE_FROM_QUEUE")); // $NON-NLS-1$
 	
-	public Popup(final List owner) {
+	public PopupMenu(final List owner) {
 		playItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				owner.playSelected();

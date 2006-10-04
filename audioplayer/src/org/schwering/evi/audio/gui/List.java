@@ -23,7 +23,7 @@ public class List extends JList implements ListCellRenderer, MouseListener {
 	
 	private Hashtable elements = new Hashtable();
 	private Playlist playlist;
-	private Popup popup = new Popup(this);
+	private PopupMenu popup = new PopupMenu(this);
 	
 	public List(Playlist playlist) {
 		super(playlist);
