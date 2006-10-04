@@ -11,12 +11,23 @@ import java.util.Vector;
  */
 public abstract class Player {
 	protected Vector listeners = new Vector();
+	protected File file;
+	
+	/**
+	 * Sets the file that is played.
+	 * @return The File object that points to the played audio file.
+	 */
+	public void setFile(File file) {
+		this.file = file;
+	}
 	
 	/**
 	 * Returns the file that is played.
 	 * @return The File object that points to the played audio file.
 	 */
-	public abstract File getFile();
+	public File getFile() {
+		return file;
+	}
 	
 	/**
 	 * Plays the total song.

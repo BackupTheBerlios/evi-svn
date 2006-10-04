@@ -1,9 +1,7 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio.core;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
@@ -13,33 +11,9 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  * @version $Id$
  */
 public class MP3Player extends Player {
-	protected File file;
-	protected InputStream stream;
 	protected AdvancedPlayer player;
 	protected boolean completed = false;
 	protected boolean stopped = false;
-	
-	/**
-	 * Plays a given MP3 file.
-	 * @param f The file.
-	 * @throws PlayerException If anything fails.
-	 */
-	public MP3Player(File f) throws PlayerException {
-		try {
-			file = f;
-			stream = new FileInputStream(file);
-			player = new AdvancedPlayer(stream);
-		} catch (Exception exc) {
-			throw new PlayerException(exc);
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.schwering.evi.audio.Player#getFile()
-	 */
-	public File getFile() {
-		return file;
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.audio.Player#play()
@@ -52,9 +26,13 @@ public class MP3Player extends Player {
 	 * @see org.schwering.evi.audio.Player#play(int, int)
 	 */
 	public void play(int from, int to) throws PlayerException {
+		completed = false;
+		stopped = false;
+		if (file == null) {
+			throw new PlayerException("NPE: file == null. Invoke Player.setFile.");
+		}
 		try {
-			completed = false;
-			stopped = false;
+			player = new AdvancedPlayer(new FileInputStream(file));
 			firePlaybackStarted();
 			player.play(from, to);
 			if (stopped) {

@@ -12,7 +12,15 @@ public class PlayerException extends Exception {
 	public PlayerException() {
 	}
 	
+	public PlayerException(String msg) {
+		super(msg);
+	}
+	
 	public PlayerException(Exception exc) {
 		super(exc);
+	}
+	
+	public PlayerException(String msg, Exception exc) {
+		super(msg, exc);
 	}
 }

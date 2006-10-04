@@ -513,7 +513,7 @@ public abstract class Playlist implements ListModel {
 			 * Another way to work around this would be synchronizing, but this should 
 			 * be faster, I think.
 			 */
-			final Player p = new MP3Player(file);
+			final Player p = PlayerFactory.createPlayer(file);
 			this.player = p;
 			p.addListener(getPassthroughPlayerListener(player));
 			p.addListener(getConfigPlayerListener(player));
