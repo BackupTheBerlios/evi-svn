@@ -40,9 +40,6 @@ public class ConsoleInfo implements IModuleInfo, IMenuable, IConfigurable {
 	private static IPanel config = null;
 	
 	public IPanel getConfigPanel() {
-		if (config == null) {
-			config = new ConsoleConfiguration();
-		}
-		return config;
+		return ConsoleConfiguration.getInstance();
 	}
 }

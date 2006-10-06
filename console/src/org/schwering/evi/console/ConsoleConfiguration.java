@@ -39,10 +39,20 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 		}
 	}
 	
+	private static ConsoleConfiguration instance;
+	
+	public ConsoleConfiguration getInstance() {
+		if (instance == null) {
+			instance = new ConsoleConfiguration();
+		}
+		return instance;
+	}
+
+	
 	private ColorSelector outCol = new ColorSelector();
 	private ColorSelector errCol = new ColorSelector();
 	
-	public ConsoleConfiguration() {
+	private ConsoleConfiguration() {
 		super(new BorderLayout());
 		
 		String outTitle = Messages.getString("ConsoleConfiguration.COLOR_OUT_TITLE"); //$NON-NLS-1$
@@ -96,6 +106,7 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
 	public void dispose() {
+		instance = null;
 	}
 
 	/* (non-Javadoc)
