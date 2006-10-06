@@ -30,7 +30,7 @@ public class ConsoleInfo implements IModuleInfo, IMenuable, IConfigurable {
 	}
 
 	public IModule newInstance() {
-		return new Console();
+		return Console.getInstance();
 	}
 
 	public boolean isMenuable() {

@@ -30,8 +30,17 @@ import org.schwering.evi.util.RightClickMenu;
  */
 public class Console extends JPanel implements IModule, IPanel {
 	private static final long serialVersionUID = 2735909201802891383L;
+	
+	private static Console instance = null;
+	
+	public static Console getInstance() {
+		if (instance == null) {
+			instance = new Console();
+		}
+		return instance;
+	}
 
-	public Console() {
+	private Console() {
 		final PrintStream oldOut = System.out;
 		final PrintStream oldErr = System.err;
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
@@ -94,6 +103,7 @@ public class Console extends JPanel implements IModule, IPanel {
 	}
 
 	public void dispose() {
+		instance = null;
 	}
 
 }
