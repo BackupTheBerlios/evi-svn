@@ -40,9 +40,10 @@ public class Console extends JPanel implements IModule, IPanel {
 		return instance;
 	}
 
+	final PrintStream oldOut = System.out;
+	final PrintStream oldErr = System.err;
+	
 	private Console() {
-		final PrintStream oldOut = System.out;
-		final PrintStream oldErr = System.err;
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
 		final JTextPane pane = new JTextPane(doc);
 		final Color outColor = ConsoleConfiguration.getOutColor();
@@ -103,6 +104,8 @@ public class Console extends JPanel implements IModule, IPanel {
 	}
 
 	public void dispose() {
+		System.setOut(oldOut);
+		System.setErr(oldErr);
 		instance = null;
 	}
 
