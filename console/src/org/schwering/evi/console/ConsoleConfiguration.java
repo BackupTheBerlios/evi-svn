@@ -41,7 +41,7 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 	
 	private static ConsoleConfiguration instance;
 	
-	public ConsoleConfiguration getInstance() {
+	public static ConsoleConfiguration getInstance() {
 		if (instance == null) {
 			instance = new ConsoleConfiguration();
 		}
