@@ -94,6 +94,8 @@ public class MemoryPanel extends JPanel {
 		percent = Math.round(10.0 * percent) / 10.0;
 		int totalKb = (int)(total / 1024);
 		int usedKb = (int)(used / 1024);
+		double totalMb = Math.round((100.0 * total) / (1024.0 * 1024.0)) / 100.0;
+		double usedMb = Math.round((100.0 * used) / (1024.0 * 1024.0)) / 100.0;
 		
 		if ((options & BAR) != 0) {
 			bar.setMinimum(0);
@@ -102,10 +104,10 @@ public class MemoryPanel extends JPanel {
 			bar.setString(percent +"%"); //$NON-NLS-1$
 		}
 		if ((options & LABEL) != 0) {
-			memory.setText(usedKb 
-					+" "+ Messages.getString("MemoryPanel.KB_OF") //$NON-NLS-1$ //$NON-NLS-2$
-					+ totalKb 
-					+" "+ Messages.getString("MemoryPanel.KB_USED")); //$NON-NLS-1$ //$NON-NLS-2$
+			memory.setText(usedMb 
+					+" "+ Messages.getString("MemoryPanel.MB_OF") //$NON-NLS-1$ //$NON-NLS-2$
+					+ totalMb 
+					+" "+ Messages.getString("MemoryPanel.MB_USED")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 	

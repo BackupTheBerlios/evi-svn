@@ -37,11 +37,11 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 	 */
 	public EnvironmentPanel() {
 		super(new BorderLayout());
-		add(createMemoryPanel(), BorderLayout.CENTER);
+		add(createEnvironmentPanel(), BorderLayout.CENTER);
 		add(memoryPanel, BorderLayout.NORTH);
 	}
 	
-	private JPanel createMemoryPanel() {
+	private JPanel createEnvironmentPanel() {
 		Properties sysProps = System.getProperties();
 		Enumeration sysKeys = sysProps.keys();
 		int sysLen = sysProps.size();
