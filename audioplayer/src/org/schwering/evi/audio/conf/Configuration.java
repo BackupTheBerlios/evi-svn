@@ -64,17 +64,17 @@ public class Configuration {
 		}
 	}
 	
-	public static boolean isRandom() {
+	public static boolean isShuffle() {
 		if (props != null) {
-			return props.getBoolean("random", false);
+			return props.getBoolean("shuffle", false);
 		} else {
 			return false;
 		}
 	}
 	
-	public static void setRandom(boolean b) {
+	public static void setShuffle(boolean b) {
 		if (props != null) {
-			props.setBoolean("random", b);
+			props.setBoolean("shuffle", b);
 		}
 	}
 	

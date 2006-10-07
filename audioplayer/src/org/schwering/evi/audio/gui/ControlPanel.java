@@ -115,12 +115,12 @@ public class ControlPanel extends JPanel {
 		
 		if ((buttons & RANDOM) != 0) {
 			random = new JToggleButton(Messages.getString("ControlPanel.RANDOM"),  //$NON-NLS-1$
-					Configuration.isRandom());
+					Configuration.isShuffle());
 			random.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
 					mainPanel.getPlaylist().setShuffle(random.isSelected());
-					Configuration.setRandom(random.isSelected());
+					Configuration.setShuffle(random.isSelected());
 				}
 			});
 			add(random);
