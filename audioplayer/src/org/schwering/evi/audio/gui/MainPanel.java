@@ -50,7 +50,7 @@ public class MainPanel extends JPanel {
 		this.owner = owner;
 		
 		playlist.setPlayAll(Configuration.isPlayAll());
-		playlist.setRandom(Configuration.isRandom());
+		playlist.setShuffle(Configuration.isRandom());
 		
 		playlist.addListener(new IPlaylistListener() {
 			public void playbackStarted(Player player) {

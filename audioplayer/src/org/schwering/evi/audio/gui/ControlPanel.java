@@ -119,7 +119,7 @@ public class ControlPanel extends JPanel {
 			random.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MainPanel mainPanel = (MainPanel)owner.getPanelInstance();
-					mainPanel.getPlaylist().setRandom(random.isSelected());
+					mainPanel.getPlaylist().setShuffle(random.isSelected());
 					Configuration.setRandom(random.isSelected());
 				}
 			});
