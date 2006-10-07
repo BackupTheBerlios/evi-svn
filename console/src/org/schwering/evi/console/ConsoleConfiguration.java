@@ -40,11 +40,13 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 	}
 	
 	private static ConsoleConfiguration instance;
+	private static int instanceCount = 0;
 	
 	public static ConsoleConfiguration getInstance() {
 		if (instance == null) {
 			instance = new ConsoleConfiguration();
 		}
+		instanceCount++;
 		return instance;
 	}
 
@@ -106,7 +108,10 @@ public class ConsoleConfiguration extends JPanel implements IPanel {
 	 * @see org.schwering.evi.core.IPanel#dispose()
 	 */
 	public void dispose() {
-		instance = null;
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 
 	/* (non-Javadoc)

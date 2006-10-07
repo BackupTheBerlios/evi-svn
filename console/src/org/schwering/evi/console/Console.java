@@ -32,11 +32,13 @@ public class Console extends JPanel implements IModule, IPanel {
 	private static final long serialVersionUID = 2735909201802891383L;
 	
 	private static Console instance = null;
+	private static int instanceCount = 0;
 	
 	public static Console getInstance() {
 		if (instance == null) {
 			instance = new Console();
 		}
+		instanceCount++;
 		return instance;
 	}
 
@@ -106,7 +108,10 @@ public class Console extends JPanel implements IModule, IPanel {
 	public void dispose() {
 		System.setOut(oldOut);
 		System.setErr(oldErr);
-		instance = null;
+		instanceCount--;
+		if (instanceCount == 0) {
+			instance = null;
+		}
 	}
 
 }
