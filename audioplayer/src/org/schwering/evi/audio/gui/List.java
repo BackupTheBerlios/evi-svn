@@ -3,6 +3,8 @@ package org.schwering.evi.audio.gui;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.Hashtable;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import org.schwering.evi.audio.conf.Configuration;
 import org.schwering.evi.audio.core.Playlist;
 
 /**
@@ -18,7 +21,8 @@ import org.schwering.evi.audio.core.Playlist;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public class List extends JList implements ListCellRenderer, MouseListener {
+public class List extends JList implements ListCellRenderer, MouseListener, 
+KeyListener {
 	private static final long serialVersionUID = -8109383024385420651L;
 	
 	private Hashtable elements = new Hashtable();
@@ -29,6 +33,7 @@ public class List extends JList implements ListCellRenderer, MouseListener {
 		super(playlist);
 		this.playlist = playlist;
 		setCellRenderer(this);
+		addKeyListener(this);
 		addMouseListener(this);
 		setDragEnabled(true);
 		setTransferHandler(new ListTransferHandler());
@@ -160,6 +165,30 @@ public class List extends JList implements ListCellRenderer, MouseListener {
 			e.setBackground(list.getBackground());
 		}
 		return e;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			int index = getSelectedIndex();
+			if (index != -1) {
+				playlist.play(index);
+			}
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
+	public void keyTyped(KeyEvent e) {
+	}
+
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
+	public void keyReleased(KeyEvent e) {
 	}
 	
 	/* (non-Javadoc)

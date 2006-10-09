@@ -173,6 +173,12 @@ public class MainPanel extends JPanel {
 		sub.add(searchField, BorderLayout.CENTER);
 		searchField.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					if (playlist.getSize() > 0) {
+						list.requestFocus();
+						list.setSelectedIndex(0);
+					}
+				}
 			}
 			public void keyTyped(KeyEvent e) {
 			}
