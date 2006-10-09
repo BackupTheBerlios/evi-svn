@@ -458,16 +458,14 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Plays a random song.
 	 */
-	private void playRandom() {
-		synchronized (this) {
-			int size = getSize();
-			if (size > 1) {
-				int newIndex;
-				do {
-					newIndex = ((int)(Math.random() * size)) % size;
-				} while (newIndex == playingIndex);
-				playingIndex = newIndex;
-			}
+	private synchronized void playRandom() {
+		int size = getSize();
+		if (size > 1) {
+			int newIndex;
+			do {
+				newIndex = ((int)(Math.random() * size)) % size;
+			} while (newIndex == playingIndex);
+			playingIndex = newIndex;
 		}
 		play(playingIndex);
 	}
@@ -475,14 +473,12 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Plays the subsequent song.
 	 */
-	private void playNext() {
+	private synchronized void playNext() {
 		int index;
-		synchronized (this) {
-			index = playingIndex + 1;
-			int size = getSize();
-			if (size > 0 && index >= size) {
-				index %= size;
-			}
+		index = playingIndex + 1;
+		int size = getSize();
+		if (size > 0 && index >= size) {
+			index %= size;
 		}
 		play(index);
 	}
@@ -490,20 +486,22 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Plays the previous song.
 	 */
-	private void playPrevious() {
+	private synchronized void playPrevious() {
 		int index = -1;
-		synchronized (this) {
-			if (history.size() > 0) {
-				File previous = (File)history.removeLast();
-				index = indexOf(previous);
+		if (history.size() > 0) {
+			File previous = (File)history.removeLast();
+			index = indexOf(previous);
+			if (index == playingIndex) {
+				playPrevious();
+				return;
 			}
-			if (index == -1) {
-				index = playingIndex - 1;
-			}
-			int size = getSize();
-			if (size > 0 && index < 0) {
-				index = size + index;
-			}
+		}
+		if (index == -1) {
+			index = playingIndex - 1;
+		}
+		int size = getSize();
+		if (size > 0 && index < 0) {
+			index = size + index;
 		}
 		play(index);
 		if (history.size() > 0) {
@@ -515,7 +513,7 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Plays the current (or the first) song.
 	 */
-	public void play() {
+	public synchronized void play() {
 		if (playingIndex < 0) {
 			playingIndex = 0;
 		}
@@ -526,7 +524,7 @@ public abstract class Playlist implements ListModel {
 	 * Plays a given song.
 	 * @param index The position of the song.
 	 */
-	public void play(int index) {
+	public synchronized void play(int index) {
 		int size = getSize();
 		if (size == 0) {
 			return;
