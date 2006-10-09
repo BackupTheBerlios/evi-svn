@@ -37,7 +37,7 @@ public class MainPanel extends JPanel {
 	
 	private AudioPlayer owner;
 	private Playlist playlist = new DefaultPlaylist();
-	private List list = new List(playlist);
+	private List list = new List(this, playlist);
 	private JLabel playingLabel = new JLabel();
 	private JTextField searchField = new JTextField("");
 	
@@ -238,7 +238,6 @@ public class MainPanel extends JPanel {
 			}
 		}
 	}
-
 	
 	/**
 	 * The playlist object.
@@ -255,5 +254,13 @@ public class MainPanel extends JPanel {
 		playlist.setPlayAll(false);
 		playlist.save();
 		Configuration.store();
+	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#requestFocus()
+	 */
+	public void requestFocus() {
+		requestFocusInWindow();
+		searchField.requestFocusInWindow();
 	}
 }

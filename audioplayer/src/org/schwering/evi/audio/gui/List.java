@@ -25,12 +25,14 @@ public class List extends JList implements ListCellRenderer, MouseListener,
 KeyListener {
 	private static final long serialVersionUID = -8109383024385420651L;
 	
+	private MainPanel owner;
 	private Hashtable elements = new Hashtable();
 	private Playlist playlist;
 	private PopupMenu popup = new PopupMenu(this);
 	
-	public List(Playlist playlist) {
+	public List(MainPanel owner, Playlist playlist) {
 		super(playlist);
+		this.owner = owner;
 		this.playlist = playlist;
 		setCellRenderer(this);
 		addKeyListener(this);
@@ -176,6 +178,8 @@ KeyListener {
 			if (index != -1) {
 				playlist.play(index);
 			}
+		} else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			owner.requestFocus();
 		}
 	}
 	
