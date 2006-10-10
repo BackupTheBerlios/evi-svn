@@ -5,6 +5,9 @@
 <body>
 <h1>EVI AudioPlayer Modul</h1>
 <p>Das EVI AudioPlayer Modul basiert auf der <a href="http://www.javazoom.net/javalayer/about.html">JLayer API</a>.</p>
-<p>Kontakt: Christoph Schwering (schwering@gmail.com)</p>
+<hr />
+<p>Copyright (C) 2006 Christoph Schwering (schwering@gmail.com)<br />
+This module is free software; it is distributed under the terms of the 
+<a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>.</p>
 </body>
 </html>
