@@ -5,6 +5,9 @@
 <body>
 <h1>EVI Konsole Modul</h1>
 <p>Das EVI Konsole Modul gibt den Standard-Output und Standard-Error in ein Textfeld aus.</p>
-<p>Kontakt: Christoph Schwering (schwering@gmail.com)</p>
+<hr />
+<p>Copyright (C) 2006 Christoph Schwering (schwering@gmail.com)<br />
+This module is free software; it is distributed under the terms of the 
+<a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>.</p>
 </body>
 </html>
