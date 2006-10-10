@@ -13,7 +13,6 @@ import java.util.Hashtable;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import org.schwering.evi.audio.conf.Configuration;
 import org.schwering.evi.audio.core.Playlist;
 
 /**
