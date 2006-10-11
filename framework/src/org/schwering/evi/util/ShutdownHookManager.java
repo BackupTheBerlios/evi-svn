@@ -16,6 +16,9 @@ public class ShutdownHookManager {
 	private static Hashtable controllers = new Hashtable();
 	private static final long MAX_TIME = 20 * 1000;
 	
+	private ShutdownHookManager() {
+	}
+	
 	/**
 	 * Creates a controller for the thread. The controller is a simple thread 
 	 * that kills the shutdown hook <code>thread</code> if it is still running 

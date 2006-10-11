@@ -29,7 +29,7 @@ import org.schwering.evi.util.ExceptionDialog;
  * @author Christoph Schwering (schwering@gmail.com)
  * @version $Id$
  */
-public abstract class MainConfiguration {
+public class MainConfiguration {
 	/**
 	 * The user's home directory.
 	 */

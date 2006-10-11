@@ -24,6 +24,9 @@ public class Base64 {
 			"abcdefghijklmnopqrstuvwxyz"+
 			"0123456789+/").toCharArray();
 	
+	private Base64() {
+	}
+	
 	/**
 	 * Encodes a string.
 	 * @param str The string.

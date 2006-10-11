@@ -21,6 +21,9 @@ import org.schwering.evi.gui.main.MainFrame;
  * @version $Id$
  */
 public class Util {
+	private Util() {
+	}
+	
 	/**
 	 * Returns the installed look and feels.
 	 * @return The installed look and feels.

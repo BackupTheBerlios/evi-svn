@@ -30,6 +30,9 @@ public class LanguageAdministrator {
 	private static Vector list = new Vector();
 	private static boolean loaded = false;
 	
+	private LanguageAdministrator() {
+	}
+	
 	/**
 	 * Each <code>Messages</code> class should register itself. Then, 
 	 * EVI can load its <code>messages.properties</code> file when it's
