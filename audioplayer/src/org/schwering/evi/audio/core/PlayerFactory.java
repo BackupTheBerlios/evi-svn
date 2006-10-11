@@ -31,7 +31,7 @@ public class PlayerFactory {
 	 * Creates a player for the file. If there is no such player or if for 
 	 * any other reason an exception is thrown, this method throws a 
 	 * <codePlayerException</code>.
-	 * @param file
+	 * @param url The URL that should be played.
 	 * @return A <code>Player</code> object.
 	 * @throws PlayerException If there is no player for the given file or if 
 	 * there is such a player but it throws an instance when being instantiated.

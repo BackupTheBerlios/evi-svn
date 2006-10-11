@@ -55,7 +55,7 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Creates a new playlist with given files.
-	 * @param files The entries of the playlist.
+	 * @param urls The entries of the playlist.
 	 */
 	public Playlist(URL[] urls) {
 		if (urls != null) {
@@ -159,7 +159,7 @@ public abstract class Playlist implements ListModel {
 	/**
 	 * Adds a URL at a given position.
 	 * @param index The position in the list.
-	 * @param f The URL that is to be added to the playlist.
+	 * @param url The URL that is to be added to the playlist.
 	 */
 	public void addElementAt(int index, URL url) {
 		list.add(smallToLarge(index)+1, new ItemWrapper(url));
@@ -259,7 +259,7 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Adds a new URL.
-	 * @param f The URL that is to be added to the playlist.
+	 * @param url The URL that is to be added to the playlist.
 	 */
 	public void addElement(URL url) {
 		int index = getSize();
@@ -280,7 +280,7 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Removes a specific URL from the playlist.
-	 * @param f The URL that is to be removed from the playlist.
+	 * @param url The URL that is to be removed from the playlist.
 	 * @return <code>true</code> if the URL was removed successfully.
 	 */
 	public void removeElement(URL url) {
@@ -378,7 +378,7 @@ public abstract class Playlist implements ListModel {
 	 * The default algorithm splits the query at each whitespace and then searches for 
 	 * each element using in the entry's URL (using <code>String.indexOf</code>).
 	 * The method  is case-insensitive.
-	 * @param fw The filewrapper.
+	 * @param iw The filewrapper.
 	 * @param query The search query.
 	 * @return <code>true</code> if the file matches the query.
 	 */
@@ -415,7 +415,7 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Checks whether a URL is in the queue.
-	 * @param url The index of the URL which might be in the queue or not.
+	 * @param index The index of the URL which might be in the queue or not.
 	 * @return <code>true</code> if the URL is enqueued.
 	 */
 	public boolean isInQueue(int index) {
@@ -451,7 +451,7 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Indicates whether any song is being played of the playlist at the moment.
-	 * @return
+	 * @return <code>true</code> is the player is playing.
 	 */
 	public synchronized boolean isPlaying() {
 		return player != null && player.isPlaying();
