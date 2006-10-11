@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,6 +27,7 @@ import org.schwering.evi.audio.core.Player;
 import org.schwering.evi.audio.core.Playlist;
 import org.schwering.evi.audio.core.Util;
 import org.schwering.evi.audio.lang.Messages;
+import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
 
 /**
@@ -87,8 +89,8 @@ public class MainPanel extends JPanel {
 		
 		
 		
-		JButton add = new JButton(Messages.getString("MainPanel.ADD_FILE")); //$NON-NLS-1$
-		add.addActionListener(new ActionListener() {
+		JButton addFile = new JButton(Messages.getString("MainPanel.ADD_FILE")); //$NON-NLS-1$
+		addFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setMultiSelectionEnabled(true);
@@ -138,10 +140,18 @@ public class MainPanel extends JPanel {
 				}
 			}
 		});
-		JButton del = new JButton(Messages.getString("MainPanel.DELETE_FILE")); //$NON-NLS-1$
-		del.addActionListener(new ActionListener() {
+		JButton addURL = new JButton(Messages.getString("MainPanel.ADD_URL")); //$NON-NLS-1$
+		addURL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				list.removeSelected();
+				String s = JOptionPane.showInputDialog(owner.getPanelInstance(), Messages.getString("MainPanel.INPUT_URL"));
+				if (s != null) {
+					try {
+						URL url = new URL(s);
+						playlist.addElement(url);
+					} catch (Exception exc) {
+						ExceptionDialog.show(exc);
+					}
+				}
 			}
 		});
 		JButton delAll = new JButton(Messages.getString("MainPanel.DELETE_ALL")); //$NON-NLS-1$
@@ -155,9 +165,9 @@ public class MainPanel extends JPanel {
 		
 		p = new JPanel(new GridLayout(2, 0));
 		sub = new JPanel();
-		sub.add(add);
+		sub.add(addFile);
 		sub.add(addDir);
-		sub.add(del);
+		sub.add(addURL);
 		sub.add(delAll);
 		p.add(sub);
 		updatePlayingLabel(null);
