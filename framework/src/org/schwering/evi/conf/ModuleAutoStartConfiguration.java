@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.ShutdownHookManager;
 
 /**
  * Administers the module auto start configuration file. Each entry must be 
@@ -98,12 +99,13 @@ public abstract class ModuleAutoStartConfiguration {
 	 * Adds a shutdown hook which invokes <code>store()</code>.
 	 */
 	private static void addShutdownHook() {
-		Runtime r = Runtime.getRuntime();
-		r.addShutdownHook(new Thread() {
+		Thread shutdownHook = new Thread() {
 			public void run() {
 				store();
 			}
-		});
+		};
+		shutdownHook.setName(MODULE_AUTO_START_CONFIG_FILE +" conf");
+		ShutdownHookManager.addShutdownHook(shutdownHook);
 	}
 	
 	/**

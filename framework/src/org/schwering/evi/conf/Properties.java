@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 
 import org.schwering.evi.util.Base64;
+import org.schwering.evi.util.ShutdownHookManager;
 import org.schwering.evi.util.Util;
 
 /**
@@ -27,7 +28,6 @@ public class Properties extends java.util.Properties {
 	
 	protected File propsFile;
 	protected String description;
-	protected boolean shutdownHookSet = false;
 	protected Thread shutdownHook = new Thread() {
 		public void run() {
 			try {
@@ -74,6 +74,7 @@ public class Properties extends java.util.Properties {
 		if (!propsFile.exists()) {
 			propsFile.createNewFile();
 		}
+		shutdownHook.setName(moduleId +" props");
 	}
 	
 	/**
@@ -82,13 +83,10 @@ public class Properties extends java.util.Properties {
 	 * removes it.
 	 */
 	public void setShutdownHook(boolean set) {
-		Runtime r = Runtime.getRuntime();
-		if (!shutdownHookSet && set) {
-			r.addShutdownHook(shutdownHook);
-			shutdownHookSet = true;
-		} else if (shutdownHookSet && !set) {
-			r.removeShutdownHook(shutdownHook);
-			shutdownHookSet = false;
+		if (set) {
+			ShutdownHookManager.addShutdownHook(shutdownHook);
+		} else {
+			ShutdownHookManager.removeShutdownHook(shutdownHook);
 		}
 	}
 	

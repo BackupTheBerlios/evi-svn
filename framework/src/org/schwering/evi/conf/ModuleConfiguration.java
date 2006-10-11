@@ -13,6 +13,7 @@ import java.util.Vector;
 import org.schwering.evi.core.ModuleContainer;
 import org.schwering.evi.core.ModuleLoader;
 import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.ShutdownHookManager;
 
 /**
  * Administers the module configuration file. Modules listet in this file are 
@@ -103,12 +104,24 @@ public abstract class ModuleConfiguration {
 	 * Adds a shutdown hook which invokes <code>store()</code>.
 	 */
 	private static void addShutdownHook() {
-		Runtime r = Runtime.getRuntime();
-		r.addShutdownHook(new Thread() {
+		Thread shutdownHook = new Thread() {
 			public void run() {
+				System.out.println("ModuleConfiguration thread starts");
 				store();
+				System.out.println("ModuleConfiguration thread done");
+				try {
+					for (int i = 0; i < 21; i++) {
+						Thread.sleep(1000);
+						System.out.println("Sleeping for "+ (i+1));
+					}
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+				System.out.println("ModuleConfiguration thread finished");
 			}
-		});
+		};
+		shutdownHook.setName(MODULES_CONFIG_FILE +" conf");
+		ShutdownHookManager.addShutdownHook(shutdownHook);
 	}
 	
 	/**
