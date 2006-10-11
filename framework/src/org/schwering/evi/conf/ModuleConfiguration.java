@@ -106,18 +106,7 @@ public abstract class ModuleConfiguration {
 	private static void addShutdownHook() {
 		Thread shutdownHook = new Thread() {
 			public void run() {
-				System.out.println("ModuleConfiguration thread starts");
 				store();
-				System.out.println("ModuleConfiguration thread done");
-				try {
-					for (int i = 0; i < 21; i++) {
-						Thread.sleep(1000);
-						System.out.println("Sleeping for "+ (i+1));
-					}
-				} catch (Exception exc) {
-					exc.printStackTrace();
-				}
-				System.out.println("ModuleConfiguration thread finished");
 			}
 		};
 		shutdownHook.setName(MODULES_CONFIG_FILE +" conf");
