@@ -17,7 +17,8 @@ public class PlayerFactory {
 	private static Hashtable map = new Hashtable();
 	
 	static {
-		map.put("mp3", MP3Player.class);
+		map.put(".mp3", MP3Player.class);
+		map.put("http", MP3Player.class);
 	}
 	
 	/**
@@ -35,10 +36,10 @@ public class PlayerFactory {
 	 * @throws PlayerException If there is no player for the given file or if 
 	 * there is such a player but it throws an instance when being instantiated.
 	 */
-	public static Player createPlayer(URL url) throws PlayerException {
-		Class cls = getClassByExtension(url);
+	public static Player createPlayer(URL url) throws FormatNotSupportedException {
+		Class cls = getClassByURL(url);
 		if (cls == null) {
-			throw new PlayerException("Format not supported: "+ url);
+			throw new FormatNotSupportedException("Format not supported: "+ url);
 		}
 		try {
 			Object instance = cls.newInstance();
@@ -46,7 +47,7 @@ public class PlayerFactory {
 			player.setResource(url);
 			return player;
 		} catch (Exception exc) {
-			throw new PlayerException(exc);
+			throw new FormatNotSupportedException(exc);
 		}
 	}
 	
@@ -59,14 +60,31 @@ public class PlayerFactory {
 	 * @return The <code>Class</code> that implements the right 
 	 * <code>Player</code> or <code>null</code>.
 	 */
+	private static Class getClassByURL(URL url) {
+		Class cls;
+		if ((cls = getClassByExtension(url)) != null) {
+			return cls;
+		} else if ((cls = getClassByProtocol(url)) != null) {
+			return cls;
+		} else {
+			return null;
+		}
+	}
+		
 	private static Class getClassByExtension(URL url) {
 		String name = url.getFile();
 		int index = name.lastIndexOf('.');
 		if (index == -1) {
 			return null;
 		}
-		String ext = name.substring(index + 1).toLowerCase();
+		String ext = name.substring(index).toLowerCase();
 		Class cls = (Class)map.get(ext);
+		return cls;
+	}
+	
+	private static Class getClassByProtocol(URL url) {
+		String protocol = url.getProtocol();
+		Class cls = (Class)map.get(protocol);
 		return cls;
 	}
 }
