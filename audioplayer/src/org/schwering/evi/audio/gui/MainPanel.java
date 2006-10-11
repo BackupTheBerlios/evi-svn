@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -54,14 +55,14 @@ public class MainPanel extends JPanel {
 		
 		playlist.addListener(new IPlaylistListener() {
 			public void playbackStarted(Player player) {
-				File file = player.getFile();
-				updatePlayingLabel(file);
-				updateAppletTooltip(file);
-				ListElement comp = (ListElement)list.getListElement(file);
+				URL url = player.getResource();
+				updatePlayingLabel(url);
+				updateAppletTooltip(url);
+				ListItem comp = (ListItem)list.getListElement(url);
 				if (comp != null) {
 					comp.update(true);
 				}
-				list.scrollToPlayingFile();
+				list.scrollToPlayingURL();
 			}
 			public void playbackStopped(Player player) {
 				playbackFailed(player);
@@ -73,9 +74,9 @@ public class MainPanel extends JPanel {
 				updatePlayingLabel(null);
 				updateAppletTooltip(null);
 				if (player != null) {
-					File file = player.getFile();
-					if (file != null) {
-						ListElement comp = (ListElement)list.getListElement(file);
+					URL url = player.getResource();
+					if (url != null) {
+						ListItem comp = (ListItem)list.getListElement(url);
 						if (comp != null) {
 							comp.update(false);
 						}
@@ -218,23 +219,23 @@ public class MainPanel extends JPanel {
 	
 	/**
 	 * Updates the label that displays the name of the current song.
-	 * @param file The current song.
+	 * @param url The current song.
 	 */
-	private void updatePlayingLabel(File file) {
+	private void updatePlayingLabel(URL url) {
 		String s;
-		if (file != null) {
-			s = file.getName();
+		if (url != null) {
+			s = url.getFile();
 		} else {
 			s = Messages.getString("MainPanel.NOTHING"); //$NON-NLS-1
 		}
 		playingLabel.setText(Messages.getString("MainPanel.PLAYING") +": "+ s); //$NON-NLS-1
 	}
 	
-	private void updateAppletTooltip(File file) {
-		if (file != null) {
+	private void updateAppletTooltip(URL url) {
+		if (url != null) {
 			ControlPanel p = (ControlPanel)owner.getAppletInstance();
 			if (p != null) {
-				p.setToolTipText(Messages.getString("MainPanel.PLAYING") +": "+ file.getName().toString()); //$NON-NLS-1
+				p.setToolTipText(Messages.getString("MainPanel.PLAYING") +": "+ url.getFile()); //$NON-NLS-1
 			}
 		}
 	}

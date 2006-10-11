@@ -1,7 +1,7 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio.core;
 
-import java.io.File;
+import java.net.URL;
 import java.util.Vector;
 
 /**
@@ -11,22 +11,22 @@ import java.util.Vector;
  */
 public abstract class Player {
 	protected Vector listeners = new Vector();
-	protected File file;
+	protected URL resource;
 	
 	/**
 	 * Sets the file that is played.
 	 * @return The File object that points to the played audio file.
 	 */
-	public void setFile(File file) {
-		this.file = file;
+	public void setResource(URL url) {
+		resource = url;
 	}
 	
 	/**
 	 * Returns the file that is played.
 	 * @return The File object that points to the played audio file.
 	 */
-	public File getFile() {
-		return file;
+	public URL getResource() {
+		return resource;
 	}
 	
 	/**

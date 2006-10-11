@@ -5,6 +5,7 @@
 package org.schwering.evi.audio.gui;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.*;
 
@@ -66,8 +67,12 @@ public class ListTransferHandler extends StringTransferHandler {
         String[] values = str.split("\n");
         addCount = values.length;
         for (int i = 0; i < values.length; i++) {
-        	File file = new File(values[i]);
-            playlist.addElementAt(index++, file);
+        	try {
+	        	URL url = new URL(values[i]);
+	            playlist.addElementAt(index++, url);
+        	} catch (Exception exc) {
+        		throw new RuntimeException(exc);
+        	}
         }
     }
 

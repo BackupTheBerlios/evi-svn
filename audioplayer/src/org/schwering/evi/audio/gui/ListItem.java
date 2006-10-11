@@ -1,7 +1,7 @@
 package org.schwering.evi.audio.gui;
 
 import java.awt.Color;
-import java.io.File;
+import java.net.URL;
 
 import javax.swing.JTextField;
 
@@ -9,11 +9,11 @@ import javax.swing.JTextField;
  * A wrapper class for the components displayed in the JList.
  * @author Christoph Schwering (schwering@gmail.com)
  */
-class ListElement extends JTextField {
+class ListItem extends JTextField {
 	private static final long serialVersionUID = -6566828953377453228L;
 	
 	private List owner;
-	private File file;
+	private URL url;
 	private boolean playing = false;
 
 	/**
@@ -21,25 +21,25 @@ class ListElement extends JTextField {
 	 * It is based on a not-editable and border-less JTextField.
 	 * @param s
 	 */
-	public ListElement(List owner, File file) {
-		super(file.toString());
+	public ListItem(List owner, URL url) {
+		super(url.toString());
 		this.owner = owner;
-		this.file = file;
+		this.url = url;
 		setEditable(false);
 		setBorder(null);
 		update(false);
 	}
 	
 	/**
-	 * Returns the file represented by this component.
-	 * @return The file.
+	 * Returns the URL represented by this component.
+	 * @return The URL.
 	 */
-	public File getFile() {
-		return file;
+	public URL getURL() {
+		return url;
 	}
 	
 	/**
-	 * Updates the colors depending on whether the file represented by this 
+	 * Updates the colors depending on whether the URL represented by this 
 	 * component is currently being played or not. If 
 	 * <code>playing = true</code>, the owning <code>JList</code>s 
 	 * fore- and background are taken and applied permuted on this 

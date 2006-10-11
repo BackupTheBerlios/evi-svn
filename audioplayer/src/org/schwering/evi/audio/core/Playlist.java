@@ -3,6 +3,7 @@ package org.schwering.evi.audio.core;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.Vector;
 
@@ -56,10 +57,10 @@ public abstract class Playlist implements ListModel {
 	 * Creates a new playlist with given files.
 	 * @param files The entries of the playlist.
 	 */
-	public Playlist(File[] files) {
-		if (files != null) {
-			for (int i = 0; i < files.length; i++) {
-				addElement(files[i]);
+	public Playlist(URL[] urls) {
+		if (urls != null) {
+			for (int i = 0; i < urls.length; i++) {
+				addElement(urls[i]);
 			}
 		}
 	}
@@ -102,7 +103,7 @@ public abstract class Playlist implements ListModel {
 	private synchronized int largeToSmall(int largeIndex) {
 		int smallIndex = 0;
 		while (--largeIndex >= 0) {
-			if (((FileWrapper)list.get(largeIndex)).isVisible()) {
+			if (((ItemWrapper)list.get(largeIndex)).isVisible()) {
 				smallIndex++;
 			}
 		}
@@ -120,8 +121,8 @@ public abstract class Playlist implements ListModel {
 		int complete = list.size();
 		int largeIndex = -1;
 		for (int i = 0; i < complete && smallIndex >= 0; i++) {
-			FileWrapper fw = (FileWrapper)list.get(i);
-			if (fw.isVisible()) {
+			ItemWrapper iw = (ItemWrapper)list.get(i);
+			if (iw.isVisible()) {
 				smallIndex--;
 			}
 			largeIndex++;
@@ -141,14 +142,14 @@ public abstract class Playlist implements ListModel {
 	}
 	
 	/**
-	 * Returns the index of a file or -1.
-	 * @param file The searched file.
+	 * Returns the index of a URL or -1.
+	 * @param url The searched URL.
 	 */
-	public int indexOf(File file) {
+	public int indexOf(URL url) {
 		int size = list.size();
 		for (int i = 0; i < size; i++) {
-			FileWrapper fw = (FileWrapper)list.get(i);
-			if (fw.isVisible() && fw.getFile().equals(file)) {
+			ItemWrapper iw = (ItemWrapper)list.get(i);
+			if (iw.isVisible() && iw.getURL().equals(url)) {
 				return i;
 			}
 		}
@@ -156,24 +157,24 @@ public abstract class Playlist implements ListModel {
 	}
 	
 	/**
-	 * Adds a file at a given position.
+	 * Adds a URL at a given position.
 	 * @param index The position in the list.
-	 * @param f The file that is to be added to the playlist.
+	 * @param f The URL that is to be added to the playlist.
 	 */
-	public void addElementAt(int index, File f) {
-		list.add(smallToLarge(index)+1, new FileWrapper(f));
+	public void addElementAt(int index, URL url) {
+		list.add(smallToLarge(index)+1, new ItemWrapper(url));
 		fireIntervalAdded(index, index);
 	}
 	
 	/**
 	 * Returns a specific entry of the playlist. Though the return type is
-	 * <code>Object</code>, it is definetly an instance of <code>File</code>.
+	 * <code>Object</code>, it is definetly an instance of <code>URL</code>.
 	 * @param index The position of the wanted entry.
-	 * @return A File object.
+	 * @return A URL object.
 	 */
 	public Object getElementAt(int index) {
-		FileWrapper fw = (FileWrapper)list.get(smallToLarge(index));
-		Object o = fw.getFile();
+		ItemWrapper iw = (ItemWrapper)list.get(smallToLarge(index));
+		Object o = iw.getURL();
 		return o;
 	}
 	
@@ -221,44 +222,69 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Adds a list of new files.
-	 * @param f The files that are to be added to the playlist.
+	 * @param files The files that are to be added to the playlist.
 	 */
-	public void addElements(File[] f) {
-		if (f != null) {
-			for (int i = 0; i < f.length; i++) {
-				addElement(f[i]);
+	public void addElements(File[] files) {
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				addElement(files[i]);
 			}
 		}
 	}
 	
 	/**
-	 * Adds a new file.
+	 * Adds a list of new URLs.
+	 * @param urls The URL that are to be added to the playlist.
+	 */
+	public void addElements(URL[] urls) {
+		if (urls != null) {
+			for (int i = 0; i < urls.length; i++) {
+				addElement(urls[i]);
+			}
+		}
+	}
+	
+	/**
+	 * Adds a new File.
 	 * @param f The file that is to be added to the playlist.
 	 */
 	public void addElement(File f) {
+		try {
+			int index = getSize();
+			addElementAt(index, f.toURL());
+		} catch (Exception exc) {
+			throw new RuntimeException(exc);
+		}
+	}
+	
+	/**
+	 * Adds a new URL.
+	 * @param f The URL that is to be added to the playlist.
+	 */
+	public void addElement(URL url) {
 		int index = getSize();
-		addElementAt(index, f);
+		addElementAt(index, url);
 	}
 	
 	/**
 	 * Returns all entries of the playlist.
-	 * @return An array of File objects that represent the playlist's entries.
+	 * @return An array of URL objects that represent the playlist's entries.
 	 */
-	public File[] getElements() {
-		File[] arr = new File[getSize()];
+	public URL[] getElements() {
+		URL[] arr = new URL[getSize()];
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = (File)getElementAt(i);
+			arr[i] = (URL)getElementAt(i);
 		}
 		return arr;
 	}
 	
 	/**
-	 * Removes a specific file from the playlist.
-	 * @param f The file that is to be removed from the playlist.
-	 * @return <code>true</code> if the file was removed successfully.
+	 * Removes a specific URL from the playlist.
+	 * @param f The URL that is to be removed from the playlist.
+	 * @return <code>true</code> if the URL was removed successfully.
 	 */
-	public void removeElement(File f) {
-		int index = indexOf(f);
+	public void removeElement(URL url) {
+		int index = indexOf(url);
 		removeElementAt(index);
 	}
 	
@@ -273,11 +299,11 @@ public abstract class Playlist implements ListModel {
 	}
 	
 	/**
-	 * Returns the currently played file or <code>null</code>.
-	 * @return the currently played file or <code>null</code>.
+	 * Returns the currently played URL or <code>null</code>.
+	 * @return the currently played URL or <code>null</code>.
 	 */
-	public File getPlayingFile() {
-		return (player != null) ? player.getFile() : null;
+	public URL getPlayingURL() {
+		return (player != null) ? player.getResource() : null;
 	}
 	
 	/**
@@ -322,20 +348,20 @@ public abstract class Playlist implements ListModel {
 	
 	/**
 	 * Filters the playlist. The algorithm is defined in the 
-	 * <code>matches(FileWrapper, String)</code> method. This method should be overridden 
+	 * <code>matches(URLWrapper, String)</code> method. This method should be overridden 
 	 * by subclasses to change the algorithm.
 	 * @param query
 	 * @see #largeToSmall(int)
 	 * @see #smallToLarge(int)
-	 * @see FileWrapper
-	 * @see FileWrapper#matches(String)
+	 * @see ItemWrapper
+	 * @see ItemWrapper#matches(String)
 	 */
 	public synchronized void filter(String query) {
 		int complete = list.size();
 		int oldSize = getSize();
 		for (int i = 0; i < complete; i++) {
-			FileWrapper fw = (FileWrapper)list.get(i);
-			fw.setVisible(matches(fw, query));
+			ItemWrapper iw = (ItemWrapper)list.get(i);
+			iw.setVisible(matches(iw, query));
 		}
 		int newSize = getSize();
 		if (oldSize > 0) {
@@ -347,22 +373,22 @@ public abstract class Playlist implements ListModel {
 	}
 	
 	/**
-	 * The algorithm that checks whether a playlist-file matches a query.
+	 * The algorithm that checks whether a playlist-entry matches a query.
 	 * Override this method in subclasses to change the algorithm.<br />
 	 * The default algorithm splits the query at each whitespace and then searches for 
-	 * each element using in the file's path (using <code>String.indexOf</code>).
+	 * each element using in the entry's URL (using <code>String.indexOf</code>).
 	 * The method  is case-insensitive.
 	 * @param fw The filewrapper.
 	 * @param query The search query.
 	 * @return <code>true</code> if the file matches the query.
 	 */
-	protected boolean matches(FileWrapper fw, String query) {
-		String filename = fw.getFile().toString().toLowerCase();
+	protected boolean matches(ItemWrapper iw, String query) {
+		String name = iw.getURL().toString().toLowerCase();
 		query = query.toLowerCase();
 		String[] elements = query.split("\\s");
 		
 		for (int i = 0; i < elements.length; i++) {
-			if (filename.indexOf(elements[i]) == -1) {
+			if (name.indexOf(elements[i]) == -1) {
 				return false;
 			}
 		}
@@ -372,53 +398,53 @@ public abstract class Playlist implements ListModel {
 	/* Queue methods */
 	
 	/**
-	 * Enqueues a file.
-	 * @param index THe index of the file which should be played.
+	 * Enqueues a URL.
+	 * @param index The index of the URL which should be played.
 	 */
 	public void addToQueue(int index) {
-		addToQueue((File)getElementAt(index));
+		addToQueue((URL)getElementAt(index));
 	}
 	
 	/**
-	 * Enqueues a file.
-	 * @param file The file which should be played.
+	 * Enqueues a URL.
+	 * @param url The URL which should be played.
 	 */
-	public void addToQueue(File file) {
-		queue.addLast(file);
+	public void addToQueue(URL url) {
+		queue.addLast(url);
 	}
 	
 	/**
-	 * Checks whether a file is in the queue.
-	 * @param file The index of the file which might be in the queue or not.
-	 * @return <code>true</code> if the file is enqueued.
+	 * Checks whether a URL is in the queue.
+	 * @param url The index of the URL which might be in the queue or not.
+	 * @return <code>true</code> if the URL is enqueued.
 	 */
 	public boolean isInQueue(int index) {
-		return isInQueue((File)getElementAt(index));
+		return isInQueue((URL)getElementAt(index));
 	}
 	
 	/**
-	 * Checks whether a file is in the queue.
-	 * @param file The file which might be in the queue or not.
-	 * @return <code>true</code> if the file is enqueued.
+	 * Checks whether a URL is in the queue.
+	 * @param url The URL which might be in the queue or not.
+	 * @return <code>true</code> if the URL is enqueued.
 	 */
-	public boolean isInQueue(File file) {
-		return queue.contains(file);
+	public boolean isInQueue(URL url) {
+		return queue.contains(url);
 	}
 	
 	/**
-	 * Removes a file from the queue.
-	 * @param index The index of the file which should be removed.
+	 * Removes a URL from the queue.
+	 * @param index The index of the URL which should be removed.
 	 */
 	public void removeFromQueue(int index) {
-		removeFromQueue((File)getElementAt(index));
+		removeFromQueue((URL)getElementAt(index));
 	}
 	
 	/**
-	 * Removes a file from the queue.
-	 * @param file The file which should be removed.
+	 * Removes a URL from the queue.
+	 * @param url The URL which should be removed.
 	 */
-	public void removeFromQueue(File file) {
-		queue.remove(file);
+	public void removeFromQueue(URL url) {
+		queue.remove(url);
 	}
 	
 	/* Player controlling */
@@ -436,8 +462,8 @@ public abstract class Playlist implements ListModel {
 	 */
 	public void next() {
 		if (queue.size() > 0) {
-			File file = (File)queue.removeFirst();
-			int index = indexOf(file);
+			URL url = (URL)queue.removeFirst();
+			int index = indexOf(url);
 			play(index);
 		} else if (isPlayAll()) {
 			if (!isShuffle()) {
@@ -489,7 +515,7 @@ public abstract class Playlist implements ListModel {
 	private synchronized void playPrevious() {
 		int index = -1;
 		if (history.size() > 0) {
-			File previous = (File)history.removeLast();
+			URL previous = (URL)history.removeLast();
 			index = indexOf(previous);
 			if (index == playingIndex) {
 				playPrevious();
@@ -505,7 +531,7 @@ public abstract class Playlist implements ListModel {
 		}
 		play(index);
 		if (history.size() > 0) {
-			/* play() added the played file again, so we need to remove once more: */
+			/* play() added the played URL again, so we need to remove once more: */
 			history.removeLast(); 
 		}
 	}
@@ -538,11 +564,11 @@ public abstract class Playlist implements ListModel {
 			player.stop();
 		}
 		try {
-			final File file = (File)getElementAt(index);
+			final URL url = (URL)getElementAt(index);
 			if (history.size() > HISTORY_SIZE) {
 				history.removeFirst();
 			}
-			history.addLast(file);
+			history.addLast(url);
 			/* 
 			 * To avoid very much synchronizing, we do not directly manipulate the 
 			 * class field "player". Instead, we firstly create a object "p" and set 
@@ -553,7 +579,7 @@ public abstract class Playlist implements ListModel {
 			 * Another way to work around this would be synchronizing, but this should 
 			 * be faster, I think.
 			 */
-			final Player p = PlayerFactory.createPlayer(file);
+			final Player p = PlayerFactory.createPlayer(url);
 			this.player = p;
 			p.addListener(getPassthroughPlayerListener(player));
 			p.addListener(getConfigPlayerListener(player));
@@ -680,19 +706,19 @@ public abstract class Playlist implements ListModel {
 	}
 	
 	/**
-	 * Wraps a file which can be set visible or not using a query (for search).
+	 * Wraps a URL which can be set visible or not using a query (for search).
 	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
-	class FileWrapper {
-		private File file;
+	class ItemWrapper {
+		private URL url;
 		private boolean visible = true;
 		
-		public FileWrapper(File f) {
-			file = f;
+		public ItemWrapper(URL url) {
+			this.url = url;
 		}
 		
-		public File getFile() {
-			return file;
+		public URL getURL() {
+			return url;
 		}
 		
 		public void setVisible(boolean b) {

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
+import java.net.URL;
 import java.util.Hashtable;
 
 import javax.swing.JList;
@@ -58,26 +58,26 @@ KeyListener {
 	}
 	
 	/**
-	 * Returns the cached element corresponding to the file. 
+	 * Returns the cached element corresponding to the URL. 
 	 * Generally, this is a Component (e.g. JLabel) that represents a playlist 
-	 * entry (file) in the list.
-	 * @return The ListElement that represents file in the list.
+	 * entry (URL) in the list.
+	 * @return The ListItem that represents URL in the list.
 	 */
-	public ListElement getListElement(File file) {
-		return (ListElement)elements.get(file);
+	public ListItem getListElement(URL url) {
+		return (ListItem)elements.get(url);
 	}
 
 	/**
-	 * Scrolls to the currently played file. In fact, it tries to scroll to 
-	 * an area +/- 5 songs around the current file.<br />
+	 * Scrolls to the currently played URL. In fact, it tries to scroll to 
+	 * an area +/- 5 songs around the current URL.<br />
 	 */
-	public void scrollToPlayingFile() {
+	public void scrollToPlayingURL() {
 		try {
-			File file = playlist.getPlayingFile();
-			if (playlist == null || file == null) {
+			URL url = playlist.getPlayingURL();
+			if (playlist == null || url == null) {
 				return;
 			}
-			int index = playlist.indexOf(file);
+			int index = playlist.indexOf(url);
 			if (index != -1) {
 				int max = getLastVisibleIndex() - getFirstVisibleIndex();
 				int index0 = index - max / 3;
@@ -125,7 +125,7 @@ KeyListener {
 	}
 	
 	/**
-	 * Plays a single selected file.
+	 * Plays a single selected URL.
 	 */
 	public void playSelected() {
 		int index = getSelectedIndex();
@@ -135,7 +135,7 @@ KeyListener {
 	}
 	
 	/**
-	 * Removes all selected files from the list.
+	 * Removes all selected URLs from the list.
 	 */
 	public void removeSelected() {
 		int[] arr = getSelectedIndices();
@@ -151,13 +151,13 @@ KeyListener {
 	 */
 	public Component getListCellRendererComponent(JList list, Object value, 
 			int index, boolean isSelected, boolean cellHasFocus) {
-		File file = (File)value;
+		URL url = (URL)value;
 		
-		if (!elements.containsKey(file)) {
-			ListElement e = new ListElement(this, file);
-			elements.put(file, e);
+		if (!elements.containsKey(url)) {
+			ListItem e = new ListItem(this, url);
+			elements.put(url, e);
 		}
-		ListElement e = (ListElement)elements.get(file);
+		ListItem e = (ListItem)elements.get(url);
 		if (isSelected) {
 			e.setForeground(list.getSelectionForeground());
 			e.setBackground(list.getSelectionBackground());

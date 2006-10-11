@@ -1,8 +1,6 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio.core;
 
-import java.io.FileInputStream;
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
@@ -56,11 +54,11 @@ public class MP3Player extends Player {
 	public void play(int from, int to) throws PlayerException {
 		completed = false;
 		stopped = false;
-		if (file == null) {
+		if (resource == null) {
 			throw new PlayerException("NPE: file == null. Invoke Player.setFile.");
 		}
 		try {
-			player = new AdvancedPlayer(new FileInputStream(file), device);
+			player = new AdvancedPlayer(resource.openStream(), device);
 			firePlaybackStarted();
 			player.play(from, to);
 			if (stopped) {

@@ -1,6 +1,6 @@
 package org.schwering.evi.audio.core;
 
-import java.io.File;
+import java.net.URL;
 import java.util.Hashtable;
 
 /**
@@ -35,15 +35,15 @@ public class PlayerFactory {
 	 * @throws PlayerException If there is no player for the given file or if 
 	 * there is such a player but it throws an instance when being instantiated.
 	 */
-	public static Player createPlayer(File file) throws PlayerException {
-		Class cls = getClassByExtension(file);
+	public static Player createPlayer(URL url) throws PlayerException {
+		Class cls = getClassByExtension(url);
 		if (cls == null) {
-			throw new PlayerException("Format not supported: "+ file);
+			throw new PlayerException("Format not supported: "+ url);
 		}
 		try {
 			Object instance = cls.newInstance();
 			Player player = (Player)instance;
-			player.setFile(file);
+			player.setResource(url);
 			return player;
 		} catch (Exception exc) {
 			throw new PlayerException(exc);
@@ -59,8 +59,8 @@ public class PlayerFactory {
 	 * @return The <code>Class</code> that implements the right 
 	 * <code>Player</code> or <code>null</code>.
 	 */
-	private static Class getClassByExtension(File file) {
-		String name = file.getName();
+	private static Class getClassByExtension(URL url) {
+		String name = url.getFile();
 		int index = name.lastIndexOf('.');
 		if (index == -1) {
 			return null;

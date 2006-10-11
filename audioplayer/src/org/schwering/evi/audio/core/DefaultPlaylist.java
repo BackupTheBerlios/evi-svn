@@ -1,7 +1,7 @@
 /* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.audio.core;
 
-import java.io.File;
+import java.net.URL;
 
 import org.schwering.evi.audio.AudioPlayer;
 import org.schwering.evi.conf.Properties;
@@ -33,7 +33,7 @@ public class DefaultPlaylist extends Playlist {
 			String s;
 			for (int i = 0; (s = props.getString("entry"+i, null)) != null; i++) {
 				try {
-					addElement(new File(s));
+					addElement(new URL(s));
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
@@ -51,9 +51,9 @@ public class DefaultPlaylist extends Playlist {
 		try {
 			props.clear();
 			filter("");
-			File[] files = getElements();
-			for (int i = 0; i < files.length; i++) {
-				props.setString("entry"+ i, files[i].toString());
+			URL[] urls = getElements();
+			for (int i = 0; i < urls.length; i++) {
+				props.setString("entry"+ i, urls[i].toString());
 			}
 			props.setInt("playingindex", playingIndex);
 			props.store();
