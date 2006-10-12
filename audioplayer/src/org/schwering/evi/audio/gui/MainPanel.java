@@ -265,6 +265,9 @@ public class MainPanel extends JPanel {
 		playlist.setPlayAll(false);
 		playlist.save();
 		Configuration.store();
+		System.out.println("Stopping now");
+		playlist.stop();
+		System.out.println("Done");
 	}
 	
 	/* (non-Javadoc)
