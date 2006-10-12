@@ -646,45 +646,45 @@ public abstract class Playlist implements ListModel {
 	
 	protected void fireIntervalAdded(int from, int to) {
 		ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, from, to);
-		for (int i = 0; i < listDataListeners.size(); i++) {
+		for (int i = listDataListeners.size() - 1; i >= 0; i--) {
 			((ListDataListener)listDataListeners.get(i)).intervalAdded(e);
 		}
 	}
 	
 	protected void fireIntervalRemoved(int from, int to) {
 		ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, from, to);
-		for (int i = 0; i < listDataListeners.size(); i++) {
+		for (int i = listDataListeners.size() - 1; i >= 0; i--) {
 			((ListDataListener)listDataListeners.get(i)).intervalRemoved(e);
 		}
 	}
 	
 	protected void fireContentsChanged(int from, int to) {
 		ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, from, to);
-		for (int i = 0; i < listDataListeners.size(); i++) {
+		for (int i = listDataListeners.size() - 1; i >= 0; i--) {
 			((ListDataListener)listDataListeners.get(i)).contentsChanged(e);
 		}
 	}
 	
 	protected void firePlaybackStarted(Player player) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlaylistListener)listeners.get(i)).playbackStarted(player);
 		}
 	}
 	
 	protected void firePlaybackCompleted(Player player) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlaylistListener)listeners.get(i)).playbackCompleted(player);
 		}
 	}
 	
 	protected void firePlaybackStopped(Player player) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlaylistListener)listeners.get(i)).playbackStopped(player);
 		}
 	}
 	
 	protected void firePlaybackFailed(Player player) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlaylistListener)listeners.get(i)).playbackFailed(player);
 		}
 	}

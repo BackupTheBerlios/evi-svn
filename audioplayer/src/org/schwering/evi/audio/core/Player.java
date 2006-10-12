@@ -80,13 +80,13 @@ public abstract class Player {
 	}
 	
 	protected void firePlaybackStopped() {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlayerListener)listeners.get(i)).playbackStopped();
 		}
 	}
 	
 	protected void firePlaybackFailed() {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IPlayerListener)listeners.get(i)).playbackFailed();
 		}
 	}

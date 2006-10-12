@@ -46,7 +46,7 @@ public final class ModuleLoader extends URLClassLoader {
 	/**
 	 * Contains all <code>IModuleLoaderListener</code>s.
 	 */
-	private static Vector listeners = new Vector(2);
+	private static Vector listeners = new Vector();
 	
 	/**
 	 * The URL of the JAR file.
@@ -112,10 +112,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @param module The new module.
 	 */
 	private static void fireLoaded(ModuleContainer module) {
-		if (listeners == null) {
-			return;
-		}
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IModuleLoaderListener)listeners.get(i)).loaded(module);
 		}
 	}
@@ -125,10 +122,7 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @param module The removed module.
 	 */
 	private static void fireUnloaded(ModuleContainer module) {
-		if (listeners == null) {
-			return;
-		}
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IModuleLoaderListener)listeners.get(i)).unloaded(module);
 		}
 	}

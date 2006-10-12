@@ -88,7 +88,7 @@ implements HyperlinkListener, KeyListener {
 	 * @see IHTMLPaneListener#addressChanged(URL)
 	 */
 	private void fireAddressChanged(URL url) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IHTMLPaneListener)listeners.get(i)).addressChanged(url);
 		}
 	}
@@ -99,7 +99,7 @@ implements HyperlinkListener, KeyListener {
 	 * @see IHTMLPaneListener#loading(URL)
 	 */
 	private void fireLoading(URL url) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IHTMLPaneListener)listeners.get(i)).loading(url);
 		}
 	}
@@ -110,7 +110,7 @@ implements HyperlinkListener, KeyListener {
 	 * @see IHTMLPaneListener#loaded(URL)
 	 */
 	private void fireLoaded(URL url) {
-		for (int i = 0; i < listeners.size(); i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IHTMLPaneListener)listeners.get(i)).loaded(url);
 		}
 	}

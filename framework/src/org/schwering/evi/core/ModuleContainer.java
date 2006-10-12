@@ -101,8 +101,7 @@ public final class ModuleContainer {
 	 * @param m The newly created instance.
 	 */
 	void fireInstantiated(IModule m) {
-		int len = listeners.size();
-		for (int i = 0; i < len; i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IModuleListener)listeners.get(i)).instantiated(m);
 		}
 	}
@@ -113,8 +112,7 @@ public final class ModuleContainer {
 	 * @param m The instance which is disposed.
 	 */
 	void fireDisposed(IModule m) {
-		int len = listeners.size();
-		for (int i = 0; i < len; i++) {
+		for (int i = listeners.size() - 1; i >= 0; i--) {
 			((IModuleListener)listeners.get(i)).disposed(m);
 		}
 	}
