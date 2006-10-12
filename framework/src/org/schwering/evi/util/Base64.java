@@ -47,6 +47,12 @@ public class Base64 {
 			sb.append(table[(g[1] << 2 | g[2] >> 6) & 63]);
 			sb.append(table[g[2] & 63]);
 		}
+		/* delete '\0' characters */
+		for (int i = sb.length() - 1; i >= 0; i--) {
+			if (sb.charAt(i) == 0) {
+				sb.deleteCharAt(i);
+			}
+		}
 		return sb.toString();
 	}
 	
@@ -69,6 +75,12 @@ public class Base64 {
 			sb.append((char)((g[0] << 2 | (g[1] >> 4 & 3)) & 127));
 			sb.append((char)((g[1] << 4 | (g[2] >> 2 & 15)) & 127));
 			sb.append((char)((g[2] << 6 | (g[3] & 63)) & 127));
+		}
+		/* delete '\0' characters */
+		for (int i = sb.length() - 1; i >= 0; i--) {
+			if (sb.charAt(i) == 0) {
+				sb.deleteCharAt(i);
+			}
 		}
 		return sb.toString();
 	}
