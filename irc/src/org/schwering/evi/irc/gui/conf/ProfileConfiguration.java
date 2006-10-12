@@ -16,6 +16,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
@@ -104,7 +105,7 @@ public class ProfileConfiguration extends JPanel {
 						ExceptionDialog.show(exc);
 					}
 					profile.setSSL(ssl.isSelected());
-					profile.setPassword(password.getText());
+					profile.setPassword(new String(password.getPassword()));
 					profile.setNickname(nickname.getText());
 					profile.setUsername(username.getText());
 					profile.setRealname(realname.getText());
@@ -189,7 +190,7 @@ public class ProfileConfiguration extends JPanel {
 		p.add(row);
 	}
 	
-	private JTextField password = new JTextField(10);
+	private JPasswordField password = new JPasswordField(10);
 	
 	private void addPassword(JPanel p) {
 		RightClickMenu.addRightClickMenu(password);
