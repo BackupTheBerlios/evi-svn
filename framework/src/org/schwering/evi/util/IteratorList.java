@@ -18,6 +18,7 @@ import java.util.Vector;
  *  method:                         previous()    current()      next()
  * </pre>
  * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
  */
 public class IteratorList {
 	private int index = -1;
