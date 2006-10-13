@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.JTextField;
 
+import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.IteratorList;
 
@@ -22,6 +23,10 @@ public class InputField extends JTextField implements ActionListener, KeyListene
 	protected IteratorList history = new IteratorList(50);
 	
 	public InputField() {
+		this(null);
+	}
+	
+	public InputField(Profile p) {
 		addActionListener(this);
 		addKeyListener(this);
 		RightClickMenu.addRightClickMenu(this);

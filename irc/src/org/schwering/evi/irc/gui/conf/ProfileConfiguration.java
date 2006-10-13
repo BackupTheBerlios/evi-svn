@@ -26,7 +26,7 @@ import javax.swing.JTextArea;
 
 import org.schwering.evi.gui.EVI;
 import org.schwering.evi.conf.MainConfiguration;
-import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.irc.conf.FullProfile;
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.util.ColorSelector;
 import org.schwering.evi.util.ExceptionDialog;
@@ -36,7 +36,7 @@ import org.schwering.evi.util.FontSelector;
 public class ProfileConfiguration extends JPanel {
 	private static final long serialVersionUID = -2004581161964697319L;
 
-	private Profile profile;
+	private FullProfile profile;
 	
 	public ProfileConfiguration() {
 		JPanel connectionPanel = new JPanel(new GridLayout(8, 1));
@@ -627,9 +627,9 @@ public class ProfileConfiguration extends JPanel {
 		p.add(row);
 	}
 	
-	public void setProfile(Profile p) {
+	public void setProfile(FullProfile p) {
 		profile = p;
-		setBorder(new TitledBorder("Profile "+ p));
+		setBorder(new TitledBorder("FullProfile "+ p));
 		server.setText(p.getServer());
 		port.setText(new Integer(p.getPort()).toString());
 		ssl.setSelected(p.getSSL());

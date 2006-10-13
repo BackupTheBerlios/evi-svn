@@ -19,9 +19,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.schwering.evi.irc.ConnectionManager;
+import org.schwering.evi.irc.IRC;
 import org.schwering.evi.irc.conf.Configuration;
 import org.schwering.evi.irc.conf.DefaultValues;
+import org.schwering.evi.irc.conf.FullProfile;
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.irc.conf.URIProfile;
 import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
 
@@ -32,11 +36,11 @@ import org.schwering.evi.util.RightClickMenu;
 public class ConnectPanel extends JPanel {
 	private static final long serialVersionUID = -7702412608748071796L;
 	
-	private TabBar tabBar; 
+	private IRC irc; 
 
-	public ConnectPanel(TabBar tabBar) {
+	public ConnectPanel(IRC irc) {
 		setLayout(new GridLayout(1, 1));
-		this.tabBar = tabBar;
+		this.irc = irc;
 		
 		JPanel tmp = new JPanel();
 		tmp.setLayout(new BorderLayout());
@@ -215,10 +219,10 @@ public class ConnectPanel extends JPanel {
 	
 	private JPanel makeProfileConnectPanel() {
 		JPanel p = new JPanel();
-		p.setBorder(new TitledBorder("Connect Profile"));
+		p.setBorder(new TitledBorder("Connect FullProfile"));
 		p.setLayout(new GridLayout(2, 0));
 		
-		Profile[] profiles = Profile.getProfiles();
+		FullProfile[] profiles = FullProfile.getProfiles();
 		String lastProfile = Configuration.getLastProfile();
 		int selected = -1;
 		for (int i = 0; i < profiles.length; i++) {
@@ -236,7 +240,7 @@ public class ConnectPanel extends JPanel {
 		
 		connectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Profile profile = (Profile)profileBox.getSelectedItem();
+				FullProfile profile = (FullProfile)profileBox.getSelectedItem();
 				Configuration.setLastProfile(profile.toString());
 				connect(profile);
 			}
@@ -265,12 +269,11 @@ public class ConnectPanel extends JPanel {
 	}
 	
 	private void connect(URI uri) {
-		tabBar.remove(this);
-		tabBar.add(new SimpleWindow());
+		connect(new URIProfile(uri));
 	}
 	
 	private void connect(Profile profile) {
-		tabBar.remove(this);
-		tabBar.add(new SimpleWindow());
+		irc.getTabBar().remove(this);
+		ConnectionManager.connect(irc, profile);
 	}
 }

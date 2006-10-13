@@ -24,7 +24,8 @@ public class TabBar extends JTabbedPane {
 	
 	public void addTab(int index, AbstractWindow tab) {
 		String title = tab.getTitle();
-		insertTab(title, null, tab, title, index);
+		String shortTitle = shortenTitle(title);
+		insertTab(shortTitle, null, tab, title, index);
 	}
 	
 	public void removeTab(int index) {
@@ -39,5 +40,33 @@ public class TabBar extends JTabbedPane {
 	public void removeTab(AbstractWindow tab) {
 		remove(tab);
 		tab.dispose();
+	}
+	
+	public boolean hasConsoleWindow() {
+		for (int i = 0; i < getTabCount(); i++) {
+			if (getComponentAt(i) instanceof ConsoleWindow) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ConsoleWindow getConsoleWindow() {
+		for (int i = 0; i < getTabCount(); i++) {
+			if (getComponentAt(i) instanceof ConsoleWindow) {
+				return (ConsoleWindow)getComponentAt(i);
+			}
+		}
+		return null;
+	}
+	
+	private static String shortenTitle(String title) {
+		if (title == null || title.length() < 18) {
+			return title;
+		} else {
+			String first = title.substring(0, 10);
+			String last = title.substring(title.length() - 4);
+			return first +"..."+ last;
+		}
 	}
 }

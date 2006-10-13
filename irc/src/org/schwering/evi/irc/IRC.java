@@ -20,7 +20,7 @@ public class IRC implements IModule, IPanel {
 	private TabBar tabs = new TabBar();
 
 	public IRC() {
-		tabs.addTab("Connect", new ConnectPanel(tabs));
+		tabs.addTab("Connect", new ConnectPanel(this));
 	}
 	
 	public IRC(Object[] args) {
@@ -54,6 +54,10 @@ public class IRC implements IModule, IPanel {
 	 */
 	public String getTitle() {
 		return "IRC";
+	}
+	
+	public TabBar getTabBar() {
+		return tabs;
 	}
 
 	public void updateTitle(String newTitle) {

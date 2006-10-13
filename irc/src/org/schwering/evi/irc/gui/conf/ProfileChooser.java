@@ -15,24 +15,24 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 import org.schwering.evi.util.ExceptionDialog;
-import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.irc.conf.FullProfile;
 
 public class ProfileChooser extends JPanel {
 	private static final long serialVersionUID = 8018487724029132222L;
 	
-	private JButton delProfile = new JButton("Delete Profile");
+	private JButton delProfile = new JButton("Delete FullProfile");
 	private JComboBox box = new JComboBox();
 	private Configuration owner;
 	
 	public ProfileChooser(final Configuration owner) {
 		this.owner = owner;
-		final JButton newProfile = new JButton("New Profile");
+		final JButton newProfile = new JButton("New FullProfile");
 		newProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String name = JOptionPane.showInputDialog("Enter the name of the new profile:");
 					if (name != null) {
-						Profile p = new Profile(name);
+						FullProfile p = new FullProfile(name);
 						addProfile(p);
 						box.setSelectedItem(p);
 					}
@@ -45,7 +45,7 @@ public class ProfileChooser extends JPanel {
 		delProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Profile p = (Profile)box.getSelectedItem();
+					FullProfile p = (FullProfile)box.getSelectedItem();
 					removeProfile(p);
 					p.delete();
 				} catch (Exception exc) {
@@ -54,7 +54,7 @@ public class ProfileChooser extends JPanel {
 			}
 		});
 		
-		Profile[] p = Profile.getProfiles();
+		FullProfile[] p = FullProfile.getProfiles();
 		Arrays.sort(p, new Comparator() {
 			public int compare(Object arg0, Object arg1) {
 				return arg0.toString().compareTo(arg1.toString());
@@ -66,25 +66,25 @@ public class ProfileChooser extends JPanel {
 		box.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					owner.setProfile((Profile)e.getItem());
+					owner.setProfile((FullProfile)e.getItem());
 				}
 			}
 		});
 		
 		delProfile.setEnabled(box.getItemCount() != 0);
-		owner.setProfile((box.getItemCount() > 0) ? (Profile)box.getSelectedItem() : null);
+		owner.setProfile((box.getItemCount() > 0) ? (FullProfile)box.getSelectedItem() : null);
 		
 		add(newProfile);
 		add(box);
 		add(delProfile);
 	}
 	
-	private void addProfile(Profile p) {
+	private void addProfile(FullProfile p) {
 		box.addItem(p);
 		delProfile.setEnabled(box.getItemCount() > 0);
 	}
 	
-	private void removeProfile(Profile p) {
+	private void removeProfile(FullProfile p) {
 		box.removeItem(p);
 		delProfile.setEnabled(box.getItemCount() > 0);
 		if (box.getItemCount() == 0) {

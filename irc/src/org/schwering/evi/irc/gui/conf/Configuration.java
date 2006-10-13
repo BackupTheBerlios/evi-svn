@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.JPanel;
 
 import org.schwering.evi.core.IPanel;
-import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.irc.conf.FullProfile;
 
 public class Configuration extends JPanel implements IPanel {
 	private static final long serialVersionUID = -812108760596619774L;
@@ -32,7 +32,7 @@ public class Configuration extends JPanel implements IPanel {
 		add(configPanel, BorderLayout.CENTER);
 	}
 	
-	public void setProfile(Profile p) {
+	public void setProfile(FullProfile p) {
 		if (p != null) {
 			if (!configPanel.isVisible()) {
 				configPanel.setVisible(true);

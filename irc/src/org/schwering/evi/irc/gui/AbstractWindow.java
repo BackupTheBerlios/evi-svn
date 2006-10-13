@@ -6,6 +6,7 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
+import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.TextPane;
 
 /**
@@ -14,14 +15,17 @@ import org.schwering.evi.util.TextPane;
  * @version $Id$
  */
 public abstract class AbstractWindow extends JPanel {
+	protected Profile profile;
 	protected String title;
 	protected InputField input;
 	protected TextPane text;
 	
-	public AbstractWindow() {
+	public AbstractWindow(Profile p) {
 		super(new BorderLayout());
+		profile = p;
 		text = new TextPane();
 		input = new InputField();
+		updateLayout();
 		
 		Component c;
 		c = getHeaderComponent();
@@ -38,6 +42,8 @@ public abstract class AbstractWindow extends JPanel {
 	protected abstract Component getHeaderComponent();
 	
 	protected abstract Component getTextComponent();
+	
+	public abstract void updateLayout();
 	
 	public void dispose() {
 	}
