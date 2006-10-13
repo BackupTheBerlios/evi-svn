@@ -1,22 +1,27 @@
 /* Copyright (C) 2006 Christoph Schwering */
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URI;
 
-import javax.swing.JButton;
-
-import org.schwering.evi.core.ICustomButtonable;
+import org.schwering.evi.core.IButtonable;
 import org.schwering.evi.core.IMenuable;
 import org.schwering.evi.core.IModule;
 import org.schwering.evi.core.IModuleInfo;
 import org.schwering.evi.core.IParameterizable;
 import org.schwering.evi.core.IURIHandler;
-import org.schwering.evi.core.ModuleContainer;
-import org.schwering.evi.core.ModuleFactory;
-import org.schwering.evi.core.ModuleLoader;
-import org.schwering.evi.util.ExceptionDialog;
 
-public class HelloWorldInfo implements IModuleInfo, ICustomButtonable, 
+/**
+ * A module that shows a label with "Hello World".
+ * 
+ * It implements IModuleInfo because this is the info class.
+ * It implements IButtonable because we want the default button in the toolbar.
+ * It implements IMenuable because we want the default menu in the menubar.
+ * It implements IURIHandler because the module recognizes http-URLs that are given 
+ * as arguments to the EVI framework (the URL is simply displayed in the label, nothing 
+ * spectecular).
+ * It implements IParameterizable because the user can specify an argument in the 
+ * EVI module autostart (the module displays the argument in the label).
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ */
+public class HelloWorldInfo implements IModuleInfo, IButtonable, 
 								IMenuable, IURIHandler, IParameterizable {
 
 	public boolean isMenuable() {
@@ -44,21 +49,6 @@ public class HelloWorldInfo implements IModuleInfo, ICustomButtonable,
 		return new HelloWorld(s);
 	}
 
-	public JButton getCustomButton() {
-		JButton button = new JButton("Fool Me!");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					ModuleContainer container = ModuleLoader.getLoadedModule("HelloWorld");
-					ModuleFactory.newInstance(container);
-				} catch (Exception exc) {
-					ExceptionDialog.show(exc);
-				}
-			}
-		});
-		return button;
-	}
-
 	public String getInfoURL() {
 		return null;
 	}
@@ -68,7 +58,7 @@ public class HelloWorldInfo implements IModuleInfo, ICustomButtonable,
 	}
 
 	public String getName() {
-		return "Hello!";
+		return "Hello World";
 	}
 
 	public float getVersion() {

@@ -14,9 +14,10 @@ import org.schwering.evi.core.IPanel;
 /**
  * A module that shows a label with "Hello World".
  * 
- * It extends JPanel.. well because JPanel is a graphical component.
+ * It extends JPanel because JPanel is a graphical component.
  * It implements IModule because it is a module.
  * It implements IPanel because it is a graphical module.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class HelloWorld extends JPanel implements IModule, IPanel {
 	private static final long serialVersionUID = -6534025009528050898L;
@@ -68,6 +69,6 @@ public class HelloWorld extends JPanel implements IModule, IPanel {
 	 * notice when dispose() is invoked.
 	 */
 	public void dispose() {
-		System.out.println("Bye!");
+		System.out.println("HelloWorld says Bye!");
 	}
 }
