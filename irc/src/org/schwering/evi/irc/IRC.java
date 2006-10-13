@@ -20,7 +20,7 @@ public class IRC implements IModule, IPanel {
 	private TabBar tabs = new TabBar();
 
 	public IRC() {
-		tabs.addTab("Connect", new ConnectPanel());
+		tabs.addTab("Connect", new ConnectPanel(tabs));
 	}
 	
 	public IRC(Object[] args) {

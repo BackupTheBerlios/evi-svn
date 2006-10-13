@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -21,6 +22,7 @@ import javax.swing.border.TitledBorder;
 import org.schwering.evi.irc.conf.Configuration;
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.evi.util.RightClickMenu;
 
 /**
@@ -29,9 +31,12 @@ import org.schwering.evi.util.RightClickMenu;
  */
 public class ConnectPanel extends JPanel {
 	private static final long serialVersionUID = -7702412608748071796L;
+	
+	private TabBar tabBar; 
 
-	public ConnectPanel() {
+	public ConnectPanel(TabBar tabBar) {
 		setLayout(new GridLayout(1, 1));
+		this.tabBar = tabBar;
 		
 		JPanel tmp = new JPanel();
 		tmp.setLayout(new BorderLayout());
@@ -84,7 +89,17 @@ public class ConnectPanel extends JPanel {
 		
 		connectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Configuration.setLastURI(uriTF.getText());
+				String uriStr = uriTF.getText();
+				Configuration.setLastURI(uriStr);
+				URI uri = null;
+				try {
+					uri = new URI(uriStr);
+				} catch (URISyntaxException exc) {
+					ExceptionDialog.show(exc);
+				}
+				if (uri != null) {
+					connect(uri);
+				}
 			}
 		});
 		
@@ -221,7 +236,9 @@ public class ConnectPanel extends JPanel {
 		
 		connectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Configuration.setLastProfile(profileBox.getSelectedItem().toString());
+				Profile profile = (Profile)profileBox.getSelectedItem();
+				Configuration.setLastProfile(profile.toString());
+				connect(profile);
 			}
 		});
 		
@@ -245,5 +262,15 @@ public class ConnectPanel extends JPanel {
 		JPanel tmp2 = new JPanel(new BorderLayout());
 		tmp2.add(tmp1, BorderLayout.NORTH);
 		return tmp2;
+	}
+	
+	private void connect(URI uri) {
+		tabBar.remove(this);
+		tabBar.add(new SimpleWindow());
+	}
+	
+	private void connect(Profile profile) {
+		tabBar.remove(this);
+		tabBar.add(new SimpleWindow());
 	}
 }
