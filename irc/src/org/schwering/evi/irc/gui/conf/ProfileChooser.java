@@ -32,7 +32,9 @@ public class ProfileChooser extends JPanel {
 				try {
 					String name = JOptionPane.showInputDialog("Enter the name of the new profile:");
 					if (name != null) {
-						addProfile(new Profile(name));
+						Profile p = new Profile(name);
+						addProfile(p);
+						box.setSelectedItem(p);
 					}
 				} catch (Exception exc) {
 					ExceptionDialog.show("Could not create new profile", exc);
@@ -47,7 +49,7 @@ public class ProfileChooser extends JPanel {
 					removeProfile(p);
 					p.delete();
 				} catch (Exception exc) {
-					ExceptionDialog.show("Could not create new profile", exc);
+					ExceptionDialog.show("Could not remove profile", exc);
 				}
 			}
 		});
