@@ -21,13 +21,23 @@ import java.util.Vector;
  */
 public class IteratorList {
 	private int index = -1;
-	private List list;
+	private List list = new Vector();
+	private int maxSize = -1;
+	
+	/**
+	 * Creates a new list. The maximum size is infinty.
+	 */
+	public IteratorList() {
+		this(-1);
+	}
 	
 	/**
 	 * Creates a new list.
+	 * @param maxSize The maximum size. If the list exceeds this size, the first 
+	 * elements are removed.
 	 */
-	public IteratorList() {
-		list = new Vector();
+	public IteratorList(int maxSize) {
+		this.maxSize = maxSize;
 	}
 	
 	/**
@@ -45,6 +55,8 @@ public class IteratorList {
 	public synchronized void append(Object item) {
 		if (item != null)
 			list.add(size(), item);
+		if (maxSize != -1 && size() > maxSize)
+			removeFirst();
 	}
 	
 	/**
