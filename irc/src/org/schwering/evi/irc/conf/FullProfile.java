@@ -15,14 +15,19 @@ import org.schwering.evi.irc.IRC;
 import org.schwering.evi.conf.MainConfiguration;
 import org.schwering.evi.conf.Properties;
 
-public class Profile {
+/**
+ * Profile that stores the settings in a file.
+ * @author Christoph Schwering (mailto:schwering@gmail.com)
+ * @version $Id$
+ */
+public class FullProfile implements Profile {
 	private static final String PROFILE_PREFIX = ModuleContainer.getIdByClass(IRC.class) +"_profile_";
 	private Properties props;
 	private String name;
 	
 	private static Hashtable profileTable = new Hashtable();
 	
-	public static Profile[] getProfiles() {
+	public static FullProfile[] getProfiles() {
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				return name.startsWith(PROFILE_PREFIX);
@@ -34,7 +39,7 @@ public class Profile {
 			name = name.substring(PROFILE_PREFIX.length());
 			if (!profileTable.containsKey(name)) {
 				try {
-					Profile profile = new Profile(name);
+					FullProfile profile = new FullProfile(name);
 					profileTable.put(name, profile);
 				} catch (Exception exc) {
 					exc.printStackTrace();
@@ -42,12 +47,12 @@ public class Profile {
 			}
 		}
 		Collection profileCollection = profileTable.values();
-		Profile[] profiles = new Profile[profileCollection.size()];
+		FullProfile[] profiles = new FullProfile[profileCollection.size()];
 		profileCollection.toArray(profiles);
 		return profiles;
 	}
 	
-	public Profile(String name) throws IOException {
+	public FullProfile(String name) throws IOException {
 		props = new Properties(PROFILE_PREFIX + name);
 		props.setShutdownHook(true);
 		props.load();
