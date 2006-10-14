@@ -23,25 +23,34 @@ public abstract class AbstractWindow extends JPanel {
 	public AbstractWindow(Profile p) {
 		super(new BorderLayout());
 		profile = p;
-		text = new TextPane();
+		text = new TextPane() {
+			public void requestFocus() {
+				input.requestFocus();
+			}
+		};
 		input = new InputField();
 		updateLayout();
 		
 		Component c;
-		c = getHeaderComponent();
+		c = createHeaderComponent();
+		if (c != null) {
+			add(c, BorderLayout.NORTH);
+		}
+		c = createTextComponent();
 		if (c != null) {
 			add(c, BorderLayout.CENTER);
 		}
-		c = getTextComponent();
+		c = createFooterComponent();
 		if (c != null) {
-			add(c, BorderLayout.CENTER);
+			add(c, BorderLayout.SOUTH);
 		}
-		add(input, BorderLayout.SOUTH);
 	}
 	
-	protected abstract Component getHeaderComponent();
+	protected abstract Component createHeaderComponent();
 	
-	protected abstract Component getTextComponent();
+	protected abstract Component createTextComponent();
+	
+	protected abstract Component createFooterComponent();
 	
 	public abstract void updateLayout();
 	

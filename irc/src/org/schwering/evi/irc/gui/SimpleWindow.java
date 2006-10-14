@@ -21,18 +21,31 @@ public abstract class SimpleWindow extends AbstractWindow {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.irc.gui.AbstractWindow#getHeaderComponent()
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createHeaderComponent()
 	 */
-	protected Component getHeaderComponent() {
+	protected Component createHeaderComponent() {
 		return null;
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.irc.gui.AbstractWindow#getTextComponent()
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createTextComponent()
 	 */
-	protected Component getTextComponent() {
+	protected Component createTextComponent() {
 		JScrollPane sp = new JScrollPane(text);
 		return sp;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createFooterComponent()
+	 */
+	protected Component createFooterComponent() {
+		input.addListener(new IInputListener() {
+			public void inputFired(String str) {
+				text.append(str);
+				text.append("\n");
+			}
+		});
+		return input;
 	}
 	
 	/* (non-Javadoc)
@@ -48,9 +61,8 @@ public abstract class SimpleWindow extends AbstractWindow {
 	 * @param bg The background.
 	 */
 	public void updateLayout(Font font, Color fg, Color bg) {
-		input.setFont(font);
-		input.setForeground(fg);
-		input.setBackground(bg);
+		input.modifyAttributes(font.getFamily(), font.getSize(), fg, bg, 
+				font.isBold(), font.isItalic(), false);
 		text.modifyAttributes(font.getFamily(), font.getSize(), fg, bg, 
 				font.isBold(), font.isItalic(), false);
 	}

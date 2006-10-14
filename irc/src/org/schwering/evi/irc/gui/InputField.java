@@ -7,18 +7,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
 
-import javax.swing.JTextField;
-
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.IteratorList;
+import org.schwering.evi.util.TextField;
 
 /**
  * The input field with history.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class InputField extends JTextField implements ActionListener, KeyListener {
+public class InputField extends TextField implements ActionListener, KeyListener {
 	protected Vector listeners = new Vector();
 	protected IteratorList history = new IteratorList(50);
 	
@@ -37,10 +36,12 @@ public class InputField extends JTextField implements ActionListener, KeyListene
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		String s = getText();
-		setText("");
-		fireInputFired(s);
-		history.append(s);
-		history.moveBehind();
+		if (s != null && s.length() > 0) {
+			setText("");
+			fireInputFired(s);
+			history.append(s);
+			history.moveBehind();
+		}
 	}
 	
 	/* (non-Javadoc)
