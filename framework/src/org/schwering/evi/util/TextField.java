@@ -3,7 +3,7 @@ package org.schwering.evi.util;
 
 import java.awt.Color;
 
-import javax.swing.JTextPane;
+import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -11,30 +11,32 @@ import javax.swing.text.SimpleAttributeSet;
 import org.schwering.evi.util.Document;
 
 /**
- * A textpane that is mainly useful for logging purposes.<br />
+ * A textfield that is mainly useful for logging purposes.<br />
  * <br />
- * The textpane has a <code>org.schwering.evi.util.Document</code> as 
+ * The textfield has a <code>org.schwering.evi.util.Document</code> as 
  * document. The respective methods simply forward to the document.<br />
- * The created <code>JTextPane</code> is initialized with 
- * <code>setAutoscrolls(true)</code> and <code>setEditable(false)</code>
- * by default.<br />
+ * The created <code>JTextField</code> is initialized with 
+ * <code>setEditable(true)</code> by default.<br />
  * <br />
  * This class encapsulates several often-used functionalities for colorful
- * textpanes.
+ * textfields.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class TextPane extends JTextPane {
+public class TextField extends JTextField {
 	private static final long serialVersionUID = 2865927208666493111L;
 	
 	/**
 	 * Creates a new non-editable <code>TextPane</code> with an empty document.
 	 */
-	public TextPane() {
+	public TextField() {
 		super();
 		setDocument(new Document(this));
-		setAutoscrolls(true);
-		setEditable(false);
+	}
+	
+	public void setText(String s) {
+		removeText();
+		append(s);
 	}
 	
 	/* (non-Javadoc)
