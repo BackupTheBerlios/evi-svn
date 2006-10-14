@@ -34,6 +34,9 @@ public class TextField extends JTextField {
 		setDocument(new Document(this));
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.text.JTextComponent#setText(java.lang.String)
+	 */
 	public void setText(String s) {
 		removeText();
 		append(s);
