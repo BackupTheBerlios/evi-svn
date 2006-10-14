@@ -18,9 +18,11 @@ public class ConnectionManager {
 	 */
 	public static void connect(IRC irc, Profile profile) {
 		TabBar tabBar = irc.getTabBar();
+		
 		ConsoleWindow console;
-		if (tabBar.hasConsoleWindow()) {
-			console = tabBar.getConsoleWindow();
+		ConsoleWindow[] arr = (ConsoleWindow[])tabBar.getInstancesOf(ConsoleWindow.class);
+		if (arr.length == 1) {
+			console = arr[0];
 		} else {
 			console = new ConsoleWindow(profile);
 			tabBar.addTab(0, console);

@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.util.TextPane;
 
 /**
  * A simple window with chat field and input field.
@@ -15,30 +16,38 @@ import org.schwering.evi.irc.conf.Profile;
  * @version $Id$
  */
 public abstract class SimpleWindow extends AbstractWindow {
+	protected InputField input;
+	protected TextPane text;
 
 	public SimpleWindow(Profile profile) {
 		super(profile);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.irc.gui.AbstractWindow#createHeaderComponent()
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createNorthComponent()
 	 */
-	protected Component createHeaderComponent() {
+	protected Component createNorthComponent() {
 		return null;
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.irc.gui.AbstractWindow#createTextComponent()
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createCenterComponent()
 	 */
-	protected Component createTextComponent() {
+	protected Component createCenterComponent() {
+		text = new TextPane() {
+			public void requestFocus() {
+				input.requestFocus();
+			}
+		};
 		JScrollPane sp = new JScrollPane(text);
 		return sp;
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.schwering.evi.irc.gui.AbstractWindow#createFooterComponent()
+	 * @see org.schwering.evi.irc.gui.AbstractWindow#createSouthComponent()
 	 */
-	protected Component createFooterComponent() {
+	protected Component createSouthComponent() {
+		input = new InputField();
 		input.addListener(new IInputListener() {
 			public void inputFired(String str) {
 				text.append(str);
@@ -65,5 +74,15 @@ public abstract class SimpleWindow extends AbstractWindow {
 				font.isBold(), font.isItalic(), false);
 		text.modifyAttributes(font.getFamily(), font.getSize(), fg, bg, 
 				font.isBold(), font.isItalic(), false);
+	}
+	
+	/**
+	 * Forwards the focus to the input line.
+	 */
+	public void requestFocus() {
+		super.requestFocus();
+		if (input != null) {
+			input.requestFocus();
+		}
 	}
 }

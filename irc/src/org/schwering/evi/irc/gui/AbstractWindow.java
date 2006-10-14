@@ -7,7 +7,6 @@ import java.awt.Component;
 import javax.swing.JPanel;
 
 import org.schwering.evi.irc.conf.Profile;
-import org.schwering.evi.util.TextPane;
 
 /**
  * Base class for console, channels and queries.
@@ -17,52 +16,75 @@ import org.schwering.evi.util.TextPane;
 public abstract class AbstractWindow extends JPanel {
 	protected Profile profile;
 	protected String title;
-	protected InputField input;
-	protected TextPane text;
 	
 	public AbstractWindow(Profile p) {
 		super(new BorderLayout());
 		profile = p;
-		text = new TextPane() {
-			public void requestFocus() {
-				input.requestFocus();
-			}
-		};
-		input = new InputField();
-		updateLayout();
 		
 		Component c;
-		c = createHeaderComponent();
+		c = createNorthComponent();
 		if (c != null) {
 			add(c, BorderLayout.NORTH);
 		}
-		c = createTextComponent();
+		c = createCenterComponent();
 		if (c != null) {
 			add(c, BorderLayout.CENTER);
 		}
-		c = createFooterComponent();
+		c = createSouthComponent();
 		if (c != null) {
 			add(c, BorderLayout.SOUTH);
 		}
+		
+		updateLayout();
 	}
 	
-	protected abstract Component createHeaderComponent();
+	/**
+	 * Should create the new header component. The header can be <code>null</code> or 
+	 * the the topic line, for example. The component is added to the panel with 
+	 * <code>BorderLayout.NORTH</code>.
+	 * @return The header or <code>null</code>.
+	 */
+	protected abstract Component createNorthComponent();
 	
-	protected abstract Component createTextComponent();
+	/**
+	 * Should create the new centered component. The center component is usually the 
+	 * chat window. The component is added to the panel with 
+	 * <code>BorderLayout.CENTER</code>.
+	 * @return The text component or <code>null</code>.
+	 */
+	protected abstract Component createCenterComponent();
 	
-	protected abstract Component createFooterComponent();
+	/**
+	 * Should create the new footer component. The footer is usually the input line.
+	 * The component is added to the panel with <code>BorderLayout.NORTH</code>.
+	 * @return The footer or <code>null</code>.
+	 */
+	protected abstract Component createSouthComponent();
 	
+	/**
+	 * Should update the layout like fonts and colors.
+	 */
 	public abstract void updateLayout();
 	
+	/**
+	 * Invokes when the tab is closed with <code>TabBar.removeTab</code>.
+	 */
 	public void dispose() {
 	}
 	
+	/**
+	 * Sets the title.
+	 * @param title The new title.
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
+	/**
+	 * Returns the title of the window.
+	 * @return The tab's title.
+	 */
 	public String getTitle() {
 		return title;
 	}
-	
 }
