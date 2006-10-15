@@ -4,6 +4,8 @@ package org.schwering.evi.core;
 import java.lang.reflect.Constructor;
 import java.net.URI;
 
+import org.schwering.evi.util.ShutdownHookManager;
+
 /**
  * Provides methods to instantiate and dispose a module.<br>
  * When a module is instantiated, this new instance is registered in the 
@@ -28,8 +30,7 @@ public final class ModuleFactory {
 	 * Adds a shutdownhook that shuts down all open modules.
 	 */
 	static {
-		Runtime r = Runtime.getRuntime();
-		r.addShutdownHook(new Thread() {
+		ShutdownHookManager.addShutdownHook(new Thread() {
 			public void run() {
 				ModuleContainer[] containers = ModuleLoader.getLoadedModules();
 				for (int i = 0; i < containers.length; i++) {
