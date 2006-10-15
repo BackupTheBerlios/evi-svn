@@ -13,6 +13,11 @@ import org.schwering.evi.irc.conf.Profile;
  */
 public class ConsoleWindow extends SimpleWindow {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9050564952598388606L;
+
 	public ConsoleWindow(Profile profile) {
 		super(profile);
 		setTitle("Console ("+ profile.getName() +")");

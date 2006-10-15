@@ -35,6 +35,7 @@ public abstract class SimpleWindow extends AbstractWindow {
 	 */
 	protected Component createCenterComponent() {
 		text = new TextPane() {
+			private static final long serialVersionUID = 1L;
 			public void requestFocus() {
 				input.requestFocus();
 			}

@@ -18,6 +18,10 @@ import org.schwering.evi.util.TextField;
  * @version $Id$
  */
 public class InputField extends TextField implements ActionListener, KeyListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3914942143557323290L;
 	protected Vector listeners = new Vector();
 	protected IteratorList history = new IteratorList(50);
 	
