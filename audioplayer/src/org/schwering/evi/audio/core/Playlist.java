@@ -29,8 +29,8 @@ public abstract class Playlist implements ListModel {
 	/** The currently played index. */
 	protected int playingIndex = -1;
 	
-	/** The player used to play the current file. */
-	protected Player player;
+	/** The thread used to play the current file. */
+	protected PlayerThread playerThread;
 	
 	/** Contains IPlaylistListeners. */
 	protected Vector listeners = new Vector(3);
@@ -295,7 +295,7 @@ public abstract class Playlist implements ListModel {
 	 * @return the current player or <code>null</code>.
 	 */
 	public Player getPlayer() {
-		return player;
+		return (playerThread != null) ? playerThread.getPlayer() : null;
 	}
 	
 	/**
@@ -303,7 +303,7 @@ public abstract class Playlist implements ListModel {
 	 * @return the currently played URL or <code>null</code>.
 	 */
 	public URL getPlayingURL() {
-		return (player != null) ? player.getResource() : null;
+		return (getPlayer() != null) ? getPlayer().getResource() : null;
 	}
 	
 	/**
@@ -454,7 +454,7 @@ public abstract class Playlist implements ListModel {
 	 * @return <code>true</code> is the player is playing.
 	 */
 	public synchronized boolean isPlaying() {
-		return player != null && player.isPlaying();
+		return getPlayer() != null && getPlayer().isPlaying();
 	}
 	
 	/**
@@ -560,9 +560,7 @@ public abstract class Playlist implements ListModel {
 			index %= size;
 		}
 		playingIndex = index;
-		if (isPlaying()) {
-			player.stop();
-		}
+		stop();
 		try {
 			final URL url = (URL)getElementAt(index);
 			if (history.size() > HISTORY_SIZE) {
@@ -580,23 +578,14 @@ public abstract class Playlist implements ListModel {
 			 * be faster, I think.
 			 */
 			final Player p = PlayerFactory.createPlayer(url);
-			this.player = p;
-			p.addListener(getPassthroughPlayerListener(player));
-			p.addListener(getConfigPlayerListener(player));
-			Thread thread = new Thread() {
-				public void run() {
-					try {
-						p.play();
-					} catch (Exception exc) {
-						exc.printStackTrace();
-					}
-				}
-			};
-			thread.setDaemon(true);
-			thread.start();
+			p.addListener(getPassthroughPlayerListener(p));
+			p.addListener(getConfigPlayerListener(p));
+			stop(); // interrupt()s the thread
+			playerThread = new PlayerThread(p);
+			playerThread.start();
 		} catch (Exception exc) {
 			exc.printStackTrace();
-			firePlaybackFailed(player);
+			firePlaybackFailed(null);
 		}
 	}
 	
@@ -636,9 +625,13 @@ public abstract class Playlist implements ListModel {
 	 * Immediately stops playing.
 	 */
 	public synchronized void stop() {
+		Player player = getPlayer();
 		if (player != null) {
 			player.stop();
 			player = null;
+		}
+		if (playerThread != null && !playerThread.isInterrupted()) {
+			playerThread.interrupt();
 		}
 	}
 	
@@ -709,7 +702,7 @@ public abstract class Playlist implements ListModel {
 	 * Wraps a URL which can be set visible or not using a query (for search).
 	 * @author Christoph Schwering (schwering@gmail.com)
 	 */
-	class ItemWrapper {
+	protected class ItemWrapper {
 		private URL url;
 		private boolean visible = true;
 		
@@ -727,6 +720,35 @@ public abstract class Playlist implements ListModel {
 		
 		public boolean isVisible() {
 			return visible;
+		}
+	}
+	
+	/**
+	 * Plays a <code>Player</code> in a different thread.
+	 * @author Christoph Schwering (mailto:schwering@gmail.com)
+	 */
+	protected class PlayerThread extends Thread {
+		private Player p;
+		
+		public PlayerThread(Player p) {
+			setDaemon(true);
+			this.p = p;
+		}
+		
+		public synchronized Player getPlayer() {
+			return p;
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
+		public void run() {
+			try {
+				p.play();
+				p.stop();
+			} catch (Exception exc) {
+				exc.printStackTrace();
+			}
 		}
 	}
 }
