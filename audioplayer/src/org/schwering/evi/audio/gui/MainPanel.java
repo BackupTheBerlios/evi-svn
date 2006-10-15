@@ -118,7 +118,7 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setMultiSelectionEnabled(true);
-				fileChooser.setCurrentDirectory(Configuration.getLastDirectory());
+				fileChooser.setSelectedFile(Configuration.getLastDirectory());
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.setFileFilter(new FileFilter() {
 					public boolean accept(File f) {

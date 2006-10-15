@@ -147,10 +147,13 @@ public abstract class Playlist implements ListModel {
 	 */
 	public int indexOf(URL url) {
 		int size = list.size();
-		for (int i = 0; i < size; i++) {
+		for (int i = 0, j = 0; i < size; i++) {
 			ItemWrapper iw = (ItemWrapper)list.get(i);
-			if (iw.isVisible() && iw.getURL().equals(url)) {
-				return i;
+			if (iw.isVisible()) {
+				if (iw.getURL().equals(url)) {
+					return j;
+				}
+				j++;
 			}
 		}
 		return -1;

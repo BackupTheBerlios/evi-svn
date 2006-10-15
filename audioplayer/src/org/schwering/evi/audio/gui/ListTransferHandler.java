@@ -12,7 +12,11 @@ import javax.swing.*;
 import org.schwering.evi.audio.core.Playlist;
 
 public class ListTransferHandler extends StringTransferHandler {
-    private int[] indices = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3896689719086181632L;
+	private int[] indices = null;
     private int addIndex = -1; //Location where items were added
     private int addCount = 0;  //Number of items added.
             
