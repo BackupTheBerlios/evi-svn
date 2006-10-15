@@ -19,6 +19,8 @@ import javax.swing.text.StyleConstants;
  * @version $Id$
  */
 public class Document extends DefaultStyledDocument {
+	private static final long serialVersionUID = -1595401247628807791L;
+	
 	private SimpleAttributeSet attr = new SimpleAttributeSet();
 	private JTextComponent owner;
 	
