@@ -238,11 +238,13 @@ implements HyperlinkListener, KeyListener {
 		if (url == null) {
 			return;
 		}
-		new Thread() {
+		Thread t = new Thread() {
 			public void run() {
 				setPageHelperMethod(url);
 			}
-		}.start();
+		};
+		t.setDaemon(true);
+		t.start();
 	}
 	
 	/**
