@@ -20,13 +20,13 @@ import org.schwering.evi.irc.conf.FullProfile;
 public class ProfileChooser extends JPanel {
 	private static final long serialVersionUID = 8018487724029132222L;
 	
-	private JButton delProfile = new JButton("Delete FullProfile");
+	private JButton delProfile = new JButton("Delete Profile");
 	private JComboBox box = new JComboBox();
 	private Configuration owner;
 	
 	public ProfileChooser(final Configuration owner) {
 		this.owner = owner;
-		final JButton newProfile = new JButton("New FullProfile");
+		final JButton newProfile = new JButton("New Profile");
 		newProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
