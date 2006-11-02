@@ -40,6 +40,7 @@ public class ShutdownHookManager {
 					}
 					if (thread.isAlive()) {
 						thread.interrupt();
+						System.out.println("INTERRUPTED: "+ thread.getName());
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();
