@@ -39,13 +39,14 @@ public class ProfileConfiguration extends JPanel {
 	private FullProfile profile;
 	
 	public ProfileConfiguration() {
-		JPanel connectionPanel = new JPanel(new GridLayout(8, 1));
+		JPanel connectionPanel = new JPanel(new GridLayout(9, 1));
 		addServerAndPort(connectionPanel);
 		addSSL(connectionPanel);
 		addPassword(connectionPanel);
 		addNickname(connectionPanel);
 		addUsername(connectionPanel);
 		addRealname(connectionPanel);
+		addEncoding(connectionPanel);
 		addPartMsg(connectionPanel);
 		addQuitMsg(connectionPanel);
 
@@ -109,6 +110,7 @@ public class ProfileConfiguration extends JPanel {
 					profile.setNickname(nickname.getText());
 					profile.setUsername(username.getText());
 					profile.setRealname(realname.getText());
+					profile.setEncoding(encoding.getText());
 					profile.setPartMessage(partMsg.getText());
 					profile.setQuitMessage(quitMsg.getText());
 					profile.setOwnColor(ownColor.getColor());
@@ -254,6 +256,23 @@ public class ProfileConfiguration extends JPanel {
 		
 		JPanel row = new JPanel(new GridLayout(0, 2));
 		row.add(new JLabel("Realname:"));
+		row.add(sub);
+		p.add(row);
+	}
+
+	private JTextField encoding = new JTextField(10);
+	
+	private void addEncoding(JPanel p) {
+		RightClickMenu.addRightClickMenu(encoding);
+		
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.EAST);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(encoding, BorderLayout.WEST);
+		
+		JPanel row = new JPanel(new GridLayout(0, 2));
+		row.add(new JLabel("Encoding:"));
 		row.add(sub);
 		p.add(row);
 	}
@@ -629,7 +648,7 @@ public class ProfileConfiguration extends JPanel {
 	
 	public void setProfile(FullProfile p) {
 		profile = p;
-		setBorder(new TitledBorder("FullProfile "+ p));
+		setBorder(new TitledBorder("Profile \""+ p +"\""));
 		server.setText(p.getServer());
 		port.setText(new Integer(p.getPort()).toString());
 		ssl.setSelected(p.getSSL());
@@ -637,6 +656,7 @@ public class ProfileConfiguration extends JPanel {
 		nickname.setText(p.getNickname());
 		username.setText(p.getUsername());
 		realname.setText(p.getRealname());
+		encoding.setText(p.getEncoding());
 		partMsg.setText(p.getPartMessage());
 		quitMsg.setText(p.getQuitMessage());
 		ownColor.setColor(p.getOwnColor());

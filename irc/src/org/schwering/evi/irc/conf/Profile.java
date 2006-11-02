@@ -26,6 +26,8 @@ public interface Profile {
 	
 	public String getRealname();
 	
+	public String getEncoding();
+	
 	public String getQuitMessage();
 	
 	public String getPartMessage();

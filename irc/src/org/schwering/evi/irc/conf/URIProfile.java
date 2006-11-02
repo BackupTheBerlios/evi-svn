@@ -172,6 +172,13 @@ public class URIProfile implements Profile {
 	}
 	
 	/* (non-Javadoc)
+	 * @see org.schwering.evi.irc.conf.Profile#getEncoding()
+	 */
+	public String getEncoding() {
+		return DefaultValues.DEFAULT_ENCODING;
+	}
+	
+	/* (non-Javadoc)
 	 * @see org.schwering.evi.irc.conf.Profile#getQuitMessage()
 	 */
 	

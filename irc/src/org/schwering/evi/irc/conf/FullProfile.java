@@ -132,8 +132,16 @@ public class FullProfile implements Profile {
 		return props.getString("conn.real", "");
 	}
 	
+	public void setEncoding(String s) {
+		props.setString("conn.encoding", s);
+	}
+	
+	public String getEncoding() {
+		return props.getString("conn.encoding", DefaultValues.DEFAULT_ENCODING);
+	}
+	
 	public void setQuitMessage(String s) {
-		props.setString("conn.quitmsg", s);
+		props.setString("conn.quitmsg", "");
 	}
 	
 	public String getQuitMessage() {

@@ -3,7 +3,7 @@ package org.schwering.evi.irc.conf;
 
 import java.awt.Color;
 
-public class DefaultValues {
+public interface DefaultValues {
 	public static final int DEFAULT_PORT = 6667;
 	public static final int DEFAULT_SSL_PORT = 443;
 
@@ -15,4 +15,6 @@ public class DefaultValues {
 		Color.lightGray
 	};
 	public static final int PALETTE_SIZE = DEFAULT_PALETTE.length;
+	
+	public static final String DEFAULT_ENCODING = "UTF-8";
 }
