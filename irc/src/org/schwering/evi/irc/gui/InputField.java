@@ -71,6 +71,8 @@ public class InputField extends TextField implements ActionListener, KeyListener
 		} else if (key == KeyEvent.VK_RIGHT) {
 			int pos = getCaretPosition();
 			
+			if (pos == 0)
+				return;
 			if (charAt(pos - 1) == ' ')
 				return;
 			
