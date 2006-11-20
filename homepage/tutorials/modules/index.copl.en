@@ -1,7 +1,7 @@
 TITLE=EVI Module Development Tutorial
 MACROS=macros.copl
-HEADER=header.html.en
-FOOTER=footer.html
+HEADER=
+FOOTER=
 
 =evi() Module Development Tutorial=
 
