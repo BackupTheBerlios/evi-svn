@@ -1,5 +1,15 @@
 compile()
 {
+	for f in `find . -iname \*.copl`
+	do
+		if [ -f $f ]
+		then
+			g=`echo $f | cut -d . -f -2`.html
+			echo -n "Compiling $f to $g ... "
+			iconv -f utf-8 -t iso-8859-1 $f | ./copli --nohttp >$g\
+			&& echo "done" || echo "failed"
+		fi
+	done
 	for f in `find . -iname \*.copl.de`
 	do
 		if [ -f $f ]
