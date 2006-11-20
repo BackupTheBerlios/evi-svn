@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
 
+import javax.swing.text.Document;
+
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.IteratorList;
@@ -18,9 +20,6 @@ import org.schwering.evi.util.TextField;
  * @version $Id$
  */
 public class InputField extends TextField implements ActionListener, KeyListener {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3914942143557323290L;
 	protected Vector listeners = new Vector();
 	protected IteratorList history = new IteratorList(50);
@@ -52,7 +51,8 @@ public class InputField extends TextField implements ActionListener, KeyListener
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
+		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_UP) {
 			String current = getText();
 			if (current != null && current.length() > 0 && history.isBehind()) {
 				history.append(current);
@@ -62,12 +62,84 @@ public class InputField extends TextField implements ActionListener, KeyListener
 			} else {
 				setText("");
 			}
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+		} else if (key == KeyEvent.VK_DOWN) {
 			if (history.next() != null) {
 				setText((String)history.current());
 			} else {
 				setText("");
 			}
+		} else if (key == KeyEvent.VK_RIGHT) {
+			int pos = getCaretPosition();
+			
+			if (charAt(pos - 1) == ' ')
+				return;
+			
+			int c = charAt(pos);
+			int prevSpace = previousIndexOf(pos-1, ' ');
+			if (prevSpace == -1)
+				prevSpace = 0;
+			
+			if (c == ' ' || c == '\n') {
+				String s = getText(prevSpace, pos - prevSpace);
+				System.out.println("Completing '"+ s +"'");
+				try {
+					getDocument().insertString(pos, "TABCOMPL", null);
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public int nextIndexOf(int c) {
+		return nextIndexOf(getCaretPosition(), c);
+	}
+	
+	public int nextIndexOf(int pos, int c) {
+		Document doc = getDocument();
+		for (int i = pos; i < doc.getLength(); i++) {
+			if (charAt(i) == c) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int previousIndexOf(int c) {
+		return previousIndexOf(getCaretPosition(), c);
+	}
+	
+	public int previousIndexOf(int pos, int c) {
+		for (int i = pos; i >= 0; i--) {
+			if (charAt(i) == c) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Returns the character at a position or -1.
+	 * @param pos The index of the searched character.
+	 * @return The character value or -1.
+	 */
+	public int charAt(int pos) {
+		try {
+			return getDocument().getText(pos, 1).charAt(0);
+		} catch (Exception exc) {
+			return -1;
+		}
+	}
+	
+	/**
+	 * Forwards to Document.getText but returns <code>null</code> instead of 
+	 * throwing exceptions.
+	 */
+	public String getText(int pos, int len) {
+		try {
+			return getDocument().getText(pos, len);
+		} catch (Exception exc) {
+			return null;
 		}
 	}
 	
