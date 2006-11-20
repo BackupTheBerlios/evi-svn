@@ -34,6 +34,16 @@ compile()
 
 clean()
 {
+	for f in `find . -iname \*.copl`
+	do
+		if [ -f $f ]
+		then
+			g=`echo $f | cut -d . -f -2`.html
+			echo -n "Removing $g ... "
+			rm $g\
+			&& echo "done" || echo "failed"
+		fi
+	done
 	for f in `find . -iname \*.copl.de`
 	do
 		if [ -f $f ]
@@ -44,7 +54,7 @@ clean()
 			&& echo "done" || echo "failed"
 		fi
 	done
-for f in `find . -iname \*.copl.en`
+	for f in `find . -iname \*.copl.en`
 	do
 		if [ -f $f ]
 		then
