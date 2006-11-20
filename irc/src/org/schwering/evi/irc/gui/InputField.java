@@ -69,34 +69,52 @@ public class InputField extends TextField implements ActionListener, KeyListener
 				setText("");
 			}
 		} else if (key == KeyEvent.VK_RIGHT) {
-			int pos = getCaretPosition();
-			
-			if (pos == 0)
-				return;
-			if (charAt(pos - 1) == ' ')
-				return;
-			
-			int c = charAt(pos);
-			int prevSpace = previousIndexOf(pos-1, ' ');
-			if (prevSpace == -1)
-				prevSpace = 0;
-			
-			if (c == ' ' || c == '\n') {
-				String s = getText(prevSpace, pos - prevSpace);
-				System.out.println("Completing '"+ s +"'");
-				try {
-					getDocument().insertString(pos, "TABCOMPL", null);
-				} catch (Exception exc) {
-					exc.printStackTrace();
-				}
+			tryNickCompletion();
+		}
+	}
+	
+	/**
+	 * Tries to complete a already typed-in phrase to a nickname.
+	 */
+	private void tryNickCompletion() {
+		int pos = getCaretPosition();
+		
+		if (pos == 0)
+			return;
+		if (charAt(pos - 1) == ' ')
+			return;
+		
+		int c = charAt(pos);
+		int prevSpace = previousIndexOf(pos-1, ' ');
+		if (prevSpace == -1)
+			prevSpace = 0;
+		
+		if (c == ' ' || c == '\n') {
+			String s = getText(prevSpace, pos - prevSpace);
+			System.out.println("Completing '"+ s +"'");
+			try {
+				getDocument().insertString(pos, "TABCOMPL", null);
+			} catch (Exception exc) {
+				exc.printStackTrace();
 			}
 		}
 	}
 	
+	/**
+	 * Returns the next index of c, seen from the current caret position.
+	 * @param c The searched character.
+	 * @return The index or -1.
+	 */
 	public int nextIndexOf(int c) {
 		return nextIndexOf(getCaretPosition(), c);
 	}
 	
+	/**
+	 * Returns the next index of c.
+	 * @param pos The position.
+	 * @param c The searched character.
+	 * @return The index or -1.
+	 */
 	public int nextIndexOf(int pos, int c) {
 		Document doc = getDocument();
 		for (int i = pos; i < doc.getLength(); i++) {
@@ -107,10 +125,21 @@ public class InputField extends TextField implements ActionListener, KeyListener
 		return -1;
 	}
 	
+	/**
+	 * Returns the previous index of c, seen from the current caret position.
+	 * @param c The searched character.
+	 * @return The index or -1.
+	 */
 	public int previousIndexOf(int c) {
 		return previousIndexOf(getCaretPosition(), c);
 	}
 	
+	/**
+	 * Returns the previous index of c.
+	 * @param pos The position.
+	 * @param c The searched character.
+	 * @return The index or -1.
+	 */
 	public int previousIndexOf(int pos, int c) {
 		for (int i = pos; i >= 0; i--) {
 			if (charAt(i) == c) {
