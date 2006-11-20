@@ -1,7 +1,5 @@
 TITLE=EVI IRC
 MACROS=macros.copl
-HEADER=header.html.en
-FOOTER=footer.html
 
 =evi() IRC=
 

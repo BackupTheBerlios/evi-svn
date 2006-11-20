@@ -1,7 +1,5 @@
 TITLE=EVI Filemanager
 MACROS=macros.copl
-HEADER=header.html.en
-FOOTER=footer.html
 
 =evi() Filemanager=
 

@@ -1,7 +1,5 @@
 TITLE=EVI Pong
 MACROS=macros.copl
-HEADER=header.html.en
-FOOTER=footer.html
 
 =evi() Pong=
 
