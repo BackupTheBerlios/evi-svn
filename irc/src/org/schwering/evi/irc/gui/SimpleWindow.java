@@ -4,6 +4,8 @@ package org.schwering.evi.irc.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JScrollPane;
 
@@ -59,6 +61,12 @@ public abstract class SimpleWindow extends AbstractWindow {
 				text.append("\n");
 			}
 		});
+		addComponentListener(new ComponentAdapter() {
+			public void componentShown(ComponentEvent ce) {
+				text.requestFocusInWindow();
+			}
+		});
+
 		return input;
 	}
 	
