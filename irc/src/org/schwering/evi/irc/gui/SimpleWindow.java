@@ -51,7 +51,11 @@ public abstract class SimpleWindow extends AbstractWindow {
 		input = new InputField();
 		input.addListener(new IInputListener() {
 			public void inputFired(String str) {
-				text.append(str);
+				if (profile.getEnableColors()) {
+					ColorParser.appendColored(text, str, profile);
+				} else {
+					ColorParser.appendPlain(text, str);
+				}
 				text.append("\n");
 			}
 		});

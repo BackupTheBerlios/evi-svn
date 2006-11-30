@@ -13,6 +13,7 @@ import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.IteratorList;
 import org.schwering.evi.util.TextField;
+import org.schwering.irc.lib.IRCConstants;
 
 /**
  * The input field with history.
@@ -70,6 +71,21 @@ public class InputField extends TextField implements ActionListener, KeyListener
 			}
 		} else if (key == KeyEvent.VK_RIGHT) {
 			tryNickCompletion();
+		} else if (key == KeyEvent.VK_B 
+				&& e.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
+			insertText(String.valueOf(IRCConstants.BOLD_INDICATOR));
+		} else if (key == KeyEvent.VK_U 
+				&& e.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
+			insertText(String.valueOf(IRCConstants.UNDERLINE_INDICATOR));
+		} else if (key == KeyEvent.VK_R 
+				&& e.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
+			insertText(String.valueOf(IRCConstants.COLOR_REVERSE_INDICATOR));
+		} else if (key == KeyEvent.VK_K 
+				&& e.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
+			insertText(String.valueOf(IRCConstants.COLOR_INDICATOR));
+		} else if (key == KeyEvent.VK_L 
+				&& e.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
+			insertText(String.valueOf(IRCConstants.COLOR_END_INDICATOR));
 		}
 	}
 	
@@ -159,6 +175,17 @@ public class InputField extends TextField implements ActionListener, KeyListener
 			return getDocument().getText(pos, 1).charAt(0);
 		} catch (Exception exc) {
 			return -1;
+		}
+	}
+	
+	/**
+	 * Inserts text after the caret.
+	 */
+	public void insertText(String s) {
+		try {
+			getDocument().insertString(getCaretPosition(), s, null);
+		} catch (Exception exc) {
+			throw new RuntimeException(exc);
 		}
 	}
 	
