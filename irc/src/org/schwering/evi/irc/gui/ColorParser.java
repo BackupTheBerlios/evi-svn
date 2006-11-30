@@ -188,9 +188,12 @@ public class ColorParser {
 				}
 			}
 			
-			if (fg >= 0 && fg < palette.length)
+			fg %= palette.length;
+			bg %= palette.length;
+			
+			if (fg >= 0)
 				e.fg = palette[fg];
-			if (bg >= 0 && bg < palette.length)
+			if (bg >= 0)
 				e.bg = palette[bg];
 		}
 		
