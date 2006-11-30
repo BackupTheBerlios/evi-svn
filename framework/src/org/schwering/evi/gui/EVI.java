@@ -194,23 +194,6 @@ public class EVI {
 					exc);
 		}
 		
-		/* just for fun: (from incl. 85% to incl. 90%) */
-		/*try {
-			String[] murks = new String[] {
-					"Eva Valder", //$NON-NLS-1$
-					"ohne dich", //$NON-NLS-1$
-					"geht es nicht", //$NON-NLS-1$
-					":-)", //$NON-NLS-1$
-			};
-			for (int i = 0; i < murks.length; i++) {
-				progress.update(85 + i, murks[i]);
-				for (int j = 0; j < 2; j++) {
-					Thread.sleep(20 * (murks.length - i));
-				}
-			}
-		} catch (Exception exc) {
-		}*/
-		
 		progress.update(91, Messages.getString("EVI.20")); //$NON-NLS-1$
 		try {
 			makeVisible();

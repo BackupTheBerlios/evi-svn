@@ -11,7 +11,7 @@ import javax.swing.text.SimpleAttributeSet;
 import org.schwering.evi.util.Document;
 
 /**
- * A textfield that is mainly useful for logging purposes.<br />
+ * A one line text input field.<br />
  * <br />
  * The textfield has a <code>org.schwering.evi.util.Document</code> as 
  * document. The respective methods simply forward to the document.<br />
