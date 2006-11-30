@@ -31,10 +31,10 @@ import javax.swing.ListCellRenderer;
  */
 public class FontDialog extends JDialog {
 	private Wrapper[] FONT_STYLES = new Wrapper[] {
-			new Wrapper(Messages.getString("FontSelector.PLAIN"), "PLAIN"), //$NON-NLS-1$
-			new Wrapper(Messages.getString("FontSelector.BOLD"), "BOLD"),  //$NON-NLS-1$
-			new Wrapper(Messages.getString("FontSelector.ITALIC"), "ITALIC"), //$NON-NLS-1$
-			new Wrapper(Messages.getString("FontSelector.BOLDITALIC"), "BOLDITALIC") //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontDialog.PLAIN"), "PLAIN"), //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontDialog.BOLD"), "BOLD"),  //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontDialog.ITALIC"), "ITALIC"), //$NON-NLS-1$
+			new Wrapper(Messages.getString("FontDialog.BOLDITALIC"), "BOLDITALIC") //$NON-NLS-1$
 	};
 	
 	private JComboBox fontName;
@@ -92,7 +92,7 @@ public class FontDialog extends JDialog {
 		fontSize.setText(String.valueOf(12));
 		RightClickMenu.addRightClickMenu(fontSize);
 		
-		closeButton = new JButton("Close");
+		closeButton = new JButton(Messages.getString("FontDialog.CLOSE")); //$NON-NLS-1$
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
@@ -107,7 +107,9 @@ public class FontDialog extends JDialog {
 		sub2.add(new JLabel("pt  "), BorderLayout.CENTER); //$NON-NLS-1$
 		sub2.add(fontStyle, BorderLayout.EAST);
 		JPanel sub3 = new JPanel(new BorderLayout());
-		sub3.add(closeButton);
+		sub3.add(new JPanel(), BorderLayout.WEST);
+		sub3.add(closeButton, BorderLayout.CENTER);
+		sub3.add(new JPanel(), BorderLayout.EAST);
 		
 		JPanel p = new JPanel(new GridLayout(3, 0));
 		p.add(sub1);
@@ -137,8 +139,8 @@ public class FontDialog extends JDialog {
 	 * Invoked when the window is closed.
 	 */
 	public void close() {
-		super.setVisible(false);
-		super.dispose();
+		setVisible(false);
+		dispose();
 	}
 	
 	/**

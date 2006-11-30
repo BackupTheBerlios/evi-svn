@@ -49,6 +49,7 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 	 */
 	public static final String DEFAULT_TITLE = Messages.getString("MainConfigurationPanel.DEFAULT_TITLE"); //$NON-NLS-1$
 	
+	private JScrollPane scrollPane;
 	private JButton saveButton;
 	
 	/**
@@ -108,9 +109,14 @@ public class MainConfigurationPanel extends JPanel implements IPanel {
 		JPanel main = new JPanel(new BorderLayout());
 		main.add(p, BorderLayout.NORTH);
 		main.add(buttons, BorderLayout.CENTER);
-		JScrollPane scrollPane = new JScrollPane(main);
+		scrollPane = new JScrollPane(main);
 		scrollPane.setBorder(null);
 		add(scrollPane, BorderLayout.WEST);
+	}
+	
+	public void doLayout() {
+		super.doLayout();
+		scrollPane.setBorder(null);
 	}
 	
 	private JComboBox language;

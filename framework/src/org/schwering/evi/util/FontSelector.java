@@ -32,7 +32,7 @@ public class FontSelector extends JPanel {
 		
 		final FontSelector owner = this;
 		
-		JButton button = new JButton("Choose");
+		JButton button = new JButton(Messages.getString("FontSelector.CHOOSE")); //$NON-NLS-1$
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FontDialog fd = new FontDialog(MainFrame.getInstance(), font);
@@ -42,8 +42,13 @@ public class FontSelector extends JPanel {
 		
 		tf = new TextField();
 		
-		add(tf, BorderLayout.CENTER);
-		add(button, BorderLayout.EAST);
+		add(tf, BorderLayout.WEST);
+		add(new JPanel(), BorderLayout.CENTER);
+		JPanel sub = new JPanel(new BorderLayout());
+		sub.add(new JPanel(), BorderLayout.NORTH);
+		sub.add(new JPanel(), BorderLayout.SOUTH);
+		sub.add(button, BorderLayout.CENTER);
+		add(sub, BorderLayout.EAST);
 	}
 	
 	/* (non-Javadoc)
@@ -65,7 +70,6 @@ public class FontSelector extends JPanel {
 		font = f;
 		tf.setFont(f);
 		tf.setText(f.getName());
-		System.out.println("set font to "+ font);
 	}
 	
 	/**
