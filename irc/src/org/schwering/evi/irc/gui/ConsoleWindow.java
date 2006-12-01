@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.util.RightClickMenu;
 
 /**
  * Console window.
@@ -17,6 +18,7 @@ public class ConsoleWindow extends SimpleWindow {
 	public ConsoleWindow(Profile profile) {
 		super(profile);
 		setTitle("Console ("+ profile.getName() +")");
+		RightClickMenu.addRightClickMenu(text);
 	}
 	
 	/* (non-Javadoc)

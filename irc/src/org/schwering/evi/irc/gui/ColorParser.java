@@ -2,6 +2,7 @@
 package org.schwering.evi.irc.gui;
 
 import java.awt.Color;
+import java.net.MalformedURLException;
 
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.irc.conf.Profile;
@@ -20,8 +21,14 @@ public class ColorParser {
 	 * @param tp The destination textpane.
 	 * @param text The text.
 	 */
-	public static void appendPlain(TextPane tp, String text) {
-		tp.append(IRCUtil.parseColors(text));
+	public synchronized static void appendPlain(TextPane tp, String text) {
+		text = IRCUtil.parseColors(text);
+		String[] arr = text.split(" ");
+		for (int i = 0; i < arr.length; i++) {
+			tp.append(arr[i]);
+			checkForURL(tp, arr[i]);
+			tp.append(" ");
+		}
 	}
 	
 	/**
@@ -30,7 +37,8 @@ public class ColorParser {
 	 * @param text The text.
 	 * @param profile The profile which defines the color palette.
 	 */
-	public static void appendColored(TextPane tp, String text, Profile profile) {
+	public synchronized static void appendColored(TextPane tp, String text, 
+			Profile profile) {
 		ColorParser p = new ColorParser(text, profile);
 		Element e;
 		
@@ -40,7 +48,12 @@ public class ColorParser {
 		boolean underline = false;
 		
 		while ((e = p.parse()) != null) {
-			tp.append(e.text, fg, bg, bold, false, underline);
+			String[] arr = e.text.split(" ");
+			for (int i = 0; i < arr.length; i++) {
+				tp.append(arr[i], fg, bg, bold, false, underline);
+				checkForURL(tp, arr[i]);
+				tp.append(" ");
+			}
 			switch (e.type) {
 				case BOLD:
 					bold = !bold;
@@ -61,6 +74,18 @@ public class ColorParser {
 					fg = null;
 					bg = null;
 					break;
+			}
+		}
+	}
+	
+	private static void checkForURL(TextPane tp, String s) {
+		if (s.startsWith("http") 
+				&& (s.startsWith("http://") || s.startsWith("https://"))) {
+			try {
+				URLPinButton button = new URLPinButton(tp, s);
+				tp.insertComponent(button);
+			} catch (MalformedURLException mue) {
+				// nothing
 			}
 		}
 	}

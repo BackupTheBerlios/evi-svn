@@ -4,8 +4,8 @@ package org.schwering.evi.irc.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JScrollPane;
 
@@ -23,6 +23,8 @@ public abstract class SimpleWindow extends AbstractWindow {
 
 	public SimpleWindow(Profile profile) {
 		super(profile);
+		requestFocus();
+		input.requestFocus();
 	}
 	
 	/* (non-Javadoc)
@@ -36,12 +38,13 @@ public abstract class SimpleWindow extends AbstractWindow {
 	 * @see org.schwering.evi.irc.gui.AbstractWindow#createCenterComponent()
 	 */
 	protected Component createCenterComponent() {
-		text = new TextPane() {
-			private static final long serialVersionUID = 1L;
-			public void requestFocus() {
-				input.requestFocus();
+		text = new TextPane();
+		text.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1)
+					input.requestFocus();
 			}
-		};
+		});
 		JScrollPane sp = new JScrollPane(text);
 		return sp;
 	}
@@ -61,12 +64,6 @@ public abstract class SimpleWindow extends AbstractWindow {
 				text.append("\n");
 			}
 		});
-		addComponentListener(new ComponentAdapter() {
-			public void componentShown(ComponentEvent ce) {
-				text.requestFocusInWindow();
-			}
-		});
-
 		return input;
 	}
 	
