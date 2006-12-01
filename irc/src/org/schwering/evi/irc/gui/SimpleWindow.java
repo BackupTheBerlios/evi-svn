@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JScrollPane;
 
@@ -45,6 +46,11 @@ public abstract class SimpleWindow extends AbstractWindow {
 					input.requestFocus();
 			}
 		});
+		text.addMouseMotionListener(new MouseMotionAdapter() {
+			public void mouseMoved(MouseEvent e) {
+				System.out.println(e.getX() +" x "+ e.getY());
+			}
+		});
 		JScrollPane sp = new JScrollPane(text);
 		return sp;
 	}
@@ -82,6 +88,7 @@ public abstract class SimpleWindow extends AbstractWindow {
 	public void updateLayout(Font font, Color fg, Color bg) {
 		input.modifyAttributes(font.getFamily(), font.getSize(), fg, bg, 
 				font.isBold(), font.isItalic(), false);
+		input.setFont(font);
 		text.modifyAttributes(font.getFamily(), font.getSize(), fg, bg, 
 				font.isBold(), font.isItalic(), false);
 	}
