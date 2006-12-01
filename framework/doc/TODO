@@ -1,6 +1,10 @@
+2006-12-01:
+	Try MouseMotionListener in connection with TextPane to find 
+	underlying words.
+	Write IRClib environment for IRC module.
 2006-10-04:
 	Restructure the IPanel and IApplet interfaces: Find better names and 
 	make them extend IModule. Add a third interface that replaces 
 	IPanel for configuration windows.
 2006-06-01:
-    Fix HTMLPane error pages. Document.getElement does not work?!
+	Fix HTMLPane error pages. Document.getElement does not work?!
