@@ -42,8 +42,7 @@ public class FontSelector extends JPanel {
 		
 		tf = new TextField();
 		
-		add(tf, BorderLayout.WEST);
-		add(new JPanel(), BorderLayout.CENTER);
+		add(tf, BorderLayout.CENTER);
 		JPanel sub = new JPanel(new BorderLayout());
 		sub.add(new JPanel(), BorderLayout.NORTH);
 		sub.add(new JPanel(), BorderLayout.SOUTH);
@@ -70,6 +69,7 @@ public class FontSelector extends JPanel {
 		font = f;
 		tf.setFont(f);
 		tf.setText(f.getName());
+		tf.setCaretPosition(0);
 	}
 	
 	/**
