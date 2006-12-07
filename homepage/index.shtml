@@ -102,7 +102,7 @@ a img {
     float:left;
     }
   #sidebar {
-    width:220px;
+    width:170px;
     float:right;
     }
   }

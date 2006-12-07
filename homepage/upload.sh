@@ -64,6 +64,7 @@ clean()
 			&& echo "done" || echo "failed"
 		fi
 	done
+	rm homepage.tar.bz2
 }
 
 archive() 
