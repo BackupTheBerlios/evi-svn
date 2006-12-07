@@ -3,7 +3,7 @@ MACROS=macros.copl
 HEADER=
 FOOTER=
 
-=evi() Module Development Tutorial=
+===evi() Module Development Tutorial===
 
 //Since org.schwering.evi.core.* was revised, this tutorial is totally out of date.//
 //__To put it in a nutshell:__ All information is now stored using the interface org.schwering.evi.core.IModuleInfo which stores meta-information and the interface org.schwering.evi.core.IModule which must be implemented by the class whose instance represents a module instance.//

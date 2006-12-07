@@ -1,7 +1,7 @@
 TITLE=EVI Pong
 MACROS=macros.copl
 
-=evi() Pong=
+===evi() Pong===
 
 Mike Kremer (mikelsoft at gmail dot com) has written Pong. His implementation requires JOGL (OpenGL library) and JOAL/OpenAL (sound library). 
 

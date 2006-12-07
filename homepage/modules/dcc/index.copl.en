@@ -1,6 +1,6 @@
 TITLE=EVI DCC
 MACROS=macros.copl
 
-=evi() DCC=
+===evi() DCC===
 
 Well, DCC needs to be supported for file transfers via IRC. DCC will not be integrated into IRC directly but as "extending" module for the IRC module.

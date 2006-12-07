@@ -1,7 +1,7 @@
 TITLE=EVI Calculator
 MACROS=macros.copl
 
-=evi() Calculator=
+===evi() Calculator===
 
 I'd really like to write a calculator. 
 

@@ -1,6 +1,6 @@
 TITLE=EVI Timetable
 MACROS=macros.copl
 
-=evi() Timetable=
+===evi() Timetable===
 
 A timetable might be useful. Maybe the calendar can do this, too.

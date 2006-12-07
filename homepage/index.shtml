@@ -151,7 +151,7 @@ h2 {
     padding:0 1.5em 0 1.5em;
     }
   }
-.post-title {
+.post-title, .post h3 {
   margin:.25em 0 0;
   padding:0 0 4px;
   font-size:140%;
@@ -303,58 +303,20 @@ p.post-footer {
   </BlogDateHeader>
 -->
 
-  
-     
-  <!-- Begin .post -->
-  <div class="post"><a name="Get_EVI"></a>
-    <h3 class="post-title">
-	 Get EVI
-    </h3>
-       <div class="post-body">
-        <!--#include file="get.html" -->
-       </div>
-  </div>
-  <!-- End .post -->
 
 
+<!--# if expr="$QUERY_STRING = ''"-->
+<!--# set var="subfile" value="get.html" -->
+<!--# else -->
+<!--# set var="subfile" value="${QUERY_STRING}.html" -->
+<!--# endif -->
 
-   <!-- Begin .post -->
-  <div class="post"><a name="Modules"></a>
-    <h3 class="post-title">
-	 Modules
-    </h3>
-       <div class="post-body">
-        <!--#include file="modules.html" -->
-       </div>
-  </div>
-  <!-- End .post -->
-
-
-
-  <!-- Begin .post -->
-  <div class="post"><a name="Development"></a>
-    <h3 class="post-title">
-	 Development
-    </h3>
-       <div class="post-body">
-        <!--#include file="dev.html" -->
-       </div>
-  </div>
-  <!-- End .post -->
-  
-
-
-
-  <!-- Begin .post -->
   <div class="post"><a name="Contact"></a>
-    <h3 class="post-title">
-	 Contact
-    </h3>
        <div class="post-body">
-        <!--#include file="contact.html" -->
+        <!--# include file="$subfile" -->
        </div>
   </div>
-  <!-- End .post -->
+
   
 
 </div></div>
@@ -369,11 +331,11 @@ p.post-footer {
   
 <h2 class="sidebar-title">Links</h2>
 <ul>
-<li><a href="http://evidev.blogspot.com">EVI Blog</a></li>
-<li><a href="#Get_EVI">Get EVI</a></li>
-<li><a href="#Modules">Modules</a></li>
-<li><a href="#Development">Development</a></li>
-<li><a href="#Contact">Contact</a></li>
+<li><a href="./?get">Get EVI</a></li>
+<li><a href="./?modules">Modules</a></li>
+<li><a href="http://evidev.blogspot.com">Blog</a></li>
+<li><a href="./?dev">Development</a></li>
+<li><a href="./?contact">Contact</a></li>
 </ul>
 
   

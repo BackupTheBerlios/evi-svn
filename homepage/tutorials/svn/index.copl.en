@@ -3,7 +3,7 @@ MACROS=macros.copl
 HEADER=
 FOOTER=
 
-=Eclipse + SVN Tutorial=
+===Eclipse + SVN Tutorial===
 
 ==What is Eclipse?==
 Eclipse is a great integrated development environment (IDE), especially for Java.

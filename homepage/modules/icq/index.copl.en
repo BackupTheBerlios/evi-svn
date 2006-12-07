@@ -1,7 +1,7 @@
 TITLE=EVI ICQ
 MACROS=macros.copl
 
-=evi() ICQ=
+===evi() ICQ===
 
 This is the most important module besides the IRC module.
 

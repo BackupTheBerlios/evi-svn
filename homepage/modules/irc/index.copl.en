@@ -1,7 +1,7 @@
 TITLE=EVI IRC
 MACROS=macros.copl
 
-=evi() IRC=
+===evi() IRC===
 
 An IRC client module for EVI. Based on <!url http://moepii.sourceforge.net IRClib>.
 

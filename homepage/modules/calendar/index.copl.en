@@ -1,6 +1,6 @@
 TITLE=EVI Calendar
 MACROS=macros.copl
 
-=evi() Calendar=
+===evi() Calendar===
 
 A nice simply useless calendar.

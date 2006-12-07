@@ -2,6 +2,7 @@ MACROS=macros.copl
 HEADER=
 FOOTER=
 
+===Development===
 ==SVN Repository==
 The base directory "framework" contains the evi() framework. Each evi() module resides in an own base directory with an appropriate name.
 	o <!url http://svn.berlios.de/wsvn/evi Browse SVN with Webbrowser>
@@ -11,8 +12,8 @@ The base directory "framework" contains the evi() framework. Each evi() module r
 	o Developer: svn checkout https:\//<developername>@svn.berlios.de/svnroot/repos/evi
 
 ==Documents==
-	o <!url tutorials/modules/ Module Development Tutorial>
-	o <!url tutorials/svn/ Eclipse + SVN Tutorial>
+	o <!url ./?tutorials/modules/index Module Development Tutorial>
+	o <!url ./?tutorials/svn/index Eclipse + SVN Tutorial>
 	o <!url javadoc/ Javadocs>
 	o <!url modulelifecycle.png Module Lifecycle> (PNG image)
 

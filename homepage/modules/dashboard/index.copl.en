@@ -1,6 +1,6 @@
 TITLE=EVI Dashboard
 MACROS=macros.copl
 
-=evi() Dashboard=
+===evi() Dashboard===
 
 Allow user to display IApplets similar to Apple OS X's dashboard.

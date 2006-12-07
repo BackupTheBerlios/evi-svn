@@ -1,7 +1,7 @@
 TITLE=EVI Mailbox Checker
 MACROS=macros.copl
 
-=evi() Mailbox Checker=
+===evi() Mailbox Checker===
 
 The mailbox checker should simply use java.mail to check out a POP3 account whether new mail has come in or not. 
 A good configuration would be nice.

@@ -1,7 +1,7 @@
 TITLE=EVI Audioplayer
 MACROS=macros.copl
 
-=evi() Audioplayer=
+===evi() Audioplayer===
 
 An audioplayer for evi(). 
 
