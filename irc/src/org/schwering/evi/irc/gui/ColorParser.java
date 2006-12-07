@@ -2,7 +2,6 @@
 package org.schwering.evi.irc.gui;
 
 import java.awt.Color;
-import java.net.MalformedURLException;
 
 import org.schwering.evi.irc.conf.DefaultValues;
 import org.schwering.evi.irc.conf.Profile;
@@ -23,11 +22,21 @@ public class ColorParser {
 	 */
 	public synchronized static void appendPlain(TextPane tp, String text) {
 		text = IRCUtil.parseColors(text);
-		String[] arr = text.split(" ");
-		for (int i = 0; i < arr.length; i++) {
-			tp.append(arr[i]);
-			checkForURL(tp, arr[i]);
-			tp.append(" ");
+		int i = 0;
+		int j = 0;
+		while (j != text.length()) {
+			i = j;
+			j = text.indexOf(' ', i+1);
+			if (j == -1)
+				j = text.length();
+			String word = text.substring(i, j);
+			tp.append(word);
+			if (isURL(word)) {
+				try {
+					tp.insertComponent(new URLPinButton(tp, word));
+				} catch (Exception exc) {
+				}
+			}
 		}
 	}
 	
@@ -48,11 +57,21 @@ public class ColorParser {
 		boolean underline = false;
 		
 		while ((e = p.parse()) != null) {
-			String[] arr = e.text.split(" ");
-			for (int i = 0; i < arr.length; i++) {
-				tp.append(arr[i], fg, bg, bold, false, underline);
-				checkForURL(tp, arr[i]);
-				tp.append(" ");
+			int i = 0;
+			int j = 0;
+			while (j != e.text.length()) {
+				i = j;
+				j = e.text.indexOf(' ', i+1);
+				if (j == -1)
+					j = e.text.length();
+				String word = e.text.substring(i, j);
+				tp.append(word, fg, bg, bold, false, underline);
+				if (isURL(word)) {
+					try {
+						tp.insertComponent(new URLPinButton(tp, word));
+					} catch (Exception exc) {
+					}
+				}
 			}
 			switch (e.type) {
 				case BOLD:
@@ -78,16 +97,31 @@ public class ColorParser {
 		}
 	}
 	
-	private static void checkForURL(TextPane tp, String s) {
-		if (s.startsWith("http") 
-				&& (s.startsWith("http://") || s.startsWith("https://"))) {
-			try {
-				URLPinButton button = new URLPinButton(tp, s);
-				tp.insertComponent(button);
-			} catch (MalformedURLException mue) {
-				// nothing
-			}
-		}
+	/**
+	 * Checks whether s seems to be a URL.
+	 * It is a URL if it starts with "http://", "https://" or "www.".
+	 * @param s The string that is to be checked.
+	 * @return true of s seems to be a http-URL.
+	 */
+	private static boolean isURL(String s) {
+		int i;
+		
+		if (s == null || s.length() <= 8)
+			return false;
+		for (i = 0; s.charAt(i) == ' ' && i < s.length(); i++)
+			;
+		return	(	s.charAt(i) == 'h'
+					&& s.charAt(i+1) == 't'
+					&& s.charAt(i+2) == 't'
+					&& s.charAt(i+3) == 'p'
+						&& ((s.charAt(i+4) == ':' 
+							&& s.charAt(i+5) == '/' && s.charAt(i+6) == '/')
+					|| (s.charAt(i+4) == 's' && s.charAt(i+5) == ':' 
+						&& s.charAt(i+6) == '/' && s.charAt(i+7) == '/')))
+				|| (s.charAt(i) == 'w'
+					&& s.charAt(i+1) == 'w'
+					&& s.charAt(i+2) == 'w'
+					&& s.charAt(i+3) == '.');
 	}
 	
 	public static final int END = -1;

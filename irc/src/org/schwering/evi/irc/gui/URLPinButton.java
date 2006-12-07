@@ -17,6 +17,8 @@ import org.schwering.evi.util.TextPane;
 public class URLPinButton extends PinButton {
 	public URLPinButton(TextPane tp, String urlString) throws MalformedURLException {
 		super(tp);
+		if (!urlString.startsWith("http"))
+			urlString = "http://"+ urlString;
 		final URL url = new URL(urlString);
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
