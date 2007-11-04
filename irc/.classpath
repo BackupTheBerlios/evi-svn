@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/framework"/>
-	<classpathentry kind="lib" path="/home/chs/java/evi/irc/lib/irclib.jar"/>
+	<classpathentry kind="lib" path="/Users/chs/Documents/Java/workspace/org.schwering.irc.lib/irclib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
