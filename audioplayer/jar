@@ -1,1 +1,1 @@
-cd bin && jar cvfm ../audioplayer.jar ../src/META-INF/MANIFEST.MF . && cd ..
+cd bin && cp ../lib/jl1.0.jar ../audioplayer.jar && jar uvfm ../audioplayer.jar ../src/META-INF/MANIFEST.MF . && cd ..
