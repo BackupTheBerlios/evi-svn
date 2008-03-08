@@ -4,8 +4,8 @@ package org.schwering.evi.irc.gui;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.schwering.evi.irc.conf.Profile;
-import org.schwering.evi.util.RightClickMenu;
+import org.schwering.irc.manager.event.ConnectionAdapter;
+import org.schwering.irc.manager.event.UnexpectedEventAdapter;
 
 /**
  * Console window.
@@ -13,21 +13,28 @@ import org.schwering.evi.util.RightClickMenu;
  * @version $Id$
  */
 public class ConsoleWindow extends SimpleWindow {
-	private static final long serialVersionUID = 9050564952598388606L;
-
-	public ConsoleWindow(Profile profile) {
-		super(profile);
-		setTitle("Console ("+ profile.getName() +")");
-		RightClickMenu.addRightClickMenu(text);
+	public ConsoleWindow(ConnectionController controller) {
+		super(controller);
+		setTitle("Console ("+ controller.getProfile().getName() +")");
+		controller.getConnection().addConnectionListener(new ConnectionListener());
+		controller.getConnection().addUnexpectedEventListener(new UnexpectedEventListener());
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.irc.gui.AbstractWindow#updateLayout()
 	 */
 	public void updateLayout() {
-		Font font = profile.getConsoleFont();
-		Color fg = profile.getNeutralColor();
+		Font font = controller.getProfile().getConsoleFont();
+		Color fg = controller.getProfile().getNeutralColor();
 		Color bg = Color.white;
 		updateLayout(font, fg, bg);
+	}
+	
+	private class ConnectionListener extends ConnectionAdapter {
+		
+	}
+	
+	private class UnexpectedEventListener extends UnexpectedEventAdapter {
+		
 	}
 }

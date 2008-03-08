@@ -2,8 +2,7 @@
 package org.schwering.evi.irc;
 
 import org.schwering.evi.irc.conf.Profile;
-import org.schwering.evi.irc.gui.ConsoleWindow;
-import org.schwering.evi.irc.gui.TabBar;
+import org.schwering.evi.irc.gui.ConnectionController;
 
 /**
  * Kind of interface between IRC and GUI.
@@ -17,15 +16,16 @@ public class ConnectionManager {
 	 * @param profile
 	 */
 	public static void connect(IRC irc, Profile profile) {
-		TabBar tabBar = irc.getTabBar();
-		
-		ConsoleWindow console;
-		ConsoleWindow[] arr = (ConsoleWindow[])tabBar.getInstancesOf(ConsoleWindow.class);
-		if (arr.length == 1) {
-			console = arr[0];
-		} else {
-			console = new ConsoleWindow(profile);
-			tabBar.addTab(0, console);
-		}
+		new ConnectionController(irc, profile);
+//		TabBar tabBar = irc.getTabBar();
+//		
+//		ConsoleWindow console;
+//		ConsoleWindow[] arr = (ConsoleWindow[])tabBar.getInstancesOf(ConsoleWindow.class);
+//		if (arr.length == 1) {
+//			console = arr[0];
+//		} else {
+//			console = new ConsoleWindow(profile);
+//			tabBar.addTab(0, console);
+//		}
 	}
 }

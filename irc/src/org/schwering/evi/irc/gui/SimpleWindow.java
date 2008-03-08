@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JScrollPane;
 
-import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.util.RightClickMenu;
 import org.schwering.evi.util.TextPane;
 
 /**
@@ -22,8 +22,9 @@ public abstract class SimpleWindow extends AbstractWindow {
 	protected InputField input;
 	protected TextPane text;
 
-	public SimpleWindow(Profile profile) {
-		super(profile);
+	public SimpleWindow(ConnectionController controller) {
+		super(controller);
+		RightClickMenu.addRightClickMenu(text);
 		requestFocus();
 		input.requestFocus();
 	}
@@ -62,8 +63,8 @@ public abstract class SimpleWindow extends AbstractWindow {
 		input = new InputField();
 		input.addListener(new IInputListener() {
 			public void inputFired(String str) {
-				if (profile.getEnableColors()) {
-					ColorParser.appendColored(text, str, profile);
+				if (controller.getProfile().getEnableColors()) {
+					ColorParser.appendColored(text, str, controller.getProfile());
 				} else {
 					ColorParser.appendPlain(text, str);
 				}

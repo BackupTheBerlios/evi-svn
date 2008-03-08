@@ -6,20 +6,18 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
-import org.schwering.evi.irc.conf.Profile;
-
 /**
  * Base class for console, channels and queries.
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
 public abstract class AbstractWindow extends JPanel {
-	protected Profile profile;
+	protected ConnectionController controller;
 	protected String title;
 	
-	public AbstractWindow(Profile p) {
+	public AbstractWindow(ConnectionController controller) {
 		super(new BorderLayout());
-		profile = p;
+		this.controller = controller;
 		
 		Component c;
 		c = createNorthComponent();
