@@ -68,7 +68,7 @@ public abstract class SimpleWindow extends AbstractWindow {
 		input = new InputField();
 		input.addListener(new IInputListener() {
 			public void inputFired(String str) {
-				inputFired(str);
+				inputSubmitted(str);
 			}
 		});
 		return input;
@@ -77,7 +77,7 @@ public abstract class SimpleWindow extends AbstractWindow {
 	/**
 	 * Invoked when the user submits the input in the input line.
 	 */
-	public abstract void inputFired(String str);
+	public abstract void inputSubmitted(String str);
 	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.irc.gui.AbstractWindow#updateLayout()

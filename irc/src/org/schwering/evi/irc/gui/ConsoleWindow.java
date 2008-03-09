@@ -56,7 +56,7 @@ public class ConsoleWindow extends SimpleWindow {
 		return controller;
 	}
 	
-	public void inputFired(String str) {
+	public void inputSubmitted(String str) {
 		str = str.trim();
 		if (str.length() > 0 && str.charAt(0) == '/') {
 			str = str.substring(1);

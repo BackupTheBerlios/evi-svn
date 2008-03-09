@@ -34,7 +34,7 @@ public class QueryWindow extends SimpleWindow {
 		return user;
 	}
 	
-	public void inputFired(String str) {
+	public void inputSubmitted(String str) {
 		str = str.trim();
 		if (str.charAt(0) == '/') {
 			str = str.substring(1);
