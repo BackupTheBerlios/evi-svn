@@ -75,6 +75,8 @@ public class ExceptionDialog extends JFrame {
 	private ExceptionDialog(String msg, Throwable exc) {
 		super(Messages.getString("ExceptionDialog.1")); //$NON-NLS-1$
 		
+		exc.printStackTrace();
+		
 		JPanel exceptionPanel = getExceptionPanel(msg, exc);
 		JPanel environmentPanel = new EnvironmentPanel();
 		JPanel configurationPanel = getConfigurationPanel();
