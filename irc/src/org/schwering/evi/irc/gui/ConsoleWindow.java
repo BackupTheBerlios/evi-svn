@@ -244,11 +244,11 @@ public class ConsoleWindow extends SimpleWindow {
 				appendText("Authed as: "+ event.getAuthname());
 				newLine();
 			}
-			if (event.isIdle() && event.getAwayMessage() != null && event.getDate() != null) {
-				appendText("Is idle since "+ event.getDate() +": "+ event.getAwayMessage());
+			if (event.isIdle() && event.getAwayMessage() != null && event.getIdleMillis() != -1) {
+				appendText("Is idle since "+ event.getIdleTime() +": "+ event.getAwayMessage());
 				newLine();
-			} else if (event.isIdle() && event.getDate() != null) {
-				appendText("Is idle since "+ event.getDate());
+			} else if (event.isIdle() && event.getIdleMillis() != -1) {
+				appendText("Is idle since "+ event.getIdleTime());
 				newLine();
 			} else if (event.isIdle()) {
 				appendText("Is idle.");
@@ -259,6 +259,12 @@ public class ConsoleWindow extends SimpleWindow {
 				if (event.getServerInfo() != null) {
 					appendText(" ("+ event.getServerInfo() +")");
 				}
+				if (event.getSignonDate() != null) {
+					appendText(" since "+ event.getSignonDate());
+				}
+				newLine();
+			} else if (event.getSignonDate() != null) {
+				appendText("Is connected since "+ event.getSignonDate());
 				newLine();
 			}
 			if (event.getChannelCount() > 0) {
