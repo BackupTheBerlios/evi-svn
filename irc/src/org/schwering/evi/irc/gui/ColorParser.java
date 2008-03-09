@@ -19,8 +19,22 @@ public class ColorParser {
 	 * Strips the color codes and appends the text.
 	 * @param tp The destination textpane.
 	 * @param text The text.
+	 * @param profile The profile, whose getNeutralColor() is used as 
+	 * foreground color.
 	 */
-	public synchronized static void appendPlain(TextPane tp, String text) {
+	public static void appendPlain(TextPane tp, String text, 
+			Profile profile) {
+		appendPlain(tp, text, profile.getNeutralColor());
+	}
+
+	/**
+	 * Strips the color codes and appends the text.
+	 * @param tp The destination textpane.
+	 * @param text The text.
+	 * @param fg The initial foreground color.
+	 */
+	public synchronized static void appendPlain(TextPane tp, String text, 
+			Color fg) {
 		text = IRCUtil.parseColors(text);
 		int i = 0;
 		int j = 0;
@@ -30,7 +44,7 @@ public class ColorParser {
 			if (j == -1)
 				j = text.length();
 			String word = text.substring(i, j);
-			tp.append(word);
+			tp.append(word, fg);
 			if (isURL(word)) {
 				try {
 					tp.insertComponent(new URLPinButton(tp, word));
@@ -45,13 +59,26 @@ public class ColorParser {
 	 * @param tp The destination textpane.
 	 * @param text The text.
 	 * @param profile The profile which defines the color palette.
+	 * @param defaultForeground The initial foreground color.
+	 */
+	public static void appendColored(TextPane tp, String text, 
+			Profile profile) {
+		appendColored(tp, text, profile, profile.getNeutralColor());
+	}
+	
+	/**
+	 * Parses the color codes and inserts the colored text into the textpane.
+	 * @param tp The destination textpane.
+	 * @param text The text.
+	 * @param profile The profile which defines the color palette.
+	 * @param defaultForeground The initialized foreground color.
 	 */
 	public synchronized static void appendColored(TextPane tp, String text, 
-			Profile profile) {
+			Profile profile, Color defaultForeground) {
 		ColorParser p = new ColorParser(text, profile);
 		Element e;
 		
-		Color fg = null;
+		Color fg = defaultForeground;
 		Color bg = null;
 		boolean bold = false;
 		boolean underline = false;
@@ -90,7 +117,7 @@ public class ColorParser {
 					bg = e.bg;
 					break;
 				case COLOR_END:
-					fg = null;
+					fg = defaultForeground;
 					bg = null;
 					break;
 			}

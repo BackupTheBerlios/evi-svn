@@ -3,6 +3,7 @@ package org.schwering.evi.irc.gui;
 import java.awt.Color;
 import java.awt.Font;
 
+import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.MessageEvent;
@@ -19,6 +20,7 @@ public class QueryWindow extends SimpleWindow {
 		setTitle(user.toString());
 		controller.getConnection().addConnectionListener(new ConnectionListener());
 		controller.getConnection().addPrivateMessageListener(new PrivateMessageListener());
+		addToTabBar();
 	}
 
 	public void updateLayout() {
@@ -28,19 +30,58 @@ public class QueryWindow extends SimpleWindow {
 		updateLayout(font, fg, bg);
 	}
 	
+	public Object getObject() {
+		return user;
+	}
+	
+	public void inputFired(String str) {
+		str = str.trim();
+		if (str.charAt(0) == '/') {
+			str = str.substring(1);
+			appendLine("Sending to server: "+ str);
+			controller.getConnection().send(str);
+		} else {
+			String line = "PRIVMSG "+ user.getNick() +" :"+ str;
+			String nick = controller.getConnection().getNick();
+			controller.getConnection().send(line);
+			appendLine("<"+ nick +"> ", new Message(str),
+					controller.getProfile().getOwnColor());
+		}
+	}
+	
 	private class ConnectionListener extends ConnectionAdapter {
 		public void nickChanged(NickEvent event) {
+			if (user.isSame(event.getUser())) {
+				setTitle(user.toString());
+				appendLine(event.getOldNick() +" changed nickname to "+ user); 
+			}
 		}
-
+		
 		public void userLeft(UserParticipationEvent event) {
+			if (user.isSame(event.getUser()) && event.isQuit()) {
+				Message msg = event.getMessage();
+				if (msg != null && !msg.isEmpty()) {
+					appendLine(user +" quit (", msg, ")");
+				} else {
+					appendLine(user +" quit");
+				}
+			}
 		}
 	}
 	
 	private class PrivateMessageListener extends PrivateMessageAdapter {
 		public void messageReceived(MessageEvent event) {
+			if (user.isSame(event.getDestinationUser())) {
+				appendLine("<"+ user +"> ", event.getMessage(),
+						controller.getProfile().getOtherColor());
+			}
 		}
 
 		public void noticeReceived(MessageEvent event) {
+			if (user.isSame(event.getDestinationUser())) {
+				appendLine("("+ user +") ", event.getMessage(), 
+						controller.getProfile().getOtherColor());
+			}
 		}
 	}
 }

@@ -219,7 +219,7 @@ public class ConnectPanel extends JPanel {
 	
 	private JPanel makeProfileConnectPanel() {
 		JPanel p = new JPanel();
-		p.setBorder(new TitledBorder("Connect FullProfile"));
+		p.setBorder(new TitledBorder("Connect Full Profile"));
 		p.setLayout(new GridLayout(2, 0));
 		
 		FullProfile[] profiles = FullProfile.getProfiles();

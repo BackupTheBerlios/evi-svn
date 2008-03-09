@@ -16,7 +16,7 @@ import org.schwering.evi.irc.conf.Configuration;
  */
 public class TabBar extends JTabbedPane {
 	private static final long serialVersionUID = -417945783840186410L;
-
+	
 	/**
 	 * Initializes the new TabBar.
 	 */
@@ -58,6 +58,17 @@ public class TabBar extends JTabbedPane {
 	}
 	
 	/**
+	 * Removes the components that wrap <code>obj</code>.
+	 */
+	public void removeTab(Object obj) {
+		for (int i = getTabCount()-1; i >= 0; i--) {
+			if (obj == getComponentAt(i) || obj.equals(getComponentAt(i))) {
+				removeTab(i);
+			}
+		}
+	}
+	
+	/**
 	 * Removes an <code>AbstractWindow</code>.
 	 * @param tab The tab.
 	 */
@@ -86,6 +97,25 @@ public class TabBar extends JTabbedPane {
 			}
 		}
 		return list.toArray((Object[])Array.newInstance(cls, list.size()));
+	}
+	
+	/**
+	 * Returns the count of all tabs that are instance of a given class.<br />
+	 * @param cls The class whose instances are searched.
+	 * @return The count of all tabs that are instances of <code>cls</code>.
+	 */
+	public int getCountOfInstancesOf(Class cls) {
+		if (cls == null) {
+			cls = Object.class;
+		}
+		
+		Vector list = new Vector();
+		for (int i = 0; i < getTabCount(); i++) {
+			if (cls.isInstance(getComponentAt(i))) {
+				list.add(getComponentAt(i));
+			}
+		}
+		return list.size();
 	}
 	
 	/**

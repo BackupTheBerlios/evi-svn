@@ -70,6 +70,18 @@ public abstract class AbstractWindow extends JPanel {
 	public void dispose() {
 	}
 	
+	protected void addToTabBar() {
+		controller.getIRC().getTabBar().addTab(this);
+	}
+	
+	protected void addToTabBar(int i) {
+		controller.getIRC().getTabBar().addTab(i, this);
+	}
+	
+	protected void removeFromTabBar() {
+		controller.getIRC().getTabBar().removeTab(this);
+	}
+	
 	/**
 	 * Sets the title.
 	 * @param title The new title.
@@ -85,4 +97,10 @@ public abstract class AbstractWindow extends JPanel {
 	public String getTitle() {
 		return title;
 	}
+	
+	/**
+	 * Must return the object displayed by this window. Examples are the
+	 * <code>Channel</code> or <code>User</code> object.
+	 */
+	public abstract Object getObject();
 }
