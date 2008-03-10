@@ -62,7 +62,9 @@ public class TabBar extends JTabbedPane {
 	 */
 	public void removeTab(Object obj) {
 		for (int i = getTabCount()-1; i >= 0; i--) {
-			if (obj == getComponentAt(i) || obj.equals(getComponentAt(i))) {
+			Component comp = getComponentAt(i);
+			if (obj == null || (comp instanceof SimpleWindow 
+					&& obj.equals(((SimpleWindow)comp).getObject()))) {
 				removeTab(i);
 			}
 		}

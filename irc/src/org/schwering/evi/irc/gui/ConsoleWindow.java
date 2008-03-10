@@ -34,11 +34,16 @@ import org.schwering.irc.manager.event.WhoisEvent;
  * @version $Id$
  */
 public class ConsoleWindow extends SimpleWindow {
+	private ConnectionListener connectionListener;
+	private UnexpectedEventListener unexpectedEventListener;
+	
 	public ConsoleWindow(ConnectionController controller) {
 		super(controller);
 		setTitle("Console ("+ controller.getProfile().getName() +")");
-		controller.getConnection().addConnectionListener(new ConnectionListener());
-		controller.getConnection().addUnexpectedEventListener(new UnexpectedEventListener());
+		connectionListener = new ConnectionListener();
+		controller.getConnection().addConnectionListener(connectionListener);
+		unexpectedEventListener = new UnexpectedEventListener();
+		controller.getConnection().addUnexpectedEventListener(unexpectedEventListener);
 		addToTabBar();
 	}
 	
@@ -52,6 +57,11 @@ public class ConsoleWindow extends SimpleWindow {
 		updateLayout(font, fg, bg);
 	}
 	
+	public void dispose() {
+		controller.getConnection().removeConnectionListener(connectionListener);
+		controller.getConnection().removeUnexpectedEventListener(unexpectedEventListener);
+	}
+
 	public Object getObject() {
 		return controller;
 	}
