@@ -197,9 +197,9 @@ public class ConsoleWindow extends SimpleWindow {
 				appendText("It was set by "+ topic.getUser());
 				newLine();
 			}
-			if (topic.getTopic() != null && !topic.getTopic().isEmpty()) {
+			if (topic.getMessage() != null && !topic.getMessage().isEmpty()) {
 				appendText("The topic is: ");
-				appendMessage(topic.getTopic());
+				appendMessage(topic.getMessage());
 				newLine();
 			} else {
 				appendText("The topic was removed");
