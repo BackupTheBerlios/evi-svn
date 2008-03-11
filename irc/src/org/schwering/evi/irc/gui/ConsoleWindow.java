@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import org.schwering.irc.manager.ChannelUser;
-import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.BanlistEvent;
@@ -30,7 +29,6 @@ import org.schwering.irc.manager.event.UnexpectedEvent;
 import org.schwering.irc.manager.event.UnexpectedEventAdapter;
 import org.schwering.irc.manager.event.UserModeEvent;
 import org.schwering.irc.manager.event.UserParticipationEvent;
-import org.schwering.irc.manager.event.UserStatusEvent;
 import org.schwering.irc.manager.event.WhoEvent;
 import org.schwering.irc.manager.event.WhoisEvent;
 import org.schwering.irc.manager.event.WhowasEvent;
@@ -122,6 +120,8 @@ public class ConsoleWindow extends SimpleWindow {
 		}
 
 		public void channelModeReceived(ChannelModeEvent event) {
+			appendLine("Channel mode for "+ event.getChannel() +" received: "+
+					event.getIrcModeParser().getLine());
 		}
 
 		public void connectionEstablished(ConnectionEvent event) {
@@ -325,7 +325,7 @@ public class ConsoleWindow extends SimpleWindow {
 			for (int i = 0; i < event.getCount(); i++) {
 				String server = event.getServer(i);
 				String serverInfo = event.getServerInfo(i);
-				int hopCount = event.getHopCount(i);
+				String hopCount = event.getHopCount(i);
 				appendText(server +" ("+ serverInfo +", hop count "+ hopCount +")");
 				newLine();
 			}
@@ -333,13 +333,21 @@ public class ConsoleWindow extends SimpleWindow {
 
 		public void listReceived(ListEvent event) {
 			appendLine("List received:");
-			for (int i = 0; i < event.getCount(); i++) {
-				String channel = event.getTopic(i).getChannel().getName();
-				int visibleCount = event.getVisibleCount(i);
-				Message topic = event.getTopic(i).getMessage();
-				appendLine(channel +" ("+ visibleCount +" visible users): ");
-				appendMessage(topic);
+			long i = 1;
+			for (Iterator it1 = event.getTopics().iterator(), 
+					it2 = event.getVisibleCounts().iterator();
+					it1.hasNext() && it2.hasNext(); ) {
+				Topic topic = (Topic)it1.next();
+				int visibleCount = ((Integer)it2.next()).intValue();
+				String channel = topic.getChannel().getName();
+				if (topic.getMessage() != null) {
+					appendText(i +".: "+ channel +" ("+ visibleCount +" visible users): ");
+					appendMessage(topic.getMessage());
+				} else {
+					appendText(i +".: "+ channel +" ("+ visibleCount +" visible users) has no topic");
+				}
 				newLine();
+				i++;
 			}
 		}
 
@@ -348,7 +356,7 @@ public class ConsoleWindow extends SimpleWindow {
 			for (int i = 0; i < event.getCount(); i++) {
 				ChannelUser channelUser = event.getChannelUser(i);
 				String realName = event.getRealname(i);
-				int hopCount = event.getHopCount(i);
+				String hopCount = event.getHopCount(i);
 				String server = event.getServer(i);
 				
 				String descr = channelUser.getNick() +" ("+ realName +")";

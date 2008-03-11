@@ -46,6 +46,7 @@ public abstract class SimpleWindow extends AbstractWindow {
 	 */
 	protected Component createCenterComponent() {
 		text = new TextPane();
+		text.setLimit(10000, 8000);
 		text.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1)
