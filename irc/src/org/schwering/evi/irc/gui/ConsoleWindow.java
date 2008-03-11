@@ -3,18 +3,23 @@ package org.schwering.evi.irc.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import org.schwering.irc.manager.ChannelUser;
+import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
+import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.BanlistEvent;
 import org.schwering.irc.manager.event.ChannelModeEvent;
-import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.ConnectionEvent;
 import org.schwering.irc.manager.event.ErrorEvent;
+import org.schwering.irc.manager.event.InfoEvent;
 import org.schwering.irc.manager.event.InvitationEvent;
-import org.schwering.irc.manager.event.MOTDEvent;
+import org.schwering.irc.manager.event.LinksEvent;
+import org.schwering.irc.manager.event.ListEvent;
+import org.schwering.irc.manager.event.MotdEvent;
 import org.schwering.irc.manager.event.MessageEvent;
 import org.schwering.irc.manager.event.NamesEvent;
 import org.schwering.irc.manager.event.NickEvent;
@@ -26,7 +31,9 @@ import org.schwering.irc.manager.event.UnexpectedEventAdapter;
 import org.schwering.irc.manager.event.UserModeEvent;
 import org.schwering.irc.manager.event.UserParticipationEvent;
 import org.schwering.irc.manager.event.UserStatusEvent;
+import org.schwering.irc.manager.event.WhoEvent;
 import org.schwering.irc.manager.event.WhoisEvent;
+import org.schwering.irc.manager.event.WhowasEvent;
 
 /**
  * Console window.
@@ -77,11 +84,21 @@ public class ConsoleWindow extends SimpleWindow {
 		}
 	}
 	
-	private class ConnectionListener extends ConnectionAdapter {
+	private class ConnectionListener implements org.schwering.irc.manager.event.ConnectionListener {
 		public void banlistReceived(BanlistEvent event) {
 			appendLine("Banlist for "+ event.getChannel());
-			for (Iterator it = event.getBanIDs().iterator(); it.hasNext(); ) {
-				appendText(it.next().toString());
+			for (int i = 0; i < event.getCount(); i++) {
+				String id = event.getBanID(i);
+				User user = event.getUser(i);
+				Date date = event.getDate(i);
+				String text = (i+1)+".: "+ id;
+				if (user != null) {
+					text += " by "+ user;
+				}
+				if (date != null) {
+					text += " ("+date+")";
+				}
+				appendText(text);
 				newLine();
 			}
 		}
@@ -144,7 +161,7 @@ public class ConsoleWindow extends SimpleWindow {
 			appendLine("Received message to "+ tgt +": "+ event.getMessage());
 		}
 
-		public void motdReceived(MOTDEvent event) {
+		public void motdReceived(MotdEvent event) {
 			appendLine("MOTD received:");
 			for (Iterator it = event.getText().iterator(); it.hasNext(); ) {
 				appendText(it.next().toString());
@@ -293,6 +310,70 @@ public class ConsoleWindow extends SimpleWindow {
 				}
 				newLine();
 			}
+		}
+
+		public void infoReceived(InfoEvent event) {
+			appendLine("Info received:");
+			for (Iterator it = event.getText().iterator(); it.hasNext(); ) {
+				appendText(it.next().toString());
+				newLine();
+			}
+		}
+
+		public void linksReceived(LinksEvent event) {
+			appendLine("Links for mask "+ event.getMask() +" received:");
+			for (int i = 0; i < event.getCount(); i++) {
+				String server = event.getServer(i);
+				String serverInfo = event.getServerInfo(i);
+				int hopCount = event.getHopCount(i);
+				appendText(server +" ("+ serverInfo +", hop count "+ hopCount +")");
+				newLine();
+			}
+		}
+
+		public void listReceived(ListEvent event) {
+			appendLine("List received:");
+			for (int i = 0; i < event.getCount(); i++) {
+				String channel = event.getTopic(i).getChannel().getName();
+				int visibleCount = event.getVisibleCount(i);
+				Message topic = event.getTopic(i).getMessage();
+				appendLine(channel +" ("+ visibleCount +" visible users): ");
+				appendMessage(topic);
+				newLine();
+			}
+		}
+
+		public void whoReceived(WhoEvent event) {
+			appendLine("Who of "+ event.getChannel() +" received:");
+			for (int i = 0; i < event.getCount(); i++) {
+				ChannelUser channelUser = event.getChannelUser(i);
+				String realName = event.getRealname(i);
+				int hopCount = event.getHopCount(i);
+				String server = event.getServer(i);
+				
+				String descr = channelUser.getNick() +" ("+ realName +")";
+				String away = channelUser.isAway() ? "is gone, " : "is here, ";
+				if (channelUser.isOperator()) {
+					appendText(descr +" is operator and "+ away);
+				} else if (channelUser.isVoiced()) {
+					appendText(descr +" is voiced and "+ away);
+				} else {
+					appendText(descr +" "+ away);
+				}
+				appendText(", connected to "+ server 
+						+" (hop count "+ hopCount +")");
+				newLine();
+			}
+		}
+
+		public void whowasReceived(WhowasEvent event) {
+			appendLine("Who was "+ event.getUser().getNick() +"?");
+			appendText("Username: "+ event.getUser().getUsername());
+			newLine();
+			appendText("Realname: "+ event.getRealname());
+			newLine();
+			appendText("Host: "+ event.getUser().getHost());
+			newLine();
 		}
 	}
 	
