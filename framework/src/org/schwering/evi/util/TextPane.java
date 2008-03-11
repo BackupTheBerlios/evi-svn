@@ -37,6 +37,10 @@ public class TextPane extends JTextPane {
 		setEditable(false);
 	}
 	
+	public void setLimit(int maxSize, int newSize) {
+		((Document)getDocument()).setLimit(maxSize, newSize);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.util.Document#append(java.lang.String, java.awt.Color, boolean, boolean, boolean)
 	 */

@@ -23,6 +23,8 @@ public class Document extends DefaultStyledDocument {
 	
 	private SimpleAttributeSet attr = new SimpleAttributeSet();
 	private JTextComponent owner;
+	private int maxSize = -1;
+	private int newSize = -1;
 	
 	/**
 	 * Creates a new non-editable <code>TextPane</code> with an empty document.
@@ -30,6 +32,11 @@ public class Document extends DefaultStyledDocument {
 	public Document(JTextComponent owner) {
 		super();
 		this.owner = owner;
+	}
+	
+	public void setLimit(int maxSize, int newSize) {
+		this.maxSize = maxSize;
+		this.newSize = newSize;
 	}
 	
 	/* (non-Javadoc)
@@ -290,6 +297,9 @@ public class Document extends DefaultStyledDocument {
 	public void append(String text, SimpleAttributeSet attr) {
 		try {
 			insertString(getLength(), text, attr);
+			if (maxSize > 0 && newSize > 0 && maxSize > newSize && getLength() > maxSize) {
+				remove(0, getLength() - newSize);
+			}
 			owner.setCaretPosition(getLength());
 		} catch (Exception exc) {
 			ExceptionDialog.show(exc);
@@ -396,6 +406,9 @@ public class Document extends DefaultStyledDocument {
 	public void prepend(String text, SimpleAttributeSet attr) {
 		try {
 			insertString(0, text, attr);
+			if (maxSize > 0 && newSize > 0 && maxSize > newSize && getLength() > maxSize) {
+				remove(newSize, getLength() - newSize);
+			}
 			owner.setCaretPosition(0);
 		} catch (Exception exc) {
 			exc.printStackTrace();
