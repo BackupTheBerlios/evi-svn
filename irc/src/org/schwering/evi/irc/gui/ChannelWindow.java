@@ -19,7 +19,6 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import org.schwering.irc.manager.Channel;
-import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
@@ -306,6 +305,8 @@ public class ChannelWindow extends SimpleWindow {
 		public void nickChanged(NickEvent event) {
 			appendLine(event.getOldNick() +" is now known as "+ 
 					event.getUser().getNick());
+			System.out.println("status(user) = status("+ event.getUser() +") = "+ channel.getUserStatus(event.getUser()));
+			System.out.println("status(oldNick) = status("+ event.getOldNick() +") = "+ channel.getUserStatus(event.getOldNick()));
 			listModel.reinsert(event.getUser());
 		}
 
