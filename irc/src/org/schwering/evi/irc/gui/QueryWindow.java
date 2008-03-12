@@ -21,6 +21,7 @@ public class QueryWindow extends SimpleWindow {
 		controller.getConnection().addConnectionListener(new ConnectionListener());
 		controller.getConnection().addPrivateMessageListener(new PrivateMessageListener());
 		addToTabBar();
+		select();
 	}
 
 	public void updateLayout() {

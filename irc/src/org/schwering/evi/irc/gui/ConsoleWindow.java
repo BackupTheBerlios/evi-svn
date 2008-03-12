@@ -50,6 +50,7 @@ public class ConsoleWindow extends SimpleWindow {
 		unexpectedEventListener = new UnexpectedEventListener();
 		controller.getConnection().addUnexpectedEventListener(unexpectedEventListener);
 		addToTabBar();
+		select();
 	}
 	
 	/* (non-Javadoc)
@@ -121,7 +122,7 @@ public class ConsoleWindow extends SimpleWindow {
 
 		public void channelModeReceived(ChannelModeEvent event) {
 			appendLine("Channel mode for "+ event.getChannel() +" received: "+
-					event.getIrcModeParser().getLine());
+					event.getIRCModeParser().getLine());
 		}
 
 		public void connectionEstablished(ConnectionEvent event) {

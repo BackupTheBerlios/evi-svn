@@ -70,16 +70,32 @@ public abstract class AbstractWindow extends JPanel {
 	public void dispose() {
 	}
 	
+	/**
+	 * Adds the window to the tabbar.
+	 */
 	protected void addToTabBar() {
 		controller.getIRC().getTabBar().addTab(this);
 	}
 	
+	/**
+	 * Adds the window to the tabbar at index i.
+	 */
 	protected void addToTabBar(int i) {
 		controller.getIRC().getTabBar().addTab(i, this);
 	}
 	
+	/**
+	 * Removes the window to the tabbar.
+	 */
 	protected void removeFromTabBar() {
 		controller.getIRC().getTabBar().removeTab(this);
+	}
+	
+	/**
+	 * Selects the window. This means it will be visible.
+	 */
+	protected void select() {
+		controller.getIRC().getTabBar().setSelectedComponent(this);
 	}
 	
 	/**
