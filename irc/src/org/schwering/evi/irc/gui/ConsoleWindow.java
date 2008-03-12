@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
@@ -299,10 +300,10 @@ public class ConsoleWindow extends SimpleWindow {
 				appendText("Is on channels:");
 				for (int i = 0; i < event.getChannelCount(); i++) {
 					appendText(" "+ event.getChannel(i));
-					if (event.getChannelStatus(i) == ChannelUser.OPERATOR) {
+					if (event.getChannelStatus(i) == Channel.OPERATOR) {
 						appendText(" (operator)");
 					}
-					if (event.getChannelStatus(i) == ChannelUser.VOICED) {
+					if (event.getChannelStatus(i) == Channel.VOICED) {
 						appendText(" (operator)");
 					}
 					if (i+1 < event.getChannelCount()) {

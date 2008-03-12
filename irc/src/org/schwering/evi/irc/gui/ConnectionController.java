@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import org.schwering.evi.irc.IRC;
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
@@ -124,11 +125,11 @@ public class ConnectionController {
 					w.appendText("Is on channels:");
 					for (int i = 0; i < event.getChannelCount(); i++) {
 						w.appendText(" "+ event.getChannel(i));
-						if (event.getChannelStatus(i) == ChannelUser.OPERATOR) {
+						if ((event.getChannelStatus(i) & Channel.OPERATOR) != 0){
 							w.appendText(" (operator)");
 						}
-						if (event.getChannelStatus(i) == ChannelUser.VOICED) {
-							w.appendText(" (operator)");
+						if (event.getChannelStatus(i) == Channel.VOICED) {
+							w.appendText(" (voiced)");
 						}
 						if (i+1 < event.getChannelCount()) {
 							w.appendText(",");

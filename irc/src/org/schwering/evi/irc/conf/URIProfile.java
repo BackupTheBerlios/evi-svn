@@ -62,7 +62,7 @@ public class URIProfile implements Profile {
 	 * @see org.schwering.evi.irc.conf.Profile#getChannelFont()
 	 */
 	public Font getChannelFont() {
-		return MainConfiguration.PROPS.getFont("font.secondary");
+		return MainConfiguration.PROPS.getFont("font.primary");
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +76,7 @@ public class URIProfile implements Profile {
 	 * @see org.schwering.evi.irc.conf.Profile#getConsoleFont()
 	 */
 	public Font getConsoleFont() {
-		return MainConfiguration.PROPS.getFont("font.primary");
+		return MainConfiguration.PROPS.getFont("font.secondary");
 	}
 	
 	/* (non-Javadoc)
@@ -168,7 +168,7 @@ public class URIProfile implements Profile {
 	 * @see org.schwering.evi.irc.conf.Profile#getQueryFont()
 	 */
 	public Font getQueryFont() {
-		return MainConfiguration.PROPS.getFont("font.secondary");
+		return MainConfiguration.PROPS.getFont("font.primary");
 	}
 	
 	/* (non-Javadoc)

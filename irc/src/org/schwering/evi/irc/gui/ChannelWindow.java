@@ -24,7 +24,6 @@ import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.BanlistEvent;
-import org.schwering.irc.manager.event.ChannelAdapter;
 import org.schwering.irc.manager.event.ChannelModeEvent;
 import org.schwering.irc.manager.event.MessageEvent;
 import org.schwering.irc.manager.event.NamesEvent;
@@ -37,6 +36,7 @@ import org.schwering.irc.manager.event.WhoEvent;
 public class ChannelWindow extends SimpleWindow {
 	private Channel channel;
 	private NickListModel listModel;
+	private JSplitPane splitPane;
 	
 	public ChannelWindow(ConnectionController controller, Channel channel) {
 		super(controller);
@@ -46,6 +46,7 @@ public class ChannelWindow extends SimpleWindow {
 		channel.addChannelListener(new ChannelListener());
 		addToTabBar();
 		select();
+		splitPane.setDividerLocation(0.8);
 	}
 	
 	protected Component createCenterComponent() {
@@ -53,9 +54,9 @@ public class ChannelWindow extends SimpleWindow {
 		listModel = new NickListModel();
 		JList nickList = new JList(listModel);
 		nickList.setCellRenderer(new NickRenderer());
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
 				textArea, nickList);
-		splitPane.setDividerLocation(0);
+		splitPane.setDividerLocation(0.8);
 		return splitPane;
 	}
 
@@ -118,17 +119,14 @@ public class ChannelWindow extends SimpleWindow {
 		}
 		
 		public void reinsert(User user) {
-			int i = 0;
-			while (i < list.size() && list.get(i) != user) {
-				i++;
-			}
-			if (i == list.size()) {
+			int i = list.indexOf(user);
+			if (i == -1) {
 				throw new RuntimeException("instance not found");
 			}
 			list.remove(i);
 			fireContentsRemoved(i);
-			int newIndex = insert(user);
-			fireContentsAdded(newIndex);
+			i = insert(user);
+			fireContentsAdded(i);
 		}
 		
 		public void remove(int i) {
@@ -136,9 +134,11 @@ public class ChannelWindow extends SimpleWindow {
 		}
 		
 		public void sync(Collection userList) {
+			System.out.println("sync() with "+ userList.size());
 			for (Iterator it = userList.iterator(); it.hasNext(); ) {
 				User user = (User)it.next();
-				insertIfNotYetContained(user);
+				int i = insertIfNotYetContained(user);
+				System.out.println("sync(): "+ user +" #"+ i);
 			}
 		}
 		
@@ -153,13 +153,13 @@ public class ChannelWindow extends SimpleWindow {
 		private int compare(User u, User v) {
 			int s = channel.getUserStatus(u);
 			int t = channel.getUserStatus(v);
-			if ((s & ChannelUser.OPERATOR) != 0 && (t & ChannelUser.OPERATOR) == 0){
+			if ((s & Channel.OPERATOR) != 0 && (t & Channel.OPERATOR) == 0){
 				return -1;
-			} else if ((s & ChannelUser.OPERATOR) == 0 && (t & ChannelUser.OPERATOR) != 0){
+			} else if ((s & Channel.OPERATOR) == 0 && (t & Channel.OPERATOR) != 0){
 				return 1;
-			} else if (s == ChannelUser.VOICED && t == ChannelUser.NONE){
+			} else if (s == Channel.VOICED && t == Channel.NONE){
 				return -1;
-			} else if (s == ChannelUser.NONE && t == ChannelUser.VOICED) {
+			} else if (s == Channel.NONE && t == Channel.VOICED) {
 				return 1;
 			}
 			return u.getNick().compareToIgnoreCase(v.getNick());
@@ -213,11 +213,12 @@ public class ChannelWindow extends SimpleWindow {
 	private class NickRenderer implements ListCellRenderer {
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
-			ChannelUser user = (ChannelUser)value;
+			User user = (User)value;
+			int status = channel.getUserStatus(user);
 			String prefix = "";
-			if (user.isOperator()) {
+			if (status == Channel.OPERATOR) {
 				prefix = "@";
-			} else if (user.isVoiced()) {
+			} else if (status == Channel.VOICED) {
 				prefix = "+";
 			}
 			JLabel lbl = new JLabel();
