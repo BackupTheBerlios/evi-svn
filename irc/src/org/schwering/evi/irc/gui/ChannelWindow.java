@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
@@ -35,7 +36,6 @@ import org.schwering.irc.manager.event.WhoEvent;
 public class ChannelWindow extends SimpleWindow {
 	private Channel channel;
 	private NickListModel listModel;
-	private JSplitPane splitPane;
 	
 	public ChannelWindow(ConnectionController controller, Channel channel) {
 		super(controller);
@@ -45,7 +45,6 @@ public class ChannelWindow extends SimpleWindow {
 		channel.addChannelListener(new ChannelListener());
 		addToTabBar();
 		select();
-		splitPane.setDividerLocation(0.8);
 	}
 	
 	protected Component createCenterComponent() {
@@ -53,9 +52,14 @@ public class ChannelWindow extends SimpleWindow {
 		listModel = new NickListModel();
 		JList nickList = new JList(listModel);
 		nickList.setCellRenderer(new NickRenderer());
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
-				textArea, nickList);
+		JScrollPane nickListScrollPane = new JScrollPane(nickList,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+				textArea, nickListScrollPane);
+		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(0.8);
+		splitPane.setResizeWeight(0.8);
 		return splitPane;
 	}
 
@@ -225,6 +229,12 @@ public class ChannelWindow extends SimpleWindow {
 			if (user.isAway()) {
 				lbl.setForeground(Color.DARK_GRAY);
 			}
+			String toolTip = "Username: "+ user.getUsername()
+							+"\nHost: "+ user.getHost();
+			if (user.isAway()) {
+				toolTip += "\n"+ user.getNick() +" is away";
+			}
+			lbl.setToolTipText(toolTip);
 			return lbl;
 		}
 	}
@@ -282,8 +292,13 @@ public class ChannelWindow extends SimpleWindow {
 		}
 
 		public void channelModeReceived(ChannelModeEvent event) {
-			appendLine(event.getUser() +" changed channel mode to "+
-					event.getIRCModeParser().getLine());
+			if (event.getUser() == null) {
+				appendLine("Channel mode is "+
+						event.getIRCModeParser().getLine());
+			} else {
+				appendLine(event.getUser() +" changed channel mode to "+
+						event.getIRCModeParser().getLine());
+			}
 		}
 
 		public void userStatusChanged(UserStatusEvent event) {

@@ -152,8 +152,13 @@ public class ConsoleWindow extends SimpleWindow {
 		}
 
 		public void invitationReceived(InvitationEvent event) {
-			appendLine("You ("+ event.getInvitedUser() +" got invited "+ 
+			appendLine("You ("+ event.getInvitedUser() +") got invited "+ 
 					"by "+ event.getInvitingUser() +" to "+ event.getChannel());
+		}
+
+		public void invitationDeliveryReceived(InvitationEvent event) {
+			appendLine("You ("+ event.getInvitingUser() +") invited "+ 
+					event.getInvitedUser() +" to "+ event.getChannel());
 		}
 
 		public void messageReceived(MessageEvent event) {
@@ -370,7 +375,7 @@ public class ConsoleWindow extends SimpleWindow {
 				} else {
 					appendText(descr +" "+ away);
 				}
-				appendText(", connected to "+ server 
+				appendText("connected to "+ server 
 						+" (hop count "+ hopCount +")");
 				newLine();
 			}

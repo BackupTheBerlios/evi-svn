@@ -42,8 +42,8 @@ public class Document extends DefaultStyledDocument {
 	/* (non-Javadoc)
 	 * @see javax.swing.text.Document#insertString(int, java.lang.String, javax.swing.text.AttributeSet)
 	 */
-	public void insertString(int pos, String str, AttributeSet attr)
-			throws BadLocationException {
+	public synchronized void insertString(int pos, String str, 
+			AttributeSet attr) throws BadLocationException {
 		super.insertString(pos, str, ((attr != null) ? attr : this.attr));
 	}
 	
