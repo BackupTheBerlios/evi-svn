@@ -5,7 +5,6 @@ import java.awt.Component;
 import org.schwering.evi.irc.IRC;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.irc.manager.Channel;
-import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.ConnectionEvent;

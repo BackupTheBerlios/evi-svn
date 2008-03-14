@@ -40,9 +40,10 @@ public class ChannelWindow extends SimpleWindow {
 	public ChannelWindow(ConnectionController controller, Channel channel) {
 		super(controller);
 		this.channel = channel;
-		setTitle(channel.toString());
 		listModel.sync(channel.getChannelUsers());
 		channel.addChannelListener(new ChannelListener());
+		input.setCompleter(new NickCompleter());
+		setTitle(channel.toString());
 		addToTabBar();
 		select();
 	}
@@ -132,8 +133,16 @@ public class ChannelWindow extends SimpleWindow {
 			fireContentsAdded(i);
 		}
 		
-		public void remove(int i) {
-			list.remove(i);
+		public void remove(User user) {
+			int removes = 0;
+			for (int i = list.indexOf(user); i != -1; i = list.indexOf(user)) {
+				list.remove(i);
+				fireContentsRemoved(i);
+				removes++;
+			}
+			if (removes != 1) {
+				throw new RuntimeException("removed user "+ user +" "+ removes +" times from nicklist");
+			}
 		}
 		
 		public void sync(Collection userList) {
@@ -320,13 +329,12 @@ public class ChannelWindow extends SimpleWindow {
 		public void nickChanged(NickEvent event) {
 			appendLine(event.getOldNick() +" is now known as "+ 
 					event.getUser().getNick());
-			System.out.println("status(user) = status("+ event.getUser() +") = "+ channel.getUserStatus(event.getUser()));
-			System.out.println("status(oldNick) = status("+ event.getOldNick() +") = "+ channel.getUserStatus(event.getOldNick()));
 			listModel.reinsert(event.getUser());
 		}
 
 		public void userJoined(UserParticipationEvent event) {
 			appendLine(event.getUser() +" joined");
+			listModel.insert(event.getUser());
 		}
 
 		public void userLeft(UserParticipationEvent event) {
@@ -347,6 +355,42 @@ public class ChannelWindow extends SimpleWindow {
 			} else {
 				appendLine(event.getUser() +" "+ method + rest);
 			}
+			listModel.remove(event.getUser());
+		}
+	}
+	
+	private class NickCompleter implements Completer {
+		public String complete(String str) {
+			str = str.toLowerCase();
+			List found = new LinkedList();
+			for (Iterator it = channel.getChannelUsers().iterator(); it.hasNext(); ) {
+				User other = (User)it.next();
+				if (other.getNick().toLowerCase().startsWith(str)) {
+					found.add(other.getNick());
+				}
+			}
+			String commonPrefix = null;
+			for (Iterator it = found.iterator(); it.hasNext(); ) {
+				String nick = (String)it.next();
+				if (commonPrefix == null) {
+					commonPrefix = nick;
+				} else {
+					int i = getCommonPrefixLength(commonPrefix, nick);
+					commonPrefix = commonPrefix.substring(0, i);
+				}
+			}
+			return commonPrefix;
+		}
+		
+		private int getCommonPrefixLength(String s, String t) {
+			int len = (s.length() < t.length()) ? s.length() : t.length();
+			for (int i = 0; i < len; i++) {
+				if (Character.toLowerCase(s.charAt(i))
+						!= Character.toLowerCase(t.charAt(i))) {
+					return i;
+				}
+			}
+			return len;
 		}
 	}
 }

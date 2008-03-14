@@ -24,6 +24,7 @@ public class InputField extends TextField implements ActionListener, KeyListener
 	private static final long serialVersionUID = 3914942143557323290L;
 	protected Vector listeners = new Vector();
 	protected IteratorList history = new IteratorList(50);
+	protected Completer compl = null;
 	
 	public InputField() {
 		this(null);
@@ -89,6 +90,14 @@ public class InputField extends TextField implements ActionListener, KeyListener
 		}
 	}
 	
+	public void setCompleter(Completer c) {
+		this.compl = c;
+	}
+	
+	public Completer getCompleter() {
+		return compl;
+	}
+	
 	/**
 	 * Tries to complete a already typed-in phrase to a nickname.
 	 */
@@ -106,12 +115,19 @@ public class InputField extends TextField implements ActionListener, KeyListener
 			prevSpace = 0;
 		
 		if (c == ' ' || c == '\n') {
-			String s = getText(prevSpace, pos - prevSpace);
-			System.out.println("Completing '"+ s +"'");
-			try {
-				getDocument().insertString(pos, "TABCOMPL", null);
-			} catch (Exception exc) {
-				exc.printStackTrace();
+			String str = getText(prevSpace, pos - prevSpace);
+			System.out.println("completing '"+str+"'");
+			String complStr = (compl != null) ? compl.complete(str) : null;
+			System.out.println("complted to '"+complStr+"'");
+			if (complStr != null) {
+				try {
+					System.out.println("prevSpace = "+ prevSpace);
+					System.out.println("pos = "+ pos);
+					getDocument().remove(prevSpace, pos - prevSpace);
+					getDocument().insertString(prevSpace, complStr, null);
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
 			}
 		}
 	}
