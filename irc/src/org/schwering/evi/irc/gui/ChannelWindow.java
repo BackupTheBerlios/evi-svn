@@ -96,8 +96,6 @@ public class ChannelWindow extends SimpleWindow {
 	
 	/**
 	 * The model for the nick list. 
-	 * TODO This uses an interator for random access. Change this to real
-	 * random access.
 	 */
 	private class NickListModel implements ListModel {
 		private List listeners = new LinkedList();
