@@ -226,9 +226,9 @@ public class ChannelWindow extends SimpleWindow {
 			User user = (User)value;
 			int status = channel.getUserStatus(user);
 			String prefix = "";
-			if (status == Channel.OPERATOR) {
+			if ((status & Channel.OPERATOR) != 0) {
 				prefix = "@";
-			} else if (status == Channel.VOICED) {
+			} else if ((status & Channel.VOICED) != 0) {
 				prefix = "+";
 			}
 			JLabel lbl = new JLabel();
