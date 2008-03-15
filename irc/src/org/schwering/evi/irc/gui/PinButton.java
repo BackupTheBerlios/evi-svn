@@ -17,6 +17,11 @@ import org.schwering.evi.util.TextPane;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class PinButton extends JButton {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4598432184897992096L;
+
 	public PinButton(TextPane tp) {
 		final int size = StyleConstants.getFontSize(tp.getAttributes()) - 1;
 		setPreferredSize(new Dimension(size, size));

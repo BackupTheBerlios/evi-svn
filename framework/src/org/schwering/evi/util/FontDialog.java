@@ -28,6 +28,11 @@ import javax.swing.ListCellRenderer;
  * @version $Id$
  */
 public class FontDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6642226249921646986L;
+
 	private Wrapper[] FONT_STYLES = new Wrapper[] {
 			new Wrapper(Messages.getString("FontDialog.PLAIN"), "PLAIN"), //$NON-NLS-1$
 			new Wrapper(Messages.getString("FontDialog.BOLD"), "BOLD"),  //$NON-NLS-1$

@@ -34,6 +34,10 @@ import org.schwering.irc.manager.event.UserStatusEvent;
 import org.schwering.irc.manager.event.WhoEvent;
 
 public class ChannelWindow extends SimpleWindow {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1641623088498545249L;
 	private Channel channel;
 	private NickListModel listModel;
 	
@@ -204,18 +208,6 @@ public class ChannelWindow extends SimpleWindow {
 					ListDataEvent.INTERVAL_REMOVED, i, j);
 			for (Iterator it = listeners.iterator(); it.hasNext(); ) {
 				((ListDataListener)it.next()).intervalRemoved(event);
-			}
-		}
-		
-		private void fireContentsChanged(int i) {
-			fireContentsChanged(i, i);
-		}
-		
-		private synchronized void fireContentsChanged(int i, int j) {
-			ListDataEvent event = new ListDataEvent(this, 
-					ListDataEvent.CONTENTS_CHANGED, i, j);
-			for (Iterator it = listeners.iterator(); it.hasNext(); ) {
-				((ListDataListener)it.next()).contentsChanged(event);
 			}
 		}
 	}

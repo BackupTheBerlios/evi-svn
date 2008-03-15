@@ -30,8 +30,6 @@ public class FontSelector extends JPanel {
 	public FontSelector() {
 		super(new BorderLayout());
 		
-		final FontSelector owner = this;
-		
 		JButton button = new JButton(Messages.getString("FontSelector.CHOOSE")); //$NON-NLS-1$
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

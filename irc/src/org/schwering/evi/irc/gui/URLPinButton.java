@@ -15,6 +15,11 @@ import org.schwering.evi.util.TextPane;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  */
 public class URLPinButton extends PinButton {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6239775499107091525L;
+
 	public URLPinButton(TextPane tp, String urlString) throws MalformedURLException {
 		super(tp);
 		if (!urlString.startsWith("http"))
@@ -23,6 +28,11 @@ public class URLPinButton extends PinButton {
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HTMLBrowser browser = new HTMLBrowser(url) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 4578996987470393590L;
+
 					public String getTitle() {
 						return url.toString();
 					}
