@@ -17,8 +17,8 @@ import java.nio.IntBuffer;
  * @author Pepijn Van Eeckhoudt
  */
 public class HelpOverlay implements GLEventListener {
-    private List keyboardEntries = new ArrayList();
-    private List mouseEntries = new ArrayList();
+    private List<String> keyboardEntries = new ArrayList<String>();
+    private List<String> mouseEntries = new ArrayList<String>();
     private boolean visible = false;
     private GLUT glut = new GLUT();
     private GLU glu = new GLU();

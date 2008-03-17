@@ -50,7 +50,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 * The keys are java.awt.Components (returned by IPanel.getPanelInstance())
 	 * and the values are the owning IModule objects.
 	 */
-	private Hashtable table = new Hashtable();
+	private Hashtable<Component, IPanel> table = new Hashtable<Component, IPanel>();
 	
 	/**
 	 * Creates a new tabbar.

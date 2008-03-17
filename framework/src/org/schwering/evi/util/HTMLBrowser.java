@@ -56,7 +56,7 @@ public class HTMLBrowser extends JPanel implements IPanel, IHTMLPaneListener {
 	 * @param resource The resource which should be displayed. This means it must be 
 	 * contained in the JAR which <code>cls</code>.
 	 */
-	public HTMLBrowser(Class cls, String resource) {
+	public HTMLBrowser(Class<?> cls, String resource) {
 		this(cls.getClassLoader().getResource(resource));
 	}
 	

@@ -72,7 +72,7 @@ IParameterizable, IURIHandler {
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleInfo#getModuleClass()
 	 */
-	public Class getModuleClass() {
+	public Class<IRC> getModuleClass() {
 		return IRC.class;
 	}
 

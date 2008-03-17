@@ -151,10 +151,10 @@ public class Properties extends java.util.Properties {
 	 * @return All configuration keys.
 	 */
 	public String[] getKeys() {
-		Enumeration keys = keys();
+		Enumeration<Object> keys = keys();
 		String[] arr = new String[size()];
 		for (int i = 0; i < arr.length && keys.hasMoreElements(); i++) {
-			arr[i] = (String)keys.nextElement();
+			arr[i] = keys.nextElement().toString();
 		}
 		return arr;
 	}

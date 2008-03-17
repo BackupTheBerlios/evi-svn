@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
  * @version $Id$
  */
 public class TabBarSingleSelectionModel implements SingleSelectionModel {
-	protected Vector listeners = new Vector();
+	protected Vector<ChangeListener> listeners = new Vector<ChangeListener>();
 	protected int index = -1;
 
 	/* (non-Javadoc)

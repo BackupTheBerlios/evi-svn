@@ -25,7 +25,7 @@ KeyListener {
 	private static final long serialVersionUID = -8109383024385420651L;
 	
 	private MainPanel owner;
-	private Hashtable elements = new Hashtable();
+	private Hashtable<URL, ListItem> elements = new Hashtable<URL, ListItem>();
 	private Playlist playlist;
 	private PopupMenu popup = new PopupMenu(this);
 	
@@ -64,7 +64,7 @@ KeyListener {
 	 * @return The ListItem that represents URL in the list.
 	 */
 	public ListItem getListElement(URL url) {
-		return (ListItem)elements.get(url);
+		return elements.get(url);
 	}
 
 	/**

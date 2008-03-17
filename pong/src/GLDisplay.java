@@ -129,7 +129,7 @@ public class GLDisplay extends JPanel {
 	}
 	
 	private static class MyHelpOverlayGLEventListener implements GLEventListener {
-		private java.util.List eventListeners = new ArrayList();
+		private java.util.List<GLEventListener> eventListeners = new ArrayList<GLEventListener>();
 		private HelpOverlay helpOverlay = new HelpOverlay();
 		private boolean showHelp = false;
 		

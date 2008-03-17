@@ -55,9 +55,9 @@ public class ProfileChooser extends JPanel {
 		});
 		
 		FullProfile[] p = FullProfile.getProfiles();
-		Arrays.sort(p, new Comparator() {
-			public int compare(Object arg0, Object arg1) {
-				return arg0.toString().compareTo(arg1.toString());
+		Arrays.sort(p, new Comparator<FullProfile>() {
+				public int compare(FullProfile arg0, FullProfile arg1) {
+					return arg0.toString().compareTo(arg1.toString());
 			}
 		});
 		for (int i = 0; i < p.length; i++) {

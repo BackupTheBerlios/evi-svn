@@ -87,18 +87,15 @@ public class TabBar extends JTabbedPane {
 	 * @param cls The class whose instances are searched.
 	 * @return All tabs that are instances of <code>cls</code>.
 	 */
-	public Object[] getInstancesOf(Class cls) {
-		if (cls == null) {
-			cls = Object.class;
-		}
-		
-		Vector list = new Vector();
+	@SuppressWarnings("unchecked")
+	public <T> T[] getInstancesOf(Class<T> cls) {
+		Vector<T> list = new Vector<T>();
 		for (int i = 0; i < getTabCount(); i++) {
 			if (cls.isInstance(getComponentAt(i))) {
-				list.add(getComponentAt(i));
+				list.add((T)getComponentAt(i));
 			}
 		}
-		return list.toArray((Object[])Array.newInstance(cls, list.size()));
+		return list.toArray((T[])Array.newInstance(cls, list.size()));
 	}
 	
 	/**
@@ -106,15 +103,12 @@ public class TabBar extends JTabbedPane {
 	 * @param cls The class whose instances are searched.
 	 * @return The count of all tabs that are instances of <code>cls</code>.
 	 */
-	public int getCountOfInstancesOf(Class cls) {
-		if (cls == null) {
-			cls = Object.class;
-		}
-		
-		Vector list = new Vector();
+	@SuppressWarnings("unchecked")
+	public <T> int getCountOfInstancesOf(Class<T> cls) {
+		Vector<T> list = new Vector<T>();
 		for (int i = 0; i < getTabCount(); i++) {
 			if (cls.isInstance(getComponentAt(i))) {
-				list.add(getComponentAt(i));
+				list.add((T)getComponentAt(i));
 			}
 		}
 		return list.size();

@@ -53,7 +53,7 @@ public class HelloWorldInfo implements IModuleInfo, IButtonable,
 		return null;
 	}
 
-	public Class getModuleClass() {
+	public Class<HelloWorld> getModuleClass() {
 		return HelloWorld.class;
 	}
 

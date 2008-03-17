@@ -25,7 +25,7 @@ public class FullProfile implements Profile {
 	private Properties props;
 	private String name;
 	
-	private static Hashtable profileTable = new Hashtable();
+	private static Hashtable<String, Profile> profileTable = new Hashtable<String, Profile>();
 	
 	public static FullProfile[] getProfiles() {
 		FilenameFilter filter = new FilenameFilter() {
@@ -46,7 +46,7 @@ public class FullProfile implements Profile {
 				}
 			}
 		}
-		Collection profileCollection = profileTable.values();
+		Collection<Profile> profileCollection = profileTable.values();
 		FullProfile[] profiles = new FullProfile[profileCollection.size()];
 		profileCollection.toArray(profiles);
 		return profiles;

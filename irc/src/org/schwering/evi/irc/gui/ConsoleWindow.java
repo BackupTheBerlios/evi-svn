@@ -3,6 +3,7 @@ package org.schwering.evi.irc.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -172,18 +173,19 @@ public class ConsoleWindow extends SimpleWindow {
 			appendLine("Received message to "+ tgt +": "+ event.getMessage());
 		}
 
+		@SuppressWarnings("unchecked")
 		public void motdReceived(MotdEvent event) {
 			appendLine("MOTD received:");
-			for (Iterator it = event.getText().iterator(); it.hasNext(); ) {
-				appendText(it.next().toString());
+			for (String line : (Collection<String>)event.getText()) {
+				appendText(line);
 				newLine();
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public void namesReceived(NamesEvent event) {
 			appendLine("Names of "+ event.getChannel() +" received:");
-			for (Iterator it = event.getChannelUsers().iterator(); it.hasNext(); ) {
-				ChannelUser channelUser = (ChannelUser)it.next();
+			for (ChannelUser channelUser : (Collection<ChannelUser>)event.getChannelUsers()) {
 				String away = channelUser.isAway() ? "is gone." : "is here.";
 				if (channelUser.isOperator()) {
 					appendText(channelUser +" is operator and "+ away);
@@ -323,10 +325,11 @@ public class ConsoleWindow extends SimpleWindow {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public void infoReceived(InfoEvent event) {
 			appendLine("Info received:");
-			for (Iterator it = event.getText().iterator(); it.hasNext(); ) {
-				appendText(it.next().toString());
+			for (String line : (Collection<String>)event.getText()) {
+				appendText(line);
 				newLine();
 			}
 		}
@@ -342,14 +345,15 @@ public class ConsoleWindow extends SimpleWindow {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public void listReceived(ListEvent event) {
 			appendLine("List received:");
 			long i = 1;
-			for (Iterator it1 = event.getTopics().iterator(), 
-					it2 = event.getVisibleCounts().iterator();
-					it1.hasNext() && it2.hasNext(); ) {
-				Topic topic = (Topic)it1.next();
-				int visibleCount = ((Integer)it2.next()).intValue();
+			Iterator<Topic> it1 = ((Collection<Topic>)event.getTopics()).iterator();
+			Iterator<Integer> it2 = ((Collection<Integer>)event.getVisibleCounts()).iterator();
+			while (it1.hasNext() && it2.hasNext()) {
+				Topic topic = it1.next();
+				int visibleCount = it2.next().intValue();
 				String channel = topic.getChannel().getName();
 				if (topic.getMessage() != null) {
 					appendText(i +".: "+ channel +" ("+ visibleCount +" visible users): ");

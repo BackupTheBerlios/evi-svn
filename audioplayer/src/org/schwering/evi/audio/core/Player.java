@@ -10,7 +10,7 @@ import java.util.Vector;
  * @version $Id$
  */
 public abstract class Player {
-	protected Vector listeners = new Vector();
+	protected Vector<IPlayerListener> listeners = new Vector<IPlayerListener>();
 	protected URL resource;
 	
 	/**

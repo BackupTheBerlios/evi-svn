@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -20,6 +19,7 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import org.schwering.irc.manager.Channel;
+import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
@@ -41,10 +41,11 @@ public class ChannelWindow extends SimpleWindow {
 	private Channel channel;
 	private NickListModel listModel;
 	
+	@SuppressWarnings("unchecked")
 	public ChannelWindow(ConnectionController controller, Channel channel) {
 		super(controller);
 		this.channel = channel;
-		listModel.sync(channel.getChannelUsers());
+		listModel.sync((Collection<ChannelUser>)channel.getChannelUsers());
 		channel.addChannelListener(new ChannelListener());
 		input.setCompleter(new NickCompleter());
 		setTitle(channel.toString());
@@ -102,8 +103,8 @@ public class ChannelWindow extends SimpleWindow {
 	 * The model for the nick list. 
 	 */
 	private class NickListModel implements ListModel {
-		private List listeners = new LinkedList();
-		private List list = new Vector();
+		private List<ListDataListener> listeners = new LinkedList<ListDataListener>();
+		private List<User> list = new Vector<User>();
 		
 		public int insert(User user) {
 			if (list.contains(user)) { // debugging, can be outcommented
@@ -147,10 +148,9 @@ public class ChannelWindow extends SimpleWindow {
 			}
 		}
 		
-		public void sync(Collection userList) {
+		public void sync(Collection<? extends User> userList) {
 			System.out.println("sync() with "+ userList.size());
-			for (Iterator it = userList.iterator(); it.hasNext(); ) {
-				User user = (User)it.next();
+			for (User user : userList) {
 				int i = insertIfNotYetContained(user);
 				System.out.println("sync(): "+ user +" #"+ i);
 			}
@@ -194,8 +194,8 @@ public class ChannelWindow extends SimpleWindow {
 		private synchronized void fireContentsAdded(int i, int j) {
 			ListDataEvent event = new ListDataEvent(this, 
 					ListDataEvent.INTERVAL_ADDED, i, j);
-			for (Iterator it = listeners.iterator(); it.hasNext(); ) {
-				((ListDataListener)it.next()).intervalAdded(event);
+			for (ListDataListener listener : listeners) {
+				listener.intervalAdded(event);
 			}
 		}
 		
@@ -206,8 +206,8 @@ public class ChannelWindow extends SimpleWindow {
 		private synchronized void fireContentsRemoved(int i, int j) {
 			ListDataEvent event = new ListDataEvent(this, 
 					ListDataEvent.INTERVAL_REMOVED, i, j);
-			for (Iterator it = listeners.iterator(); it.hasNext(); ) {
-				((ListDataListener)it.next()).intervalRemoved(event);
+			for (ListDataListener listener : listeners) {
+				listener.intervalRemoved(event);
 			}
 		}
 	}
@@ -304,15 +304,17 @@ public class ChannelWindow extends SimpleWindow {
 			listModel.reinsert(event.getUser());
 		}
 
+		@SuppressWarnings("unchecked")
 		public void namesReceived(NamesEvent event) {
 			if (event.hasNewUsers()) {
-				listModel.sync(event.getChannelUsers());
+				listModel.sync((Collection<ChannelUser>)event.getChannelUsers());
 			}
 		}
 		
+		@SuppressWarnings("unchecked")
 		public void whoReceived(WhoEvent event) {
 			if (event.hasNewUsers()) {
-				listModel.sync(event.getChannelUsers());
+				listModel.sync((Collection<ChannelUser>)event.getChannelUsers());
 			}
 		}
 
@@ -350,18 +352,17 @@ public class ChannelWindow extends SimpleWindow {
 	}
 	
 	private class NickCompleter implements Completer {
+		@SuppressWarnings("unchecked")
 		public String complete(String str) {
 			str = str.toLowerCase();
-			List found = new LinkedList();
-			for (Iterator it = channel.getChannelUsers().iterator(); it.hasNext(); ) {
-				User other = (User)it.next();
+			List<String> found = new LinkedList<String>();
+			for (User other : (Collection<User>)channel.getChannelUsers()) {
 				if (other.getNick().toLowerCase().startsWith(str)) {
 					found.add(other.getNick());
 				}
 			}
 			String commonPrefix = null;
-			for (Iterator it = found.iterator(); it.hasNext(); ) {
-				String nick = (String)it.next();
+			for (String nick : found) {
 				if (commonPrefix == null) {
 					commonPrefix = nick;
 				} else {

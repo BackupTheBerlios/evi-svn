@@ -321,12 +321,12 @@ implements IPanel {
 		/**
 		 * Stores all ids.
 		 */
-		private Vector ids;
+		private Vector<String> ids;
 		
 		/**
 		 * Stores all arguments.
 		 */
-		private Vector args;
+		private Vector<String> args;
 		
 		/**
 		 * The column names.
@@ -343,8 +343,8 @@ implements IPanel {
 		public LoadTableModel() {
 			String[] idsArr = ModuleAutoStartConfiguration.getIds();
 			String[] argsArr = ModuleAutoStartConfiguration.getArgs();
-			ids = new Vector(idsArr.length);
-			args = new Vector(idsArr.length);
+			ids = new Vector<String>(idsArr.length);
+			args = new Vector<String>(idsArr.length);
 			
 			for (int i = 0; i < idsArr.length; i++) {
 				ids.add(i, idsArr[i]);
@@ -439,7 +439,7 @@ implements IPanel {
 		/* (non-Javadoc)
 		 * @see javax.swing.table.TableModel#getColumnClass(int)
 		 */
-		public Class getColumnClass(int col) {
+		public Class<String> getColumnClass(int col) {
 			return String.class;
 		}
 	}
@@ -517,7 +517,7 @@ implements IPanel {
 		 * Stores all currently loaded modules as 
 		 * <code>ModuleContainer</code>s.
 		 */
-		private Vector modules;
+		private Vector<ModuleContainer> modules;
 		
 		/**
 		 * The column names.
@@ -532,7 +532,7 @@ implements IPanel {
 		 */
 		public ModuleTableModel() {
 			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
-			modules = new Vector(containers.length);
+			modules = new Vector<ModuleContainer>(containers.length);
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
 			}
@@ -589,7 +589,7 @@ implements IPanel {
 		/* (non-Javadoc)
 		 * @see javax.swing.table.TableModel#getColumnClass(int)
 		 */
-		public Class getColumnClass(int col) {
+		public Class<?> getColumnClass(int col) {
 			return getValueAt(0, col).getClass();
 		}
 	}

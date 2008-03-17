@@ -14,7 +14,7 @@ public class PlayerFactory {
 	 * The values are the <code>Class</code>es that implement the 
 	 * <code>Player</code> for the format.
 	 */
-	private static Hashtable map = new Hashtable();
+	private static Hashtable<String, Class<? extends Player>> map = new Hashtable<String, Class<? extends Player>>();
 	
 	static {
 		map.put(".mp3", MP3Player.class);
@@ -37,7 +37,7 @@ public class PlayerFactory {
 	 * there is such a player but it throws an instance when being instantiated.
 	 */
 	public static Player createPlayer(URL url) throws FormatNotSupportedException {
-		Class cls = getClassByURL(url);
+		Class<?> cls = getClassByURL(url);
 		if (cls == null) {
 			throw new FormatNotSupportedException("Format not supported: "+ url);
 		}
@@ -60,8 +60,8 @@ public class PlayerFactory {
 	 * @return The <code>Class</code> that implements the right 
 	 * <code>Player</code> or <code>null</code>.
 	 */
-	private static Class getClassByURL(URL url) {
-		Class cls;
+	private static Class<?> getClassByURL(URL url) {
+		Class<? extends Player> cls;
 		if ((cls = getClassByExtension(url)) != null) {
 			return cls;
 		} else if ((cls = getClassByProtocol(url)) != null) {
@@ -71,20 +71,20 @@ public class PlayerFactory {
 		}
 	}
 		
-	private static Class getClassByExtension(URL url) {
+	private static Class<? extends Player> getClassByExtension(URL url) {
 		String name = url.getFile();
 		int index = name.lastIndexOf('.');
 		if (index == -1) {
 			return null;
 		}
 		String ext = name.substring(index).toLowerCase();
-		Class cls = (Class)map.get(ext);
+		Class<? extends Player> cls = map.get(ext);
 		return cls;
 	}
 	
-	private static Class getClassByProtocol(URL url) {
+	private static Class<? extends Player> getClassByProtocol(URL url) {
 		String protocol = url.getProtocol();
-		Class cls = (Class)map.get(protocol);
+		Class<? extends Player> cls = map.get(protocol);
 		return cls;
 	}
 }

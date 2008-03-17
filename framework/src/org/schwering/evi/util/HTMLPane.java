@@ -21,9 +21,9 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 public class HTMLPane extends JEditorPane 
 implements HyperlinkListener, KeyListener {
 	private static final long serialVersionUID = 7455924935046624890L;
-	private Vector previousURLs = new Vector();
-	private Vector nextURLs = new Vector();
-	private Vector listeners = new Vector(2);
+	private Vector<URL> previousURLs = new Vector<URL>();
+	private Vector<URL> nextURLs = new Vector<URL>();
+	private Vector<IHTMLPaneListener> listeners = new Vector<IHTMLPaneListener>(2);
 
 	/**
 	 * Creates a new empty HTML frame.
@@ -53,7 +53,7 @@ implements HyperlinkListener, KeyListener {
 	 * @param resource The resource which should be displayed. This means it must be 
 	 * contained in the JAR which <code>cls</code>.
 	 */
-	public HTMLPane(Class cls, String resource) {
+	public HTMLPane(Class<?> cls, String resource) {
 		this(cls.getClassLoader().getResource(resource));
 	}
 	

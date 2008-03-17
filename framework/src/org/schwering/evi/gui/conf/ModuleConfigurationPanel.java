@@ -561,7 +561,7 @@ implements IPanel {
 		 * Stores all currently loaded modules as 
 		 * <code>ModuleContainer</code>s.
 		 */
-		private Vector modules;
+		private Vector<ModuleContainer> modules;
 		
 		/**
 		 * The column names.
@@ -581,7 +581,7 @@ implements IPanel {
 		 */
 		public TableModel() {
 			ModuleContainer[] containers = ModuleLoader.getLoadedModules();
-			modules = new Vector(containers.length);
+			modules = new Vector<ModuleContainer>(containers.length);
 			for (int i = 0; i < containers.length; i++) {
 				modules.add(containers[i]);
 			}
@@ -672,7 +672,7 @@ implements IPanel {
 		/* (non-Javadoc)
 		 * @see javax.swing.table.TableModel#getColumnClass(int)
 		 */
-		public Class getColumnClass(int col) {
+		public Class<?> getColumnClass(int col) {
 			return getValueAt(0, col).getClass();
 		}
 	}

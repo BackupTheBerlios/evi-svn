@@ -31,13 +31,13 @@ import javax.swing.JMenu;
  * @version $Id$
  */
 public final class ModuleContainer {
-	private Class cls;
+	private Class<? extends IModule> cls;
 	private IModuleInfo info;
 	private Object source;
 	private int priority = priorityCounter++;
 	
-	private HashSet instances = new HashSet(5);
-	private Vector listeners = new Vector(2);
+	private HashSet<IModule> instances = new HashSet<IModule>(5);
+	private Vector<IModuleListener> listeners = new Vector<IModuleListener>(2);
 	
 	private static int priorityCounter = 0;
 	
@@ -51,7 +51,7 @@ public final class ModuleContainer {
 	 * <code>IModule</code>.
 	 * @throws ModuleLoaderException If the given class is no module.
 	 */
-	ModuleContainer(Class moduleClass) throws ModuleLoaderException {
+	ModuleContainer(Class<? extends IModule> moduleClass) throws ModuleLoaderException {
 		if (!isModule(moduleClass)) {
 			throw new ModuleLoaderException(moduleClass +" is no module");
 		}
@@ -123,7 +123,7 @@ public final class ModuleContainer {
 	 */
 	public IModule[] getInstances() {
 		IModule[] arr = new IModule[instances.size()];
-		arr = (IModule[])instances.toArray(arr);
+		arr = instances.toArray(arr);
 		return arr;
 	}
 	
@@ -157,7 +157,7 @@ public final class ModuleContainer {
 	 * org.schwering.evi.core.ModuleContainer).
 	 * @return The class's id.
 	 */
-	public static String getIdByClass(Class cls) {
+	public static String getIdByClass(Class<? extends IModule> cls) {
 		return cls.getName();
 	}
 	
@@ -168,7 +168,7 @@ public final class ModuleContainer {
 	 * @return The main module class.
 	 * @see IModuleInfo#getModuleClass()
 	 */
-	Class getModuleClass() {
+	Class<? extends IModule> getModuleClass() {
 		return cls;
 	}
 	
@@ -273,7 +273,7 @@ public final class ModuleContainer {
 	 * <code>IModule</code>.
 	 * @see IModule
 	 */
-	private static boolean isModule(Class c) {
+	private static boolean isModule(Class<? extends IModule> c) {
 		return classImplements(c, IModule.class);
 	}
 
@@ -491,7 +491,7 @@ public final class ModuleContainer {
 	 * @return <code>true</code> if c implements i. Otherwise 
 	 * <code>false</code>.
 	 */
-	private static boolean classImplements(Class c, Class i) {
+	private static boolean classImplements(Class<?> c, Class<?> i) {
 		if (c == null || i == null) {
 			return false;
 		}

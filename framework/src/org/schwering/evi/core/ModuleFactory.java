@@ -151,7 +151,7 @@ public final class ModuleFactory {
 				}
 				instance = (IModule)object;
 			} else {
-				Constructor c = searchConstructor(module, args);
+				Constructor<? extends IModule> c = searchConstructor(module, args);
 				Object object = c.newInstance(args);
 				instance = (IModule)object;
 			}
@@ -174,16 +174,19 @@ public final class ModuleFactory {
 	 * @return A matching constructor.
 	 * @throws ModuleInstantiationException If no constructor is found.
 	 */
-	private static Constructor searchConstructor(ModuleContainer module, 
-			Object[] args) throws ModuleInstantiationException {
+	@SuppressWarnings("unchecked")
+	private static Constructor<? extends IModule> searchConstructor(
+			ModuleContainer module, Object[] args) 
+			throws ModuleInstantiationException {
 		int len = (args != null) ? args.length : 0;
-		Class[] wantedTypes = new Class[len];
+		Class<?>[] wantedTypes = new Class[len];
 		for (int i = 0; i < len; i++) {
 			wantedTypes[i] = args[i].getClass();
 		}
 		
-		Class moduleClass = module.getModuleClass();
-		Constructor[] cons = moduleClass.getConstructors();
+		Class<? extends IModule> moduleClass = module.getModuleClass();
+		Constructor<? extends IModule>[] cons = 
+			(Constructor<? extends IModule>[])moduleClass.getConstructors();
 		for (int i = 0; i < cons.length; i++) {
 			Class[] argList = cons[i].getParameterTypes();
 			if (argListMatches(argList, wantedTypes)) {
@@ -201,7 +204,7 @@ public final class ModuleFactory {
 	 * @return <code>true</code> if objects of the type of wanted satisfy 
 	 * the requirements of the argument list args.
 	 */
-	private static boolean argListMatches(Class[] args, Class[] wanted) {
+	private static boolean argListMatches(Class<?>[] args, Class<?>[] wanted) {
 		if (args == null || wanted == null) {
 			return false;
 		}

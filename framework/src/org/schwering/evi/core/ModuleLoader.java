@@ -7,6 +7,8 @@ import java.net.URLClassLoader;
 import java.net.JarURLConnection;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -41,12 +43,12 @@ public final class ModuleLoader extends URLClassLoader {
 	 * Contains the <code>ModuleContainer</code> objects. Each value's key 
 	 * is the module's id.
 	 */
-	private static Hashtable table = new Hashtable();
+	private static Hashtable<String, ModuleContainer> table = new Hashtable<String, ModuleContainer>();
 	
 	/**
 	 * Contains all <code>IModuleLoaderListener</code>s.
 	 */
-	private static Vector listeners = new Vector();
+	private static List<IModuleLoaderListener> listeners = new LinkedList<IModuleLoaderListener>();
 	
 	/**
 	 * The URL of the JAR file.
@@ -70,7 +72,8 @@ public final class ModuleLoader extends URLClassLoader {
 	 * the Module-Info-Class attribute is not defined or if the class 
 	 * cannot be found for any reason.
 	 */
-	private Class getModuleInfoClass() throws ModuleLoaderException {
+	@SuppressWarnings("unchecked")
+	private Class<? extends IModuleInfo> getModuleInfoClass() throws ModuleLoaderException {
 		try {
 			URL jarURL = new URL("jar", "", url +"!/");
 			JarURLConnection conn = (JarURLConnection)jarURL.openConnection();
@@ -84,8 +87,15 @@ public final class ModuleLoader extends URLClassLoader {
 				throw new ModuleLoaderException("No Module-Info defined");
 			}
 			infoClassName = infoClassName.trim();
-			Class infoClass = findClass(infoClassName);
-			return infoClass;
+			Class<?> infoClass = findClass(infoClassName);
+			if (IModuleInfo.class.isAssignableFrom(infoClass)) {
+				return (Class<? extends IModuleInfo>)infoClass;
+			} else {
+				throw new ModuleLoaderException("Module-Info-Class doens't" +
+						" implement IModuleInfo");
+			}
+		} catch (ModuleLoaderException exc) {
+			throw exc;
 		} catch (Exception exc) {
 			throw new ModuleLoaderException(exc);
 		}
@@ -152,9 +162,8 @@ public final class ModuleLoader extends URLClassLoader {
 	public static ModuleContainer load(URL url) throws ModuleLoaderException {
 		try {
 			ModuleLoader loader = new ModuleLoader(url);
-			Class moduleInfoClass = loader.getModuleInfoClass();
-			Object object = moduleInfoClass.newInstance();
-			IModuleInfo moduleInfo = (IModuleInfo)object;
+			Class<? extends IModuleInfo> moduleInfoClass = loader.getModuleInfoClass();
+			IModuleInfo moduleInfo = moduleInfoClass.newInstance();
 			
 			ModuleContainer container = new ModuleContainer(moduleInfo);
 			container.setSource(url);
@@ -184,12 +193,13 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @return A <code>ModuleContainer</code> for the module.
 	 * @throws ModuleLoaderException If anything fails.
 	 */
+	@SuppressWarnings("unchecked")
 	public static ModuleContainer load(String moduleInfoClassName) 
 	throws ModuleLoaderException {
 		try {
-			Class moduleInfoClass = Class.forName(moduleInfoClassName);
-			Object object = moduleInfoClass.newInstance();
-			IModuleInfo moduleInfo = (IModuleInfo)object;
+			Class<? extends IModuleInfo> moduleInfoClass = 
+				(Class<? extends IModuleInfo>)Class.forName(moduleInfoClassName);
+			IModuleInfo moduleInfo = moduleInfoClass.newInstance();
 			
 			ModuleContainer container = new ModuleContainer(moduleInfo);
 			container.setSource(moduleInfoClassName);
@@ -233,8 +243,8 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @return An array containing the ids of all loaded modules.
 	 */
 	public static String[] getLoadedIds() {
-		Vector list = new Vector();
-		Enumeration e = table.keys();
+		Vector<String> list = new Vector<String>();
+		Enumeration<String> e = table.keys();
 		while (e.hasMoreElements()) {
 			list.add((String)e.nextElement());
 		}
@@ -250,17 +260,15 @@ public final class ModuleLoader extends URLClassLoader {
 	 * @return A sorted array containing all loaded modules.
 	 */
 	public static ModuleContainer[] getLoadedModules() {
-		Vector list = new Vector();
-		Enumeration e = table.elements();
+		Vector<ModuleContainer> list = new Vector<ModuleContainer>();
+		Enumeration<ModuleContainer> e = table.elements();
 		while (e.hasMoreElements()) {
 			list.add((ModuleContainer)e.nextElement());
 		}
 		ModuleContainer[] arr = new ModuleContainer[list.size()];
 		list.toArray(arr);
-		Comparator comparator = new Comparator() {
-			public int compare(Object o1, Object o2) {
-				ModuleContainer m1 = (ModuleContainer)o1;
-				ModuleContainer m2 = (ModuleContainer)o2;
+		Comparator<ModuleContainer> comparator = new Comparator<ModuleContainer>() {
+			public int compare(ModuleContainer m1, ModuleContainer m2) {
 				if (m1.getPriority() < m2.getPriority()) {
 					return -1;
 				} else if (m1.getPriority() == m2.getPriority()) {

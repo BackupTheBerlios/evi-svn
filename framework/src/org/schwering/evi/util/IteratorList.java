@@ -20,9 +20,9 @@ import java.util.Vector;
  * @author Christoph Schwering (mailto:schwering@gmail.com)
  * @version $Id$
  */
-public class IteratorList {
+public class IteratorList<T> {
 	private int index = -1;
-	private List list = new Vector();
+	private List<T> list = new Vector<T>();
 	private int maxSize = -1;
 	
 	/**
@@ -53,7 +53,7 @@ public class IteratorList {
 	 * Appends an item at the end of the list.
 	 * @param item The item.
 	 */
-	public synchronized void append(Object item) {
+	public synchronized void append(T item) {
 		if (item != null)
 			list.add(size(), item);
 		if (maxSize != -1 && size() > maxSize)
@@ -64,7 +64,7 @@ public class IteratorList {
 	 * Returns the current element.
 	 * @return The current element or <code>null</code>.
 	 */
-	public synchronized Object current() {
+	public synchronized T current() {
 		return (index >= 0 && index < size()) ? list.get(index) : null;
 	}
 	
@@ -72,7 +72,7 @@ public class IteratorList {
 	 * Returns the previous element.
 	 * @return The previous element or <code>null</code>.
 	 */
-	public synchronized Object previous() {
+	public synchronized T previous() {
 		if (index >= 0)
 			index--;
 		return current();
@@ -82,7 +82,7 @@ public class IteratorList {
 	 * Returns the next element.
 	 * @return The next element or <code>null</code>.
 	 */
-	public synchronized Object next() {
+	public synchronized T next() {
 		if (index < size())
 			index++;
 		return current();

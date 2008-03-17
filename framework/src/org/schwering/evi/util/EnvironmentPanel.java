@@ -43,12 +43,12 @@ public class EnvironmentPanel extends JPanel implements IPanel {
 	
 	private JPanel createEnvironmentPanel() {
 		Properties sysProps = System.getProperties();
-		Enumeration sysKeys = sysProps.keys();
+		Enumeration<Object> sysKeys = sysProps.keys();
 		int sysLen = sysProps.size();
 		
 		String[] keys = new String[sysLen];
 		for (int i = 0; i < sysLen && sysKeys.hasMoreElements(); i++) {
-			keys[i] = (String)sysKeys.nextElement();
+			keys[i] = sysKeys.nextElement().toString();
 		}
 		Arrays.sort(keys);
 		

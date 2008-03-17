@@ -22,8 +22,8 @@ import org.schwering.irc.lib.IRCConstants;
  */
 public class InputField extends TextField implements ActionListener, KeyListener {
 	private static final long serialVersionUID = 3914942143557323290L;
-	protected Vector listeners = new Vector();
-	protected IteratorList history = new IteratorList(50);
+	protected Vector<IInputListener> listeners = new Vector<IInputListener>();
+	protected IteratorList<String> history = new IteratorList<String>(50);
 	protected Completer compl = null;
 	
 	public InputField() {

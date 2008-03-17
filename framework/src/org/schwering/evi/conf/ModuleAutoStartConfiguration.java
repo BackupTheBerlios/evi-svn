@@ -48,8 +48,8 @@ public abstract class ModuleAutoStartConfiguration {
 		MODULE_AUTO_START_CONFIG_FILE = autoStartFile;
 	}
 	
-	private static Vector idList = new Vector();
-	private static Vector argList = new Vector();
+	private static Vector<String> idList = new Vector<String>();
+	private static Vector<String> argList = new Vector<String>();
 	
 	/**
 	 * No instances allowed/useful.

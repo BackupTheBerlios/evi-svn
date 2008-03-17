@@ -20,11 +20,11 @@ public abstract class Playlist implements ListModel {
 	/** Maximum count of elements in the history. Can be changed without causing erros. */
 	public static final int HISTORY_SIZE = 30;
 	
-	/** Contains java.io.File objects that build the list. */
-	protected Vector list = new Vector();
+	/** Contains ItemWrapper objects that build the list. */
+	protected Vector<ItemWrapper> list = new Vector<ItemWrapper>();
 	
 	/** Contains javax.swing.event.ListDataListeners as this is a javax.swing.ListModel. */
-	protected Vector listDataListeners = new Vector(3);
+	protected Vector<ListDataListener> listDataListeners = new Vector<ListDataListener>(3);
 	
 	/** The currently played index. */
 	protected int playingIndex = -1;
@@ -33,7 +33,7 @@ public abstract class Playlist implements ListModel {
 	protected PlayerThread playerThread;
 	
 	/** Contains IPlaylistListeners. */
-	protected Vector listeners = new Vector(3);
+	protected Vector<IPlaylistListener> listeners = new Vector<IPlaylistListener>(3);
 	
 	/** If true, the next song is played automatically. */
 	protected boolean playAll = true;
@@ -42,10 +42,10 @@ public abstract class Playlist implements ListModel {
 	protected boolean shuffle = false;
 	
 	/** The first element is the next-to-play; new entries are added at the ending. */
-	protected LinkedList queue = new LinkedList();
+	protected LinkedList<URL> queue = new LinkedList<URL>();
 	
 	/** The last element is the last-played; the first element is the oldest in history. */
-	protected LinkedList history = new LinkedList();
+	protected LinkedList<URL> history = new LinkedList<URL>();
 	
 	/**
 	 * Creates a new empty playlist.

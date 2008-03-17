@@ -29,7 +29,7 @@ IParameterizable, IConfigurable {
 	/* (non-Javadoc)
 	 * @see org.schwering.evi.core.IModuleInfo#getModuleClass()
 	 */
-	public Class getModuleClass() {
+	public Class<AudioPlayer> getModuleClass() {
 		return AudioPlayer.class;
 	}
 	

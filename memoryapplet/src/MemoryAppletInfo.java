@@ -8,7 +8,7 @@ public class MemoryAppletInfo implements IModuleInfo {
 		return null;
 	}
 
-	public Class getModuleClass() {
+	public Class<MemoryApplet> getModuleClass() {
 		return MemoryApplet.class;
 	}
 

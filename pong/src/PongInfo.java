@@ -14,7 +14,7 @@ public class PongInfo implements IModuleInfo, IButtonable, IMenuable, IConfigura
 		return "about.html";
 	}
 
-	public Class getModuleClass() {
+	public Class<Pong> getModuleClass() {
 		return Pong.class;
 	}
 

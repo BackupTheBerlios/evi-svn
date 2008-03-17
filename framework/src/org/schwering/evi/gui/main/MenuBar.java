@@ -29,7 +29,7 @@ import org.schwering.evi.util.Util;
 public class MenuBar extends JMenuBar implements IModuleLoaderListener {
 	private static final long serialVersionUID = -992480608627651585L;
 	
-	private Hashtable table = new Hashtable();
+	private Hashtable<ModuleContainer, JMenu> table = new Hashtable<ModuleContainer, JMenu>();
 	
 	public MenuBar() {
 		String title;

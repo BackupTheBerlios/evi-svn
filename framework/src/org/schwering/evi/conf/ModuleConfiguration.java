@@ -53,7 +53,7 @@ public abstract class ModuleConfiguration {
 		MODULES_CONFIG_FILE = moduleFile;
 	}
 	
-	private static Vector list = new Vector();
+	private static Vector<Object> list = new Vector<Object>();
 	
 	/**
 	 * No instances allowed/useful.

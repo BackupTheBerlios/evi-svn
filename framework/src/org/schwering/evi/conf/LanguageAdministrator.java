@@ -27,7 +27,7 @@ public class LanguageAdministrator {
 		Locale.GERMAN
 	};
 	
-	private static Vector list = new Vector();
+	private static Vector<Class<?>> list = new Vector<Class<?>>();
 	private static boolean loaded = false;
 	
 	private LanguageAdministrator() {
@@ -39,7 +39,7 @@ public class LanguageAdministrator {
 	 * time to do so.
 	 * @param c The <code>Messages</code>-class. It must 
 	 */
-	public static void registerMessagesClass(Class c) {
+	public static void registerMessagesClass(Class<?> c) {
 		list.add(c);
 		if (loaded) {
 			load(c);
@@ -55,7 +55,7 @@ public class LanguageAdministrator {
 		loaded = true;
 		int size = list.size();
 		for (int i = 0; i < size; i++) {
-			Class c = (Class)list.get(i);
+			Class<?> c = list.get(i);
 			load(c);
 		}
 	}
@@ -64,9 +64,9 @@ public class LanguageAdministrator {
 	 * Loads a specific <code>Messages</code>-class.
 	 * @param c The <code>Messages</code>-class.
 	 */
-	private static void load(Class c) {
+	private static void load(Class<?> c) {
 		Locale locale = MainConfiguration.PROPS.getLocale("app.lang");
-		Class[] argType = new Class[] { Locale.class };
+		Class<?>[] argType = new Class[] { Locale.class };
 		Object[] argObject = new Object[] { locale };
 		try {
 			Method m = c.getMethod("load", argType);

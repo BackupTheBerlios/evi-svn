@@ -42,7 +42,7 @@ public interface IModuleInfo {
 	 * Must return the <code>Class</code> representation of the ModuleClass.
 	 * @return The <code>Class</code> representation of the ModuleClass.
 	 */
-	public Class getModuleClass();
+	public Class<? extends IModule> getModuleClass();
 	
 	/**
 	 * Should return the appearance name of the module. If this method 

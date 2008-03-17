@@ -45,7 +45,7 @@ implements IModuleListener, IModuleLoaderListener {
 	 * Contains all modules and their respective buttons. Used to remove 
 	 * buttons when a module is unloaded.
 	 */
-	private Hashtable buttonTable = new Hashtable();
+	private Hashtable<ModuleContainer, JButton> buttonTable = new Hashtable<ModuleContainer, JButton>();
 	
 	/**
 	 * The panel which contains the buttons.

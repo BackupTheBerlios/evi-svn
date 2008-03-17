@@ -13,8 +13,8 @@ import java.util.Hashtable;
  * @version $Id$
  */
 public class ShutdownHookManager {
-	private static HashSet hooks = new HashSet();
-	private static Hashtable controllers = new Hashtable();
+	private static HashSet<Thread> hooks = new HashSet<Thread>();
+	private static Hashtable<Thread, Thread> controllers = new Hashtable<Thread, Thread>();
 	private static final long MAX_TIME = 20 * 1000;
 	
 	private ShutdownHookManager() {
@@ -88,7 +88,7 @@ public class ShutdownHookManager {
 		if (hooks.remove(thread)) {
 			Runtime r = Runtime.getRuntime();
 			r.removeShutdownHook(thread);
-			Thread controller = (Thread)controllers.get(thread);
+			Thread controller = controllers.get(thread);
 			r.removeShutdownHook(controller);
 		}
 	}

@@ -17,7 +17,7 @@ public class ConsoleInfo implements IModuleInfo, IMenuable, IConfigurable {
 		return Messages.getString("ConsoleInfo.INFO_HTML"); //$NON-NLS-1$
 	}
 
-	public Class getModuleClass() {
+	public Class<Console> getModuleClass() {
 		return Console.class;
 	}
 
