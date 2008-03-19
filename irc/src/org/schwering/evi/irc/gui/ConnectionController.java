@@ -24,7 +24,7 @@ public class ConnectionController {
 		connection = new Connection(profile.getServer(), profile.getPort(),
 				profile.getPort(), profile.getSSL(), profile.getPassword(), 
 				profile.getNickname(), profile.getUsername(), 
-				profile.getName());
+				profile.getRealname());
 		connection.setEncoding(profile.getEncoding());
 		connection.setRequestModes(true);
 		connection.addConnectionListener(new ConnectionListener());

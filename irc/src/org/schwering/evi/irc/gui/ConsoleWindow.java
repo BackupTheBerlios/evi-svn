@@ -414,6 +414,13 @@ public class ConsoleWindow extends SimpleWindow {
 				appendLine("Open Time: "+ event.getOpenTime());
 				
 			}
+			for (String key : map.keySet()) {
+				appendLine(key +": ");
+				for (Map.Entry<String, String> e : map.get(key).entrySet()) {
+					System.out.println("\t"+ e.getKey() +": "+ e.getValue());
+					newLine();
+				}
+			}
 		}
 
 		@SuppressWarnings("unchecked")

@@ -12,9 +12,6 @@ import org.schwering.irc.manager.event.PrivateMessageAdapter;
 import org.schwering.irc.manager.event.UserParticipationEvent;
 
 public class QueryWindow extends SimpleWindow {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1735723808145035225L;
 	private User user;
 	
