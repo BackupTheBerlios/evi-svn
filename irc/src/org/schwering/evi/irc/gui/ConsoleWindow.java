@@ -6,7 +6,9 @@ import java.awt.Font;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.ChannelUser;
@@ -26,6 +28,7 @@ import org.schwering.irc.manager.event.NamesEvent;
 import org.schwering.irc.manager.event.NickEvent;
 import org.schwering.irc.manager.event.NumericEvent;
 import org.schwering.irc.manager.event.PingEvent;
+import org.schwering.irc.manager.event.StatsEvent;
 import org.schwering.irc.manager.event.TopicEvent;
 import org.schwering.irc.manager.event.UnexpectedEvent;
 import org.schwering.irc.manager.event.UnexpectedEventAdapter;
@@ -342,6 +345,74 @@ public class ConsoleWindow extends SimpleWindow {
 				String hopCount = event.getHopCount(i);
 				appendText(server +" ("+ serverInfo +", hop count "+ hopCount +")");
 				newLine();
+			}
+		}
+		
+		public void statsReceived(StatsEvent event) {
+			appendLine("Stats received:");
+			Map<String, Map<String, String>> map = new TreeMap<String, Map<String, String>>();
+			
+			Map<String, String> clineMap = new TreeMap<String, String>();
+			clineMap.put("Host", event.getCLineHost());
+			clineMap.put("Class", event.getCLineClass());
+			clineMap.put("Name", event.getCLineName());
+			map.put("C Line", clineMap);
+			
+			Map<String, String> hlineMap = new TreeMap<String, String>();
+			hlineMap.put("Hostmask", event.getHLineHostMask());
+			hlineMap.put("Servername", event.getHLineServerName());
+			map.put("H Line", hlineMap);
+			
+			Map<String, String> klineMap = new TreeMap<String, String>();
+			klineMap.put("Host", event.getKLineHost());
+			klineMap.put("Class", event.getKLineClass());
+			klineMap.put("Host", event.getKLineUsername() +":"+ event.getKLinePort());
+			map.put("K Line", klineMap);
+			
+			Map<String, String> olineMap = new TreeMap<String, String>();
+			olineMap.put("Hostmask", event.getOLineHostMask());
+			olineMap.put("Name", event.getOLineName());
+			map.put("O Line", olineMap);
+			
+			Map<String, String> ilineMap = new TreeMap<String, String>();
+			ilineMap.put("Class", event.getILineClass());
+			ilineMap.put("Host", event.getILineHost());
+			ilineMap.put("Host 2", event.getILineHost2() +":"+ event.getILinePort());
+			map.put("I Line", ilineMap);
+			
+			Map<String, String> ylineMap = new TreeMap<String, String>();
+			ylineMap.put("Class", event.getYLineClass());
+			ylineMap.put("Connection Frequency", String.valueOf(event.getYLineConnectionFrequency()));
+			ylineMap.put("Max Queued Send-Data", String.valueOf(event.getYLineMaxQueuedSendData()));
+			ylineMap.put("Ping Frequency", String.valueOf(event.getYLinePingFrequency()));
+			map.put("Y Line", ylineMap);
+			
+			Map<String, String> nlineMap = new TreeMap<String, String>();
+			nlineMap.put("Class", event.getNLineClass());
+			nlineMap.put("Host", event.getNLineHost() +":"+ event.getNLinePort());
+			nlineMap.put("Name", event.getNLineName());
+			map.put("N Line", nlineMap);
+			
+			Map<String, String> llineMap = new TreeMap<String, String>();
+			llineMap.put("Hostmask", event.getLLineHostmask());
+			llineMap.put("Servername", event.getLLineServername());
+			llineMap.put("Max Depth", String.valueOf(event.getLLineMaxDepth()));
+			map.put("L Line", llineMap);
+			
+			appendLine("Linkname: "+ event.getLinkName());
+			newLine();
+			appendLine("Sent Data: "+ event.getSentBytes() +" bytes");
+			newLine();
+			appendLine("Sent Messages: "+ event.getSentMessages());
+			newLine();
+			appendLine("Queued Send-Data: "+ event.getQueuedSendData());
+			newLine();
+			appendLine("Received Data: "+ event.getReceivedBytes() +" bytes");
+			newLine();
+			appendLine("Received Messages: "+ event.getReceivedMessages());
+			if (event.getOpenTime() != null) {
+				appendLine("Open Time: "+ event.getOpenTime());
+				
 			}
 		}
 
