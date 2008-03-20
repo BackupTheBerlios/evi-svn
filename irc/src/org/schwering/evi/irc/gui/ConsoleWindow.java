@@ -73,6 +73,9 @@ public class ConsoleWindow extends SimpleWindow {
 	}
 	
 	public void dispose() {
+		if (controller.getConnection().isConnected()) {
+			controller.getConnection().send("QUIT");
+		}
 		controller.getConnection().removeConnectionListener(connectionListener);
 		controller.getConnection().removeUnexpectedEventListener(unexpectedEventListener);
 	}

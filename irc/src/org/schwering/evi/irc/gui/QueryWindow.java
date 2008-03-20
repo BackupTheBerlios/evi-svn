@@ -48,6 +48,7 @@ public class QueryWindow extends SimpleWindow {
 			controller.getConnection().send(line);
 			appendText("<"+ nick +"> ", controller.getProfile().getOwnColor());
 			appendMessage(str, controller.getProfile().getOwnColor());
+			newLine();
 		}
 	}
 	

@@ -67,8 +67,8 @@ public abstract class SimpleWindow extends AbstractWindow {
 	protected Component createSouthComponent() {
 		input = new InputField();
 		input.addListener(new IInputListener() {
-			public void inputFired(String str) {
-				inputSubmitted(str);
+			public void inputFired(String s) {
+				inputSubmitted(s);
 			}
 		});
 		return input;

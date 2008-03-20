@@ -84,7 +84,6 @@ public class ChannelWindow extends SimpleWindow {
 	}
 	
 	public void inputSubmitted(String str) {
-		str = str.trim();
 		if (str.charAt(0) == '/') {
 			str = str.substring(1);
 			appendLine("Sending to server: "+ str);
@@ -95,6 +94,7 @@ public class ChannelWindow extends SimpleWindow {
 			controller.getConnection().send(line);
 			appendText("<"+ nick +"> ", controller.getProfile().getOwnColor());
 			appendMessage(str, controller.getProfile().getOwnColor());
+			newLine();
 		}
 	}
 	
