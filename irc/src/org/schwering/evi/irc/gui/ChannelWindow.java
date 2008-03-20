@@ -93,7 +93,7 @@ public class ChannelWindow extends SimpleWindow {
 			String line = "PRIVMSG "+ channel.getName() +" :"+ str;
 			String nick = controller.getConnection().getNick();
 			controller.getConnection().send(line);
-			appendLine("<"+ nick +"> ", controller.getProfile().getOwnColor());
+			appendText("<"+ nick +"> ", controller.getProfile().getOwnColor());
 			appendMessage(str, controller.getProfile().getOwnColor());
 		}
 	}
