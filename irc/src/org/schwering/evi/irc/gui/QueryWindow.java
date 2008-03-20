@@ -46,8 +46,8 @@ public class QueryWindow extends SimpleWindow {
 			String line = "PRIVMSG "+ user.getNick() +" :"+ str;
 			String nick = controller.getConnection().getNick();
 			controller.getConnection().send(line);
-			appendLine("<"+ nick +"> ", new Message(str),
-					controller.getProfile().getOwnColor());
+			appendLine("<"+ nick +"> ", controller.getProfile().getOwnColor());
+			appendMessage(str, controller.getProfile().getOwnColor());
 		}
 	}
 	

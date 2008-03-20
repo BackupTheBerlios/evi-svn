@@ -20,7 +20,6 @@ import javax.swing.event.ListDataListener;
 
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.ChannelUser;
-import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.BanlistEvent;
@@ -94,8 +93,8 @@ public class ChannelWindow extends SimpleWindow {
 			String line = "PRIVMSG "+ channel.getName() +" :"+ str;
 			String nick = controller.getConnection().getNick();
 			controller.getConnection().send(line);
-			appendLine("<"+ nick +"> ", new Message(str),
-					controller.getProfile().getOwnColor());
+			appendLine("<"+ nick +"> ", controller.getProfile().getOwnColor());
+			appendMessage(str, controller.getProfile().getOwnColor());
 		}
 	}
 	

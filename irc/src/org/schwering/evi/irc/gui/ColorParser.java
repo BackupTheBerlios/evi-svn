@@ -35,7 +35,7 @@ public class ColorParser {
 	 */
 	public synchronized static void appendPlain(TextPane tp, String text, 
 			Color fg) {
-		text = IRCUtil.parseColors(text);
+		text = IRCUtil.stripColors(text);
 		int i = 0;
 		int j = 0;
 		while (j != text.length()) {
