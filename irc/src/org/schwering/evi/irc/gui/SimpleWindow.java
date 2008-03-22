@@ -183,20 +183,13 @@ public abstract class SimpleWindow extends AbstractWindow {
 		newLine();
 	}
 	
-	protected void appendMessageLine(Message msg) {
-		appendLine(msg, controller.getProfile().getNeutralColor());
-	}
-	
-	protected void appendLine(Message msg, Color fg) {
+	protected void appendLine(String s1, String m, Color fg) {
 		appendDate(fg);
-		appendMessage(msg, fg);
+		appendText(s1, fg);
+		appendMessage(m, fg);
 		newLine();
 	}
 	
-	protected void appendLine(String s1, Message m) {
-		appendLine(s1, m, controller.getProfile().getNeutralColor());
-	}
-		
 	protected void appendLine(String s1, Message m, Color fg) {
 		appendDate(fg);
 		appendText(s1, fg);

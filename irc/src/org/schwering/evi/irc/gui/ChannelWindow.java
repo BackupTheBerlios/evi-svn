@@ -24,6 +24,8 @@ import org.schwering.irc.manager.Topic;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.BanlistEvent;
 import org.schwering.irc.manager.event.ChannelModeEvent;
+import org.schwering.irc.manager.event.CtcpActionEvent;
+import org.schwering.irc.manager.event.CtcpAdapter;
 import org.schwering.irc.manager.event.MessageEvent;
 import org.schwering.irc.manager.event.NamesEvent;
 import org.schwering.irc.manager.event.NickEvent;
@@ -46,6 +48,7 @@ public class ChannelWindow extends SimpleWindow {
 		this.channel = channel;
 		listModel.sync((Collection<ChannelUser>)channel.getChannelUsers());
 		channel.addChannelListener(new ChannelListener());
+		channel.addCtcpListener(new CtcpListener());
 		input.setCompleter(new NickCompleter());
 		setTitle(channel.toString());
 		addToTabBar();
@@ -347,6 +350,14 @@ public class ChannelWindow extends SimpleWindow {
 				appendLine(event.getUser() +" "+ method + rest);
 			}
 			listModel.remove(event.getUser());
+		}
+	}
+	
+	private class CtcpListener extends CtcpAdapter {
+		@Override
+		public void actionReceived(CtcpActionEvent event) {
+			appendLine(event.getDestinationUser() +" ", event.getArguments(),
+					controller.getProfile().getOtherColor());
 		}
 	}
 	

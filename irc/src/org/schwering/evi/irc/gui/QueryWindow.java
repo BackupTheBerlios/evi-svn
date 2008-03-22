@@ -6,6 +6,8 @@ import java.awt.Font;
 import org.schwering.irc.manager.Message;
 import org.schwering.irc.manager.User;
 import org.schwering.irc.manager.event.ConnectionAdapter;
+import org.schwering.irc.manager.event.CtcpActionEvent;
+import org.schwering.irc.manager.event.CtcpAdapter;
 import org.schwering.irc.manager.event.MessageEvent;
 import org.schwering.irc.manager.event.NickEvent;
 import org.schwering.irc.manager.event.PrivateMessageAdapter;
@@ -21,6 +23,7 @@ public class QueryWindow extends SimpleWindow {
 		setTitle(user.toString());
 		controller.getConnection().addConnectionListener(new ConnectionListener());
 		controller.getConnection().addPrivateMessageListener(new PrivateMessageListener());
+		controller.getConnection().addCtcpListener(new CtcpListener());
 		addToTabBar();
 		select();
 	}
@@ -85,6 +88,14 @@ public class QueryWindow extends SimpleWindow {
 				appendLine("("+ user +") ", event.getMessage(), 
 						controller.getProfile().getOtherColor());
 			}
+		}
+	}
+	
+	private class CtcpListener extends CtcpAdapter {
+		@Override
+		public void actionReceived(CtcpActionEvent event) {
+			appendLine(event.getDestinationUser() +" ", event.getArguments(),
+					controller.getProfile().getOtherColor());
 		}
 	}
 }

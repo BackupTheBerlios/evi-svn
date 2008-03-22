@@ -9,17 +9,27 @@ import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.ConnectionEvent;
 import org.schwering.irc.manager.event.CtcpActionEvent;
-import org.schwering.irc.manager.event.CtcpClientinfoEvent;
-import org.schwering.irc.manager.event.CtcpDccEvent;
-import org.schwering.irc.manager.event.CtcpErrmsgEvent;
-import org.schwering.irc.manager.event.CtcpFingerEvent;
-import org.schwering.irc.manager.event.CtcpPingEvent;
+import org.schwering.irc.manager.event.CtcpClientinfoRequestEvent;
+import org.schwering.irc.manager.event.CtcpClientinfoResponseEvent;
+import org.schwering.irc.manager.event.CtcpDccChatEvent;
+import org.schwering.irc.manager.event.CtcpDccSendEvent;
+import org.schwering.irc.manager.event.CtcpErrmsgRequestEvent;
+import org.schwering.irc.manager.event.CtcpErrmsgResponseEvent;
+import org.schwering.irc.manager.event.CtcpFingerRequestEvent;
+import org.schwering.irc.manager.event.CtcpFingerResponseEvent;
+import org.schwering.irc.manager.event.CtcpPingRequestEvent;
+import org.schwering.irc.manager.event.CtcpPingResponseEvent;
 import org.schwering.irc.manager.event.CtcpSedEvent;
-import org.schwering.irc.manager.event.CtcpSourceEvent;
-import org.schwering.irc.manager.event.CtcpTimeEvent;
-import org.schwering.irc.manager.event.CtcpUnknownEvent;
-import org.schwering.irc.manager.event.CtcpUserinfoEvent;
-import org.schwering.irc.manager.event.CtcpVersionEvent;
+import org.schwering.irc.manager.event.CtcpSourceRequestEvent;
+import org.schwering.irc.manager.event.CtcpSourceResponseEvent;
+import org.schwering.irc.manager.event.CtcpTimeRequestEvent;
+import org.schwering.irc.manager.event.CtcpTimeResponseEvent;
+import org.schwering.irc.manager.event.CtcpUnknownRequestEvent;
+import org.schwering.irc.manager.event.CtcpUnknownResponseEvent;
+import org.schwering.irc.manager.event.CtcpUserinfoRequestEvent;
+import org.schwering.irc.manager.event.CtcpUserinfoResponseEvent;
+import org.schwering.irc.manager.event.CtcpVersionRequestEvent;
+import org.schwering.irc.manager.event.CtcpVersionResponseEvent;
 import org.schwering.irc.manager.event.UserParticipationEvent;
 import org.schwering.irc.manager.event.WhoisEvent;
 import org.schwering.irc.manager.event.WhowasEvent;
@@ -174,96 +184,70 @@ public class ConnectionController {
 			Component c = irc.getTabBar().getSelectedComponent();
 			if (c != null && c instanceof SimpleWindow) {
 				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
 			}
 		}
 
-		public void clientinfoReceived(CtcpClientinfoEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void clientinfoRequestReceived(CtcpClientinfoRequestEvent event) {
 		}
 
-		public void dccReceived(CtcpDccEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void clientinfoResponseReceived(CtcpClientinfoResponseEvent event) {
 		}
 
-		public void errmsgReceived(CtcpErrmsgEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void dccChatReceived(CtcpDccChatEvent event) {
 		}
 
-		public void fingerReceived(CtcpFingerEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void dccSendReceived(CtcpDccSendEvent event) {
 		}
 
-		public void pingReceived(CtcpPingEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void errmsgRequestReceived(CtcpErrmsgRequestEvent event) {
+		}
+
+		public void errmsgResponseReceived(CtcpErrmsgResponseEvent event) {
+		}
+
+		public void fingerRequestReceived(CtcpFingerRequestEvent event) {
+		}
+
+		public void fingerResponseReceived(CtcpFingerResponseEvent event) {
+		}
+
+		public void pingRequestReceived(CtcpPingRequestEvent event) {
+		}
+
+		public void pingResponseReceived(CtcpPingResponseEvent event) {
 		}
 
 		public void sedReceived(CtcpSedEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
 		}
 
-		public void sourceReceived(CtcpSourceEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void sourceRequestReceived(CtcpSourceRequestEvent event) {
 		}
 
-		public void timeReceived(CtcpTimeEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void sourceResponseReceived(CtcpSourceResponseEvent event) {
 		}
 
-		public void unknownEventReceived(CtcpUnknownEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void timeRequestReceived(CtcpTimeRequestEvent event) {
 		}
 
-		public void userinfoReceived(CtcpUserinfoEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void timeResponseReceived(CtcpTimeResponseEvent event) {
 		}
 
-		public void versionReceived(CtcpVersionEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("CTCP ("+ event +"): "+ event.getCommand() +": "+ event.getArguments());
-			}
+		public void unknownRequestEventReceived(CtcpUnknownRequestEvent event) {
+		}
+
+		public void unknownResponseEventReceived(CtcpUnknownResponseEvent event) {
+		}
+
+		public void userinfoRequestReceived(CtcpUserinfoRequestEvent event) {
+		}
+
+		public void userinfoResponseReceived(CtcpUserinfoResponseEvent event) {
+		}
+
+		public void versionRequestReceived(CtcpVersionRequestEvent event) {
+		}
+
+		public void versionResponseReceived(CtcpVersionResponseEvent event) {
 		}
 	}
 }
