@@ -1,35 +1,38 @@
 package org.schwering.evi.irc.gui;
 
 import java.awt.Component;
+import java.util.Date;
 
+import org.schwering.evi.gui.EVI;
 import org.schwering.evi.irc.IRC;
+import org.schwering.evi.irc.IRCInfo;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.ConnectionEvent;
 import org.schwering.irc.manager.event.CtcpActionEvent;
+import org.schwering.irc.manager.event.CtcpClientinfoReplyEvent;
 import org.schwering.irc.manager.event.CtcpClientinfoRequestEvent;
-import org.schwering.irc.manager.event.CtcpClientinfoResponseEvent;
 import org.schwering.irc.manager.event.CtcpDccChatEvent;
 import org.schwering.irc.manager.event.CtcpDccSendEvent;
+import org.schwering.irc.manager.event.CtcpErrmsgReplyEvent;
 import org.schwering.irc.manager.event.CtcpErrmsgRequestEvent;
-import org.schwering.irc.manager.event.CtcpErrmsgResponseEvent;
+import org.schwering.irc.manager.event.CtcpFingerReplyEvent;
 import org.schwering.irc.manager.event.CtcpFingerRequestEvent;
-import org.schwering.irc.manager.event.CtcpFingerResponseEvent;
+import org.schwering.irc.manager.event.CtcpPingReplyEvent;
 import org.schwering.irc.manager.event.CtcpPingRequestEvent;
-import org.schwering.irc.manager.event.CtcpPingResponseEvent;
 import org.schwering.irc.manager.event.CtcpSedEvent;
+import org.schwering.irc.manager.event.CtcpSourceReplyEvent;
 import org.schwering.irc.manager.event.CtcpSourceRequestEvent;
-import org.schwering.irc.manager.event.CtcpSourceResponseEvent;
+import org.schwering.irc.manager.event.CtcpTimeReplyEvent;
 import org.schwering.irc.manager.event.CtcpTimeRequestEvent;
-import org.schwering.irc.manager.event.CtcpTimeResponseEvent;
+import org.schwering.irc.manager.event.CtcpUnknownReplyEvent;
 import org.schwering.irc.manager.event.CtcpUnknownRequestEvent;
-import org.schwering.irc.manager.event.CtcpUnknownResponseEvent;
+import org.schwering.irc.manager.event.CtcpUserinfoReplyEvent;
 import org.schwering.irc.manager.event.CtcpUserinfoRequestEvent;
-import org.schwering.irc.manager.event.CtcpUserinfoResponseEvent;
+import org.schwering.irc.manager.event.CtcpVersionReplyEvent;
 import org.schwering.irc.manager.event.CtcpVersionRequestEvent;
-import org.schwering.irc.manager.event.CtcpVersionResponseEvent;
 import org.schwering.irc.manager.event.UserParticipationEvent;
 import org.schwering.irc.manager.event.WhoisEvent;
 import org.schwering.irc.manager.event.WhowasEvent;
@@ -184,70 +187,182 @@ public class ConnectionController {
 			Component c = irc.getTabBar().getSelectedComponent();
 			if (c != null && c instanceof SimpleWindow) {
 				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine(event.getSender().getNick() +" is ", 
+						event.getMessage(), profile.getOtherColor());
+			}
+		}
+
+		public void clientinfoReplyReceived(CtcpClientinfoReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Client info of "+ event.getSender() 
+						+": "+ event.getClientinfo(), 
+						profile.getNeutralColor());
 			}
 		}
 
 		public void clientinfoRequestReceived(CtcpClientinfoRequestEvent event) {
-		}
-
-		public void clientinfoResponseReceived(CtcpClientinfoResponseEvent event) {
+			event.reply("IRClib 2.00 with EVI IRC");
 		}
 
 		public void dccChatReceived(CtcpDccChatEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("DCC Chat?",
+						profile.getNeutralColor());
+			}
 		}
 
 		public void dccSendReceived(CtcpDccSendEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("DCC File: "+ event.getFile() +" from "
+						+ event.getSender() 
+						+ " ("+ event.getAddress().getHostAddress() +":"+ event.getPort() +") "+
+						+ (event.getSize()/1024) +"k",
+						profile.getNeutralColor());
+			}
+		}
+
+		public void errmsgReplyReceived(CtcpErrmsgReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Error message for "+ event.getQuery() +": "+
+						event.getAnswer(),
+						profile.getNeutralColor());
+			}
 		}
 
 		public void errmsgRequestReceived(CtcpErrmsgRequestEvent event) {
+			event.reply("I don't need no error messages");
 		}
 
-		public void errmsgResponseReceived(CtcpErrmsgResponseEvent event) {
+		public void fingerReplyReceived(CtcpFingerReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Finger of "+ event.getSender() +": "
+						+ event.getInfo(),
+						profile.getNeutralColor());
+			}
 		}
 
 		public void fingerRequestReceived(CtcpFingerRequestEvent event) {
+			event.reply("studying computer science at RWTH Aachen University");
 		}
 
-		public void fingerResponseReceived(CtcpFingerResponseEvent event) {
+		public void pingReplyReceived(CtcpPingReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Ping of "+ event.getSender() +": "
+						+ event.getTimestamp(),
+						profile.getNeutralColor());
+			}
 		}
 
 		public void pingRequestReceived(CtcpPingRequestEvent event) {
-		}
-
-		public void pingResponseReceived(CtcpPingResponseEvent event) {
+			event.reply();
 		}
 
 		public void sedReceived(CtcpSedEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("SED "+ event.getSender() +": "
+						+ event.getArguments(),
+						profile.getNeutralColor());
+			}
+		}
+
+		public void sourceReplyReceived(CtcpSourceReplyEvent event) {
+			if (event.isEndMarker()) {
+				return;
+			}
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				String tmp = event.getHost() +"/"+ event.getDirectory();
+				for (String file : event.getFiles().split(" ")) {
+					w.appendLine("Source of "+ event.getSender() +": "
+							+ tmp +"/"+ file,
+							profile.getNeutralColor());
+				}
+			}
 		}
 
 		public void sourceRequestReceived(CtcpSourceRequestEvent event) {
+			event.reply("prdownloads.sourceforge.net", "moepii", "irclib-1.10.zip");
+			event.reply();
 		}
 
-		public void sourceResponseReceived(CtcpSourceResponseEvent event) {
+		public void timeReplyReceived(CtcpTimeReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Time of "+ event.getSender() +": "
+						+ event.getTime(),
+						profile.getNeutralColor());
+			}
 		}
 
 		public void timeRequestReceived(CtcpTimeRequestEvent event) {
+			event.reply(new Date().toString());
 		}
 
-		public void timeResponseReceived(CtcpTimeResponseEvent event) {
+		public void unknownReplyEventReceived(CtcpUnknownReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Unknown CTCP reply from "+ event.getSender() +": "
+						+ event.getCommand() +": "+ event.getArguments(),
+						profile.getNeutralColor());
+			}
 		}
 
 		public void unknownRequestEventReceived(CtcpUnknownRequestEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Unknown CTCP request from "+ event.getSender() +": "
+						+ event.getCommand() +": "+ event.getArguments(),
+						profile.getNeutralColor());
+			}
 		}
 
-		public void unknownResponseEventReceived(CtcpUnknownResponseEvent event) {
+		public void userinfoReplyReceived(CtcpUserinfoReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("User info of "+ event.getSender() 
+						+": "+ event.getUserinfo(), 
+						profile.getNeutralColor());
+			}
 		}
 
 		public void userinfoRequestReceived(CtcpUserinfoRequestEvent event) {
+			event.reply("CS-student from RWTH Aachen university (www.rwth-aachen.de)");
 		}
 
-		public void userinfoResponseReceived(CtcpUserinfoResponseEvent event) {
+		public void versionReplyReceived(CtcpVersionReplyEvent event) {
+			Component c = irc.getTabBar().getSelectedComponent();
+			if (c != null && c instanceof SimpleWindow) {
+				SimpleWindow w = (SimpleWindow)c;
+				w.appendLine("Version of "+ event.getSender() 
+						+": "+ event.getClientName() +" "
+						+ event.getClientVersion() 
+						+" running on "+ event.getEnvironment(), 
+						profile.getNeutralColor());
+			}
 		}
 
 		public void versionRequestReceived(CtcpVersionRequestEvent event) {
-		}
-
-		public void versionResponseReceived(CtcpVersionResponseEvent event) {
+			event.reply("IRClib", "2.0", EVI.TITLE +" "+ EVI.VERSION +" on "+
+					new IRCInfo().getName() +" "+ new IRCInfo().getVersion());
 		}
 	}
 }

@@ -35,9 +35,6 @@ import org.schwering.irc.manager.event.UserStatusEvent;
 import org.schwering.irc.manager.event.WhoEvent;
 
 public class ChannelWindow extends SimpleWindow {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1641623088498545249L;
 	private Channel channel;
 	private NickListModel listModel;
