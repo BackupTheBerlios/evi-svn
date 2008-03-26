@@ -1,12 +1,18 @@
 package org.schwering.evi.irc.gui;
 
 import java.awt.Component;
+import java.io.File;
+import java.net.Socket;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import org.schwering.evi.gui.EVI;
 import org.schwering.evi.irc.IRC;
 import org.schwering.evi.irc.IRCInfo;
 import org.schwering.evi.irc.conf.Profile;
+import org.schwering.evi.util.ExceptionDialog;
+import org.schwering.evi.util.Messages;
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
@@ -210,8 +216,23 @@ public class ConnectionController {
 			Component c = irc.getTabBar().getSelectedComponent();
 			if (c != null && c instanceof SimpleWindow) {
 				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine("DCC Chat?",
+				w.appendLine("DCC Chat offered with "+ event.getSender() 
+						+ " ("+ event.getAddress().getHostAddress() +":"+ event.getPort() +")",
 						profile.getNeutralColor());
+				String question = "Do you want to chat with\n"
+					+ event.getSender() + " ("
+					+ event.getAddress().getHostAddress() +":"+ event.getPort()
+					+ ")?";
+				int answer = JOptionPane.showConfirmDialog(null, question, 
+						"DCC Send", JOptionPane.YES_NO_OPTION);
+				if (answer == JOptionPane.YES_OPTION) {
+					try {
+						Socket sock = new Socket(event.getAddress(), event.getPort());
+						new ChatWindow(ptrToThis, event.getSender(), sock);
+					} catch (Exception exc) {
+						ExceptionDialog.show(exc);
+					}
+				}
 			}
 		}
 
@@ -224,6 +245,22 @@ public class ConnectionController {
 						+ " ("+ event.getAddress().getHostAddress() +":"+ event.getPort() +") "+
 						+ (event.getSize()/1024) +"k",
 						profile.getNeutralColor());
+				File file = new File(event.getFile());
+				String question;
+				if (file.exists()) {
+					question = "Do you want to override\n"+ file +"?";
+				} else {
+					question = "Do you want to receive\n"+ file +"?";
+				}
+				int answer = JOptionPane.showConfirmDialog(null, question, 
+						"DCC Send", JOptionPane.YES_NO_OPTION);
+				if (answer == JOptionPane.YES_OPTION) {
+					try {
+						event.accept(file);
+					} catch (Exception exc) {
+						ExceptionDialog.show(exc);
+					}
+				}
 			}
 		}
 
@@ -353,15 +390,13 @@ public class ConnectionController {
 			if (c != null && c instanceof SimpleWindow) {
 				SimpleWindow w = (SimpleWindow)c;
 				w.appendLine("Version of "+ event.getSender() 
-						+": "+ event.getClientName() +" "
-						+ event.getClientVersion() 
-						+" running on "+ event.getEnvironment(), 
+						+": "+ event.getVersion(), 
 						profile.getNeutralColor());
 			}
 		}
 
 		public void versionRequestReceived(CtcpVersionRequestEvent event) {
-			event.reply("IRClib", "2.0", EVI.TITLE +" "+ EVI.VERSION +" on "+
+			event.reply("IRClib 2.0 on "+ EVI.TITLE +" "+ EVI.VERSION +" on "+
 					new IRCInfo().getName() +" "+ new IRCInfo().getVersion());
 		}
 	}
