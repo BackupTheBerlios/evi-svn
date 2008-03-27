@@ -15,7 +15,7 @@ import org.schwering.irc.manager.event.UserParticipationEvent;
 
 public class QueryWindow extends SimpleWindow {
 	private static final long serialVersionUID = 1735723808145035225L;
-	private User user;
+	private final User user;
 	
 	public QueryWindow(ConnectionController controller, User user) {
 		super(controller);

@@ -3,14 +3,35 @@ package org.schwering.evi.irc.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ListCellRenderer;
@@ -18,6 +39,7 @@ import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.schwering.evi.util.ExceptionDialog;
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.ChannelUser;
 import org.schwering.irc.manager.Topic;
@@ -36,8 +58,12 @@ import org.schwering.irc.manager.event.WhoEvent;
 
 public class ChannelWindow extends SimpleWindow {
 	private static final long serialVersionUID = -1641623088498545249L;
-	private Channel channel;
-	private NickListModel listModel;
+	
+	private static int DCC_PORT = 17160;
+	
+	private ChannelWindow ptrToThis = this;
+	private final Channel channel;
+	private NickListModel listModel; // it's final, but cannot be declared as
 	
 	@SuppressWarnings("unchecked")
 	public ChannelWindow(ConnectionController controller, Channel channel) {
@@ -55,8 +81,18 @@ public class ChannelWindow extends SimpleWindow {
 	protected Component createCenterComponent() {
 		Component textArea = super.createCenterComponent();
 		listModel = new NickListModel();
-		JList nickList = new JList(listModel);
+		final JList nickList = new JList(listModel);
 		nickList.setCellRenderer(new NickRenderer());
+		nickList.addMouseListener(new MouseAdapter() {
+			private final RightClickMenu menu = new RightClickMenu();
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON3) {
+					int index = nickList.locationToIndex(e.getPoint());
+					menu.show(nickList, e.getX(), e.getY(), index);
+				}
+			}
+		});
 		JScrollPane nickListScrollPane = new JScrollPane(nickList,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -155,7 +191,7 @@ public class ChannelWindow extends SimpleWindow {
 			}
 		}
 		
-		public Object getElementAt(int i) {
+		public User getElementAt(int i) {
 			return list.get(i);
 		}
 
@@ -212,9 +248,11 @@ public class ChannelWindow extends SimpleWindow {
 	}
 	
 	private class NickRenderer implements ListCellRenderer {
+		private User user;
+		
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
-			User user = (User)value;
+			user = (User)value;
 			int status = channel.getUserStatus(user);
 			String prefix = "";
 			if ((status & Channel.OPERATOR) != 0) {
@@ -222,18 +260,243 @@ public class ChannelWindow extends SimpleWindow {
 			} else if ((status & Channel.VOICED) != 0) {
 				prefix = "+";
 			}
-			JLabel lbl = new JLabel();
+			final JLabel lbl = new JLabel();
 			lbl.setText(prefix + user.getNick());
+			
+			
 			if (user.isAway()) {
 				lbl.setForeground(Color.DARK_GRAY);
 			}
-			String toolTip = "Username: "+ user.getUsername()
-							+"\nHost: "+ user.getHost();
-			if (user.isAway()) {
-				toolTip += "\n"+ user.getNick() +" is away";
+			
+			if (isSelected) {
+				lbl.setBackground(Color.BLUE);
 			}
-			lbl.setToolTipText(toolTip);
+			
+			
+			String toolTip = ""; 
+			if (user.getUsername() != null) {
+				toolTip += "Username: "+ user.getUsername();
+			}
+			if (user.getHost() != null) {
+				toolTip += " Host: "+ user.getHost();
+			}
+			if (user.isAway()) {
+				toolTip += " "+ user.getNick() +" is away";
+			}
+			if (toolTip.length() > 0) {
+				lbl.setToolTipText(toolTip);
+			}
 			return lbl;
+		}
+	}
+	
+	private class RightClickMenu extends JPopupMenu {
+		private static final long serialVersionUID = 1297053127790514196L;
+		
+		private User user;
+		private LinkedList<JMenuItem> items = new LinkedList<JMenuItem>();
+		
+		public RightClickMenu() {
+			JMenu menu;
+			JMenuItem item;
+			menu = new JMenu("CTCP");
+			addMenuItem(menu, "Clientinfo", "VERSION", null);
+			addMenuItem(menu, "Finger", "FINGER", null);
+			addMenuItem(menu, "Ping", "PING", null);
+			addMenuItem(menu, "Source", "SOURCE", null);
+			addMenuItem(menu, "Time", "TIME", null);
+			addMenuItem(menu, "Version", "VERSION", null);
+			addMenuItem(menu, "Userinfo", "USERINFO", null);
+			add(menu);
+			
+			menu = new JMenu("DCC");
+			item = new JMenuItem("Chat");
+			item.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int port = DCC_PORT++;
+					InetAddress localAddr = getLocalAddress();
+					if (localAddr == null) {
+						return;
+					}
+					ServerSocket serverSock = null;
+					try {
+						serverSock = new ServerSocket(port, 0, localAddr);
+						final ServerSocket serverSockPtr = serverSock;
+						controller.getConnection().sendDccChat(user.getNick(), 
+								serverSock.getInetAddress(), port);
+						new Thread() {
+							@Override
+							public void run() {
+								try {
+									Socket sock = serverSockPtr.accept();
+									new ChatWindow(controller, user, sock);
+								} catch (Exception exc) {
+									exc.printStackTrace();
+									ExceptionDialog.show(exc);
+								} finally {
+									try {
+										serverSockPtr.close();
+									} catch (Exception exc) {
+										exc.printStackTrace();
+									}
+									DCC_PORT--;
+								}
+							}
+						}.start();
+					} catch (Exception exc) {
+						exc.printStackTrace();
+						ExceptionDialog.show(exc);
+						try {
+							serverSock.close();
+						} catch (Exception exc2) {
+							exc.printStackTrace();
+						}
+						DCC_PORT--;
+					}
+				}
+			});
+			items.add(item);
+			menu.add(item);
+			item = new JMenuItem("Send");
+			item.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int port = DCC_PORT++;
+					JFileChooser dialog = new JFileChooser();
+					dialog.showOpenDialog(ptrToThis);
+					final File file = dialog.getSelectedFile();
+					if (file == null) {
+						return;
+					}
+					InetAddress localAddr = getLocalAddress();
+					if (localAddr == null) {
+						return;
+					}
+					ServerSocket serverSock = null;
+					try {
+						serverSock = new ServerSocket(port, 0, localAddr);
+						System.out.println("listening on "+ localAddr.getHostAddress() +":"+ port);
+						RandomAccessFile raf = new RandomAccessFile(file, "r");
+						controller.getConnection().sendDccSend(user.getNick(), 
+								file.getName(), serverSock.getInetAddress(), 
+								port, raf.length());
+						final ServerSocket serverSockPtr = serverSock;
+						new Thread() {
+							@Override
+							public void run() {
+								Socket sock = null;
+								OutputStream out = null;
+								InputStream in = null;
+								try {
+									sock = serverSockPtr.accept();
+									out = sock.getOutputStream();
+									in = new FileInputStream(file);
+									byte[] b = new byte[4096];
+									int len;
+									while ((len = in.read(b)) != -1) {
+										out.write(b, 0, len);
+									}
+								} catch (Exception exc) {
+									exc.printStackTrace();
+									ExceptionDialog.show(exc);
+								} finally {
+									try {
+										in.close();
+									} catch (Exception exc) {
+										exc.printStackTrace();
+									}
+									try {
+										out.close();
+									} catch (Exception exc) {
+										exc.printStackTrace();
+									}
+									try {
+										sock.close();
+									} catch (Exception exc) {
+										exc.printStackTrace();
+									}
+									try {
+										serverSockPtr.close();
+									} catch (Exception exc) {
+										exc.printStackTrace();
+									}
+									DCC_PORT--;
+								}
+							}
+						}.start();
+					} catch (Exception exc) {
+						exc.printStackTrace();
+						ExceptionDialog.show(exc);
+						try {
+							serverSock.close();
+							DCC_PORT--;
+						} catch (Exception exc2) {
+							exc.printStackTrace();
+						}
+					}
+				}
+			});
+			items.add(item);
+			menu.add(item);
+			add(menu);
+		}
+		
+		private void addMenuItem(JMenu menu, String title, final String cmd, 
+				final String args) {
+			JMenuItem item = new JMenuItem(title);
+			item.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					controller.getConnection().sendCtcpRequest(user.getNick(), 
+							cmd, args);
+				}
+			});
+			menu.add(item);
+			items.add(item);
+		}
+		
+		private InetAddress getLocalAddress() {
+			try {
+				HashSet<InetAddress> addrs = new HashSet<InetAddress>();
+				Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+				while (nis.hasMoreElements()) {
+					Enumeration<InetAddress> ias = nis.nextElement().getInetAddresses();
+					while (ias.hasMoreElements()) {
+						addrs.add(ias.nextElement());
+					}
+				}
+				if (addrs.size() == 0) {
+					return null;
+				}
+				class Wrapper {
+					InetAddress addr;
+					Wrapper(InetAddress addr) { this.addr = addr; }
+					public String toString() { return addr.getHostAddress(); }
+				}
+				Wrapper[] options = new Wrapper[addrs.size()];
+				int i = 0;
+				for (InetAddress addr : addrs) {
+					options[i++] = new Wrapper(addr);
+				}
+				i = JOptionPane.showOptionDialog(ptrToThis, 
+						"Choose a network interface address",
+						"Network interfaces", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null,
+						options, null);
+				return options[i].addr;
+			} catch (Exception exc) {
+				exc.printStackTrace();
+				return null;
+			}
+		}
+		
+		public void show(Component c, int x, int y, int index) {
+			if (0 <= index && index < listModel.getSize()) {
+				user = listModel.getElementAt(index);
+			} else {
+				for (JMenuItem item : items) {
+					item.setEnabled(false);
+				}
+			}
+			super.show(c, x, y);
 		}
 	}
 	

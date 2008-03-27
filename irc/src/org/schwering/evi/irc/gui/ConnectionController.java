@@ -12,7 +12,6 @@ import org.schwering.evi.irc.IRC;
 import org.schwering.evi.irc.IRCInfo;
 import org.schwering.evi.irc.conf.Profile;
 import org.schwering.evi.util.ExceptionDialog;
-import org.schwering.evi.util.Messages;
 import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;

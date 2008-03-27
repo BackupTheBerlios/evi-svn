@@ -44,10 +44,8 @@ import org.schwering.irc.manager.event.WhowasEvent;
  * @version $Id$
  */
 public class ConsoleWindow extends SimpleWindow {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5814642871030009539L;
+	
 	private ConnectionListener connectionListener;
 	private UnexpectedEventListener unexpectedEventListener;
 	
