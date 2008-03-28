@@ -1,3 +1,4 @@
+/* Copyright (C) 2006 Christoph Schwering */
 package org.schwering.evi.irc.gui;
 
 import java.awt.Color;
@@ -9,18 +10,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
+//import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashSet;
+//import java.util.Enumeration;
+//import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -59,9 +59,8 @@ import org.schwering.irc.manager.event.WhoEvent;
 public class ChannelWindow extends SimpleWindow {
 	private static final long serialVersionUID = -1641623088498545249L;
 	
-	private static int DCC_PORT = 17160;
-	
 	private ChannelWindow ptrToThis = this;
+	
 	private final Channel channel;
 	private NickListModel listModel; // it's final, but cannot be declared as
 	
@@ -313,17 +312,18 @@ public class ChannelWindow extends SimpleWindow {
 			item = new JMenuItem("Chat");
 			item.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int port = DCC_PORT++;
-					InetAddress localAddr = getLocalAddress();
-					if (localAddr == null) {
-						return;
-					}
+//					InetAddress localAddr = getLocalAddress();
+//					if (localAddr == null) {
+//						return;
+//					}
+					InetAddress localAddr = controller.getConnection().getLocalAddress();
 					ServerSocket serverSock = null;
 					try {
-						serverSock = new ServerSocket(port, 0, localAddr);
+						serverSock = new ServerSocket(0, 0, localAddr);
 						final ServerSocket serverSockPtr = serverSock;
 						controller.getConnection().sendDccChat(user.getNick(), 
-								serverSock.getInetAddress(), port);
+								serverSock.getInetAddress(), 
+								serverSock.getLocalPort());
 						new Thread() {
 							@Override
 							public void run() {
@@ -339,7 +339,6 @@ public class ChannelWindow extends SimpleWindow {
 									} catch (Exception exc) {
 										exc.printStackTrace();
 									}
-									DCC_PORT--;
 								}
 							}
 						}.start();
@@ -351,7 +350,6 @@ public class ChannelWindow extends SimpleWindow {
 						} catch (Exception exc2) {
 							exc.printStackTrace();
 						}
-						DCC_PORT--;
 					}
 				}
 			});
@@ -360,25 +358,25 @@ public class ChannelWindow extends SimpleWindow {
 			item = new JMenuItem("Send");
 			item.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int port = DCC_PORT++;
 					JFileChooser dialog = new JFileChooser();
 					dialog.showOpenDialog(ptrToThis);
 					final File file = dialog.getSelectedFile();
 					if (file == null) {
 						return;
 					}
-					InetAddress localAddr = getLocalAddress();
-					if (localAddr == null) {
-						return;
-					}
+//					InetAddress localAddr = getLocalAddress();
+//					if (localAddr == null) {
+//						return;
+//					}
+					InetAddress localAddr = controller.getConnection().getLocalAddress();
 					ServerSocket serverSock = null;
 					try {
-						serverSock = new ServerSocket(port, 0, localAddr);
-						System.out.println("listening on "+ localAddr.getHostAddress() +":"+ port);
+						serverSock = new ServerSocket(0, 0, localAddr);
+						System.out.println("listening on "+ localAddr.getHostAddress() +":"+ serverSock.getLocalPort());
 						RandomAccessFile raf = new RandomAccessFile(file, "r");
 						controller.getConnection().sendDccSend(user.getNick(), 
 								file.getName(), serverSock.getInetAddress(), 
-								port, raf.length());
+								serverSock.getLocalPort(), raf.length());
 						final ServerSocket serverSockPtr = serverSock;
 						new Thread() {
 							@Override
@@ -419,7 +417,6 @@ public class ChannelWindow extends SimpleWindow {
 									} catch (Exception exc) {
 										exc.printStackTrace();
 									}
-									DCC_PORT--;
 								}
 							}
 						}.start();
@@ -428,7 +425,6 @@ public class ChannelWindow extends SimpleWindow {
 						ExceptionDialog.show(exc);
 						try {
 							serverSock.close();
-							DCC_PORT--;
 						} catch (Exception exc2) {
 							exc.printStackTrace();
 						}
@@ -453,40 +449,40 @@ public class ChannelWindow extends SimpleWindow {
 			items.add(item);
 		}
 		
-		private InetAddress getLocalAddress() {
-			try {
-				HashSet<InetAddress> addrs = new HashSet<InetAddress>();
-				Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
-				while (nis.hasMoreElements()) {
-					Enumeration<InetAddress> ias = nis.nextElement().getInetAddresses();
-					while (ias.hasMoreElements()) {
-						addrs.add(ias.nextElement());
-					}
-				}
-				if (addrs.size() == 0) {
-					return null;
-				}
-				class Wrapper {
-					InetAddress addr;
-					Wrapper(InetAddress addr) { this.addr = addr; }
-					public String toString() { return addr.getHostAddress(); }
-				}
-				Wrapper[] options = new Wrapper[addrs.size()];
-				int i = 0;
-				for (InetAddress addr : addrs) {
-					options[i++] = new Wrapper(addr);
-				}
-				i = JOptionPane.showOptionDialog(ptrToThis, 
-						"Choose a network interface address",
-						"Network interfaces", JOptionPane.DEFAULT_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null,
-						options, null);
-				return options[i].addr;
-			} catch (Exception exc) {
-				exc.printStackTrace();
-				return null;
-			}
-		}
+//		private InetAddress getLocalAddress() {
+//			try {
+//				HashSet<InetAddress> addrs = new HashSet<InetAddress>();
+//				Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+//				while (nis.hasMoreElements()) {
+//					Enumeration<InetAddress> ias = nis.nextElement().getInetAddresses();
+//					while (ias.hasMoreElements()) {
+//						addrs.add(ias.nextElement());
+//					}
+//				}
+//				if (addrs.size() == 0) {
+//					return null;
+//				}
+//				class Wrapper {
+//					InetAddress addr;
+//					Wrapper(InetAddress addr) { this.addr = addr; }
+//					public String toString() { return addr.getHostAddress(); }
+//				}
+//				Wrapper[] options = new Wrapper[addrs.size()];
+//				int i = 0;
+//				for (InetAddress addr : addrs) {
+//					options[i++] = new Wrapper(addr);
+//				}
+//				i = JOptionPane.showOptionDialog(ptrToThis, 
+//						"Choose a network interface address",
+//						"Network interfaces", JOptionPane.DEFAULT_OPTION,
+//						JOptionPane.QUESTION_MESSAGE, null,
+//						options, null);
+//				return options[i].addr;
+//			} catch (Exception exc) {
+//				exc.printStackTrace();
+//				return null;
+//			}
+//		}
 		
 		public void show(Component c, int x, int y, int index) {
 			if (0 <= index && index < listModel.getSize()) {
