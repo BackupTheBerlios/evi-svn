@@ -151,7 +151,6 @@ public class ChannelWindow extends SimpleWindow {
 			}
 			list.add(i, user);
 			fireContentsAdded(i);
-			System.out.println("inserted "+ user +" at #"+ i);
 			return i;
 		}
 		
