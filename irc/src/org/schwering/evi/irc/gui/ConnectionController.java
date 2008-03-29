@@ -17,7 +17,7 @@ import org.schwering.irc.manager.Channel;
 import org.schwering.irc.manager.Connection;
 import org.schwering.irc.manager.event.ConnectionAdapter;
 import org.schwering.irc.manager.event.ConnectionEvent;
-import org.schwering.irc.manager.event.CtcpActionEvent;
+import org.schwering.irc.manager.event.CtcpAdapter;
 import org.schwering.irc.manager.event.CtcpClientinfoReplyEvent;
 import org.schwering.irc.manager.event.CtcpClientinfoRequestEvent;
 import org.schwering.irc.manager.event.CtcpDccChatEvent;
@@ -187,17 +187,7 @@ public class ConnectionController {
 		}
 	}
 	
-	private class CtcpListener 
-	implements org.schwering.irc.manager.event.CtcpListener {
-		public void actionReceived(CtcpActionEvent event) {
-			Component c = irc.getTabBar().getSelectedComponent();
-			if (c != null && c instanceof SimpleWindow) {
-				SimpleWindow w = (SimpleWindow)c;
-				w.appendLine(event.getSender().getNick() +" is ", 
-						event.getMessage(), profile.getOtherColor());
-			}
-		}
-
+	private class CtcpListener extends CtcpAdapter { 
 		public void clientinfoReplyReceived(CtcpClientinfoReplyEvent event) {
 			Component c = irc.getTabBar().getSelectedComponent();
 			if (c != null && c instanceof SimpleWindow) {

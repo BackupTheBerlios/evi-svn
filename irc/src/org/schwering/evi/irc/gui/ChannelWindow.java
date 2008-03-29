@@ -119,14 +119,29 @@ public class ChannelWindow extends SimpleWindow {
 	}
 	
 	public void inputSubmitted(String str) {
+		if (str.length() == 0) {
+			return;
+		}
 		if (str.charAt(0) == '/') {
 			str = str.substring(1);
-			appendLine("Sending to server: "+ str);
-			controller.getConnection().send(str);
+			if (str.startsWith("me") || str.startsWith("ME")) {
+				int index = str.indexOf(' ');
+				if (index != -1) {
+					str = str.substring(index + 1);
+					if (str.length() > 0) {
+						String nick = controller.getConnection().getNick();
+						controller.getConnection().sendCtcpCommand(channel.getName(), "ACTION", str);
+						appendText(nick +" is ", controller.getProfile().getOwnColor());
+						appendMessage(str, controller.getProfile().getOwnColor());
+					}
+				}
+			} else {
+				appendLine("Sending to server: "+ str);
+				controller.getConnection().send(str);
+			}
 		} else {
-			String line = "PRIVMSG "+ channel.getName() +" :"+ str;
 			String nick = controller.getConnection().getNick();
-			controller.getConnection().send(line);
+			controller.getConnection().sendPrivmsg(channel.getName(), str);
 			appendText("<"+ nick +"> ", controller.getProfile().getOwnColor());
 			appendMessage(str, controller.getProfile().getOwnColor());
 			newLine();
@@ -611,8 +626,12 @@ public class ChannelWindow extends SimpleWindow {
 	private class CtcpListener extends CtcpAdapter {
 		@Override
 		public void actionReceived(CtcpActionEvent event) {
-			appendLine(event.getDestinationUser() +" ", event.getArguments(),
-					controller.getProfile().getOtherColor());
+			if (event.getDestinationChannel() != null
+					&& event.getDestinationChannel().isSame(channel)) {
+				appendLine(event.getSender().getNick() +" is ",
+						event.getMessage(), 
+						controller.getProfile().getOtherColor());
+			}
 		}
 	}
 	
